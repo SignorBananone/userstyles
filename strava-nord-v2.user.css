@@ -1,10 +1,11 @@
 /* ==UserStyle==
 @name           Strava Nord V2
 @namespace      Strava Nord V2 by SignorBananone (fork of Strava Darkest Fusion by ATX)
-@version        2026.09.30
+@version        2026.10.01
 @description    Nord theme for Strava. Rewritten to rely on tags, ARIA roles, data-testid and stable class prefixes instead of hashed class names, so it survives Strava's CSS deploys.
-@license        CC-BY-SA-4.0
-@author         ATX, SignorBananone
+@homepageURL    https://github.com/SignorBananone/userstyles
+@license        MIT
+@author         SignorBananone
 @preprocessor   default
 
 @var select old_font_type "Font" {

@@ -1,0 +1,639 @@
+/* ==UserStyle==
+@name         Google scholard Nord theme
+@version      20261001.00.00
+@namespace    https://userstyles.world/user/SignorBananone
+@description  Nord theme for Google Scholar
+@homepageURL  https://github.com/SignorBananone/userstyles
+@author       SignorBananone
+@license      MIT
+==/UserStyle== */
+
+@-moz-document regexp("https://scholar\\.google\\.[a-z.]+/.*") {
+/* ==========================================================================
+   1. GLOBAL BACKGROUNDS & TEXT COLORS
+   ========================================================================== */
+
+/* Main body, modals, panels, and the side drawer menu */
+body, #gs_bdy, .gs_md_w, .gs_md_bdy, #gs_ab, #gs_ab_pb,
+#gs_hdr_drw, #gs_hdr_drw_in {
+    background-color: #2e3440 !important; /* Nord Polar Night 0 */
+    color: #d8dee9 !important;            /* Nord Snow Storm 1 */
+}
+
+/* Override hardcoded dark text in headers, footer, side drawer, and button labels */
+#gs_hdr *, #gs_hdr a, #gs_ab *, #gs_ab a,
+#gs_ftr, #gs_ftr a, #gs_ftr span,
+#gs_hdr_drw_in *, #gs_hdr_drw_in a,
+a.gs_in_ib .gs_lbl {
+    color: #d8dee9 !important;
+}
+
+/* Secondary grey text (#777 / #666 in Google's CSS) */
+.gs_gray, .gsc_oci_field, .gsc_rsb_m_desc, .gsc_npp_field_help,
+.gs_alert_prev_num_res {
+    color: #a3adbf !important;
+}
+
+/* Google green and red text (publication info, public access stats) */
+.gs_grn, .gse_alrt_meta {
+    color: #a3be8c !important; /* Nord Aurora Green */
+}
+.gs_red {
+    color: #bf616a !important; /* Nord Aurora Red */
+}
+
+/* Backdrop behind modals, the side drawer and the "Quick read" panel:
+   Google uses a translucent white layer that washes out the page */
+#gs_md_s {
+    background-color: #000 !important;
+}
+
+/* Native scrollbars (chart scrollers, long lists) */
+* {
+    scrollbar-color: #4c566a #2e3440 !important;
+}
+
+
+/* ==========================================================================
+   2. STRUCTURAL ELEMENTS & BORDERS
+   ========================================================================== */
+
+/* Header and sub-header */
+#gs_hdr, #gs_ab {
+    background-color: #2e3440 !important;
+    border-bottom: 1px solid #4c566a !important; /* Nord Polar Night 3 */
+}
+
+/* Footer */
+#gs_ftr {
+    background-color: #2e3440 !important;
+    border-top: 1px solid #4c566a !important;
+    border-bottom: none !important;
+}
+
+/* Side drawer menu separators */
+.gs_hdr_drw_sec {
+    border-bottom: 1px solid #4c566a !important;
+}
+
+/* Hover effect for side drawer items */
+.gs_md_li:hover, .gs_md_li:focus {
+    background-color: #3b4252 !important; /* Nord Polar Night 1 */
+}
+
+/* Disable Google's native white hover overlay pseudo-elements */
+.gs_md_li::before, .gs_md_li::after {
+    display: none !important;
+}
+
+
+/* ==========================================================================
+   3. ICONS & SVGS
+   ========================================================================== */
+
+/* Invert all default dark gray sprites into a light icy blue globally */
+.gs_ico, .gs_icm {
+    filter: invert(85%) sepia(10%) hue-rotate(180deg) brightness(110%) !important;
+}
+
+/* SVGs for article actions (Save, Cite) */
+.gs_or_svg {
+    stroke: #81a1c1 !important; /* Match base link color */
+}
+
+/* Filled star for SAVED articles */
+.gs_or:not([data-lid=""]) .gs_or_sav .gs_or_svg {
+    fill: #ebcb8b !important; /* Nord Aurora Yellow */
+    stroke: #ebcb8b !important;
+}
+
+
+/* ==========================================================================
+   4. NATIVE LOGOS (CSS FILTERS)
+   ========================================================================== */
+
+/* Applies a chain of filters to the original Google logos:
+   Grayscale (removes original colors), Invert (makes them light),
+   Sepia+Hue-Rotate (adds a Nord Frost tint), and Brightness/Contrast tweaks. */
+img#gs_hdr_hp_lgo,
+#gs_hdr_lgo,
+#gs_hdr_llgo,
+#gs_hdr_drw_lgo {
+    filter: grayscale(100%) invert(85%) sepia(20%) hue-rotate(180deg) brightness(120%) contrast(110%) !important;
+    opacity: 0.9 !important; /* Softens the logo slightly to blend better with the dark background */
+}
+
+/* Reset any custom margins we previously added for the external image */
+#gs_hdr_lgo {
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+}
+
+#gs_hdr_drw_lgo {
+    margin-top: 0 !important;
+}
+
+
+
+/* ==========================================================================
+   5. SEARCH BAR & DROPDOWNS
+   ========================================================================== */
+
+/* Main search input fields */
+input[type="text"], .gs_in_txt {
+    background-color: #3b4252 !important;
+    color: #eceff4 !important;            /* Nord Snow Storm 3 */
+    border: 1px solid #4c566a !important;
+}
+
+/* Autocomplete dropdown list container and generic dropdowns (.gs_md_d) */
+.gs_md_ac ul, .gs_md_d {
+    background-color: #3b4252 !important;
+    border: 1px solid #4c566a !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3) !important;
+}
+
+/* Autocomplete dropdown menus rows */
+.gac_m, .gs_md_ac li {
+    background-color: #3b4252 !important;
+    border: 1px solid #4c566a !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3) !important;
+}
+
+/* Little arrows on dropdowns and popups (rotated white squares) */
+.gs_md_ds::before, .gs_ttzr::before, .gs_ttzi::before {
+    background-color: #3b4252 !important;
+    border-color: #4c566a !important;
+}
+
+/* Text inside dropdowns */
+.gac_m td, .gac_m .gac_c, .gac_m .gac_a, .gs_md_ac li, .gs_md_d * {
+    color: #d8dee9 !important;
+}
+
+/* Highlighted row on hover for dropdowns */
+.gac_m .gac_h, .gs_md_ac li:hover, .gs_md_d a:hover {
+    background-color: #4c566a !important;
+    cursor: pointer !important;
+}
+
+
+/* ==========================================================================
+   6. SEARCH RESULTS & TYPOGRAPHY
+   ========================================================================== */
+
+/* Reset search result containers to avoid blocky backgrounds */
+.gs_scl {
+    background-color: transparent !important;
+}
+
+/* Base links */
+a {
+    color: #81a1c1 !important; /* Nord Frost 3 */
+}
+
+/* Article titles */
+.gs_rt a {
+    color: #88c0d0 !important; /* Nord Frost 2 */
+}
+
+/* Article summary, authors, and publication info */
+.gs_rs, .gs_a {
+    color: #e5e9f0 !important; /* Nord Snow Storm 2 */
+}
+
+/* Highlighted search keywords in results (Nord Green) */
+.gs_rt b, .gs_rt strong, .gs_a b, .gs_rs b {
+    color: #a3be8c !important;
+    font-weight: bold !important;
+}
+
+/* Tags (e.g., [HTML], [PDF]) */
+.gs_ctc {
+    color: #88c0d0 !important;
+}
+
+
+/* ==========================================================================
+   7. MODALS, PROMO BLOCKS & BUTTONS
+   ========================================================================== */
+
+/* Popup windows and Promotional blocks */
+.gs_md_w, #gsr_promo {
+    background-color: #3b4252 !important;
+    border: 1px solid #4c566a !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
+}
+
+/* Modal Headers & Footers */
+.gs_md_hdr {
+    background-color: #2e3440 !important;
+    border-bottom: 1px solid #4c566a !important;
+}
+
+.gs_md_ftr {
+    background-color: #3b4252 !important; /* Matches modal body */
+    border-top: 1px solid #4c566a !important;
+}
+
+/* Ensure text inside modals remains readable */
+.gs_md_w *, #gsr_promo *, .gs_md_hdr *, .gs_md_ftr * {
+    color: #d8dee9 !important;
+}
+
+/* Citation Menu Specifics (Fixing the hardcoded #777 text) */
+#gs_citt th {
+    color: #88c0d0 !important; /* Nord Frost 2 for labels like MLA, APA */
+}
+.gs_citr {
+    color: #d8dee9 !important; /* Standard clear text for the citations */
+}
+
+/* Promotional block inner items (cards) */
+.gsr_promo_des_item {
+    background-color: #434c5e !important; /* Nord Polar Night 2 */
+    border: 1px solid #4c566a !important;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5) !important;
+}
+
+.gsr_promo_des_item * {
+    color: #d8dee9 !important;
+}
+
+/* Primary call-to-action buttons (gs_btn_da and gs_btnFA are the blue
+   "Ask Scholar" and "Follow" buttons) */
+.gs_btn_act, .gs_btn_da, .gs_btnFA, .gsr_promo_try {
+    background-color: #5e81ac !important; /* Nord Frost 4 */
+    color: #eceff4 !important;
+    border: none !important;
+    text-decoration: none !important;
+}
+
+.gs_btn_act:hover, .gs_btn_da:hover, .gs_btnFA:hover, .gsr_promo_try:hover {
+    background-color: #81a1c1 !important;
+    text-decoration: none !important;
+}
+
+/* Secondary & Generic Buttons (e.g., PDF side buttons, Add Account, Sign Out) */
+button:not(.gs_btn_act):not(.gs_btn_da):not(.gs_btnFA):not(.gs_btn_flat), .gs_md_w div[role="button"], .gs_md_ftr button:not(.gs_btn_act) {
+    background-color: #434c5e !important; /* Nord Polar Night 2 */
+    color: #d8dee9 !important;
+    border: 1px solid #4c566a !important;
+    border-radius: 4px !important;
+}
+
+button:not(.gs_btn_act):not(.gs_btn_da):not(.gs_btnFA):not(.gs_btn_flat):hover, .gs_md_w div[role="button"]:hover, .gs_md_ftr button:not(.gs_btn_act):hover {
+    background-color: #4c566a !important;
+}
+
+/* Fix text and icons inside secondary buttons */
+button:not(.gs_btn_act):not(.gs_btn_da):not(.gs_btnFA) *, .gs_md_w div[role="button"] *, .gs_md_ftr button:not(.gs_btn_act) * {
+    color: #d8dee9 !important;
+    fill: #d8dee9 !important; /* For SVG icons */
+}
+
+
+/* Flat text buttons ("View all" and similar) stay flat, like the originals */
+button.gs_btn_flat {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: #88c0d0 !important;
+}
+button.gs_btn_flat:hover {
+    background-color: #434c5e !important;
+}
+button.gs_btn_flat * {
+    color: #88c0d0 !important;
+}
+
+/* Text and sprite icons on the blue buttons: the sprite is already white,
+   so the global icon inversion would turn it dark */
+.gs_btn_da *, .gs_btnFA *, .gsc_prf_btn_act * {
+    color: #eceff4 !important;
+}
+.gs_btn_da .gs_ico, .gs_btnFA .gs_ico, .gsc_prf_btn_act .gs_ico {
+    filter: none !important;
+}
+
+/* Toggle switches ("Show details" in Quick read): the track is the
+   ::before of .gs_tg, the knob the ::after of .gs_tg_ctl */
+.gs_tg::before {
+    background-color: #4c566a !important;
+}
+.gs_tg_ctl::after {
+    background-color: #d8dee9 !important;
+}
+/* Focus ripple around the knob */
+.gs_tg_ctl::before {
+    background-color: rgba(136, 192, 208, 0.25) !important;
+}
+.gs_tg.gs_sel::before {
+    background-color: #5e81ac !important;
+}
+.gs_tg.gs_sel .gs_tg_ctl::after {
+    background-color: #88c0d0 !important;
+}
+
+
+/* ==========================================================================
+   8. ACCOUNT MENU (Top Right Dropdown)
+   ========================================================================== */
+
+/* Main dropdown container */
+#gs_hdr_act_d, #gs_hdr_act_ap {
+    background-color: #3b4252 !important;
+    border: 1px solid #4c566a !important;
+    color: #d8dee9 !important;
+}
+
+/* Force inner containers of the dropdown to follow the theme */
+#gs_hdr_act_d .gs_scl {
+    background-color: transparent !important;
+}
+
+/* User email/secondary text inside account menu */
+.gs_hdr_pm .gs_gray {
+    color: #e5e9f0 !important;
+}
+
+/* Account menu footer (where buttons are) */
+#gs_hdr_act_ab {
+    background-color: #2e3440 !important;
+    border-top: 1px solid #4c566a !important;
+}
+
+/* "Account personale" button overrides */
+#gs_hdr_act_apb {
+    background-color: #2e3440 !important;
+}
+
+#gs_hdr_act_apb:hover {
+    background-color: #4c566a !important;
+}
+
+
+/* ==========================================================================
+   9. SCHOLAR LABS
+   ========================================================================== */
+
+/* General Scholar Labs backgrounds and containers */
+.gs_as_hp_s, #gs_as_mc, .gs_as_np, #gs_as_hp_main {
+    background-color: #2e3440 !important;
+    color: #d8dee9 !important;
+}
+
+/* Main title "Domande di esempio" etc. */
+.gs_as_wc_tl, .gs_as_wc_xt, .gs_as_i_xl, #gs_as_i_d {
+    color: #eceff4 !important;
+}
+
+/* Example prompt buttons (Cards) */
+a.gs_as_wc_xl {
+    background-color: #3b4252 !important; /* Nord Polar Night 1 */
+    color: #88c0d0 !important;            /* Nord Frost 2 for better link visibility */
+    border: 1px solid #4c566a !important;
+}
+
+a.gs_as_wc_xl:hover {
+    background-color: #434c5e !important; /* Lighter on hover */
+    color: #8fbcbb !important;            /* Nord Frost 1 */
+}
+
+/* Left Sidebar (Session history) */
+.gs_as_np {
+    background-color: #2e3440 !important;
+    border-right: 1px solid #4c566a !important;
+}
+
+.gs_as_np_h {
+    color: #eceff4 !important; /* Header "Sessione corrente" */
+}
+
+/* Individual session items in the sidebar */
+.gs_as_np_t {
+    background-color: #3b4252 !important;
+    border: 1px solid #4c566a !important;
+    border-radius: 8px !important;
+}
+
+.gs_as_np_t:hover {
+    background-color: #434c5e !important;
+}
+
+/* Texts inside the session items */
+.gs_as_np_tl, .gs_as_np_tq {
+    color: #d8dee9 !important;
+}
+
+/* Bottom container of the sidebar ("Nuova sessione" area) */
+.gs_as_np_bc {
+    background-color: #2e3440 !important;
+    border-top: 1px solid #4c566a !important;
+}
+
+/* Bottom Chat input area container */
+#gs_as_i_c, #gs_as_i {
+    background-color: #3b4252 !important; /* Nord Polar Night 1 */
+    border: 1px solid #4c566a !important;
+}
+
+/* Prevent white backgrounds on sub-containers inside the input area */
+#gs_as_i_bc, #gs_as_i_xb {
+    background-color: transparent !important;
+}
+
+/* Fix the white gradient fade above the chat input */
+#gs_as_i::before {
+    background: linear-gradient(0, #2e3440, rgba(46, 52, 64, 0)) !important;
+}
+
+/* Textarea inside the chat input */
+textarea#gs_as_i_t {
+    background-color: transparent !important; /* Let container background show */
+    color: #eceff4 !important;
+}
+
+textarea#gs_as_i_t::placeholder {
+    color: #d8dee9 !important;
+    opacity: 0.7 !important;
+}
+
+/* Send Icon */
+#gs_as_i_s svg {
+    fill: #81a1c1 !important; /* Nord Frost 3 */
+}
+
+#gs_as_i_s:hover svg {
+    fill: #88c0d0 !important; /* Lighten on hover */
+}
+
+/* Chat messages area (Placeholder, skeletons, error messages) */
+.gs_as_cp, .gs_as_cp_ntf, .gs_as_ph, .gs_as_err {
+    background-color: #2e3440 !important;
+    color: #d8dee9 !important;
+}
+
+/* Error or info message texts */
+.gs_as_cp_msg, .gs_as_cp_msg_s, .gs_as_ld_lbl {
+    color: #d8dee9 !important;
+}
+
+/* Skeleton loader animations (the pulsing gray bars while waiting) */
+.gs_as_ph_tl, .gs_as_ph_m, .gs_as_ph_s1, .gs_as_ph_s2, .gs_as_ph_s3, .gs_as_ph_ol {
+    background-color: #434c5e !important;
+}
+
+/* White halo around the "Ask your question" button */
+.gs_as_i_xbb::before {
+    background-color: transparent !important;
+}
+
+/* SVGs and Icons inside the Labs interface */
+.gs_as_wc_i, .gs_as_icon_q, .gs_as_cp_ntf svg, .gs_as_icon_chk {
+    fill: #88c0d0 !important;
+}
+
+
+/* ==========================================================================
+   10. SEARCH RESULTS: PROFILES BLOCK, CITATION HISTOGRAM
+   ========================================================================== */
+
+/* "User profiles for ..." block above the results */
+.gs_rt2 a, .gs_rt2 a b {
+    color: #88c0d0 !important;
+}
+
+/* Citations-per-year histogram in the "Cited by" sidebar */
+#gs_res_sb_hist_wrp::before {
+    background-color: #3b4252 !important;
+}
+.gs_hist_g_a {
+    background-color: #81a1c1 !important;
+}
+.gs_hist_g_a::before {
+    background-color: #434c5e !important;
+}
+.gs_hist_g_a::after {
+    background-color: #4c566a !important;
+}
+.gs_hist_g_t {
+    color: #a3adbf !important;
+}
+
+
+/* ==========================================================================
+   11. QUICK READ PANEL (AI summary)
+   ========================================================================== */
+
+/* Author list sits on a white highlight */
+.gs_aa_author, .gs_aa_author_ellipsis {
+    background-color: transparent !important;
+    color: #d8dee9 !important;
+}
+
+/* Math formulas are inline SVGs with the default black fill */
+svg.gs_fsvg {
+    fill: currentColor !important;
+}
+
+/* Loading placeholders and shimmer */
+.gs_aa_ph_l {
+    background-color: #434c5e !important;
+}
+.gs_aa_loading_bar {
+    background-image: linear-gradient(90deg, rgba(46, 52, 64, 0), rgba(76, 86, 106, 0.8), rgba(46, 52, 64, 0)) !important;
+}
+
+
+/* ==========================================================================
+   12. AUTHOR PROFILES & METRICS
+   ========================================================================== */
+
+/* Photo placeholders */
+#gsc_prf_pua, .gs_rimg.gs_pp_sm {
+    background-color: #3b4252 !important;
+}
+
+/* Articles table header (white bar with light text otherwise) */
+#gsc_a_trh, #gsc_a_trh th {
+    background-color: #3b4252 !important;
+}
+#gsc_a_trh .gs_nph, #gsc_a_trh .gs_nta {
+    color: #a3adbf !important;
+}
+
+/* Citations-per-year charts (profile sidebar and article page) */
+.gsc_g_a, .gsc_oci_g_a {
+    background-color: #81a1c1 !important;
+}
+.gsc_g_a:hover, .gsc_oci_g_a:hover {
+    background-color: #88c0d0 !important;
+}
+.gsc_g_xtl, .gsc_g_t, .gsc_oci_g_t {
+    color: #a3adbf !important;
+}
+.gsc_oci_g_al {
+    background-color: #3b4252 !important;
+    color: #eceff4 !important;
+}
+
+/* Public access: counts and bars */
+.gsc_rsb_m_a, .gsc_rsb_m_a * {
+    color: #a3be8c !important;
+}
+.gsc_rsb_m_na, .gsc_rsb_m_na * {
+    color: #bf616a !important;
+}
+.gsc_rsb_m_bar {
+    background-color: #a3be8c !important;
+}
+.gsc_rsb_m_bar_na {
+    background-color: #bf616a !important;
+}
+
+/* New profile wizard step numbers */
+.gsc_psps_sn {
+    background-color: #4c566a !important;
+    color: #eceff4 !important;
+}
+
+/* Metrics tables (top publications, h5-core articles) */
+.gsc_mp_table {
+    background-color: #2e3440 !important;
+}
+.gsc_mp_table th, .gsc_mp_table td {
+    border-color: #434c5e !important;
+}
+
+
+/* ==========================================================================
+   13. MY LIBRARY (empty state illustration) & ALERTS
+   ========================================================================== */
+
+.gs_eml_sd {
+    background-color: #3b4252 !important;
+    border-color: #4c566a !important;
+}
+.gs_eml_gy {
+    background-color: #434c5e !important;
+}
+#gs_eml_ml, .gs_eml_sd .gs_rt, .gs_eml_sd .gs_lbl {
+    color: #d8dee9 !important;
+}
+.gs_eml_sd svg {
+    fill: #d8dee9 !important;
+}
+#gs_eml_ra {
+    color: #a3be8c !important;
+}
+#gs_eml_lcb, #gs_eml_lra {
+    color: #81a1c1 !important;
+}
+
+/* Sticky "Create alert" bar */
+#gs_alert_scb {
+    background-color: #2e3440 !important;
+}
+
+}
