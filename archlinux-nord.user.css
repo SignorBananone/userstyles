@@ -1,0 +1,190 @@
+/* ==UserStyle==
+@name         Archlinux Nord
+@version      20261001.00.00
+@namespace    https://userstyles.world/user/SignorBananone, Gemini-3.1-Pro
+@description  Nordic revamp of the official Arch Linux website, including its forum, wiki, AUR, and all related resources.
+@homepageURL  https://github.com/SignorBananone/userstyles
+@author       SignorBananone, Gemini-3.1-Pro
+@license      MIT
+==/UserStyle== */
+
+/* Palette and the navigation bar shared by every archlinux.org site.
+   domain("archlinux.org") also matches every subdomain, so only rules that are
+   safe everywhere belong here. */
+@-moz-document domain("archlinux.org") {
+:root {
+    --nord0: #2e3440; --nord1: #3b4252; --nord2: #434c5e; --nord3: #4c566a;
+    --nord4: #d8dee9; --nord5: #e5e9f0; --nord6: #eceff4;
+    --nord7: #8fbcbb; --nord8: #88c0d0; --nord9: #81a1c1; --nord10: #5e81ac;
+    --nord11: #bf616a; --nord12: #d08770; --nord13: #ebcb8b; --nord14: #a3be8c; --nord15: #b48ead;
+    color-scheme: dark !important;
+}
+#archnavbar { background: var(--nord0) !important; border-bottom: 5px solid var(--nord9) !important; }
+#archnavbarlist li a { color: var(--nord9) !important; font-weight: bold !important; text-decoration: none !important; }
+#archnavbarlist li.anb-selected a, #archnavbarlist li a:hover { color: var(--nord10) !important; }
+}
+
+/* archlinux.org (not its subdomains) and the AUR, which share the archweb layout */
+@-moz-document url-prefix("https://archlinux.org/"), url-prefix("https://www.archlinux.org/"), domain("aur.archlinux.org") {
+body { background: var(--nord1) !important; color: var(--nord4) !important; }
+a:link, a:visited, th a:visited { color: var(--nord9) !important; }
+a:hover, a:focus, a:visited:hover { color: var(--nord10) !important; text-decoration: underline; }
+#news h3 a { background: var(--nord10) !important; color: var(--nord6) !important; }
+h3 span.arrow { border-top-color: var(--nord10) !important; }
+div.box { margin-bottom: 1.5em; padding: 0.65em; background: var(--nord1) !important; border: 1px solid var(--nord9) !important; }
+#pkgsearch { background: var(--nord10) !important; color: var(--nord6) !important; border: 1px solid var(--nord9) !important; }
+#pkgsearch label { color: var(--nord6) !important; }
+div.news-article .article-info { color: var(--nord14) !important; }
+#news h4, h2 { border-bottom: 1px solid var(--nord9) !important; }
+code, pre { background: var(--nord3) !important; border: 1px solid var(--nord3) !important; color: var(--nord4) !important; }
+dl dt { color: var(--nord4) !important; }
+dl dt, dl dd { border-top: 1px dotted var(--nord9) !important; }
+table.results, table.styled-table { border-collapse: collapse !important; width: 100% !important; border: 1px solid var(--nord3) !important; }
+thead, tbody { border-color: var(--nord3) !important; }
+.results th, .styled-table th { padding: 10px !important; border-bottom: 2px solid var(--nord3) !important; background-color: var(--nord1) !important; color: var(--nord8) !important; }
+.results td, .styled-table td { padding: 8px 10px !important; border-bottom: 1px solid var(--nord0) !important; border-right: none !important; border-left: none !important; }
+.results tr:nth-child(odd), #article-list tr:nth-child(odd), .styled-table tbody tr:nth-child(odd) { background: var(--nord1) !important; }
+.results tr:nth-child(even), #article-list tr:nth-child(even), .styled-table tbody tr:nth-child(even) { background: var(--nord0) !important; }
+#article-list tr:hover, #clocks-table tr:hover, #pkglist-results tr:hover, .styled-table tbody tr:hover td, .results tbody tr:hover td { background: var(--nord2) !important; color: var(--nord4) !important; }
+.results .flagged, .styled-table .red { color: var(--nord11) !important; font-weight: bold; }
+.styled-table .orange { color: var(--nord12) !important; font-weight: bold; }
+.styled-table .light_orange { color: var(--nord13) !important; font-weight: bold; }
+.styled-table .purple { color: var(--nord15) !important; }
+.styled-table .green { color: var(--nord14) !important; font-weight: bold; }
+.styled-table td a { display: inline-block; margin-bottom: 2px; }
+#pkgsearch input { color: var(--nord4) !important; background: var(--nord2) !important; border: 1px solid var(--nord9) !important; }
+.pkgsearch-typeahead { background-color: var(--nord3) !important; border: 1px solid var(--nord9) !important; }
+#pkgdetails #detailslinks > div { background: var(--nord2) !important; border: 1px solid var(--nord9) !important; }
+.keyword:link, .keyword:visited { background-color: var(--nord10) !important; color: var(--nord6) !important; }
+.keyword:hover { background-color: var(--nord9) !important; color: var(--nord0) !important; }
+.error { color: var(--nord11) !important; }
+#pkgdetails #metadata h3 { background: var(--nord2) !important; color: var(--nord4) !important; font-size: 1.1em !important; margin: 0 !important; padding: 8px 12px !important; border-bottom: 1px solid var(--nord3) !important; }
+.comments-header h3 span.text { background: var(--nord10) !important; color: var(--nord6) !important; }
+#pkgdetails #metadata .listing { background: var(--nord1) !important; border: 1px solid var(--nord3) !important; border-radius: 4px !important;  margin-bottom: 15px !important; overflow: hidden !important;  box-sizing: border-box !important; }
+#pkgdetails #metadata ul, #pkgdetails #metadata > div p { padding: 10px 12px !important; margin: 0 !important; }
+#pkgdepslist { list-style-type: none !important; }
+#pkgdepslist li { padding-bottom: 4px !important; }
+}
+
+@-moz-document domain("wiki.archlinux.org") {
+:root {
+    --background-color-base: var(--nord0) !important; --background-color-interactive: var(--nord1) !important; --background-color-interactive-subtle: var(--nord1) !important;
+    --color-surface: var(--nord0) !important; --color-surface-background: var(--nord0) !important; --color-surface-interactive: var(--nord1) !important;
+    --color-base: var(--nord4) !important; --color-emphasized: var(--nord6) !important; --color-subtle: var(--nord4) !important; --color-placeholder: var(--nord3) !important;
+    --border-color-base: var(--nord3) !important; --border-color-interactive: var(--nord9) !important;
+    --color-link: var(--nord9) !important; --color-link--hover: var(--nord8) !important; --color-link--active: var(--nord10) !important; --color-link-visited: var(--nord14) !important;
+    --archwiki-template-message-background-color: var(--nord1) !important; --archwiki-template-message-border-color: var(--nord11) !important;
+    --archwiki-template-navigation-background-color: var(--nord1) !important; --archwiki-template-navigation-border-color: var(--nord9) !important;
+}
+body, .mw-page-container, #content { background-color: var(--nord0) !important; color: var(--nord4) !important; }
+#content { border-color: var(--nord0) !important; }
+.vector-header-container, .vector-header, .vector-sticky-header, .vector-sticky-header-container { background-color: var(--nord1) !important; border-bottom: 1px solid var(--nord3) !important; box-shadow: none !important; }
+#content a:not([role=button]):not(.new), header.mw-header li:not(.new) a:not([role=button]):not(.new), #mw-panel-toc a:not([role=button]):not(.new), #mw-navigation li:not(.new) a:not([role=button]):not(.new), #mw-panel li:not(.new) a:not([role=button]):not(.new), #footer a:not([role=button]):not(.new) { text-decoration: none; color: var(--nord9) !important; }
+#content a:not([role=button]):not(.new):hover, header.mw-header li:not(.new) a:not([role=button]):not(.new):hover, #mw-panel-toc a:not([role=button]):not(.new):hover, #mw-navigation li:not(.new) a:not([role=button]):not(.new):hover, #mw-panel li:not(.new) a:not([role=button]):not(.new):hover, #footer a:not([role=button]):not(.new):hover { text-decoration: underline; background-color: transparent !important; color: var(--nord10) !important; }
+#content a:not([role=button]):not(.new):visited, header.mw-header li:not(.new) a:not([role=button]):not(.new):visited, #mw-panel-toc a:not([role=button]):not(.new):visited, #mw-navigation li:not(.new) a:not([role=button]):not(.new):visited, #mw-panel li:not(.new) a:not([role=button]):not(.new):visited, #footer a:not([role=button]):not(.new):visited { color: var(--nord14) !important; }
+.vector-toc, .vector-appearance, .vector-main-menu, .vector-pinnable-element, .vector-dropdown-content { background-color: var(--nord0) !important; color: var(--nord4) !important; }
+.vector-toc-text, .cdx-label__label__text, .skin-client-pref-exclusion-notice, .vector-menu-heading { color: var(--nord4) !important; }
+.cdx-radio__icon, .cdx-checkbox__icon { border-color: var(--nord3) !important; background-color: var(--nord1) !important; }
+.archwiki-template-message, .archwiki-template-box { background-color: var(--nord1) !important; border: 1px solid var(--nord3) !important; color: var(--nord4) !important; }
+.archwiki-template-message b, .archwiki-template-message strong, .archwiki-template-message div { color: var(--nord4) !important; }
+table.wikitable { background-color: var(--nord1) !important; border: 1px solid var(--nord3) !important; color: var(--nord4) !important; }
+table.wikitable > tr > th, table.wikitable > * > tr > th { background-color: var(--nord2) !important; border: 1px solid var(--nord3) !important; color: var(--nord4) !important; }
+table.wikitable > tr > td, table.wikitable > * > tr > td { border: 1px solid var(--nord3) !important; }
+.archwiki-template-g { background-color: var(--nord14) !important; color: var(--nord0) !important; }
+.archwiki-template-r { background-color: var(--nord11) !important; color: var(--nord6) !important; }
+.archwiki-template-y { background-color: var(--nord13) !important; color: var(--nord0) !important; }
+pre, code, .mw-code { background-color: var(--nord1) !important; border: 1px solid var(--nord3) !important; color: var(--nord4) !important; font-family: monospace, monospace !important; }
+.cdx-button, .cdx-text-input__input { background-color: var(--nord1) !important; color: var(--nord4) !important; border-color: var(--nord3) !important; }
+.cdx-button:enabled:hover, .cdx-text-input__input:enabled:focus { background-color: var(--nord2) !important; border-color: var(--nord8) !important; color: var(--nord6) !important; }
+.catlinks, #catlinks { background-color: var(--nord1) !important; border: 1px solid var(--nord3) !important; color: var(--nord4) !important; }
+.catlinks li, .catlinks a { color: var(--nord9) !important; }
+.archwiki-main-page-columns dl { border-top: 1px solid var(--nord3) !important; }
+.archwiki-main-page-columns dd { color: var(--nord4) !important; }
+.mw-heading h2::before, .mw-heading2 h2::before, #mw-content-text h2::before { color: var(--nord13) !important; }
+.mw-heading, .mw-heading2 { border-bottom-color: var(--nord3) !important; }
+}
+
+@-moz-document domain("bbs.archlinux.org") {
+html, body, .pun { background: var(--nord0) !important; color: var(--nord4) !important; }
+.pun .punwrap { background: var(--nord0) !important; border: none !important; }
+#brdmenu { background: transparent !important; border: none !important; }
+#brdmenu ul { border: none !important; padding: 0 !important; margin: 0 !important; display: flex !important; flex-wrap: wrap !important; gap: 8px !important; }
+#brdmenu li { border: none !important; background: transparent !important; display: block !important; }
+#brdmenu li a, #brdmenu a:link, #brdmenu a:visited { background: var(--nord1) !important; color: var(--nord4) !important; border: 1px solid var(--nord3) !important; border-radius: 4px !important; padding: 6px 14px !important; margin: 0 !important; display: block !important; text-decoration: none !important; }
+#brdmenu li.isactive a, #brdmenu li a:hover { background: var(--nord2) !important; color: var(--nord8) !important; border-color: var(--nord8) !important; }
+#brdwelcome { background: var(--nord1) !important; border: 1px solid var(--nord3) !important; border-radius: 4px !important; margin-top: 5px !important; padding: 10px 15px !important; }
+.pun .blocktable, .pun .blockform, .pun .block, .pun .blockpost { background: var(--nord0) !important; border: 1px solid var(--nord3) !important; border-radius: 6px !important; margin-bottom: 25px !important; overflow: hidden !important; }
+.pun .blocktable .box, .pun .blockform .box, .pun .block .box, .pun .blockpost .box, div.box { background: transparent !important; border: none !important; margin: 0 !important; padding: 0 !important; }
+#brdstats h2 { width: 0 !important; padding: 0 !important; border: 0 !important; }
+.pun .blockpost h2 { background: var(--nord1) !important; color: var(--nord4) !important; border: none !important; border-bottom: 1px solid var(--nord3) !important; font-weight: 600 !important; }
+.pun .blocktable h2, .pun .block h2 { display: block !important; width: 100% !important; box-sizing: border-box !important; background: var(--nord1) !important; color: var(--nord4) !important; padding: 12px 15px !important; margin: 0 !important; border: none !important; border-bottom: 1px solid var(--nord3) !important; font-weight: 600 !important; }
+.pun h2 span { background: transparent !important; border: none !important; padding: 0 !important; display: inline !important; }
+.pun .blocktable th { background: var(--nord1) !important; border-bottom: 2px solid var(--nord3) !important; border-left: none !important; border-right: none !important; color: var(--nord9) !important; padding: 10px 15px !important; font-weight: normal !important; }
+.pun .blocktable table { border-collapse: collapse !important; width: 100% !important; }
+.pun .blocktable td { border-bottom: 1px solid var(--nord1) !important; border-left: none !important; border-right: none !important; padding: 12px 15px !important; }
+.pun .blocktable tbody tr:last-child td { border-bottom: none !important; }
+.pun .blocktable tr.rowodd td, .pun .blocktable tr.roweven td { background: var(--nord0) !important; }
+.pun a, .pun a:link, .pun a:visited { color: var(--nord9) !important; text-decoration: none !important; }
+.pun a:hover { color: var(--nord10) !important; text-decoration: underline !important; }
+.pun .blockpost .postbody, .pun .blockpost .postfoot { background: transparent !important; border-color: var(--nord3) !important; }
+.pun .quotebox { background: var(--nord1) !important; border-color: var(--nord9) !important; color: var(--nord4) !important; padding: 10px !important; border-radius: 4px !important; }
+.pun .icon { border-color: var(--nord4) var(--nord3) var(--nord1) var(--nord4) !important; }
+.pun .inew .icon { border-color: var(--nord9) var(--nord8) var(--nord10) var(--nord7) !important; }
+.pun .blocktable tbody tr:hover td { background-color: var(--nord2) !important; }
+#brdmain a:hover, .pun a:hover, .pun .blocktable td h3 a:hover, .pun .blocktable td a:hover { color: var(--nord8) !important; text-decoration: underline !important; background-color: transparent !important; }
+#brdfooter { background: transparent !important; border: none !important; margin-top: 30px !important; box-shadow: none !important; }
+#brdfooter h2 { display: none !important; }
+#brdfooter .box, #brdfooter .inbox { background: transparent !important; border: none !important; padding: 0 !important; }
+#brdfooter span, #brdfooter p, #brdfooter label, #brdfooter form { color: var(--nord4) !important; }
+#brdfooter select { background: var(--nord1) !important; color: var(--nord4) !important; border: 1px solid var(--nord3) !important; padding: 4px 8px !important; border-radius: 4px !important; outline: none !important; cursor: pointer !important; }
+#brdfooter select:hover, #brdfooter select:focus { border-color: var(--nord8) !important; }
+#brdfooter input[type="submit"] { background: var(--nord3) !important; color: var(--nord4) !important; border: 1px solid var(--nord3) !important; padding: 4px 12px !important; border-radius: 4px !important; cursor: pointer !important; margin-left: 5px !important; transition: all 0.2s ease-in-out; }
+#brdfooter input[type="submit"]:hover { background: var(--nord10) !important; color: var(--nord6) !important; border-color: var(--nord10) !important; }
+.pun .blockform .inform, .pun .blockform .infldset { background: transparent !important; border: none !important; color: var(--nord4) !important; }
+.pun .blockform fieldset { border: 1px solid var(--nord3) !important; border-radius: 6px !important; padding: 15px !important; background: var(--nord0) !important; margin-bottom: 15px !important; }
+.pun .blockform legend { background: transparent !important; border: none !important; color: var(--nord8) !important; font-weight: bold !important; padding: 0 10px !important; }
+.pun input[type="text"], .pun input[type="password"], .pun select, .pun textarea { background: var(--nord1) !important; color: var(--nord4) !important; border: 1px solid var(--nord3) !important; padding: 6px 10px !important; border-radius: 4px !important; outline: none !important; transition: border-color 0.2s ease; }
+.pun input[type="text"]:focus, .pun input[type="password"]:focus, .pun select:focus, .pun textarea:focus { border-color: var(--nord8) !important; }
+.pun .checklist { background: var(--nord1) !important; border: 1px solid var(--nord3) !important; border-radius: 4px !important; padding: 10px !important; color: var(--nord4) !important; }
+.pun .checklist fieldset { border: none !important; border-bottom: 1px dotted var(--nord3) !important; background: transparent !important; padding: 5px 0 !important; margin-bottom: 5px !important; border-radius: 0 !important; }
+.pun .checklist fieldset:last-child { border-bottom: none !important; }
+.pun .checklist legend { color: var(--nord9) !important; font-size: 0.9em !important; padding: 0 !important; }
+.pun .blockform p.buttons { text-align: center !important; margin-top: 15px !important; }
+.pun input[type="submit"] { background: var(--nord10) !important; color: var(--nord6) !important; border: none !important; padding: 8px 20px !important; border-radius: 4px !important; font-weight: bold !important; cursor: pointer !important; transition: background-color 0.2s ease !important; }
+.pun input[type="submit"]:hover { background: var(--nord8) !important; color: var(--nord1) !important; }
+.pun label, .pun legend, #adminconsole fieldset th { color: var(--nord4); }
+.pun p, .pun label, .pun .blockform .conl, .pun .blockform .rbox label, .pun .usercontent { color: var(--nord4) !important; }
+.pun .blockpost .postleft, .pun .blockpost .postright, .pun .blockpost .postfootleft, .pun .blockpost .postfootright, .pun .blockpost .postmsg, .pun .blockpost .postmsg p, .pun .blockpost .postsignature, .pun .blockpost .postsignature p { background: transparent !important; color: var(--nord4) !important; }
+.pun .postleft dl, .pun .postleft dd, .pun .postleft dt { color: var(--nord4) !important; }
+.pun .blockpost .postleft { border-right: 1px solid var(--nord3) !important; }
+.pun .blockpost hr { border: none !important; border-top: 1px dotted var(--nord3) !important; margin: 15px 0 5px 0 !important; }
+.pun .blockpost h3 { color: var(--nord8) !important; border-bottom: 1px solid var(--nord3) !important; padding-bottom: 8px !important; margin-bottom: 12px !important; font-weight: 600 !important; }
+.pun .blockpost h2 span, .pun .blockpost h2 a { color: var(--nord4) !important; }
+/* Secondary text uses a slate grey (#566579) that disappears on Nord backgrounds */
+.pun .byuser, .pun .pagestext, .pun .spacer, .pun .closedtext, .pun .tc2, .pun .tc3, .pun .tcr span, .pun .forumdesc, .pun .crumbs, .pun .crumbs span, .pun .pagelink, #brdwelcome span, #brdstats dd, #brdstats dt, .pun .postfoot, .pun .postfoot span, .pun .postedit em { color: #a3adbf !important; }
+.pun .codebox { background: var(--nord1) !important; border: 1px solid var(--nord3) !important; }
+.pun .codebox pre, .pun .codebox code { background: var(--nord1) !important; color: var(--nord4) !important; }
+.pun .quotebox cite { color: var(--nord8) !important; }
+.pun hr, #brdmain hr { background-color: var(--nord3) !important; color: var(--nord3) !important; border-color: var(--nord3) !important; }
+}
+
+@-moz-document domain("man.archlinux.org"), domain("security.archlinux.org") {
+body { background: var(--nord1) !important; color: var(--nord4) !important; }
+a:link, a:visited { color: var(--nord9) !important; }
+a:hover, a:focus { color: var(--nord8) !important; }
+h1, h2, h3, h4 { color: var(--nord6) !important; }
+.man-page h2, .man-page h3 { color: var(--nord8) !important; }
+pre, code, tt { color: var(--nord4) !important; }
+input, select, textarea { background: var(--nord2) !important; color: var(--nord4) !important; border: 1px solid var(--nord3) !important; }
+input[type="submit"], button { background: var(--nord3) !important; color: var(--nord6) !important; border: 1px solid var(--nord3) !important; }
+table { border-color: var(--nord3) !important; }
+th { background: var(--nord0) !important; color: var(--nord8) !important; border-color: var(--nord3) !important; }
+td { border-color: var(--nord3) !important; }
+tr:nth-child(even) td { background: var(--nord0) !important; }
+}
+
+@-moz-document domain("gitlab.archlinux.org") {
+.gl-heading-1 { color: var(--nord4) !important; }
+.\!gl-text-gray-900 { color: var(--nord4) !important; }
+body { background-color: var(--nord0) !important; color: var(--nord4) !important; }
+}

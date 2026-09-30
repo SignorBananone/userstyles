@@ -22,6 +22,15 @@ A Nord theme for [Google Scholar](https://scholar.google.com/), including author
 - File: [`google-scholar-nord.user.css`](google-scholar-nord.user.css)
 - Install: [userstyles.world/style/19493](https://userstyles.world/style/19493) or open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/google-scholar-nord.user.css) with Stylus installed.
 
+## Archlinux Nord
+
+A Nord theme for the Arch Linux websites: [archlinux.org](https://archlinux.org/), the [AUR](https://aur.archlinux.org/), the [wiki](https://wiki.archlinux.org/), the [forums](https://bbs.archlinux.org/), [man pages](https://man.archlinux.org/) and the [security tracker](https://security.archlinux.org/).
+
+- File: [`archlinux-nord.user.css`](archlinux-nord.user.css)
+- Install: [userstyles.world/style/19537](https://userstyles.world/style/19537) or open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/archlinux-nord.user.css) with Stylus installed.
+
+Each site has its own section. Stylus' `domain()` also matches subdomains, so the section for archlinux.org itself uses `url-prefix()` to stay off the wiki, forums and other subdomains.
+
 ## License
 
 [MIT](LICENSE).
