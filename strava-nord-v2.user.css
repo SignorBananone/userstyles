@@ -1,0 +1,720 @@
+/* ==UserStyle==
+@name           Strava Nord V2
+@namespace      Strava Nord V2 by SignorBananone (fork of Strava Darkest Fusion by ATX)
+@version        2026.09.30
+@description    Nord theme for Strava. Rewritten to rely on tags, ARIA roles, data-testid and stable class prefixes instead of hashed class names, so it survives Strava's CSS deploys.
+@license        CC-BY-SA-4.0
+@author         ATX, SignorBananone
+@preprocessor   default
+
+@var select old_font_type "Font" {
+  "Strava default": "revert-layer",
+  "Older font (Maison Neue)": "MaisonNeue, Segoe UI, Helvetica Neue, -apple-system, system-ui, BlinkMacSystemFont, Roboto, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol"
+}
+==/UserStyle== */
+
+@-moz-document domain("strava.com") {
+
+  /* Everything lives in a cascade layer: an !important declaration inside a layer
+     beats every unlayered !important one, whatever its specificity. Strava's own
+     CSS is unlayered and uses !important in places, so this keeps the theme on top
+     without chasing specificity. Every declaration here must stay !important,
+     because normal declarations in a layer lose to unlayered ones. */
+  @layer nord {
+
+    /* ---------- Font option ---------- */
+    body { font-family: /*[[old_font_type]]*/ !important; }
+
+    /* ---------- Palette ---------- */
+    :root {
+      --nord0: #2e3440;
+      --nord1: #3b4252;
+      --nord2: #434c5e;
+      --nord3: #4c566a;
+      --nord4: #d8dee9;
+      --nord5: #e5e9f0;
+      --nord6: #eceff4;
+      --nord7: #8fbcbb;
+      --nord8: #88c0d0;
+      --nord9: #81a1c1;
+      --nord10: #5e81ac;
+      --nord11: #bf616a;
+      --nord12: #d08770;
+      --nord13: #ebcb8b;
+      --nord14: #a3be8c;
+      --nord15: #b48ead;
+      --nt-muted: #a3adbf;
+
+      --nt-bg: var(--nord0);
+      --nt-surface: var(--nord1);
+      --nt-surface-2: var(--nord2);
+      --nt-border: var(--nord2);
+      --nt-text: var(--nord4);
+      --nt-text-strong: var(--nord6);
+      --nt-link: var(--nord8);
+      --nt-accent: var(--nord12);
+
+      color-scheme: dark !important;
+    }
+
+    /* ---------- Base: generic rules that do not depend on class names ---------- */
+    html,
+    body {
+      background: var(--nt-bg) !important;
+      color: var(--nt-text) !important;
+    }
+
+    /* Every element inherits the light text colour instead of Strava's hardcoded greys. */
+    /* :where() keeps specificity at zero so every targeted rule below wins. */
+    :where(body *:not(svg, svg *, img, video, canvas, iframe)) {
+      color: inherit !important;
+      border-color: var(--nt-border) !important;
+      text-shadow: none !important;
+    }
+
+    /* Flat look: legacy pages draw white inset lines and light glows with box-shadow.
+       Floating layers get a dark shadow back further down. */
+    :where(body *:not(input, textarea, select)) {
+      box-shadow: none !important;
+    }
+
+    /* Layout containers become transparent so the Nord background shows through.
+       Elements carrying inline background styles (bars, charts, swatches) are left alone. */
+    :where(body :is(div, section, main, header, footer, nav, aside, article, ul, ol, li,
+                   dl, dt, dd, table, thead, tbody, tfoot, tr, td, th, form, fieldset,
+                   label, span, p, a, h1, h2, h3, h4, h5, h6, figure, figcaption):not([style*="background"])) {
+      background-color: transparent !important;
+    }
+
+    h1, h2, h3, h4, h5, h6,
+    strong, b {
+      color: var(--nt-text-strong) !important;
+    }
+
+    :where(a, a:visited, .btn-link) {
+      color: var(--nt-link) !important;
+    }
+    :where(a:hover) {
+      color: var(--nord7) !important;
+    }
+
+    hr {
+      border-color: var(--nt-border) !important;
+      background-color: var(--nt-border) !important;
+    }
+
+    ::selection {
+      background: var(--nord3) !important;
+      color: var(--nord6) !important;
+    }
+
+    /* Scrollbars */
+    * {
+      scrollbar-color: var(--nord3) var(--nt-bg) !important;
+    }
+
+    /* ---------- Surfaces ---------- */
+    #global-header,
+    body header[role="banner"],
+    .nav-bar,
+    body > footer,
+    #global-footer,
+    [data-testid="web-feed-entry"],
+    [data-testid="activity_entry_container"],
+    .card,
+    [class*="Card--card"],
+    [class*="Card_card"],
+    [class*="card--"],
+    .panel,
+    .section.with-background,
+    .spans5.sidebar > .card {
+      background-color: var(--nt-surface) !important;
+    }
+
+    /* Floating layers: menus, dialogs, popovers, tooltips */
+    [role="dialog"],
+    [role="alertdialog"],
+    [aria-modal="true"],
+    [role="menu"],
+    [role="listbox"],
+    [role="tooltip"],
+    .modal-content,
+    .lightbox-window,
+    .dropdown-menu,
+    .drop-down-menu ul.options,
+    .popover,
+    .tooltip-inner,
+    [class*="Modal--"],
+    [class*="Dropdown--menu"],
+    [class*="Popover--"],
+    [class*="Tooltip--"] {
+      background-color: var(--nt-surface-2) !important;
+      color: var(--nt-text) !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
+    }
+
+    /* Popover arrows are white SVGs attached to the popover edge */
+    :is([role="dialog"], [role="tooltip"], [class*="Popover_popover"]) > svg[aria-hidden="true"] {
+      fill: var(--nt-surface-2) !important;
+    }
+    :is([role="dialog"], [role="tooltip"], [class*="Popover_popover"]) > svg[aria-hidden="true"] path[stroke="#ffffff" i] {
+      stroke: var(--nt-surface-2) !important;
+    }
+
+    /* react-select dropdowns (feed filter and others) */
+    [id^="react-select-"][id$="-listbox"],
+    [class^="css-"][class$="-menu"] {
+      background-color: var(--nt-surface-2) !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
+    }
+    [id^="react-select-"][id*="-option-"]:hover,
+    [id^="react-select-"][id*="-option-"][aria-selected="true"],
+    [class*="-option"][class^="css-"]:hover {
+      background-color: var(--nord3) !important;
+    }
+    [id^="react-select-"][id*="-option-"] a,
+    [class^="css-"][class*="-singleValue"],
+    [class^="css-"][class*="-input"] {
+      color: var(--nt-text) !important;
+    }
+    [class^="css-"][class*="-placeholder"] {
+      color: var(--nt-muted) !important;
+    }
+    [class^="css-"][class*="-control"] {
+      background-color: var(--nord1) !important;
+      border-color: var(--nord3) !important;
+    }
+    /* The react-select search input overlaps the selected value; keep it see-through. */
+    [class^="css-"][class*="-control"] input:not([type="checkbox"]):not([type="radio"]):not([type="range"]) {
+      background-color: transparent !important;
+      border: 0 !important;
+    }
+
+    [role="menu"] :is(a, button, li):hover,
+    [role="listbox"] [role="option"]:hover,
+    .dropdown-menu li:hover,
+    .dropdown-menu a:hover,
+    .drop-down-menu ul.options li:hover {
+      background-color: var(--nord3) !important;
+    }
+
+    .tooltip-arrow,
+    .popover .arrow::after {
+      border-top-color: var(--nt-surface-2) !important;
+      border-bottom-color: var(--nt-surface-2) !important;
+    }
+
+    /* Modal backdrops */
+    .modal-backdrop,
+    [data-base-ui-portal] > [role="presentation"][data-open],
+    .video-js .vjs-modal-dialog,
+    [class*="Modal--overlay"],
+    [class*="overlay" i][class*="Modal" i] {
+      background-color: rgba(46, 52, 64, 0.8) !important;
+    }
+
+    /* ---------- Controls ---------- */
+    input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+    textarea,
+    select,
+    .form-control,
+    .input-group-addon {
+      background-color: var(--nord1) !important;
+      color: var(--nt-text) !important;
+      border-color: var(--nord3) !important;
+    }
+    input::placeholder,
+    textarea::placeholder {
+      color: var(--nt-muted) !important;
+    }
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--nord8) !important;
+      outline-color: var(--nord8) !important;
+    }
+    input[type="checkbox"],
+    input[type="radio"],
+    input[type="range"],
+    progress {
+      accent-color: var(--nord8) !important;
+    }
+
+    button,
+    [role="button"],
+    .btn,
+    .btn-default,
+    .btn-white,
+    [class*="Button_btn"],
+    [class*="Button--btn"],
+    input[type="button"],
+    input[type="submit"] {
+      background-color: var(--nord2) !important;
+      color: var(--nt-text) !important;
+      border-color: var(--nord3) !important;
+    }
+    button,
+    .btn {
+      background-image: none !important;
+      text-shadow: none !important;
+    }
+    /* Bootstrap dropdown carets drawn with a coloured top border */
+    .btn::after,
+    .caret {
+      border-top-color: currentColor !important;
+    }
+    button:hover,
+    [role="button"]:hover,
+    .btn:hover {
+      background-color: var(--nord3) !important;
+    }
+
+    /* Icon-only and text buttons stay flat */
+    /* Icon-only buttons carry an aria-label; a bare svg:only-child test would also
+       match "icon + text" buttons, since :only-child ignores text nodes. */
+    button[aria-label]:not([class*="primary" i]):not(:has(> :is(span, div):not(:empty))):has(> svg:only-child),
+    .btn-link,
+    .btn-unstyled,
+    .btn-icon-only {
+      background-color: transparent !important;
+    }
+
+    .btn-primary,
+    .btn-primary:visited,
+    button[type="submit"],
+    input[type="submit"],
+    [class*="Button--primary"],
+    [class*="Button_primary"],
+    [class*="primary" i]:is(button, a[role="button"]),
+    a[class*="btn" i][class*="primary" i] {
+      background-color: var(--nt-accent) !important;
+      border-color: var(--nt-accent) !important;
+      color: var(--nord0) !important;
+    }
+    .btn-primary:hover,
+    [class*="Button--primary"]:hover,
+    [class*="Button_primary"]:hover,
+    [class*="primary" i]:is(button, a[role="button"]):hover,
+    a[class*="btn" i][class*="primary" i]:hover {
+      background-color: #dc9a85 !important;
+    }
+
+    /* Selected tabs / nav items */
+    [role="tab"][aria-selected="true"],
+    .tabs li.selected a,
+    .nav-item.selected > a,
+    .global-nav .selected > .nav-link {
+      color: var(--nt-text-strong) !important;
+      border-bottom-color: var(--nt-accent) !important;
+    }
+
+    /* Base UI tabs draw the active underline with an empty indicator span */
+    [role="tablist"] > span:empty {
+      border-color: var(--nord3) !important;
+      border-bottom-color: var(--nt-accent) !important;
+      background-color: transparent !important;
+    }
+
+    /* ---------- Icons ---------- */
+    :where(svg:not([class*="map" i])) {
+      color: inherit !important;
+    }
+    svg [fill="#242428"],
+    svg [fill="#000"],
+    svg [fill="#000000"],
+    svg [fill="black"],
+    svg [fill="#494950"],
+    svg [fill="#6d6d78"] {
+      fill: currentColor !important;
+    }
+    svg [stroke="#242428"],
+    svg [stroke="#000"],
+    svg [stroke="black"] {
+      stroke: currentColor !important;
+    }
+    .app-icon,
+    [class*="icon-dark"] {
+      filter: invert(88%) sepia(8%) saturate(300%) hue-rotate(180deg) !important;
+    }
+
+    /* ---------- Feed ---------- */
+    [data-testid="web-feed-entry"] {
+      border: 1px solid var(--nt-border) !important;
+      border-radius: 6px !important;
+    }
+    [data-testid="kudos_button"],
+    [data-testid="comment_button"],
+    [data-testid="share"] {
+      background-color: var(--nord2) !important;
+    }
+    [data-testid="filled_kudos"] {
+      color: var(--nt-accent) !important;
+    }
+
+    [data-testid="see_all_comments_btn"] {
+      color: var(--nt-link) !important;
+      background-color: transparent !important;
+    }
+
+    /* Group activities: the timeline linking the athletes is a ::before with a
+       hardcoded light border, and the "X ran with Y" title is a text button. */
+    [data-testid="web-feed-entry"] :is(li, div:not([class*="vjs"]))::before {
+      border-left-color: var(--nord3) !important;
+    }
+    [data-testid="web-feed-entry"] div > button[type="button"]:first-child:not([data-testid]):not([class*="vjs"]):not(:has(svg)) {
+      background-color: transparent !important;
+      border-color: transparent !important;
+      color: var(--nt-text-strong) !important;
+    }
+
+    /* Avatars and sport icons sit on the group timeline; Strava masks the line
+       with a white square behind them, so they get the card colour instead. */
+    [data-testid="web-feed-entry"] [data-testid="avatar"] > div,
+    [data-testid="web-feed-entry"] div:has(> [data-testid="activity_icon"]) {
+      background-color: var(--nt-surface) !important;
+    }
+    /* Round placeholder behind avatar images (visible when there is no photo) */
+    :is([data-testid$="avatar"]:not([data-testid="avatar"]), [data-testid="avatar-wrapper"]) > div,
+    [class*="Avatar_imgWrapper"] {
+      background-color: var(--nord3) !important;
+    }
+    .video-js {
+      background-color: #000 !important;
+    }
+
+    [data-testid="counts_wrapper"] button,
+    [data-testid="achievement_summary"] button,
+    [data-testid="achievement_container"] button,
+    [data-testid="achievement_count"] {
+      background-color: transparent !important;
+      border-color: transparent !important;
+    }
+
+    /* ---------- Global header ---------- */
+    #global-header a:not(.btn),
+    #global-header a:not(.btn):visited,
+    #global-header .nav-link {
+      color: var(--nt-text) !important;
+    }
+    #global-header .selected > .nav-link,
+    #global-header a:not(.btn):hover,
+    #global-header .nav-link:hover {
+      color: var(--nt-text-strong) !important;
+    }
+    #global-header :is(a, button):not(.btn):not([class*="primary" i]),
+    #global-header .accessible-nav-arrow,
+    #global-header .user-menu > a,
+    #global-header .btn-mobile-menu {
+      background-color: transparent !important;
+      border-color: transparent !important;
+    }
+    #global-header .drop-down-menu:hover,
+    #global-header .drop-down-menu.open {
+      background-color: var(--nt-surface-2) !important;
+    }
+    /* Header popovers (notifications, user menu) are absolutely positioned lists
+       labelled by their toggle button. */
+    #notifications-list,
+    #global-header :is(ul, div)[aria-labelledby] {
+      background-color: var(--nt-surface-2) !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
+    }
+    #notifications-list > li:hover {
+      background-color: var(--nord3) !important;
+    }
+    #notifications-list a {
+      color: var(--nt-text) !important;
+    }
+    #global-header .options,
+    #global-header .options ul {
+      background-color: var(--nt-surface-2) !important;
+    }
+    #global-header .options a {
+      color: var(--nt-text) !important;
+    }
+    #global-header .options li:hover,
+    #global-header .options li.selected {
+      background-color: var(--nord3) !important;
+    }
+    #global-header .subscription-callout {
+      color: var(--nt-muted) !important;
+    }
+
+    /* ---------- Dashboard sidebar: weekly streak ---------- */
+    [data-testid="athlete-streak"] div:has(> span) > :is(div, a):last-child {
+      background-color: var(--nord1) !important;
+      border: 1px solid var(--nord3) !important;
+      color: var(--nt-muted) !important;
+    }
+    /* A day with an activity is rendered as a link to it */
+    [data-testid="athlete-streak"] div:has(> span) > a:last-child {
+      background-color: var(--nt-accent) !important;
+      border-color: var(--nt-accent) !important;
+      color: var(--nord0) !important;
+    }
+    [data-testid="athlete-streak"] div:has(> span) > a:last-child svg {
+      color: var(--nord0) !important;
+      fill: var(--nord0) !important;
+    }
+    [data-testid="athlete-streak-label"] {
+      color: var(--nt-accent) !important;
+    }
+
+    /* ---------- Layers that must stay opaque ----------
+       The blanket "containers are transparent" rule also strips panels that Strava
+       positions on top of other content (absolute, sticky) and relies on an opaque
+       background to hide what is underneath. Each one found gets its colour back. */
+    #segment-effort-detail {
+      background-color: var(--nt-bg) !important;
+      border-left: 1px solid var(--nt-border) !important;
+    }
+    /* Segment effort summary: a line runs behind "This Effort" and is masked by it */
+    .effort-details .spans8::after {
+      border-bottom-color: var(--nt-border) !important;
+    }
+    .effort-details .spans8 > * {
+      background-color: var(--nt-bg) !important;
+    }
+    /* Sticky map + chart header on the React activity pages (best efforts, ...) */
+    div:has(> div > [data-testid="mre-map-container"]) {
+      background-color: var(--nt-bg) !important;
+    }
+    [class*="TrainingLog_sticky"] {
+      background-color: var(--nt-bg) !important;
+    }
+    /* Table headers are often sticky: keep them opaque, matching the surface below */
+    thead,
+    thead th {
+      background-color: var(--nt-bg) !important;
+    }
+    :is([data-testid="web-feed-entry"], .card, [class*="Card--card"], [class*="Card_card"], .panel) :is(thead, thead th) {
+      background-color: var(--nt-surface) !important;
+    }
+    :is([role="dialog"], .modal-content, .lightbox-window) :is(thead, thead th) {
+      background-color: var(--nt-surface-2) !important;
+    }
+    /* Popups and overlays drawn on top of maps */
+    [data-testid="mre-popup"] [class*="Popup_popup"],
+    [class*="Popup_popup"],
+    .mapboxgl-popup-content,
+    .maplibregl-popup-content {
+      background-color: var(--nt-surface-2) !important;
+      color: var(--nt-text) !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
+    }
+    .mapboxgl-popup-tip,
+    .maplibregl-popup-tip {
+      border-top-color: var(--nt-surface-2) !important;
+      border-bottom-color: var(--nt-surface-2) !important;
+    }
+    [class*="TerrainLayerFootnote"] {
+      background-color: rgba(46, 52, 64, 0.75) !important;
+    }
+    [class*="Badge_badge"] {
+      background-color: var(--nord3) !important;
+    }
+    [class*="MediaThumbnailList--count"] {
+      background-color: rgba(46, 52, 64, 0.65) !important;
+    }
+
+    /* ---------- Fills that carry data ----------
+       Small bars, dots and selected states coloured by class; the transparent
+       container rule would erase them. */
+    .day-wrapper .activity-indicator {
+      background-color: var(--nord3) !important;
+    }
+    .day-wrapper.highlighted .activity-indicator {
+      background-color: var(--nord4) !important;
+    }
+    ul.hour-breakdown li.sport {
+      background-color: var(--nord3) !important;
+    }
+    ul.hour-breakdown li.sport.running {
+      background-color: color-mix(in srgb, var(--nord14) 55%, transparent) !important;
+    }
+    ul.hour-breakdown li.sport.cycling {
+      background-color: color-mix(in srgb, var(--nord12) 55%, transparent) !important;
+    }
+    ul.hour-breakdown li.sport.swimming {
+      background-color: color-mix(in srgb, var(--nord10) 70%, transparent) !important;
+    }
+    .sport-breakdown {
+      background-color: var(--nord3) !important;
+      color: var(--nord6) !important;
+    }
+    :is(.button, .btn).selected,
+    :is(.button, .btn).active {
+      background-color: var(--nord3) !important;
+      color: var(--nt-text-strong) !important;
+    }
+    /* Unread notifications badge on the bell */
+    [data-testid="unread-ball"] {
+      background-color: var(--nord11) !important;
+      color: var(--nord6) !important;
+    }
+    /* Legacy ".button" links (club pages and older views) */
+    a.button {
+      background-color: var(--nord2) !important;
+      border-color: var(--nord3) !important;
+      color: var(--nt-text) !important;
+    }
+    a.button.alt {
+      background-color: var(--nt-accent) !important;
+      border-color: var(--nt-accent) !important;
+      color: var(--nord0) !important;
+    }
+    a.button.reverse {
+      background-color: var(--nord3) !important;
+      color: var(--nt-text-strong) !important;
+    }
+    .pagination li.active > :is(span, a),
+    ul li.active > span:only-child {
+      background-color: var(--nt-accent) !important;
+      color: var(--nord0) !important;
+    }
+    /* Segment leaderboard filters */
+    [class*="FilterOptions_filterListButton"] {
+      background-color: transparent !important;
+      border-color: transparent !important;
+    }
+    [class*="FilterOptions_filterListButton"]:hover {
+      background-color: var(--nord2) !important;
+    }
+    [class*="FilterOptions_filterListButton"][class*="FilterOptions_selected"] {
+      background-color: var(--nord3) !important;
+      color: var(--nt-text-strong) !important;
+    }
+    [class*="FilterOptions_sublistTitle"] {
+      background-color: var(--nord1) !important;
+      color: var(--nt-muted) !important;
+    }
+
+    /* ---------- Footer ---------- */
+    footer a,
+    footer a:visited {
+      color: var(--nt-text) !important;
+    }
+    footer a:hover {
+      color: var(--nt-link) !important;
+    }
+
+    /* ---------- Activity page (legacy Rails markup, stable class names) ---------- */
+    .activity-summary-container::before,
+    .opt-group::before {
+      border-color: var(--nt-border) !important;
+    }
+    .description-overflow::after {
+      background-image: none !important;
+    }
+    /* Map/chart toggles */
+    .toggle-button {
+      background-color: var(--nord3) !important;
+    }
+    .toggle-button.active {
+      background-color: var(--nord14) !important;
+    }
+    .toggle-button .label {
+      background-color: transparent !important;
+      color: var(--nt-text) !important;
+    }
+    .toggle-button.active .label {
+      color: var(--nord0) !important;
+    }
+    .toggle-button .btn {
+      background-color: var(--nord6) !important;
+    }
+
+    /* ---------- Charts (D3 on legacy pages, Recharts on React pages) ---------- */
+    svg .grid-line,
+    svg .recharts-cartesian-grid line {
+      stroke: var(--nord2) !important;
+    }
+    svg .axis path.domain,
+    svg .axis line,
+    svg .recharts-cartesian-axis-line,
+    svg .recharts-cartesian-axis-tick-line {
+      stroke: var(--nord3) !important;
+    }
+    svg .axis text,
+    svg .tick text,
+    svg .recharts-text,
+    svg .recharts-cartesian-axis-tick-value {
+      fill: var(--nt-muted) !important;
+    }
+    svg .area-chart-curr-fill,
+    svg [class*="elevation" i][class*="fill" i] {
+      fill: var(--nord4) !important;
+    }
+    svg .simple-line {
+      stroke: var(--nord8) !important;
+    }
+    svg line.crossbar {
+      stroke: var(--nord4) !important;
+    }
+    svg text.crossbar-text {
+      fill: var(--nord6) !important;
+    }
+    /* Strava's neutral greys as hardcoded SVG attributes (visx charts and friends) */
+    svg [stroke="#f2f2f0" i],
+    svg [stroke="#eeeeee" i],
+    svg [stroke="#eee" i] {
+      stroke: var(--nord2) !important;
+    }
+    svg [stroke="#e0e0de" i],
+    svg [stroke="#dfdfe8" i],
+    svg [stroke="#cccccc" i],
+    svg [stroke="#ccc" i],
+    svg .visx-axis-line,
+    svg .tick line,
+    svg [class*="Axis_axis"] :is(path, line) {
+      stroke: var(--nord3) !important;
+    }
+    svg .visx-axis text,
+    svg [class*="Axis_axis"] text {
+      fill: var(--nt-muted) !important;
+    }
+    .recharts-tooltip-wrapper .recharts-default-tooltip {
+      background-color: var(--nt-surface-2) !important;
+      border-color: var(--nord3) !important;
+    }
+
+    /* ---------- Brand and sport colours mapped to Nord Aurora ---------- */
+    svg [fill="#fc5200" i],
+    svg [fill="#fc4c02" i] {
+      fill: var(--nord12) !important;
+    }
+    svg [stroke="#fc5200" i],
+    svg [stroke="#fc4c02" i] {
+      stroke: var(--nord12) !important;
+    }
+    svg [fill="#70cf25" i] { fill: var(--nord14) !important; }  /* Run */
+    svg [fill="#0060d0" i] { fill: var(--nord10) !important; }  /* Swim */
+    svg [fill="#890f0f" i] { fill: var(--nord11) !important; }  /* Crossfit */
+    svg [fill="#fd9766" i] { fill: var(--nord13) !important; }  /* E-Bike Ride */
+
+    /* ---------- Training log ---------- */
+    svg[class*="Bubble_bubble"] text {
+      fill: var(--nord0) !important;
+      font-weight: 600 !important;
+    }
+
+    /* ---------- Segment page ---------- */
+    [class*="LeaderboardTable_viewingAthleteRow"] {
+      background-color: var(--nord2) !important;
+    }
+
+    /* ---------- Side menus (settings, activity page) ---------- */
+    #settings-menu a,
+    .sidenav a,
+    .pagenav a {
+      color: var(--nt-text) !important;
+    }
+    #settings-menu li.selected > a,
+    #settings-menu a:hover,
+    .pagenav li.selected > a,
+    .sidenav li.selected > a {
+      background-color: var(--nord2) !important;
+      color: var(--nt-text-strong) !important;
+    }
+  }
+}
