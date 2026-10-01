@@ -63,6 +63,15 @@ A Nord theme for [YouTube](https://www.youtube.com/): home, search, watch page, 
 - File: [`youtube-nord.user.css`](youtube-nord.user.css)
 - Install: [userstyles.world/style/27575](https://userstyles.world/style/27575) or open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/youtube-nord.user.css) with Stylus installed.
 
+## Moontower Nord
+
+A Nord theme for the [Moontower](https://www.moontowermoney.com/) blog and its [public Notion pages](https://notion.moontowermeta.com/). Both are public Notion sites, so the style redefines Notion's colour variables; Notion's light and dark themes both get the same dark Nord colours.
+
+- File: [`moontower-nord.user.css`](moontower-nord.user.css)
+- Install: [userstyles.world/style/17319](https://userstyles.world/style/17319) or open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/moontower-nord.user.css) with Stylus installed.
+
+Versions up to 20240721 were released under CC BY-SA 4.0. The 2026 rewrite is released under the MIT license.
+
 ## License
 
 [MIT](LICENSE).
