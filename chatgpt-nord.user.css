@@ -1,14 +1,144 @@
 /* ==UserStyle==
 @name         ChatGPT Nord
-@version      20261001.00.00
+@version      20261001.01.00
 @namespace    ?
-@description  Nord theme for ChatGPT, dark in both of its themes
+@description  Nord theme for ChatGPT, with a configurable palette
 @homepageURL  https://github.com/SignorBananone/userstyles
 @author       SignorBananone
 @license      MIT
+@preprocessor   less
+
+@var select apply "Apply the theme" {
+  "Always*": "always",
+  "Only when the browser or system is in dark mode": "dark",
+  "Only when the browser or system is in light mode": "light"
+}
+@var select palette "Palette" {
+  "Nord: Polar Night backgrounds*": "nord",
+  "Nord darker": "darker",
+  "Nord light: Snow Storm backgrounds": "light",
+  "Follow the browser: Nord when dark, Nord light when light": "auto",
+  "Custom: the colours below": "custom"
+}
+@var select custom_type "Custom palette type" {
+  "Dark: light text on dark backgrounds*": "dark",
+  "Light: dark text on light backgrounds": "light"
+}
+@var color nord0 "Custom nord0: Background" #2e3440
+@var color nord1 "Custom nord1: Surfaces: cards, sidebars, inputs" #3b4252
+@var color nord2 "Custom nord2: Raised surfaces: hover, selection" #434c5e
+@var color nord3 "Custom nord3: Borders and muted elements" #4c566a
+@var color nord4 "Custom nord4: Text" #d8dee9
+@var color nord5 "Custom nord5: Brighter text" #e5e9f0
+@var color nord6 "Custom nord6: Headings and brightest text" #eceff4
+@var color nord7 "Custom nord7: Frost teal" #8fbcbb
+@var color nord8 "Custom nord8: Main accent: links, highlights" #88c0d0
+@var color nord9 "Custom nord9: Frost blue" #81a1c1
+@var color nord10 "Custom nord10: Deep blue: buttons" #5e81ac
+@var color nord11 "Custom nord11: Red: errors" #bf616a
+@var color nord12 "Custom nord12: Orange" #d08770
+@var color nord13 "Custom nord13: Yellow: warnings" #ebcb8b
+@var color nord14 "Custom nord14: Green: success" #a3be8c
+@var color nord15 "Custom nord15: Purple" #b48ead
 ==/UserStyle== */
 
+/* ---------- Options ----------
+   Stylus compiles this file with Less. The options only set CSS variables:
+   every colour below is var(--nord0) ... var(--nord15), or a color-mix() of them,
+   so one palette recolours the whole style. --nord-deep and --nord-peak sit past
+   the background and text ends of the palette (black and white in a dark one),
+   and --nord-on-accent is the text colour for filled accent backgrounds.
+   --nordN-rgb, where present, holds the same colour as an "r, g, b" list for Bootstrap. */
+@nord-apply: if((@apply = dark), ~"(prefers-color-scheme: dark)", if((@apply = light), ~"(prefers-color-scheme: light)", ~"all"));
+.nord-preset(nord) {
+  --nord0: #2e3440;
+  --nord1: #3b4252;
+  --nord2: #434c5e;
+  --nord3: #4c566a;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  .nord-mode(dark);
+}
+.nord-preset(darker) {
+  --nord0: #242933;
+  --nord1: #2b303b;
+  --nord2: #353b49;
+  --nord3: #434c5e;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  .nord-mode(dark);
+}
+.nord-preset(light) {
+  --nord0: #eceff4;
+  --nord1: #e5e9f0;
+  --nord2: #d8dee9;
+  --nord3: #b4bcc9;
+  --nord4: #3b4252;
+  --nord5: #353b49;
+  --nord6: #2e3440;
+  --nord7: #497473;
+  --nord8: #3c7382;
+  --nord9: #516f8d;
+  --nord10: #4c6e98;
+  --nord11: #ab4f59;
+  --nord12: #9f5a45;
+  --nord13: #866828;
+  --nord14: #5b7344;
+  --nord15: #84607e;
+  .nord-mode(light);
+}
+.nord-preset(custom) {
+  --nord0: @nord0;
+  --nord1: @nord1;
+  --nord2: @nord2;
+  --nord3: @nord3;
+  --nord4: @nord4;
+  --nord5: @nord5;
+  --nord6: @nord6;
+  --nord7: @nord7;
+  --nord8: @nord8;
+  --nord9: @nord9;
+  --nord10: @nord10;
+  --nord11: @nord11;
+  --nord12: @nord12;
+  --nord13: @nord13;
+  --nord14: @nord14;
+  --nord15: @nord15;
+  .nord-mode(@custom_type);
+}
+.nord-preset(auto) {
+  .nord-preset(nord);
+  @media (prefers-color-scheme: light) { .nord-preset(light); }
+}
+.nord-mode(dark) { --nord-deep: #000; --nord-peak: #fff; --nord-scheme: dark; --nord-on-accent: var(--nord6); .nord-site(dark); }
+.nord-mode(light) { --nord-deep: #fff; --nord-peak: #000; --nord-scheme: light; --nord-on-accent: var(--nord0); .nord-site(light); }
+.nord-site(@mode) {}
+
+
 @-moz-document domain("chatgpt.com") {
+@media @nord-apply {
+:root { .nord-preset(@palette); }
+
 
 /* ------------------------------------------------------------------
    ChatGPT builds every colour from a few palettes (--gray-*, --blue-*,
@@ -24,7 +154,7 @@
     --lightningcss-light: ;
     --lightningcss-dark: initial;
     --theme-variant: dark;
-    color-scheme: dark;
+    color-scheme: var(--nord-scheme);
 }
 
 /* ------------------------------------------------------------------
@@ -34,304 +164,304 @@
    ------------------------------------------------------------------ */
 
 :root, [data-theme] {
-    --alpha-base: #9aa9d6;
-    --blue-100: #88c0d0;
-    --blue-1000: #384355;
-    --blue-200: #81a1c1;
-    --blue-25: #eaedf3;
-    --blue-300: #81a1c1;
-    --blue-400: #5e81ac;
-    --blue-50: #bad8e2;
-    --blue-500: #5e81ac;
-    --blue-600: #5e81ac;
-    --blue-700: #41526a;
-    --blue-75: #bad8e2;
-    --blue-800: #3f4f66;
-    --blue-900: #3c4b61;
-    --blue-950: #384356;
-    --brand-blue-300: #88c0d0;
-    --brand-blue-400: #81a1c1;
-    --brand-cyan-400: #5e81ac;
-    --brand-cyan-500: #5e81ac;
-    --brand-gray-300: #b2bbcb;
-    --brand-gray-500: #6a7791;
-    --brand-green-400: #8fbcbb;
-    --brand-green-500: #8fbcbb;
-    --brand-lime-400: #ebcb8b;
-    --brand-lime-500: #a3be8c;
-    --brand-magenta-400: #b48ead;
-    --brand-magenta-500: #b48ead;
-    --brand-orange-400: #bf616a;
-    --brand-orange-500: #bf616a;
-    --brand-pink-400: #b48ead;
-    --brand-pink-500: #b48ead;
-    --brand-purple-400: #b48ead;
-    --brand-purple-500: #b48ead;
-    --brand-red-400: #bf616a;
-    --brand-red-500: #bf616a;
-    --brand-slate-400: #81a1c1;
-    --brand-slate-500: #81a1c1;
-    --brand-yellow-400: #d08770;
-    --brand-yellow-500: #d08770;
+    --alpha-base: color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak));
+    --blue-100: var(--nord8);
+    --blue-1000: color-mix(in srgb, var(--nord10) 19.6%, var(--nord0));
+    --blue-200: var(--nord9);
+    --blue-25: color-mix(in srgb, var(--nord5) 29.7%, var(--nord6));
+    --blue-300: var(--nord9);
+    --blue-400: var(--nord10);
+    --blue-50: color-mix(in srgb, var(--nord8) 49.8%, var(--nord6));
+    --blue-500: var(--nord10);
+    --blue-600: var(--nord10);
+    --blue-700: color-mix(in srgb, var(--nord10) 39%, var(--nord0));
+    --blue-75: color-mix(in srgb, var(--nord8) 49.8%, var(--nord6));
+    --blue-800: color-mix(in srgb, var(--nord10) 35.2%, var(--nord0));
+    --blue-900: color-mix(in srgb, var(--nord10) 30.2%, var(--nord0));
+    --blue-950: color-mix(in srgb, var(--nord10) 20.2%, var(--nord0));
+    --brand-blue-300: var(--nord8);
+    --brand-blue-400: var(--nord9);
+    --brand-cyan-400: var(--nord10);
+    --brand-cyan-500: var(--nord10);
+    --brand-gray-300: color-mix(in srgb, color-mix(in srgb, var(--nord3) 21.3%, var(--nord4)) 91%, var(--nord10));
+    --brand-gray-500: color-mix(in srgb, color-mix(in srgb, var(--nord3) 76.6%, var(--nord4)) 76.4%, var(--nord10));
+    --brand-green-400: var(--nord7);
+    --brand-green-500: var(--nord7);
+    --brand-lime-400: var(--nord13);
+    --brand-lime-500: var(--nord14);
+    --brand-magenta-400: var(--nord15);
+    --brand-magenta-500: var(--nord15);
+    --brand-orange-400: var(--nord11);
+    --brand-orange-500: var(--nord11);
+    --brand-pink-400: var(--nord15);
+    --brand-pink-500: var(--nord15);
+    --brand-purple-400: var(--nord15);
+    --brand-purple-500: var(--nord15);
+    --brand-red-400: var(--nord11);
+    --brand-red-500: var(--nord11);
+    --brand-slate-400: var(--nord9);
+    --brand-slate-500: var(--nord9);
+    --brand-yellow-400: var(--nord12);
+    --brand-yellow-500: var(--nord12);
     --button-surface-border-color: #0000000a;
-    --color-amber-100: #ecddc0;
-    --color-amber-900: #6f5553;
-    --color-avatar-blue: #5e81ac;
-    --color-avatar-green: #a3be8c;
-    --color-avatar-orange: #d08770;
-    --color-avatar-purple: #b48ead;
-    --color-avatar-yellow: #ebcb8b;
-    --color-chat-accent-blue: #81a1c1;
-    --color-chat-accent-cyan: #5e81ac;
-    --color-chat-accent-green: #8fbcbb;
-    --color-chat-accent-lime: #a3be8c;
-    --color-chat-accent-magenta: #b48ead;
-    --color-chat-accent-orange: #d08770;
-    --color-chat-accent-pink: #b48ead;
-    --color-chat-accent-purple: #b48ead;
-    --color-chat-accent-red: #bf616a;
-    --color-chat-accent-slate: #81a1c1;
-    --color-chat-accent-yellow: #d08770;
-    --color-codex-syntax-attribute: #ebcb8b;
-    --color-codex-syntax-keyword: #b48ead;
-    --color-codex-syntax-literal: #d08770;
-    --color-codex-syntax-name: #81a1c1;
-    --color-codex-syntax-string: #a3be8c;
-    --color-codex-syntax-variable: #b48ead;
+    --color-amber-100: color-mix(in srgb, var(--nord13) 49.6%, var(--nord6));
+    --color-amber-900: color-mix(in srgb, var(--nord12) 40%, var(--nord0));
+    --color-avatar-blue: var(--nord10);
+    --color-avatar-green: var(--nord14);
+    --color-avatar-orange: var(--nord12);
+    --color-avatar-purple: var(--nord15);
+    --color-avatar-yellow: var(--nord13);
+    --color-chat-accent-blue: var(--nord9);
+    --color-chat-accent-cyan: var(--nord10);
+    --color-chat-accent-green: var(--nord7);
+    --color-chat-accent-lime: var(--nord14);
+    --color-chat-accent-magenta: var(--nord15);
+    --color-chat-accent-orange: var(--nord12);
+    --color-chat-accent-pink: var(--nord15);
+    --color-chat-accent-purple: var(--nord15);
+    --color-chat-accent-red: var(--nord11);
+    --color-chat-accent-slate: var(--nord9);
+    --color-chat-accent-yellow: var(--nord12);
+    --color-codex-syntax-attribute: var(--nord13);
+    --color-codex-syntax-keyword: var(--nord15);
+    --color-codex-syntax-literal: var(--nord12);
+    --color-codex-syntax-name: var(--nord9);
+    --color-codex-syntax-string: var(--nord14);
+    --color-codex-syntax-variable: var(--nord15);
     --color-dialog-overlay: #00000022;
-    --color-slate-100: #e8ecf2;
-    --color-slate-600: #5e81ac;
-    --color-slate-700: #42546d;
-    --color-slate-950: #384356;
-    --color-text-chat-accent-blue: #88c0d0;
-    --color-text-chat-accent-cyan: #88c0d0;
-    --color-text-chat-accent-green: #8fbcbb;
-    --color-text-chat-accent-lime: #a3be8c;
-    --color-text-chat-accent-magenta: #d0bed0;
-    --color-text-chat-accent-orange: #bf616a;
-    --color-text-chat-accent-pink: #b48ead;
-    --color-text-chat-accent-purple: #b48ead;
-    --color-text-chat-accent-slate: #88c0d0;
-    --color-text-chat-accent-yellow: #d08770;
-    --color-text-on-chat-accent-lime: #2e3440;
-    --color-text-on-chat-accent-yellow: #2e3440;
-    --gray-0: #2e3440;
-    --gray-100: #363c4b;
-    --gray-1000: #eceff4;
-    --gray-150: #3b4252;
-    --gray-200: #3e4657;
-    --gray-25: #2e3440;
-    --gray-250: #424b5d;
-    --gray-300: #475164;
-    --gray-350: #4d576b;
-    --gray-400: #545f76;
-    --gray-450: #616e88;
-    --gray-50: #2f3642;
-    --gray-500: #6a7791;
-    --gray-550: #7c89a2;
-    --gray-600: #949fb4;
-    --gray-650: #a4aec0;
-    --gray-700: #b2bbcb;
-    --gray-75: #333a47;
-    --gray-750: #bbc3d2;
-    --gray-800: #d8dee9;
-    --gray-850: #dee3ec;
-    --gray-900: #e5e9f0;
-    --gray-925: #e7ebf1;
-    --gray-950: #e7ebf1;
-    --gray-975: #eaedf3;
-    --gray-fixed-0: #eceff4;
-    --gray-fixed-100: #e5e9f0;
-    --gray-fixed-1000: #2e3440;
-    --gray-fixed-150: #dfe4ed;
-    --gray-fixed-200: #d8dee9;
-    --gray-fixed-25: #ebeef3;
-    --gray-fixed-250: #bbc3d2;
-    --gray-fixed-300: #b2bbcb;
-    --gray-fixed-350: #a4aec0;
-    --gray-fixed-400: #949fb4;
-    --gray-fixed-450: #7c89a2;
-    --gray-fixed-50: #eaedf3;
-    --gray-fixed-500: #6a7791;
-    --gray-fixed-550: #616e88;
-    --gray-fixed-600: #545f76;
-    --gray-fixed-650: #4d576b;
-    --gray-fixed-700: #475164;
-    --gray-fixed-75: #e7ebf1;
-    --gray-fixed-750: #424b5d;
-    --gray-fixed-800: #3e4657;
-    --gray-fixed-850: #3b4252;
-    --gray-fixed-900: #363c4b;
-    --gray-fixed-925: #333a47;
-    --gray-fixed-950: #2f3642;
-    --gray-fixed-975: #2e3440;
-    --green-100: #a3be8c;
-    --green-1000: #2e3440;
-    --green-200: #a3be8c;
-    --green-25: #e7ebf1;
-    --green-300: #a3be8c;
-    --green-400: #a3be8c;
-    --green-50: #c8d6c0;
-    --green-500: #a3be8c;
-    --green-600: #5e6d5f;
-    --green-700: #58655b;
-    --green-75: #a3be8c;
-    --green-800: #525e57;
-    --green-900: #4c5854;
-    --green-950: #465150;
+    --color-slate-100: color-mix(in srgb, var(--nord5) 53.5%, var(--nord6));
+    --color-slate-600: var(--nord10);
+    --color-slate-700: color-mix(in srgb, var(--nord10) 41.6%, var(--nord0));
+    --color-slate-950: color-mix(in srgb, var(--nord10) 20.2%, var(--nord0));
+    --color-text-chat-accent-blue: var(--nord8);
+    --color-text-chat-accent-cyan: var(--nord8);
+    --color-text-chat-accent-green: var(--nord7);
+    --color-text-chat-accent-lime: var(--nord14);
+    --color-text-chat-accent-magenta: color-mix(in srgb, var(--nord15) 50.5%, var(--nord6));
+    --color-text-chat-accent-orange: var(--nord11);
+    --color-text-chat-accent-pink: var(--nord15);
+    --color-text-chat-accent-purple: var(--nord15);
+    --color-text-chat-accent-slate: var(--nord8);
+    --color-text-chat-accent-yellow: var(--nord12);
+    --color-text-on-chat-accent-lime: var(--nord0);
+    --color-text-on-chat-accent-yellow: var(--nord0);
+    --gray-0: var(--nord0);
+    --gray-100: color-mix(in srgb, var(--nord0) 39.9%, var(--nord1));
+    --gray-1000: var(--nord6);
+    --gray-150: var(--nord1);
+    --gray-200: color-mix(in srgb, var(--nord1) 59.7%, var(--nord2));
+    --gray-25: var(--nord0);
+    --gray-250: var(--nord2);
+    --gray-300: color-mix(in srgb, var(--nord2) 51.4%, var(--nord3));
+    --gray-350: var(--nord3);
+    --gray-400: color-mix(in srgb, var(--nord9) 13.4%, var(--nord3));
+    --gray-450: color-mix(in srgb, color-mix(in srgb, var(--nord3) 85%, var(--nord4)) 78.1%, var(--nord10));
+    --gray-50: color-mix(in srgb, var(--nord0) 88.8%, var(--nord1));
+    --gray-500: color-mix(in srgb, color-mix(in srgb, var(--nord3) 76.6%, var(--nord4)) 76.4%, var(--nord10));
+    --gray-550: color-mix(in srgb, color-mix(in srgb, var(--nord3) 59.2%, var(--nord4)) 75.1%, var(--nord10));
+    --gray-600: color-mix(in srgb, color-mix(in srgb, var(--nord3) 40.9%, var(--nord4)) 82.6%, var(--nord10));
+    --gray-650: color-mix(in srgb, color-mix(in srgb, var(--nord3) 30.3%, var(--nord4)) 87.6%, var(--nord10));
+    --gray-700: color-mix(in srgb, color-mix(in srgb, var(--nord3) 21.3%, var(--nord4)) 91%, var(--nord10));
+    --gray-75: color-mix(in srgb, var(--nord0) 60.1%, var(--nord1));
+    --gray-750: color-mix(in srgb, var(--nord3) 19.6%, var(--nord4));
+    --gray-800: var(--nord4);
+    --gray-850: color-mix(in srgb, var(--nord4) 54.6%, var(--nord5));
+    --gray-900: var(--nord5);
+    --gray-925: color-mix(in srgb, var(--nord5) 70.3%, var(--nord6));
+    --gray-950: color-mix(in srgb, var(--nord5) 70.3%, var(--nord6));
+    --gray-975: color-mix(in srgb, var(--nord5) 29.7%, var(--nord6));
+    --gray-fixed-0: var(--nord6);
+    --gray-fixed-100: var(--nord5);
+    --gray-fixed-1000: var(--nord0);
+    --gray-fixed-150: color-mix(in srgb, var(--nord4) 45.4%, var(--nord5));
+    --gray-fixed-200: var(--nord4);
+    --gray-fixed-25: var(--nord6);
+    --gray-fixed-250: color-mix(in srgb, var(--nord3) 19.6%, var(--nord4));
+    --gray-fixed-300: color-mix(in srgb, color-mix(in srgb, var(--nord3) 21.3%, var(--nord4)) 91%, var(--nord10));
+    --gray-fixed-350: color-mix(in srgb, color-mix(in srgb, var(--nord3) 30.3%, var(--nord4)) 87.6%, var(--nord10));
+    --gray-fixed-400: color-mix(in srgb, color-mix(in srgb, var(--nord3) 40.9%, var(--nord4)) 82.6%, var(--nord10));
+    --gray-fixed-450: color-mix(in srgb, color-mix(in srgb, var(--nord3) 59.2%, var(--nord4)) 75.1%, var(--nord10));
+    --gray-fixed-50: color-mix(in srgb, var(--nord5) 29.7%, var(--nord6));
+    --gray-fixed-500: color-mix(in srgb, color-mix(in srgb, var(--nord3) 76.6%, var(--nord4)) 76.4%, var(--nord10));
+    --gray-fixed-550: color-mix(in srgb, color-mix(in srgb, var(--nord3) 85%, var(--nord4)) 78.1%, var(--nord10));
+    --gray-fixed-600: color-mix(in srgb, var(--nord9) 13.4%, var(--nord3));
+    --gray-fixed-650: var(--nord3);
+    --gray-fixed-700: color-mix(in srgb, var(--nord2) 51.4%, var(--nord3));
+    --gray-fixed-75: color-mix(in srgb, var(--nord5) 70.3%, var(--nord6));
+    --gray-fixed-750: var(--nord2);
+    --gray-fixed-800: color-mix(in srgb, var(--nord1) 59.7%, var(--nord2));
+    --gray-fixed-850: var(--nord1);
+    --gray-fixed-900: color-mix(in srgb, var(--nord0) 39.9%, var(--nord1));
+    --gray-fixed-925: color-mix(in srgb, var(--nord0) 60.1%, var(--nord1));
+    --gray-fixed-950: color-mix(in srgb, var(--nord0) 88.8%, var(--nord1));
+    --gray-fixed-975: var(--nord0);
+    --green-100: var(--nord14);
+    --green-1000: var(--nord0);
+    --green-200: var(--nord14);
+    --green-25: color-mix(in srgb, var(--nord5) 70.3%, var(--nord6));
+    --green-300: var(--nord14);
+    --green-400: var(--nord14);
+    --green-50: color-mix(in srgb, var(--nord14) 49.9%, var(--nord6));
+    --green-500: var(--nord14);
+    --green-600: color-mix(in srgb, var(--nord14) 41.1%, var(--nord0));
+    --green-700: color-mix(in srgb, var(--nord14) 35.6%, var(--nord0));
+    --green-75: var(--nord14);
+    --green-800: color-mix(in srgb, var(--nord14) 30.5%, var(--nord0));
+    --green-900: color-mix(in srgb, var(--nord14) 26%, var(--nord0));
+    --green-950: color-mix(in srgb, var(--nord14) 20.8%, var(--nord0));
     --modal-backdrop-background: #00000080;
     --modal-backdrop-fade-background: #00000080;
-    --orange-100: #d08770;
-    --orange-1000: #53474b;
-    --orange-200: #d08770;
-    --orange-25: #e9ecf2;
-    --orange-300: #d08770;
-    --orange-400: #d08770;
-    --orange-50: #debbb2;
-    --orange-500: #d08770;
-    --orange-600: #d08770;
-    --orange-700: #d08770;
-    --orange-75: #d08770;
-    --orange-800: #6e5553;
-    --orange-900: #604d4f;
-    --orange-950: #55484b;
-    --pink-100: #b48ead;
-    --pink-1000: #2e3440;
-    --pink-200: #b48ead;
-    --pink-25: #eaedf3;
-    --pink-300: #b48ead;
-    --pink-400: #b48ead;
-    --pink-50: #d0bed0;
-    --pink-500: #b48ead;
-    --pink-600: #b48ead;
-    --pink-700: #b48ead;
-    --pink-75: #d0bed0;
-    --pink-800: #b48ead;
-    --pink-900: #5e5567;
-    --pink-950: #514c5d;
-    --purple-100: #b48ead;
-    --purple-1000: #2e3440;
-    --purple-200: #b48ead;
-    --purple-25: #eaedf3;
-    --purple-300: #b48ead;
-    --purple-400: #b48ead;
-    --purple-50: #d0bed0;
-    --purple-500: #b48ead;
-    --purple-600: #b48ead;
-    --purple-700: #b48ead;
-    --purple-75: #d0bed0;
-    --purple-800: #675a6e;
-    --purple-900: #5c5365;
-    --purple-950: #4f4a5b;
-    --red-100: #bf616a;
-    --red-1000: #4f3e4a;
-    --red-200: #bf616a;
-    --red-25: #e9ecf2;
-    --red-300: #bf616a;
-    --red-400: #bf616a;
-    --red-50: #d6a8af;
-    --red-500: #bf616a;
-    --red-600: #bf616a;
-    --red-700: #bf616a;
-    --red-75: #d6a8af;
-    --red-800: #694651;
-    --red-900: #5e434e;
-    --red-950: #523f4a;
-    --shadow-hairline-color: #9aa9d61f;
-    --white: #eceff4;
-    --yellow-100: #ebcb8b;
-    --yellow-1000: #54524f;
-    --yellow-200: #ebcb8b;
-    --yellow-25: #e8ecf2;
-    --yellow-300: #ebcb8b;
-    --yellow-400: #ebcb8b;
-    --yellow-50: #ecddc0;
-    --yellow-500: #ebcb8b;
-    --yellow-600: #ebcb8b;
-    --yellow-700: #807661;
-    --yellow-75: #ebcb8b;
-    --yellow-800: #736b5b;
-    --yellow-900: #676157;
-    --yellow-950: #585651;
+    --orange-100: var(--nord12);
+    --orange-1000: color-mix(in srgb, var(--nord12) 22.9%, var(--nord0));
+    --orange-200: var(--nord12);
+    --orange-25: color-mix(in srgb, var(--nord5) 46.5%, var(--nord6));
+    --orange-300: var(--nord12);
+    --orange-400: var(--nord12);
+    --orange-50: color-mix(in srgb, var(--nord12) 50%, var(--nord6));
+    --orange-500: var(--nord12);
+    --orange-600: var(--nord12);
+    --orange-700: var(--nord12);
+    --orange-75: var(--nord12);
+    --orange-800: color-mix(in srgb, var(--nord12) 39.6%, var(--nord0));
+    --orange-900: color-mix(in srgb, var(--nord12) 30.7%, var(--nord0));
+    --orange-950: color-mix(in srgb, var(--nord12) 24%, var(--nord0));
+    --pink-100: var(--nord15);
+    --pink-1000: var(--nord0);
+    --pink-200: var(--nord15);
+    --pink-25: color-mix(in srgb, var(--nord5) 29.7%, var(--nord6));
+    --pink-300: var(--nord15);
+    --pink-400: var(--nord15);
+    --pink-50: color-mix(in srgb, var(--nord15) 50.5%, var(--nord6));
+    --pink-500: var(--nord15);
+    --pink-600: var(--nord15);
+    --pink-700: var(--nord15);
+    --pink-75: color-mix(in srgb, var(--nord15) 50.5%, var(--nord6));
+    --pink-800: var(--nord15);
+    --pink-900: color-mix(in srgb, var(--nord15) 36%, var(--nord0));
+    --pink-950: color-mix(in srgb, var(--nord15) 26.4%, var(--nord0));
+    --purple-100: var(--nord15);
+    --purple-1000: var(--nord0);
+    --purple-200: var(--nord15);
+    --purple-25: color-mix(in srgb, var(--nord5) 29.7%, var(--nord6));
+    --purple-300: var(--nord15);
+    --purple-400: var(--nord15);
+    --purple-50: color-mix(in srgb, var(--nord15) 50.5%, var(--nord6));
+    --purple-500: var(--nord15);
+    --purple-600: var(--nord15);
+    --purple-700: var(--nord15);
+    --purple-75: color-mix(in srgb, var(--nord15) 50.5%, var(--nord6));
+    --purple-800: color-mix(in srgb, var(--nord15) 42.4%, var(--nord0));
+    --purple-900: color-mix(in srgb, var(--nord15) 34.2%, var(--nord0));
+    --purple-950: color-mix(in srgb, var(--nord15) 24.6%, var(--nord0));
+    --red-100: var(--nord11);
+    --red-1000: color-mix(in srgb, var(--nord11) 22.8%, var(--nord0));
+    --red-200: var(--nord11);
+    --red-25: color-mix(in srgb, var(--nord5) 46.5%, var(--nord6));
+    --red-300: var(--nord11);
+    --red-400: var(--nord11);
+    --red-50: color-mix(in srgb, var(--nord11) 49.9%, var(--nord6));
+    --red-500: var(--nord11);
+    --red-600: var(--nord11);
+    --red-700: var(--nord11);
+    --red-75: color-mix(in srgb, var(--nord11) 49.9%, var(--nord6));
+    --red-800: color-mix(in srgb, var(--nord11) 40.6%, var(--nord0));
+    --red-900: color-mix(in srgb, var(--nord11) 33.1%, var(--nord0));
+    --red-950: color-mix(in srgb, var(--nord11) 24.7%, var(--nord0));
+    --shadow-hairline-color: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 12.2%, transparent);
+    --white: var(--nord6);
+    --yellow-100: var(--nord13);
+    --yellow-1000: color-mix(in srgb, var(--nord13) 20%, var(--nord0));
+    --yellow-200: var(--nord13);
+    --yellow-25: color-mix(in srgb, var(--nord5) 53.5%, var(--nord6));
+    --yellow-300: var(--nord13);
+    --yellow-400: var(--nord13);
+    --yellow-50: color-mix(in srgb, var(--nord13) 49.6%, var(--nord6));
+    --yellow-500: var(--nord13);
+    --yellow-600: var(--nord13);
+    --yellow-700: color-mix(in srgb, var(--nord13) 43.6%, var(--nord0));
+    --yellow-75: var(--nord13);
+    --yellow-800: color-mix(in srgb, var(--nord13) 36.4%, var(--nord0));
+    --yellow-900: color-mix(in srgb, var(--nord13) 30.1%, var(--nord0));
+    --yellow-950: color-mix(in srgb, var(--nord13) 22.4%, var(--nord0));
 }
 
 :root.chatgpt-theme, .chatgpt-theme [data-theme] {
-    --app-color-accent-blue: #81a1c1;
-    --app-color-accent-purple: #b48ead;
-    --app-color-ads-background-secondary: #475164;
-    --app-color-ads-background-secondary-press: #9aa9d60d;
-    --app-color-ads-border-medium: #9aa9d626;
-    --app-color-ads-text-primary: #eceff4;
-    --app-color-background-accent: #405169;
-    --app-color-background-accent-active: #405169;
-    --app-color-background-accent-hover: #405169;
-    --app-color-background-application-menu: #3a4150;
-    --app-color-background-button-primary: #e5e9f0;
-    --app-color-background-button-primary-active: #eceff4e5;
-    --app-color-background-button-primary-hover: #eceff4cc;
-    --app-color-background-button-primary-inactive: #e5e9f0;
-    --app-color-background-button-secondary: #475164;
-    --app-color-background-button-secondary-active: #9aa9d60d;
-    --app-color-background-button-secondary-hover: #9aa9d61a;
-    --app-color-background-button-tertiary-active: #9aa9d60d;
-    --app-color-background-button-tertiary-hover: #9aa9d61a;
-    --app-color-background-card: #3e4657;
-    --app-color-background-control: #475164;
-    --app-color-background-editor-opaque: #3e4657;
-    --app-color-background-elevated-primary: #3a4150;
-    --app-color-background-elevated-primary-opaque: #3a4150;
-    --app-color-background-elevated-secondary: #475164;
-    --app-color-background-elevated-secondary-opaque: #475164;
-    --app-color-background-surface: #2e3440;
-    --app-color-background-surface-under: #2e3440;
-    --app-color-border: #9aa9d626;
-    --app-color-border-application-menu-separator: #9aa9d626;
-    --app-color-border-focus: #81a1c1;
-    --app-color-border-heavy: #9aa9d633;
-    --app-color-border-light: #9aa9d60d;
-    --app-color-decoration-added: #a3be8c;
-    --app-color-decoration-deleted: #bf616a;
-    --app-color-editor-added: #a3be8c3b;
-    --app-color-editor-deleted: #bf616a3b;
-    --app-color-foreground-application-menu: #e5e9f0;
-    --app-color-icon-accent: #88c0d0;
-    --app-color-icon-primary: #e5e9f0;
-    --app-color-icon-secondary: #d8dee9;
-    --app-color-icon-tertiary: #b2bbcb;
+    --app-color-accent-blue: var(--nord9);
+    --app-color-accent-purple: var(--nord15);
+    --app-color-ads-background-secondary: color-mix(in srgb, var(--nord2) 51.4%, var(--nord3));
+    --app-color-ads-background-secondary-press: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 5.1%, transparent);
+    --app-color-ads-border-medium: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 14.9%, transparent);
+    --app-color-ads-text-primary: var(--nord6);
+    --app-color-background-accent: color-mix(in srgb, var(--nord10) 37.8%, var(--nord0));
+    --app-color-background-accent-active: color-mix(in srgb, var(--nord10) 37.8%, var(--nord0));
+    --app-color-background-accent-hover: color-mix(in srgb, var(--nord10) 37.8%, var(--nord0));
+    --app-color-background-application-menu: color-mix(in srgb, var(--nord0) 9.1%, var(--nord1));
+    --app-color-background-button-primary: var(--nord5);
+    --app-color-background-button-primary-active: color-mix(in srgb, var(--nord6) 89.8%, transparent);
+    --app-color-background-button-primary-hover: color-mix(in srgb, var(--nord6) 80%, transparent);
+    --app-color-background-button-primary-inactive: var(--nord5);
+    --app-color-background-button-secondary: color-mix(in srgb, var(--nord2) 51.4%, var(--nord3));
+    --app-color-background-button-secondary-active: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 5.1%, transparent);
+    --app-color-background-button-secondary-hover: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 10.2%, transparent);
+    --app-color-background-button-tertiary-active: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 5.1%, transparent);
+    --app-color-background-button-tertiary-hover: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 10.2%, transparent);
+    --app-color-background-card: color-mix(in srgb, var(--nord1) 59.7%, var(--nord2));
+    --app-color-background-control: color-mix(in srgb, var(--nord2) 51.4%, var(--nord3));
+    --app-color-background-editor-opaque: color-mix(in srgb, var(--nord1) 59.7%, var(--nord2));
+    --app-color-background-elevated-primary: color-mix(in srgb, var(--nord0) 9.1%, var(--nord1));
+    --app-color-background-elevated-primary-opaque: color-mix(in srgb, var(--nord0) 9.1%, var(--nord1));
+    --app-color-background-elevated-secondary: color-mix(in srgb, var(--nord2) 51.4%, var(--nord3));
+    --app-color-background-elevated-secondary-opaque: color-mix(in srgb, var(--nord2) 51.4%, var(--nord3));
+    --app-color-background-surface: var(--nord0);
+    --app-color-background-surface-under: var(--nord0);
+    --app-color-border: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 14.9%, transparent);
+    --app-color-border-application-menu-separator: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 14.9%, transparent);
+    --app-color-border-focus: var(--nord9);
+    --app-color-border-heavy: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 20%, transparent);
+    --app-color-border-light: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 5.1%, transparent);
+    --app-color-decoration-added: var(--nord14);
+    --app-color-decoration-deleted: var(--nord11);
+    --app-color-editor-added: color-mix(in srgb, var(--nord14) 23.1%, transparent);
+    --app-color-editor-deleted: color-mix(in srgb, var(--nord11) 23.1%, transparent);
+    --app-color-foreground-application-menu: var(--nord5);
+    --app-color-icon-accent: var(--nord8);
+    --app-color-icon-primary: var(--nord5);
+    --app-color-icon-secondary: var(--nord4);
+    --app-color-icon-tertiary: color-mix(in srgb, color-mix(in srgb, var(--nord3) 21.3%, var(--nord4)) 91%, var(--nord10));
     --app-color-simple-scrim: #00000080;
-    --app-color-text-accent: #88c0d0;
-    --app-color-text-button-primary: #2e3440;
-    --app-color-text-button-secondary: #e5e9f0;
-    --app-color-text-button-tertiary: #b2bbcb;
-    --app-color-text-foreground: #e5e9f0;
-    --app-color-text-foreground-secondary: #d8dee9;
-    --app-color-text-foreground-tertiary: #b2bbcb;
-    --app-color-text-on-accent: #eceff4;
-    --app-color-text-primary-solid: #2e3440;
-    --app-color-text-secondary: #d8dee9;
-    --codex-base-accent: #81a1c1;
-    --codex-base-ink: #e5e9f0;
-    --codex-base-surface: #2e3440;
-    --color-background-attribution-highlight: #725754;
-    --color-background-button-outline-hover: #475063;
-    --color-background-callout-surface: #545f76;
-    --color-background-composer-action-bar: #475164;
-    --color-background-composer-primary: #3b4252;
-    --color-background-control-opaque: #475164;
-    --color-background-mode-toggle-selected: #3a4150;
-    --color-background-mode-toggle-track: #2f3642;
-    --color-background-panel: #2e3440;
-    --color-background-text-selection: #81a1c166;
-    --color-background-user-message: #434c5e;
-    --color-border-button-outline: #9aa9d626;
-    --color-image-generation-accent: #81a1c1;
-    --color-text-button-outline: #eceff4;
-    --color-text-composer-primary: #eceff4;
-    --color-text-composer-reference: #81a1c1;
-    --color-text-mode-toggle-accent: #81a1c1;
-    --color-text-mode-toggle-inactive: #d8dee9;
-    --color-text-mode-toggle-primary: #eceff4;
-    --color-text-user-message: #eceff4;
+    --app-color-text-accent: var(--nord8);
+    --app-color-text-button-primary: var(--nord0);
+    --app-color-text-button-secondary: var(--nord5);
+    --app-color-text-button-tertiary: color-mix(in srgb, color-mix(in srgb, var(--nord3) 21.3%, var(--nord4)) 91%, var(--nord10));
+    --app-color-text-foreground: var(--nord5);
+    --app-color-text-foreground-secondary: var(--nord4);
+    --app-color-text-foreground-tertiary: color-mix(in srgb, color-mix(in srgb, var(--nord3) 21.3%, var(--nord4)) 91%, var(--nord10));
+    --app-color-text-on-accent: var(--nord6);
+    --app-color-text-primary-solid: var(--nord0);
+    --app-color-text-secondary: var(--nord4);
+    --codex-base-accent: var(--nord9);
+    --codex-base-ink: var(--nord5);
+    --codex-base-surface: var(--nord0);
+    --color-background-attribution-highlight: color-mix(in srgb, var(--nord12) 42%, var(--nord0));
+    --color-background-button-outline-hover: color-mix(in srgb, var(--nord2) 58.2%, var(--nord3));
+    --color-background-callout-surface: color-mix(in srgb, var(--nord9) 13.4%, var(--nord3));
+    --color-background-composer-action-bar: color-mix(in srgb, var(--nord2) 51.4%, var(--nord3));
+    --color-background-composer-primary: var(--nord1);
+    --color-background-control-opaque: color-mix(in srgb, var(--nord2) 51.4%, var(--nord3));
+    --color-background-mode-toggle-selected: color-mix(in srgb, var(--nord0) 9.1%, var(--nord1));
+    --color-background-mode-toggle-track: color-mix(in srgb, var(--nord0) 88.8%, var(--nord1));
+    --color-background-panel: var(--nord0);
+    --color-background-text-selection: color-mix(in srgb, var(--nord9) 40%, transparent);
+    --color-background-user-message: var(--nord2);
+    --color-border-button-outline: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 14.9%, transparent);
+    --color-image-generation-accent: var(--nord9);
+    --color-text-button-outline: var(--nord6);
+    --color-text-composer-primary: var(--nord6);
+    --color-text-composer-reference: var(--nord9);
+    --color-text-mode-toggle-accent: var(--nord9);
+    --color-text-mode-toggle-inactive: var(--nord4);
+    --color-text-mode-toggle-primary: var(--nord6);
+    --color-text-user-message: var(--nord6);
 }
-
+}
 }

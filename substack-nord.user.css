@@ -1,14 +1,208 @@
 /* ==UserStyle==
 @name         substack nord
-@version      20261001.00.00
+@version      20261001.01.00
 @namespace    ?
 @description  Nord theme for Substack, including each publication's own colour theme
 @homepageURL  https://github.com/SignorBananone/userstyles
 @author       SignorBananone
 @license      MIT
+@preprocessor   less
+
+@var select apply "Apply the theme" {
+  "Always*": "always",
+  "Only when the browser or system is in dark mode": "dark",
+  "Only when the browser or system is in light mode": "light"
+}
+@var select palette "Palette" {
+  "Nord: Polar Night backgrounds*": "nord",
+  "Nord darker": "darker",
+  "Nord light: Snow Storm backgrounds": "light",
+  "Follow the browser: Nord when dark, Nord light when light": "auto",
+  "Custom: the colours below": "custom"
+}
+@var select custom_type "Custom palette type" {
+  "Dark: light text on dark backgrounds*": "dark",
+  "Light: dark text on light backgrounds": "light"
+}
+@var color nord0 "Custom nord0: Background" #2e3440
+@var color nord1 "Custom nord1: Surfaces: cards, sidebars, inputs" #3b4252
+@var color nord2 "Custom nord2: Raised surfaces: hover, selection" #434c5e
+@var color nord3 "Custom nord3: Borders and muted elements" #4c566a
+@var color nord4 "Custom nord4: Text" #d8dee9
+@var color nord5 "Custom nord5: Brighter text" #e5e9f0
+@var color nord6 "Custom nord6: Headings and brightest text" #eceff4
+@var color nord7 "Custom nord7: Frost teal" #8fbcbb
+@var color nord8 "Custom nord8: Main accent: links, highlights" #88c0d0
+@var color nord9 "Custom nord9: Frost blue" #81a1c1
+@var color nord10 "Custom nord10: Deep blue: buttons" #5e81ac
+@var color nord11 "Custom nord11: Red: errors" #bf616a
+@var color nord12 "Custom nord12: Orange" #d08770
+@var color nord13 "Custom nord13: Yellow: warnings" #ebcb8b
+@var color nord14 "Custom nord14: Green: success" #a3be8c
+@var color nord15 "Custom nord15: Purple" #b48ead
 ==/UserStyle== */
 
+/* ---------- Options ----------
+   Stylus compiles this file with Less. The options only set CSS variables:
+   every colour below is var(--nord0) ... var(--nord15), or a color-mix() of them,
+   so one palette recolours the whole style. --nord-deep and --nord-peak sit past
+   the background and text ends of the palette (black and white in a dark one),
+   and --nord-on-accent is the text colour for filled accent backgrounds.
+   --nordN-rgb, where present, holds the same colour as an "r, g, b" list for Bootstrap. */
+@nord-apply: if((@apply = dark), ~"(prefers-color-scheme: dark)", if((@apply = light), ~"(prefers-color-scheme: light)", ~"all"));
+.nord-preset(nord) {
+  --nord0: #2e3440;
+  --nord1: #3b4252;
+  --nord2: #434c5e;
+  --nord3: #4c566a;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  --nord0-rgb: 46, 52, 64;
+  --nord1-rgb: 59, 66, 82;
+  --nord2-rgb: 67, 76, 94;
+  --nord3-rgb: 76, 86, 106;
+  --nord4-rgb: 216, 222, 233;
+  --nord5-rgb: 229, 233, 240;
+  --nord6-rgb: 236, 239, 244;
+  --nord7-rgb: 143, 188, 187;
+  --nord8-rgb: 136, 192, 208;
+  --nord9-rgb: 129, 161, 193;
+  --nord10-rgb: 94, 129, 172;
+  --nord11-rgb: 191, 97, 106;
+  --nord12-rgb: 208, 135, 112;
+  --nord13-rgb: 235, 203, 139;
+  --nord14-rgb: 163, 190, 140;
+  --nord15-rgb: 180, 142, 173;
+  .nord-mode(dark);
+}
+.nord-preset(darker) {
+  --nord0: #242933;
+  --nord1: #2b303b;
+  --nord2: #353b49;
+  --nord3: #434c5e;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  --nord0-rgb: 36, 41, 51;
+  --nord1-rgb: 43, 48, 59;
+  --nord2-rgb: 53, 59, 73;
+  --nord3-rgb: 67, 76, 94;
+  --nord4-rgb: 216, 222, 233;
+  --nord5-rgb: 229, 233, 240;
+  --nord6-rgb: 236, 239, 244;
+  --nord7-rgb: 143, 188, 187;
+  --nord8-rgb: 136, 192, 208;
+  --nord9-rgb: 129, 161, 193;
+  --nord10-rgb: 94, 129, 172;
+  --nord11-rgb: 191, 97, 106;
+  --nord12-rgb: 208, 135, 112;
+  --nord13-rgb: 235, 203, 139;
+  --nord14-rgb: 163, 190, 140;
+  --nord15-rgb: 180, 142, 173;
+  .nord-mode(dark);
+}
+.nord-preset(light) {
+  --nord0: #eceff4;
+  --nord1: #e5e9f0;
+  --nord2: #d8dee9;
+  --nord3: #b4bcc9;
+  --nord4: #3b4252;
+  --nord5: #353b49;
+  --nord6: #2e3440;
+  --nord7: #497473;
+  --nord8: #3c7382;
+  --nord9: #516f8d;
+  --nord10: #4c6e98;
+  --nord11: #ab4f59;
+  --nord12: #9f5a45;
+  --nord13: #866828;
+  --nord14: #5b7344;
+  --nord15: #84607e;
+  --nord0-rgb: 236, 239, 244;
+  --nord1-rgb: 229, 233, 240;
+  --nord2-rgb: 216, 222, 233;
+  --nord3-rgb: 180, 188, 201;
+  --nord4-rgb: 59, 66, 82;
+  --nord5-rgb: 53, 59, 73;
+  --nord6-rgb: 46, 52, 64;
+  --nord7-rgb: 73, 116, 115;
+  --nord8-rgb: 60, 115, 130;
+  --nord9-rgb: 81, 111, 141;
+  --nord10-rgb: 76, 110, 152;
+  --nord11-rgb: 171, 79, 89;
+  --nord12-rgb: 159, 90, 69;
+  --nord13-rgb: 134, 104, 40;
+  --nord14-rgb: 91, 115, 68;
+  --nord15-rgb: 132, 96, 126;
+  .nord-mode(light);
+}
+.nord-preset(custom) {
+  --nord0: @nord0;
+  --nord1: @nord1;
+  --nord2: @nord2;
+  --nord3: @nord3;
+  --nord4: @nord4;
+  --nord5: @nord5;
+  --nord6: @nord6;
+  --nord7: @nord7;
+  --nord8: @nord8;
+  --nord9: @nord9;
+  --nord10: @nord10;
+  --nord11: @nord11;
+  --nord12: @nord12;
+  --nord13: @nord13;
+  --nord14: @nord14;
+  --nord15: @nord15;
+  --nord0-rgb: red(@nord0), green(@nord0), blue(@nord0);
+  --nord1-rgb: red(@nord1), green(@nord1), blue(@nord1);
+  --nord2-rgb: red(@nord2), green(@nord2), blue(@nord2);
+  --nord3-rgb: red(@nord3), green(@nord3), blue(@nord3);
+  --nord4-rgb: red(@nord4), green(@nord4), blue(@nord4);
+  --nord5-rgb: red(@nord5), green(@nord5), blue(@nord5);
+  --nord6-rgb: red(@nord6), green(@nord6), blue(@nord6);
+  --nord7-rgb: red(@nord7), green(@nord7), blue(@nord7);
+  --nord8-rgb: red(@nord8), green(@nord8), blue(@nord8);
+  --nord9-rgb: red(@nord9), green(@nord9), blue(@nord9);
+  --nord10-rgb: red(@nord10), green(@nord10), blue(@nord10);
+  --nord11-rgb: red(@nord11), green(@nord11), blue(@nord11);
+  --nord12-rgb: red(@nord12), green(@nord12), blue(@nord12);
+  --nord13-rgb: red(@nord13), green(@nord13), blue(@nord13);
+  --nord14-rgb: red(@nord14), green(@nord14), blue(@nord14);
+  --nord15-rgb: red(@nord15), green(@nord15), blue(@nord15);
+  .nord-mode(@custom_type);
+}
+.nord-preset(auto) {
+  .nord-preset(nord);
+  @media (prefers-color-scheme: light) { .nord-preset(light); }
+}
+.nord-mode(dark) { --nord-deep: #000; --nord-peak: #fff; --nord-scheme: dark; --nord-on-accent: var(--nord6); .nord-site(dark); }
+.nord-mode(light) { --nord-deep: #fff; --nord-peak: #000; --nord-scheme: light; --nord-on-accent: var(--nord0); .nord-site(light); }
+.nord-site(@mode) {}
+
+
 @-moz-document domain("substack.com") {
+@media @nord-apply {
+:root { .nord-preset(@palette); }
+
 /* ==========================================================================
    SUBSTACK NORD THEME - COMPLETE PROFESSIONAL EDITION
    A comprehensive, minimal dark theme based on the Nord color palette.
@@ -21,22 +215,19 @@
 .dark-mode, 
 body,
 [class*="pubTheme"],       /* Overrides individual authors' custom themes */
-[class*="pubAccentTheme"]  /* Overrides individual authors' custom accents */
+[class*="pubAccentTheme"], /* Overrides individual authors' custom accents */
+[class*="elevatedTheme"]   /* Raised panels (search, popovers) carry their own copy of the palette */
 {
     
     /* 1. NORD COLOR PRIMITIVES
        ---------------------------------------------------------------------- */
-    --nord0: #2E3440; /* Base background */
-    --nord1: #3B4252; /* Elevated background 1 (Inputs, Cards) */
-    --nord2: #434C5E; /* Elevated background 2 (Hover states) */
-    --nord3: #4C566A; /* Borders and subtle utilities */
-    --nord4: #D8DEE9; /* Primary text */
-    --nord5: #E9EDF3; /* Secondary text */
-    --nord6: #ECEFF4; /* Highlight text */
+
+
+
     
-    --nord-blue: #5E81AC;
-    --nord-blue-hover: #4C6781;
-    --nord-cyan: #88C0D0;
+    --nord-blue: var(--nord10);
+    --nord-blue-hover: color-mix(in srgb, var(--nord10) 62.3%, var(--nord0));
+    --nord-cyan: var(--nord8);
 
     /* 2. BASE SURFACES & FOREGROUNDS
        ---------------------------------------------------------------------- */
@@ -53,7 +244,7 @@ body,
     --color-bg-elevated-primary: var(--nord1) !important;
     --color-bg-elevated-secondary: var(--nord2) !important;
     --color-bg-elevated-tertiary: var(--nord3) !important;
-    --color-bg-sunken-primary: #242933 !important; /* Slightly darker than base */
+    --color-bg-sunken-primary: color-mix(in srgb, var(--nord-deep) 20.9%, var(--nord0)) !important; /* Slightly darker than base */
 
     /* 3. NATIVE SUBSTACK OVERRIDES (Ensures persistence across light/dark modes)
        ---------------------------------------------------------------------- */
@@ -68,17 +259,17 @@ body,
     --color-utility-white: var(--nord6) !important;
     --color-utility-black: var(--nord0) !important;
     --color-utility-transparent: transparent !important;
-    --color-utility-modal: rgba(46,52,64,.86) !important;
+    --color-utility-modal: color-mix(in srgb, var(--nord0) 86%, transparent) !important;
 
     /* 4. ACCENT COLORS
        ---------------------------------------------------------------------- */
-    --color-accent-fg-red: #BF616A !important;
-    --color-accent-fg-orange: #D08770 !important;
-    --color-accent-fg-yellow: #EBCB8B !important;
-    --color-accent-fg-green: #A3BE8C !important;
+    --color-accent-fg-red: var(--nord11) !important;
+    --color-accent-fg-orange: var(--nord12) !important;
+    --color-accent-fg-yellow: var(--nord13) !important;
+    --color-accent-fg-green: var(--nord14) !important;
     --color-accent-fg-cyan: var(--nord-cyan) !important;
     --color-accent-fg-blue: var(--nord-blue) !important;
-    --color-accent-fg-purple: #B48EAD !important;
+    --color-accent-fg-purple: var(--nord15) !important;
     
     --color-accent-fg-blue-hover: var(--nord-blue-hover) !important;
 
@@ -86,7 +277,7 @@ body,
        ---------------------------------------------------------------------- */
     --background_pop: var(--nord-blue) !important;
     --background_pop_darken: var(--nord-blue-hover) !important;
-    --print_on_pop: var(--nord6) !important;
+    --print_on_pop: var(--nord-on-accent) !important;
 
     /* 6. SEMANTIC BUTTON VARIABLES
        ---------------------------------------------------------------------- */
@@ -158,28 +349,28 @@ body,
 [class*="pubAccentTheme"] {
     --color_theme_bg_pop: var(--nord-blue) !important;
     --color_theme_bg_pop_darken: var(--nord-blue-hover) !important;
-    --color_theme_print_on_pop: var(--nord6) !important;
-    --color_theme_bg_pop_20: rgba(94, 129, 172, 0.2) !important;
-    --color_theme_bg_pop_30: rgba(94, 129, 172, 0.3) !important;
-    --color_theme_bg_pop_rgb: 94, 129, 172 !important;
-    --background_pop_rgb: 94, 129, 172 !important;
-    --background_contrast_pop: rgba(94, 129, 172, 0.4) !important;
-    --color_theme_bg_contrast_pop: rgba(94, 129, 172, 0.4) !important;
+    --color_theme_print_on_pop: var(--nord-on-accent) !important;
+    --color_theme_bg_pop_20: color-mix(in srgb, var(--nord10) 20%, transparent) !important;
+    --color_theme_bg_pop_30: color-mix(in srgb, var(--nord10) 30%, transparent) !important;
+    --color_theme_bg_pop_rgb: var(--nord10-rgb) !important;
+    --background_pop_rgb: var(--nord10-rgb) !important;
+    --background_contrast_pop: color-mix(in srgb, var(--nord10) 40%, transparent) !important;
+    --color_theme_bg_contrast_pop: color-mix(in srgb, var(--nord10) 40%, transparent) !important;
     --print_pop: var(--nord-cyan) !important;
     --color_theme_accent: var(--nord-cyan) !important;
-    --color_theme_accent_rgb: 136, 192, 208 !important;
+    --color_theme_accent_rgb: var(--nord8-rgb) !important;
 
     --cover_bg_color: var(--nord0) !important;
     --cover_bg_color_secondary: var(--nord1) !important;
     --cover_print_primary: var(--nord6) !important;
     --cover_print_secondary: var(--nord4) !important;
-    --cover_print_tertiary: #A3ADBF !important;
+    --cover_print_tertiary: color-mix(in srgb, color-mix(in srgb, var(--nord3) 31.2%, var(--nord4)) 87.8%, var(--nord10)) !important;
     --cover_border_color: var(--nord3) !important;
 
     --background_contrast_1: var(--nord1) !important;
     --background_contrast_2: var(--nord2) !important;
     --background_contrast_3: var(--nord3) !important;
-    --background_contrast_4: #7B88A1 !important;
+    --background_contrast_4: color-mix(in srgb, color-mix(in srgb, var(--nord3) 60.3%, var(--nord4)) 75.3%, var(--nord10)) !important;
     --background_contrast_5: var(--nord4) !important;
     --color_theme_detail: var(--nord3) !important;
     --theme_bg_is_dark: 1 !important;
@@ -196,7 +387,7 @@ body,
    ========================================================================== */
 
 html { 
-    color-scheme: dark; 
+    color-scheme: var(--nord-scheme); 
 }
 
 body, 
@@ -379,7 +570,7 @@ button[class*="iconButton"]:hover svg {
 button[class*="priority_primary"],
 button[class*="priority_secondary-accent"] {
     background-color: var(--nord-blue) !important;
-    color: var(--nord6) !important;
+    color: var(--nord-on-accent) !important;
     border: 1px solid var(--nord-blue) !important;
     transition: all 0.2s ease !important;
 }
@@ -480,9 +671,9 @@ a[class*="footerSubstackCta"] svg {
 div[role="menu"],
 div[data-radix-popper-content-wrapper] .panel-folKVn,
 div[data-radix-popper-content-wrapper] .elevated {
-    background: #3B4252 !important;       /* Direct Nord1 Hex */
-    background-color: #3B4252 !important; /* Direct Nord1 Hex */
-    border: 1px solid #4C566A !important; /* Direct Nord3 Hex */
+    background: var(--nord1) !important;       /* Direct Nord1 Hex */
+    background-color: var(--nord1) !important; /* Direct Nord1 Hex */
+    border: 1px solid var(--nord3) !important; /* Direct Nord3 Hex */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
 }
 
@@ -499,32 +690,32 @@ div[data-radix-popper-content-wrapper] button {
 /* 3. Smooth hover effects using Nord colors */
 div[role="menu"] button:hover,
 div[data-radix-popper-content-wrapper] button:hover {
-    background: #434C5E !important;       /* Direct Nord2 Hex */
-    background-color: #434C5E !important; /* Direct Nord2 Hex */
+    background: var(--nord2) !important;       /* Direct Nord2 Hex */
+    background-color: var(--nord2) !important; /* Direct Nord2 Hex */
 }
 
 /* 4. Text and icon colors (both standard and destructive actions) */
 div[role="menu"] button div[class*="color-primary"],
 div[data-radix-popper-content-wrapper] button div[class*="color-primary"] {
-    color: #E9EDF3 !important; /* Nord5 */
+    color: color-mix(in srgb, var(--nord5) 36.6%, var(--nord6)) !important; /* Nord5 */
 }
 
 div[role="menu"] button svg,
 div[data-radix-popper-content-wrapper] button svg {
-    stroke: #D8DEE9 !important; /* Nord4 */
+    stroke: var(--nord4) !important; /* Nord4 */
 }
 
 /* Destructive items like Report/Block */
 div[role="menu"] button[class*="priority_destructive"] div,
 div[role="menu"] button[class*="priority_destructive"] svg {
-    color: #BF616A !important;   /* Nord Red */
-    stroke: #BF616A !important;  /* Nord Red */
+    color: var(--nord11) !important;   /* Nord Red */
+    stroke: var(--nord11) !important;  /* Nord Red */
 }
 
 /* 5. Softens harsh internal dividers */
 div[role="menu"] hr,
 div[data-radix-popper-content-wrapper] hr {
-    border-color: #4C566A !important; /* Nord3 */
+    border-color: var(--nord3) !important; /* Nord3 */
     opacity: 0.5 !important;
 }
 
@@ -555,5 +746,6 @@ div[class*="seeMoreFade"] {
 /* Fallback for vertical gradients on long posts */
 .post-preview-content div[class*="seeMoreFade"] {
     background: linear-gradient(to bottom, transparent, var(--color-bg-secondary) 75%) !important;
+}
 }
 }

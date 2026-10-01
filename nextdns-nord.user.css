@@ -1,14 +1,226 @@
 /* ==UserStyle==
 @name         my.nextdns.io
-@version      20261001.02.00
+@version      20261001.03.00
 @namespace    ?
-@description  Nord theme for the NextDNS dashboard (my.nextdns.io), dark in both of its themes
+@description  Nord theme for the NextDNS dashboard (my.nextdns.io), with a configurable palette
 @homepageURL  https://github.com/SignorBananone/userstyles
 @author       SignorBananone
 @license      MIT
+@preprocessor   less
+
+@var select apply "Apply the theme" {
+  "Always*": "always",
+  "Only when the browser or system is in dark mode": "dark",
+  "Only when the browser or system is in light mode": "light"
+}
+@var select palette "Palette" {
+  "Nord: Polar Night backgrounds*": "nord",
+  "Nord darker": "darker",
+  "Nord light: Snow Storm backgrounds": "light",
+  "Follow the browser: Nord when dark, Nord light when light": "auto",
+  "Custom: the colours below": "custom"
+}
+@var select custom_type "Custom palette type" {
+  "Dark: light text on dark backgrounds*": "dark",
+  "Light: dark text on light backgrounds": "light"
+}
+@var color nord0 "Custom nord0: Background" #2e3440
+@var color nord1 "Custom nord1: Surfaces: cards, sidebars, inputs" #3b4252
+@var color nord2 "Custom nord2: Raised surfaces: hover, selection" #434c5e
+@var color nord3 "Custom nord3: Borders and muted elements" #4c566a
+@var color nord4 "Custom nord4: Text" #d8dee9
+@var color nord5 "Custom nord5: Brighter text" #e5e9f0
+@var color nord6 "Custom nord6: Headings and brightest text" #eceff4
+@var color nord7 "Custom nord7: Frost teal" #8fbcbb
+@var color nord8 "Custom nord8: Main accent: links, highlights" #88c0d0
+@var color nord9 "Custom nord9: Frost blue" #81a1c1
+@var color nord10 "Custom nord10: Deep blue: buttons" #5e81ac
+@var color nord11 "Custom nord11: Red: errors" #bf616a
+@var color nord12 "Custom nord12: Orange" #d08770
+@var color nord13 "Custom nord13: Yellow: warnings" #ebcb8b
+@var color nord14 "Custom nord14: Green: success" #a3be8c
+@var color nord15 "Custom nord15: Purple" #b48ead
 ==/UserStyle== */
 
+/* ---------- Options ----------
+   Stylus compiles this file with Less. The options only set CSS variables:
+   every colour below is var(--nord0) ... var(--nord15), or a color-mix() of them,
+   so one palette recolours the whole style. --nord-deep and --nord-peak sit past
+   the background and text ends of the palette (black and white in a dark one),
+   and --nord-on-accent is the text colour for filled accent backgrounds.
+   --nordN-rgb, where present, holds the same colour as an "r, g, b" list for Bootstrap. */
+@nord-apply: if((@apply = dark), ~"(prefers-color-scheme: dark)", if((@apply = light), ~"(prefers-color-scheme: light)", ~"all"));
+.nord-preset(nord) {
+  --nord0: #2e3440;
+  --nord1: #3b4252;
+  --nord2: #434c5e;
+  --nord3: #4c566a;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  --nord0-rgb: 46, 52, 64;
+  --nord1-rgb: 59, 66, 82;
+  --nord2-rgb: 67, 76, 94;
+  --nord3-rgb: 76, 86, 106;
+  --nord4-rgb: 216, 222, 233;
+  --nord5-rgb: 229, 233, 240;
+  --nord6-rgb: 236, 239, 244;
+  --nord7-rgb: 143, 188, 187;
+  --nord8-rgb: 136, 192, 208;
+  --nord9-rgb: 129, 161, 193;
+  --nord10-rgb: 94, 129, 172;
+  --nord11-rgb: 191, 97, 106;
+  --nord12-rgb: 208, 135, 112;
+  --nord13-rgb: 235, 203, 139;
+  --nord14-rgb: 163, 190, 140;
+  --nord15-rgb: 180, 142, 173;
+  .nord-mode(dark);
+}
+.nord-preset(darker) {
+  --nord0: #242933;
+  --nord1: #2b303b;
+  --nord2: #353b49;
+  --nord3: #434c5e;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  --nord0-rgb: 36, 41, 51;
+  --nord1-rgb: 43, 48, 59;
+  --nord2-rgb: 53, 59, 73;
+  --nord3-rgb: 67, 76, 94;
+  --nord4-rgb: 216, 222, 233;
+  --nord5-rgb: 229, 233, 240;
+  --nord6-rgb: 236, 239, 244;
+  --nord7-rgb: 143, 188, 187;
+  --nord8-rgb: 136, 192, 208;
+  --nord9-rgb: 129, 161, 193;
+  --nord10-rgb: 94, 129, 172;
+  --nord11-rgb: 191, 97, 106;
+  --nord12-rgb: 208, 135, 112;
+  --nord13-rgb: 235, 203, 139;
+  --nord14-rgb: 163, 190, 140;
+  --nord15-rgb: 180, 142, 173;
+  .nord-mode(dark);
+}
+.nord-preset(light) {
+  --nord0: #eceff4;
+  --nord1: #e5e9f0;
+  --nord2: #d8dee9;
+  --nord3: #b4bcc9;
+  --nord4: #3b4252;
+  --nord5: #353b49;
+  --nord6: #2e3440;
+  --nord7: #497473;
+  --nord8: #3c7382;
+  --nord9: #516f8d;
+  --nord10: #4c6e98;
+  --nord11: #ab4f59;
+  --nord12: #9f5a45;
+  --nord13: #866828;
+  --nord14: #5b7344;
+  --nord15: #84607e;
+  --nord0-rgb: 236, 239, 244;
+  --nord1-rgb: 229, 233, 240;
+  --nord2-rgb: 216, 222, 233;
+  --nord3-rgb: 180, 188, 201;
+  --nord4-rgb: 59, 66, 82;
+  --nord5-rgb: 53, 59, 73;
+  --nord6-rgb: 46, 52, 64;
+  --nord7-rgb: 73, 116, 115;
+  --nord8-rgb: 60, 115, 130;
+  --nord9-rgb: 81, 111, 141;
+  --nord10-rgb: 76, 110, 152;
+  --nord11-rgb: 171, 79, 89;
+  --nord12-rgb: 159, 90, 69;
+  --nord13-rgb: 134, 104, 40;
+  --nord14-rgb: 91, 115, 68;
+  --nord15-rgb: 132, 96, 126;
+  .nord-mode(light);
+}
+.nord-preset(custom) {
+  --nord0: @nord0;
+  --nord1: @nord1;
+  --nord2: @nord2;
+  --nord3: @nord3;
+  --nord4: @nord4;
+  --nord5: @nord5;
+  --nord6: @nord6;
+  --nord7: @nord7;
+  --nord8: @nord8;
+  --nord9: @nord9;
+  --nord10: @nord10;
+  --nord11: @nord11;
+  --nord12: @nord12;
+  --nord13: @nord13;
+  --nord14: @nord14;
+  --nord15: @nord15;
+  --nord0-rgb: red(@nord0), green(@nord0), blue(@nord0);
+  --nord1-rgb: red(@nord1), green(@nord1), blue(@nord1);
+  --nord2-rgb: red(@nord2), green(@nord2), blue(@nord2);
+  --nord3-rgb: red(@nord3), green(@nord3), blue(@nord3);
+  --nord4-rgb: red(@nord4), green(@nord4), blue(@nord4);
+  --nord5-rgb: red(@nord5), green(@nord5), blue(@nord5);
+  --nord6-rgb: red(@nord6), green(@nord6), blue(@nord6);
+  --nord7-rgb: red(@nord7), green(@nord7), blue(@nord7);
+  --nord8-rgb: red(@nord8), green(@nord8), blue(@nord8);
+  --nord9-rgb: red(@nord9), green(@nord9), blue(@nord9);
+  --nord10-rgb: red(@nord10), green(@nord10), blue(@nord10);
+  --nord11-rgb: red(@nord11), green(@nord11), blue(@nord11);
+  --nord12-rgb: red(@nord12), green(@nord12), blue(@nord12);
+  --nord13-rgb: red(@nord13), green(@nord13), blue(@nord13);
+  --nord14-rgb: red(@nord14), green(@nord14), blue(@nord14);
+  --nord15-rgb: red(@nord15), green(@nord15), blue(@nord15);
+  .nord-mode(@custom_type);
+}
+.nord-preset(auto) {
+  .nord-preset(nord);
+  @media (prefers-color-scheme: light) { .nord-preset(light); }
+}
+.nord-mode(dark) { --nord-deep: #000; --nord-peak: #fff; --nord-scheme: dark; --nord-on-accent: var(--nord6); .nord-site(dark); }
+.nord-mode(light) { --nord-deep: #fff; --nord-peak: #000; --nord-scheme: light; --nord-on-accent: var(--nord0); .nord-site(light); }
+.nord-site(@mode) {}
+/* NextDNS ships one bitmap per theme of its own (light artwork for its dark theme,
+   dark artwork for its light theme), so each filter depends on both themes */
+.nord-site(dark) {
+  --nord-logo-dark-site: invert(61%) sepia(10%) saturate(600%) hue-rotate(180deg) brightness(92%) contrast(90%);
+  --nord-logo-light-site: invert(88%) hue-rotate(180deg) invert(61%) sepia(10%) saturate(600%) hue-rotate(180deg) brightness(92%) contrast(90%);
+  --nord-art-dark-site: none;
+  --nord-art-light-site: invert(1) hue-rotate(180deg);
+  --nord-map-dark-site: saturate(0.5);
+  --nord-map-light-site: invert(0.75) hue-rotate(180deg) saturate(0.6) brightness(1.1);
+}
+.nord-site(light) {
+  --nord-logo-dark-site: invert(61%) sepia(10%) saturate(600%) hue-rotate(180deg) brightness(92%) contrast(90%) brightness(55%);
+  --nord-logo-light-site: invert(88%) hue-rotate(180deg) invert(61%) sepia(10%) saturate(600%) hue-rotate(180deg) brightness(92%) contrast(90%) brightness(55%);
+  --nord-art-dark-site: invert(1) hue-rotate(180deg);
+  --nord-art-light-site: none;
+  --nord-map-dark-site: invert(0.85) hue-rotate(180deg) saturate(0.6);
+  --nord-map-light-site: saturate(0.5);
+}
+
+
 @-moz-document domain("my.nextdns.io") {
+@media @nord-apply {
+:root { .nord-preset(@palette); }
+
 
 /* ------------------------------------------------------------------
    Palette
@@ -17,67 +229,67 @@
    ------------------------------------------------------------------ */
 
 :root, [data-bs-theme=dark], :root[data-bs-theme=light], [data-bs-theme=light] {
-    --nord-bg: #2e3440;
-    --nord-surface: #3b4252;
-    --nord-surface-2: #434c5e;
-    --nord-border: #4c566a;
-    --nord-fg: #e5e9f0;
-    --nord-fg-strong: #eceff4;
-    --nord-fg-rgb: 229, 233, 240;
-    --nord-accent-text: #88c0d0;
-    --nord-accent-border: #81a1c1;
-    --nord-green-text: #a3be8c;
-    --nord-badge-bg: #434c5e;
-    --nord-badge-fg: #88c0d0;
+    --nord-bg: var(--nord0);
+    --nord-surface: var(--nord1);
+    --nord-surface-2: var(--nord2);
+    --nord-border: var(--nord3);
+    --nord-fg: var(--nord5);
+    --nord-fg-strong: var(--nord6);
+    --nord-fg-rgb: var(--nord5-rgb);
+    --nord-accent-text: var(--nord8);
+    --nord-accent-border: var(--nord9);
+    --nord-green-text: var(--nord14);
+    --nord-badge-bg: var(--nord2);
+    --nord-badge-fg: var(--nord8);
     --nord-switch-knob: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%2381a1c1'/%3e%3c/svg%3e");
-    --nord-chart-stroke: #88c0d0;
-    --nord-chart-fill: #3b4252;
-    --nord-chart-light-slice: #eceff4;
-    --nord-chart-other: #4c566a;
-    color-scheme: dark;
+    --nord-chart-stroke: var(--nord8);
+    --nord-chart-fill: var(--nord1);
+    --nord-chart-light-slice: var(--nord6);
+    --nord-chart-other: var(--nord3);
+    color-scheme: var(--nord-scheme);
 }
 
 /* Bootstrap variables */
 :root, [data-bs-theme=dark], :root[data-bs-theme=light], [data-bs-theme=light] {
-    --bs-blue: #5e81ac;
-    --bs-indigo: #81a1c1;
-    --bs-purple: #b48ead;
-    --bs-pink: #bf616a;
-    --bs-red: #bf616a;
-    --bs-orange: #d08770;
-    --bs-yellow: #ebcb8b;
-    --bs-green: #a3be8c;
-    --bs-teal: #88c0d0;
-    --bs-cyan: #88c0d0;
-    --bs-black: #2e3440;
-    --bs-white: #eceff4;
-    --bs-gray: #4c566a;
-    --bs-gray-dark: #3b4252;
-    --bs-gray-100: #eceff4;
-    --bs-gray-200: #e5e9f0;
-    --bs-gray-300: #d8dee9;
-    --bs-gray-400: #81a1c1;
-    --bs-gray-500: #5e81ac;
-    --bs-gray-600: #4c566a;
-    --bs-gray-700: #434c5e;
-    --bs-gray-800: #3b4252;
-    --bs-gray-900: #2e3440;
-    --bs-primary: #5e81ac;
-    --bs-secondary: #4c566a;
-    --bs-success: #a3be8c;
-    --bs-info: #88c0d0;
-    --bs-warning: #ebcb8b;
-    --bs-danger: #bf616a;
-    --bs-light: #eceff4;
-    --bs-dark: #2e3440;
-    --bs-primary-rgb: 94, 129, 172;
-    --bs-secondary-rgb: 76, 86, 106;
-    --bs-success-rgb: 163, 190, 140;
-    --bs-info-rgb: 136, 192, 208;
-    --bs-warning-rgb: 235, 203, 139;
-    --bs-danger-rgb: 191, 97, 106;
-    --bs-light-rgb: 236, 239, 244;
-    --bs-dark-rgb: 46, 52, 64;
+    --bs-blue: var(--nord10);
+    --bs-indigo: var(--nord9);
+    --bs-purple: var(--nord15);
+    --bs-pink: var(--nord11);
+    --bs-red: var(--nord11);
+    --bs-orange: var(--nord12);
+    --bs-yellow: var(--nord13);
+    --bs-green: var(--nord14);
+    --bs-teal: var(--nord8);
+    --bs-cyan: var(--nord8);
+    --bs-black: var(--nord0);
+    --bs-white: var(--nord6);
+    --bs-gray: var(--nord3);
+    --bs-gray-dark: var(--nord1);
+    --bs-gray-100: var(--nord6);
+    --bs-gray-200: var(--nord5);
+    --bs-gray-300: var(--nord4);
+    --bs-gray-400: var(--nord9);
+    --bs-gray-500: var(--nord10);
+    --bs-gray-600: var(--nord3);
+    --bs-gray-700: var(--nord2);
+    --bs-gray-800: var(--nord1);
+    --bs-gray-900: var(--nord0);
+    --bs-primary: var(--nord10);
+    --bs-secondary: var(--nord3);
+    --bs-success: var(--nord14);
+    --bs-info: var(--nord8);
+    --bs-warning: var(--nord13);
+    --bs-danger: var(--nord11);
+    --bs-light: var(--nord6);
+    --bs-dark: var(--nord0);
+    --bs-primary-rgb: var(--nord10-rgb);
+    --bs-secondary-rgb: var(--nord3-rgb);
+    --bs-success-rgb: var(--nord14-rgb);
+    --bs-info-rgb: var(--nord8-rgb);
+    --bs-warning-rgb: var(--nord13-rgb);
+    --bs-danger-rgb: var(--nord11-rgb);
+    --bs-light-rgb: var(--nord6-rgb);
+    --bs-dark-rgb: var(--nord0-rgb);
 
     --bs-body-color: var(--nord-fg);
     --bs-body-color-rgb: var(--nord-fg-rgb);
@@ -93,8 +305,8 @@
     --bs-secondary-text-emphasis: var(--nord-fg);
     --bs-success-text-emphasis: var(--nord-green-text);
     --bs-info-text-emphasis: var(--nord-accent-text);
-    --bs-warning-text-emphasis: #d08770;
-    --bs-danger-text-emphasis: #bf616a;
+    --bs-warning-text-emphasis: var(--nord12);
+    --bs-danger-text-emphasis: var(--nord11);
     --bs-light-text-emphasis: var(--nord-fg-strong);
     --bs-dark-text-emphasis: var(--nord-fg);
     --bs-primary-bg-subtle: var(--nord-surface);
@@ -105,29 +317,29 @@
     --bs-danger-bg-subtle: var(--nord-bg);
     --bs-light-bg-subtle: var(--nord-surface);
     --bs-dark-bg-subtle: var(--nord-bg);
-    --bs-primary-border-subtle: #5e81ac;
+    --bs-primary-border-subtle: var(--nord10);
     --bs-secondary-border-subtle: var(--nord-border);
-    --bs-success-border-subtle: #a3be8c;
-    --bs-info-border-subtle: #88c0d0;
-    --bs-warning-border-subtle: #ebcb8b;
-    --bs-danger-border-subtle: #bf616a;
-    --bs-light-border-subtle: #d8dee9;
-    --bs-dark-border-subtle: #3b4252;
+    --bs-success-border-subtle: var(--nord14);
+    --bs-info-border-subtle: var(--nord8);
+    --bs-warning-border-subtle: var(--nord13);
+    --bs-danger-border-subtle: var(--nord11);
+    --bs-light-border-subtle: var(--nord4);
+    --bs-dark-border-subtle: var(--nord1);
     --bs-heading-color: inherit;
     --bs-link-color: var(--nord-accent-text);
     --bs-link-hover-color: var(--nord-accent-border);
-    --bs-link-color-rgb: 136, 192, 208;
-    --bs-link-hover-color-rgb: 129, 161, 193;
-    --bs-code-color: #b48ead;
+    --bs-link-color-rgb: var(--nord8-rgb);
+    --bs-link-hover-color-rgb: var(--nord9-rgb);
+    --bs-code-color: var(--nord15);
     --bs-highlight-color: var(--nord-fg);
     --bs-highlight-bg: var(--nord-surface);
     --bs-border-color: var(--nord-border);
     --bs-border-color-translucent: rgba(var(--nord-fg-rgb), 0.15);
     --bs-form-valid-color: var(--nord-green-text);
-    --bs-form-valid-border-color: #a3be8c;
-    --bs-form-invalid-color: #bf616a;
-    --bs-form-invalid-border-color: #bf616a;
-    --bs-focus-ring-color: rgba(136, 192, 208, 0.25);
+    --bs-form-valid-border-color: var(--nord14);
+    --bs-form-invalid-color: var(--nord11);
+    --bs-form-invalid-border-color: var(--nord11);
+    --bs-focus-ring-color: color-mix(in srgb, var(--nord8) 25%, transparent);
 }
 
 /* ------------------------------------------------------------------
@@ -137,16 +349,19 @@
 /* Logo: the app ships one bitmap per theme (light text for dark, black text for light).
    The light one is first turned into the dark one, then both get the same Nord tint. */
 [data-bs-theme="dark"] img.d-inline[alt=""] {
-    filter: invert(61%) sepia(10%) saturate(600%) hue-rotate(180deg) brightness(92%) contrast(90%);
+    filter: var(--nord-logo-dark-site);
 }
 
 [data-bs-theme="light"] img.d-inline[alt=""] {
-    filter: invert(88%) hue-rotate(180deg) invert(61%) sepia(10%) saturate(600%) hue-rotate(180deg) brightness(92%) contrast(90%);
+    filter: var(--nord-logo-light-site);
 }
 
 /* Web3 partner logos in Settings: the light theme loads versions with dark text */
 [data-bs-theme="light"] img.d-inline[alt="ENS"], [data-bs-theme="light"] img[alt="Unstoppable Domains"] {
-    filter: invert(1) hue-rotate(180deg);
+    filter: var(--nord-art-light-site);
+}
+[data-bs-theme="dark"] img.d-inline[alt="ENS"], [data-bs-theme="dark"] img[alt="Unstoppable Domains"] {
+    filter: var(--nord-art-dark-site);
 }
 
 .Header, [data-bs-theme=dark] .Header {
@@ -164,14 +379,14 @@
 }
 
 .dropdown-item.active, .dropdown-item:active {
-    background-color: #5e81ac;
-    color: #eceff4;
+    background-color: var(--nord10);
+    color: var(--nord-on-accent);
     text-decoration: none;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-    background-color: #5e81ac;
-    color: #eceff4;
+    background-color: var(--nord10);
+    color: var(--nord-on-accent);
 }
 
 .Setup .code-block, [data-bs-theme=dark] .Setup .code-block {
@@ -197,99 +412,99 @@
     --bs-btn-hover-color: var(--nord-fg-strong);
     --bs-btn-hover-bg: var(--nord-surface);
     --bs-btn-hover-border-color: var(--nord-border);
-    --bs-btn-focus-shadow-rgb: 67, 76, 94;
+    --bs-btn-focus-shadow-rgb: var(--nord2-rgb);
     --bs-btn-active-color: var(--nord-fg-strong);
     --bs-btn-active-bg: var(--nord-surface);
     --bs-btn-active-border-color: var(--nord-border);
-    --bs-btn-active-shadow: inset 0 3px 5px rgba(46, 52, 64, 0.125);
+    --bs-btn-active-shadow: inset 0 3px 5px color-mix(in srgb, var(--nord0) 12.5%, transparent);
     --bs-btn-disabled-color: var(--nord-fg);
     --bs-btn-disabled-bg: var(--nord-surface);
     --bs-btn-disabled-border-color: var(--nord-surface);
 }
 
 .btn-primary {
-    --bs-btn-color: #eceff4;
-    --bs-btn-bg: #5e81ac;
-    --bs-btn-border-color: #5e81ac;
-    --bs-btn-hover-color: #eceff4;
-    --bs-btn-hover-bg: #81a1c1;
-    --bs-btn-hover-border-color: #81a1c1;
-    --bs-btn-focus-shadow-rgb: 94, 129, 172;
-    --bs-btn-active-color: #eceff4;
-    --bs-btn-active-bg: #4c566a;
-    --bs-btn-active-border-color: #4c566a;
-    --bs-btn-active-shadow: inset 0 3px 5px rgba(46, 52, 64, 0.125);
-    --bs-btn-disabled-color: #eceff4;
-    --bs-btn-disabled-bg: #5e81ac;
-    --bs-btn-disabled-border-color: #5e81ac;
+    --bs-btn-color: var(--nord-on-accent);
+    --bs-btn-bg: var(--nord10);
+    --bs-btn-border-color: var(--nord10);
+    --bs-btn-hover-color: var(--nord-on-accent);
+    --bs-btn-hover-bg: var(--nord9);
+    --bs-btn-hover-border-color: var(--nord9);
+    --bs-btn-focus-shadow-rgb: var(--nord10-rgb);
+    --bs-btn-active-color: var(--nord-on-accent);
+    --bs-btn-active-bg: var(--nord3);
+    --bs-btn-active-border-color: var(--nord3);
+    --bs-btn-active-shadow: inset 0 3px 5px color-mix(in srgb, var(--nord0) 12.5%, transparent);
+    --bs-btn-disabled-color: var(--nord-on-accent);
+    --bs-btn-disabled-bg: var(--nord10);
+    --bs-btn-disabled-border-color: var(--nord10);
 }
 
 .btn.btn-recreation {
-    --bs-btn-color: #2e3440;
-    --bs-btn-bg: #a3be8c;
-    --bs-btn-border-color: #a3be8c;
-    --bs-btn-hover-color: #2e3440;
-    --bs-btn-hover-bg: #b1c89c;
-    --bs-btn-hover-border-color: #b1c89c;
-    --bs-btn-focus-shadow-rgb: 163, 190, 140;
-    --bs-btn-active-color: #2e3440;
-    --bs-btn-active-bg: #8fa876;
-    --bs-btn-active-border-color: #8fa876;
-    --bs-btn-active-shadow: inset 0 3px 5px rgba(46, 52, 64, 0.125);
-    --bs-btn-disabled-color: #4c566a;
-    --bs-btn-disabled-bg: #a3be8c;
-    --bs-btn-disabled-border-color: #a3be8c;
-    color: #2e3440 !important;
+    --bs-btn-color: var(--nord0);
+    --bs-btn-bg: var(--nord14);
+    --bs-btn-border-color: var(--nord14);
+    --bs-btn-hover-color: var(--nord0);
+    --bs-btn-hover-bg: color-mix(in srgb, var(--nord14) 85.4%, var(--nord-peak));
+    --bs-btn-hover-border-color: color-mix(in srgb, var(--nord14) 85.4%, var(--nord-peak));
+    --bs-btn-focus-shadow-rgb: var(--nord14-rgb);
+    --bs-btn-active-color: var(--nord0);
+    --bs-btn-active-bg: color-mix(in srgb, var(--nord14) 87.2%, var(--nord-deep));
+    --bs-btn-active-border-color: color-mix(in srgb, var(--nord14) 87.2%, var(--nord-deep));
+    --bs-btn-active-shadow: inset 0 3px 5px color-mix(in srgb, var(--nord0) 12.5%, transparent);
+    --bs-btn-disabled-color: var(--nord3);
+    --bs-btn-disabled-bg: var(--nord14);
+    --bs-btn-disabled-border-color: var(--nord14);
+    color: var(--nord0) !important;
 }
 
 .btn-outline-primary {
     --bs-btn-color: var(--nord-accent-text);
     --bs-btn-border-color: var(--nord-accent-border);
-    --bs-btn-hover-color: #eceff4;
-    --bs-btn-hover-bg: #5e81ac;
-    --bs-btn-hover-border-color: #5e81ac;
-    --bs-btn-focus-shadow-rgb: 94, 129, 172;
-    --bs-btn-active-color: #eceff4;
-    --bs-btn-active-bg: #5e81ac;
-    --bs-btn-active-border-color: #5e81ac;
-    --bs-btn-active-shadow: inset 0 3px 5px rgba(46, 52, 64, 0.125);
+    --bs-btn-hover-color: var(--nord-on-accent);
+    --bs-btn-hover-bg: var(--nord10);
+    --bs-btn-hover-border-color: var(--nord10);
+    --bs-btn-focus-shadow-rgb: var(--nord10-rgb);
+    --bs-btn-active-color: var(--nord-on-accent);
+    --bs-btn-active-bg: var(--nord10);
+    --bs-btn-active-border-color: var(--nord10);
+    --bs-btn-active-shadow: inset 0 3px 5px color-mix(in srgb, var(--nord0) 12.5%, transparent);
     --bs-btn-disabled-color: var(--nord-accent-border);
     --bs-btn-disabled-bg: #0000;
-    --bs-btn-disabled-border-color: #5e81ac;
+    --bs-btn-disabled-border-color: var(--nord10);
     --bs-gradient: none;
 }
 
 .btn-outline-danger {
-    --bs-btn-color: #bf616a;
-    --bs-btn-border-color: #bf616a;
-    --bs-btn-hover-color: #eceff4;
-    --bs-btn-hover-bg: #bf616a;
-    --bs-btn-hover-border-color: #bf616a;
-    --bs-btn-focus-shadow-rgb: 191, 97, 106;
-    --bs-btn-active-color: #eceff4;
-    --bs-btn-active-bg: #bf616a;
-    --bs-btn-active-border-color: #bf616a;
-    --bs-btn-active-shadow: inset 0 3px 5px rgba(46, 52, 64, 0.125);
-    --bs-btn-disabled-color: #bf616a;
+    --bs-btn-color: var(--nord11);
+    --bs-btn-border-color: var(--nord11);
+    --bs-btn-hover-color: var(--nord-on-accent);
+    --bs-btn-hover-bg: var(--nord11);
+    --bs-btn-hover-border-color: var(--nord11);
+    --bs-btn-focus-shadow-rgb: var(--nord11-rgb);
+    --bs-btn-active-color: var(--nord-on-accent);
+    --bs-btn-active-bg: var(--nord11);
+    --bs-btn-active-border-color: var(--nord11);
+    --bs-btn-active-shadow: inset 0 3px 5px color-mix(in srgb, var(--nord0) 12.5%, transparent);
+    --bs-btn-disabled-color: var(--nord11);
     --bs-btn-disabled-bg: #0000;
-    --bs-btn-disabled-border-color: #bf616a;
+    --bs-btn-disabled-border-color: var(--nord11);
     --bs-gradient: none;
 }
 
 .btn-danger {
-    --bs-btn-color: #eceff4;
-    --bs-btn-bg: #bf616a;
-    --bs-btn-border-color: #bf616a;
-    --bs-btn-hover-color: #eceff4;
-    --bs-btn-hover-bg: #a5535b;
-    --bs-btn-hover-border-color: #a5535b;
-    --bs-btn-focus-shadow-rgb: 191, 97, 106;
-    --bs-btn-active-color: #eceff4;
-    --bs-btn-active-bg: #a5535b;
-    --bs-btn-active-border-color: #a5535b;
-    --bs-btn-disabled-color: #eceff4;
-    --bs-btn-disabled-bg: #bf616a;
-    --bs-btn-disabled-border-color: #bf616a;
+    --bs-btn-color: var(--nord-on-accent);
+    --bs-btn-bg: var(--nord11);
+    --bs-btn-border-color: var(--nord11);
+    --bs-btn-hover-color: var(--nord-on-accent);
+    --bs-btn-hover-bg: color-mix(in srgb, var(--nord11) 86.1%, var(--nord-deep));
+    --bs-btn-hover-border-color: color-mix(in srgb, var(--nord11) 86.1%, var(--nord-deep));
+    --bs-btn-focus-shadow-rgb: var(--nord11-rgb);
+    --bs-btn-active-color: var(--nord-on-accent);
+    --bs-btn-active-bg: color-mix(in srgb, var(--nord11) 86.1%, var(--nord-deep));
+    --bs-btn-active-border-color: color-mix(in srgb, var(--nord11) 86.1%, var(--nord-deep));
+    --bs-btn-disabled-color: var(--nord-on-accent);
+    --bs-btn-disabled-bg: var(--nord11);
+    --bs-btn-disabled-border-color: var(--nord11);
 }
 
 /* ------------------------------------------------------------------
@@ -297,13 +512,13 @@
    ------------------------------------------------------------------ */
 
 .form-check-input:checked {
-    background-color: #5e81ac;
-    border-color: #5e81ac;
+    background-color: var(--nord10);
+    border-color: var(--nord10);
 }
 
 .form-control:focus, .form-select:focus, .form-check-input:focus {
-    border-color: #81a1c1;
-    box-shadow: 0 0 0 0.25rem rgba(136, 192, 208, 0.25);
+    border-color: var(--nord9);
+    box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--nord8) 25%, transparent);
 }
 
 .form-switch .form-check-input:not(:checked) {
@@ -316,8 +531,8 @@
    ------------------------------------------------------------------ */
 
 div[style*="background: rgb(0, 123, 255)"] {
-    background: #5e81ac !important;
-    color: #eceff4 !important;
+    background: var(--nord10) !important;
+    color: var(--nord-on-accent) !important;
 }
 
 div[style*="background: rgb(219, 234, 254)"] {
@@ -326,8 +541,8 @@ div[style*="background: rgb(219, 234, 254)"] {
 }
 
 .beta-badge {
-    background: #d08770 !important;
-    color: #2e3440 !important;
+    background: var(--nord12) !important;
+    color: var(--nord0) !important;
 }
 
 .log-type-badge, [data-bs-theme] .log .log-type-badge {
@@ -352,7 +567,7 @@ div[style*="background: rgb(219, 234, 254)"] {
 }
 
 [style*="color: rgb(255, 65, 54)"] {
-    color: #bf616a !important;
+    color: var(--nord11) !important;
 }
 
 [style*="color: rgb(34, 34, 34)"] {
@@ -361,15 +576,15 @@ div[style*="background: rgb(219, 234, 254)"] {
 
 /* coloured left edge of blocklist entries, blocked queries and allowed domains */
 [style*="border-left: 4px solid rgb(0, 123, 255)"] {
-    border-left-color: #5e81ac !important;
+    border-left-color: var(--nord10) !important;
 }
 
 [style*="border-left: 4px solid rgb(255, 65, 54)"] {
-    border-left-color: #bf616a !important;
+    border-left-color: var(--nord11) !important;
 }
 
 [style*="border-left: 4px solid rgb(46, 204, 64)"] {
-    border-left-color: #a3be8c !important;
+    border-left-color: var(--nord14) !important;
 }
 
 /* ------------------------------------------------------------------
@@ -379,16 +594,16 @@ div[style*="background: rgb(219, 234, 254)"] {
 .Analytics, [data-bs-theme] .Analytics {
     --area-queries-stroke: var(--nord-chart-stroke);
     --area-queries-fill: var(--nord-chart-fill);
-    --area-queries-blocked-stroke: #bf616a;
-    --area-queries-blocked-fill: #bf616a;
+    --area-queries-blocked-stroke: var(--nord11);
+    --area-queries-blocked-fill: var(--nord11);
 }
 
 .Analytics .progress.dnssec .progress-bar {
-    background-color: #81a1c1;
+    background-color: var(--nord9);
 }
 
 .progress-bar.bg-success {
-    background-color: #a3be8c !important;
+    background-color: var(--nord14) !important;
 }
 
 [style*="color: rgb(64, 133, 194)"] {
@@ -397,42 +612,42 @@ div[style*="background: rgb(219, 234, 254)"] {
 
 /* chart tooltips stay dark in both themes */
 .__react_component_tooltip.type-dark {
-    background-color: #3b4252 !important;
-    color: #eceff4 !important;
+    background-color: var(--nord1) !important;
+    color: var(--nord6) !important;
 }
 
-.__react_component_tooltip.type-dark.place-top::after { border-top-color: #3b4252 !important; }
-.__react_component_tooltip.type-dark.place-bottom::after { border-bottom-color: #3b4252 !important; }
-.__react_component_tooltip.type-dark.place-left::after { border-left-color: #3b4252 !important; }
-.__react_component_tooltip.type-dark.place-right::after { border-right-color: #3b4252 !important; }
+.__react_component_tooltip.type-dark.place-top::after { border-top-color: var(--nord1) !important; }
+.__react_component_tooltip.type-dark.place-bottom::after { border-bottom-color: var(--nord1) !important; }
+.__react_component_tooltip.type-dark.place-left::after { border-left-color: var(--nord1) !important; }
+.__react_component_tooltip.type-dark.place-right::after { border-right-color: var(--nord1) !important; }
 
 /* GAFAM chart and legend */
-path.recharts-sector[fill="#4285f4"] { fill: #5e81ac; }
-path.recharts-sector[fill="#3b5998"] { fill: #b48ead; }
-path.recharts-sector[fill="#7cbb00"] { fill: #a3be8c; }
+path.recharts-sector[fill="#4285f4"] { fill: var(--nord10); }
+path.recharts-sector[fill="#3b5998"] { fill: var(--nord15); }
+path.recharts-sector[fill="#7cbb00"] { fill: var(--nord14); }
 path.recharts-sector[fill="#ffffff"] { fill: var(--nord-chart-light-slice); }
-path.recharts-sector[fill="#ff9900"] { fill: #d08770; }
+path.recharts-sector[fill="#ff9900"] { fill: var(--nord12); }
 path.recharts-sector[fill="#494B4D"] { fill: var(--nord-chart-other); }
 /* the light theme draws Apple and Others with its own greys */
 path.recharts-sector[fill="#323232"] { fill: var(--nord-chart-light-slice); }
 path.recharts-sector[fill="#f3f5f7"] { fill: var(--nord-chart-other); }
-div[style*="background-color: rgb(66, 133, 244)"] { background-color: #5e81ac !important; }
-div[style*="background-color: rgb(59, 89, 152)"] { background-color: #b48ead !important; }
-div[style*="background-color: rgb(124, 187, 0)"] { background-color: #a3be8c !important; }
+div[style*="background-color: rgb(66, 133, 244)"] { background-color: var(--nord10) !important; }
+div[style*="background-color: rgb(59, 89, 152)"] { background-color: var(--nord15) !important; }
+div[style*="background-color: rgb(124, 187, 0)"] { background-color: var(--nord14) !important; }
 div[style*="background-color: rgb(255, 255, 255)"] { background-color: var(--nord-chart-light-slice) !important; }
-div[style*="background-color: rgb(255, 153, 0)"] { background-color: #d08770 !important; }
+div[style*="background-color: rgb(255, 153, 0)"] { background-color: var(--nord12) !important; }
 div[style*="background-color: rgb(73, 75, 77)"] { background-color: var(--nord-chart-other) !important; }
 div[style*="background-color: rgb(50, 50, 50)"] { background-color: var(--nord-chart-light-slice) !important; }
 div[style*="background-color: rgb(243, 245, 247)"] { background-color: var(--nord-chart-other) !important; }
 
 /* traffic destination map: country shades are computed in JavaScript, so tone them down */
 .rsm-svg {
-    filter: saturate(0.5);
+    filter: var(--nord-map-dark-site);
 }
 
 /* the light theme shades from white to blue: invert it so it reads like the dark theme */
 [data-bs-theme="light"] .rsm-svg {
-    filter: invert(0.75) hue-rotate(180deg) saturate(0.6) brightness(1.1);
+    filter: var(--nord-map-light-site);
 }
-
+}
 }

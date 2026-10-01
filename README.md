@@ -4,6 +4,21 @@ UserCSS styles for [Stylus](https://github.com/openstyles/stylus), published on 
 
 Each style lives in its own `.user.css` file. The userstyles.world pages mirror this repository: pushing a new version here, with a higher `@version`, updates the style for everyone who installed it.
 
+## Options
+
+Every style has the same options, set from Stylus (the gear icon next to the style, or *Configure* in the manager). The defaults are the dark Nord look.
+
+- **Apply the theme**: always, or only when the browser or system is in dark mode, or only when it is in light mode. When the condition does not hold, the site keeps its own colours.
+- **Palette**:
+  - *Nord*: Polar Night backgrounds and Snow Storm text, the default;
+  - *Nord darker*: deeper backgrounds, same text and accents;
+  - *Nord light*: Snow Storm backgrounds, Polar Night text, and accents darkened enough to stay readable on a light background;
+  - *Follow the browser*: Nord when the browser is dark, Nord light when it is light;
+  - *Custom*: the sixteen colours below.
+- **Custom palette type** and **Custom nord0 ... nord15**: used only by the *Custom* palette. Each colour picker is labelled with its role (background, surfaces, borders, text, main accent, red for errors, ...). For a light custom palette, put light colours in nord0 to nord3, dark ones in nord4 to nord6, and set the type to *Light*.
+
+The styles are compiled by Stylus' built-in Less preprocessor. Every colour in them is one of the sixteen palette colours, or a `color-mix()` of them, so a palette recolours the whole style. Shades that are not in Nord (a slightly lighter grey, a tinted background) are written as mixes of their neighbours in the palette and follow whichever palette is selected.
+
 ## Strava Nord V2
 
 A Nord theme for [Strava](https://www.strava.com/).
@@ -13,7 +28,7 @@ A Nord theme for [Strava](https://www.strava.com/).
 
 The theme lives in a CSS cascade layer, so its `!important` declarations win over Strava's own without specificity tricks. Selectors rely on HTML tags, ARIA roles, `data-testid` attributes and stable class-name prefixes rather than hashed class names, so the theme keeps working across Strava's CSS deploys.
 
-Versions up to 2025.04.30 were a fork of *Strava Darkest Fusion* by ATX (CC BY-SA 4.0). Version 2026.09.30 is a rewrite from scratch and is released under the MIT license.
+Versions up to 2025.04.30 were a fork of *Strava Darkest Fusion* by ATX (CC BY-SA 4.0). Version 2026.09.30 is a rewrite from scratch and is released under the MIT license. The *Font* option switches back to Strava's older font.
 
 ## Google Scholar Nord
 
@@ -33,14 +48,14 @@ Each site has its own section. Stylus' `domain()` also matches subdomains, so th
 
 ## NextDNS Nord
 
-A Nord theme for the [NextDNS](https://nextdns.io/) dashboard at [my.nextdns.io](https://my.nextdns.io/), including the analytics charts and the logs. The dashboard's light and dark themes both get the same dark Nord colours.
+A Nord theme for the [NextDNS](https://nextdns.io/) dashboard at [my.nextdns.io](https://my.nextdns.io/), including the analytics charts and the logs. The dashboard's light and dark themes both get the selected palette.
 
 - File: [`nextdns-nord.user.css`](nextdns-nord.user.css)
 - Install: [userstyles.world/style/24237](https://userstyles.world/style/24237) or open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/nextdns-nord.user.css) with Stylus installed.
 
 ## ChatGPT Nord
 
-A Nord theme for [ChatGPT](https://chatgpt.com/). ChatGPT's light and dark themes both get the same dark Nord colours.
+A Nord theme for [ChatGPT](https://chatgpt.com/). ChatGPT's light and dark themes both get the selected palette.
 
 - File: [`chatgpt-nord.user.css`](chatgpt-nord.user.css)
 - Install: [userstyles.world/style/22760](https://userstyles.world/style/22760) or open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/chatgpt-nord.user.css) with Stylus installed.
@@ -60,12 +75,14 @@ Each publication sets its own colour theme (cover colours, accent, contrast step
 
 A Nord theme for [YouTube](https://www.youtube.com/): home, search, watch page, Shorts, menus and live chat.
 
+Besides the main theme variables, the style maps every other colour variable of YouTube's dark theme onto the palette, including the hashed design tokens (`--t` followed by 16 hex digits). YouTube renames some of those tokens on new releases; stale names are harmless, and the next update of the style picks up the new ones.
+
 - File: [`youtube-nord.user.css`](youtube-nord.user.css)
 - Install: [userstyles.world/style/27575](https://userstyles.world/style/27575) or open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/youtube-nord.user.css) with Stylus installed.
 
 ## Moontower Nord
 
-A Nord theme for the [Moontower](https://www.moontowermoney.com/) blog and its [public Notion pages](https://notion.moontowermeta.com/). Both are public Notion sites, so the style redefines Notion's colour variables; Notion's light and dark themes both get the same dark Nord colours.
+A Nord theme for the [Moontower](https://www.moontowermoney.com/) blog and its [public Notion pages](https://notion.moontowermeta.com/). Both are public Notion sites, so the style redefines Notion's colour variables; Notion's light and dark themes both get the selected palette.
 
 - File: [`moontower-nord.user.css`](moontower-nord.user.css)
 - Install: [userstyles.world/style/17319](https://userstyles.world/style/17319) or open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/moontower-nord.user.css) with Stylus installed.

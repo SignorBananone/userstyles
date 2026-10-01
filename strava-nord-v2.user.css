@@ -1,20 +1,152 @@
 /* ==UserStyle==
 @name           Strava Nord V2
 @namespace      Strava Nord V2 by SignorBananone (fork of Strava Darkest Fusion by ATX)
-@version        2026.10.01
+@version        2026.10.01.1
 @description    Nord theme for Strava. Rewritten to rely on tags, ARIA roles, data-testid and stable class prefixes instead of hashed class names, so it survives Strava's CSS deploys.
 @homepageURL    https://github.com/SignorBananone/userstyles
 @license        MIT
 @author         SignorBananone
-@preprocessor   default
 
 @var select old_font_type "Font" {
   "Strava default": "revert-layer",
   "Older font (Maison Neue)": "MaisonNeue, Segoe UI, Helvetica Neue, -apple-system, system-ui, BlinkMacSystemFont, Roboto, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol"
 }
+@preprocessor   less
+
+@var select apply "Apply the theme" {
+  "Always*": "always",
+  "Only when the browser or system is in dark mode": "dark",
+  "Only when the browser or system is in light mode": "light"
+}
+@var select palette "Palette" {
+  "Nord: Polar Night backgrounds*": "nord",
+  "Nord darker": "darker",
+  "Nord light: Snow Storm backgrounds": "light",
+  "Follow the browser: Nord when dark, Nord light when light": "auto",
+  "Custom: the colours below": "custom"
+}
+@var select custom_type "Custom palette type" {
+  "Dark: light text on dark backgrounds*": "dark",
+  "Light: dark text on light backgrounds": "light"
+}
+@var color nord0 "Custom nord0: Background" #2e3440
+@var color nord1 "Custom nord1: Surfaces: cards, sidebars, inputs" #3b4252
+@var color nord2 "Custom nord2: Raised surfaces: hover, selection" #434c5e
+@var color nord3 "Custom nord3: Borders and muted elements" #4c566a
+@var color nord4 "Custom nord4: Text" #d8dee9
+@var color nord5 "Custom nord5: Brighter text" #e5e9f0
+@var color nord6 "Custom nord6: Headings and brightest text" #eceff4
+@var color nord7 "Custom nord7: Frost teal" #8fbcbb
+@var color nord8 "Custom nord8: Main accent: links, highlights" #88c0d0
+@var color nord9 "Custom nord9: Frost blue" #81a1c1
+@var color nord10 "Custom nord10: Deep blue: buttons" #5e81ac
+@var color nord11 "Custom nord11: Red: errors" #bf616a
+@var color nord12 "Custom nord12: Orange" #d08770
+@var color nord13 "Custom nord13: Yellow: warnings" #ebcb8b
+@var color nord14 "Custom nord14: Green: success" #a3be8c
+@var color nord15 "Custom nord15: Purple" #b48ead
 ==/UserStyle== */
 
+/* ---------- Options ----------
+   Stylus compiles this file with Less. The options only set CSS variables:
+   every colour below is var(--nord0) ... var(--nord15), or a color-mix() of them,
+   so one palette recolours the whole style. --nord-deep and --nord-peak sit past
+   the background and text ends of the palette (black and white in a dark one),
+   and --nord-on-accent is the text colour for filled accent backgrounds.
+   --nordN-rgb, where present, holds the same colour as an "r, g, b" list for Bootstrap. */
+@nord-apply: if((@apply = dark), ~"(prefers-color-scheme: dark)", if((@apply = light), ~"(prefers-color-scheme: light)", ~"all"));
+.nord-preset(nord) {
+  --nord0: #2e3440;
+  --nord1: #3b4252;
+  --nord2: #434c5e;
+  --nord3: #4c566a;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  .nord-mode(dark);
+}
+.nord-preset(darker) {
+  --nord0: #242933;
+  --nord1: #2b303b;
+  --nord2: #353b49;
+  --nord3: #434c5e;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  .nord-mode(dark);
+}
+.nord-preset(light) {
+  --nord0: #eceff4;
+  --nord1: #e5e9f0;
+  --nord2: #d8dee9;
+  --nord3: #b4bcc9;
+  --nord4: #3b4252;
+  --nord5: #353b49;
+  --nord6: #2e3440;
+  --nord7: #497473;
+  --nord8: #3c7382;
+  --nord9: #516f8d;
+  --nord10: #4c6e98;
+  --nord11: #ab4f59;
+  --nord12: #9f5a45;
+  --nord13: #866828;
+  --nord14: #5b7344;
+  --nord15: #84607e;
+  .nord-mode(light);
+}
+.nord-preset(custom) {
+  --nord0: @nord0;
+  --nord1: @nord1;
+  --nord2: @nord2;
+  --nord3: @nord3;
+  --nord4: @nord4;
+  --nord5: @nord5;
+  --nord6: @nord6;
+  --nord7: @nord7;
+  --nord8: @nord8;
+  --nord9: @nord9;
+  --nord10: @nord10;
+  --nord11: @nord11;
+  --nord12: @nord12;
+  --nord13: @nord13;
+  --nord14: @nord14;
+  --nord15: @nord15;
+  .nord-mode(@custom_type);
+}
+.nord-preset(auto) {
+  .nord-preset(nord);
+  @media (prefers-color-scheme: light) { .nord-preset(light); }
+}
+.nord-mode(dark) { --nord-deep: #000; --nord-peak: #fff; --nord-scheme: dark; --nord-on-accent: var(--nord6); .nord-site(dark); }
+.nord-mode(light) { --nord-deep: #fff; --nord-peak: #000; --nord-scheme: light; --nord-on-accent: var(--nord0); .nord-site(light); }
+.nord-site(@mode) {}
+/* Strava draws some icons dark for its light pages: lighten them on a dark palette */
+.nord-site(dark) { --nord-icon-filter: invert(88%) sepia(8%) saturate(300%) hue-rotate(180deg); }
+.nord-site(light) { --nord-icon-filter: none; }
+
+
 @-moz-document domain("strava.com") {
+@media @nord-apply {
+:root { .nord-preset(@palette); }
+
 
   /* Everything lives in a cascade layer: an !important declaration inside a layer
      beats every unlayered !important one, whatever its specificity. Strava's own
@@ -24,27 +156,19 @@
   @layer nord {
 
     /* ---------- Font option ---------- */
-    body { font-family: /*[[old_font_type]]*/ !important; }
+    body { font-family: @old_font_type !important; }
 
     /* ---------- Palette ---------- */
     :root {
-      --nord0: #2e3440;
-      --nord1: #3b4252;
-      --nord2: #434c5e;
-      --nord3: #4c566a;
-      --nord4: #d8dee9;
-      --nord5: #e5e9f0;
-      --nord6: #eceff4;
-      --nord7: #8fbcbb;
-      --nord8: #88c0d0;
-      --nord9: #81a1c1;
-      --nord10: #5e81ac;
-      --nord11: #bf616a;
-      --nord12: #d08770;
-      --nord13: #ebcb8b;
-      --nord14: #a3be8c;
-      --nord15: #b48ead;
-      --nt-muted: #a3adbf;
+
+
+
+
+
+
+
+
+      --nt-muted: color-mix(in srgb, color-mix(in srgb, var(--nord3) 31.2%, var(--nord4)) 87.8%, var(--nord10));
 
       --nt-bg: var(--nord0);
       --nt-surface: var(--nord1);
@@ -55,7 +179,7 @@
       --nt-link: var(--nord8);
       --nt-accent: var(--nord12);
 
-      color-scheme: dark !important;
+      color-scheme: var(--nord-scheme) !important;
     }
 
     /* ---------- Base: generic rules that do not depend on class names ---------- */
@@ -211,7 +335,7 @@
     .video-js .vjs-modal-dialog,
     [class*="Modal--overlay"],
     [class*="overlay" i][class*="Modal" i] {
-      background-color: rgba(46, 52, 64, 0.8) !important;
+      background-color: color-mix(in srgb, var(--nord0) 80%, transparent) !important;
     }
 
     /* ---------- Controls ---------- */
@@ -297,7 +421,7 @@
     [class*="Button_primary"]:hover,
     [class*="primary" i]:is(button, a[role="button"]):hover,
     a[class*="btn" i][class*="primary" i]:hover {
-      background-color: #dc9a85 !important;
+      background-color: color-mix(in srgb, var(--nord12) 84.2%, var(--nord-peak)) !important;
     }
 
     /* Selected tabs / nav items */
@@ -335,7 +459,7 @@
     }
     .app-icon,
     [class*="icon-dark"] {
-      filter: invert(88%) sepia(8%) saturate(300%) hue-rotate(180deg) !important;
+      filter: var(--nord-icon-filter) !important;
     }
 
     /* ---------- Feed ---------- */
@@ -509,13 +633,13 @@
       border-bottom-color: var(--nt-surface-2) !important;
     }
     [class*="TerrainLayerFootnote"] {
-      background-color: rgba(46, 52, 64, 0.75) !important;
+      background-color: color-mix(in srgb, var(--nord0) 75%, transparent) !important;
     }
     [class*="Badge_badge"] {
       background-color: var(--nord3) !important;
     }
     [class*="MediaThumbnailList--count"] {
-      background-color: rgba(46, 52, 64, 0.65) !important;
+      background-color: color-mix(in srgb, var(--nord0) 65%, transparent) !important;
     }
 
     /* ---------- Fills that carry data ----------
@@ -551,7 +675,7 @@
     /* Unread notifications badge on the bell */
     [data-testid="unread-ball"] {
       background-color: var(--nord11) !important;
-      color: var(--nord6) !important;
+      color: var(--nord-on-accent) !important;
     }
     /* Legacy ".button" links (club pages and older views) */
     a.button {
@@ -718,4 +842,5 @@
       color: var(--nt-text-strong) !important;
     }
   }
+}
 }

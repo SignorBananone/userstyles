@@ -1,39 +1,177 @@
 /* ==UserStyle==
 @name         Archlinux Nord
-@version      20261001.00.00
+@version      20261001.01.00
 @namespace    https://userstyles.world/user/SignorBananone, Gemini-3.1-Pro
 @description  Nordic revamp of the official Arch Linux website, including its forum, wiki, AUR, and all related resources.
 @homepageURL  https://github.com/SignorBananone/userstyles
 @author       SignorBananone, Gemini-3.1-Pro
 @license      MIT
+@preprocessor   less
+
+@var select apply "Apply the theme" {
+  "Always*": "always",
+  "Only when the browser or system is in dark mode": "dark",
+  "Only when the browser or system is in light mode": "light"
+}
+@var select palette "Palette" {
+  "Nord: Polar Night backgrounds*": "nord",
+  "Nord darker": "darker",
+  "Nord light: Snow Storm backgrounds": "light",
+  "Follow the browser: Nord when dark, Nord light when light": "auto",
+  "Custom: the colours below": "custom"
+}
+@var select custom_type "Custom palette type" {
+  "Dark: light text on dark backgrounds*": "dark",
+  "Light: dark text on light backgrounds": "light"
+}
+@var color nord0 "Custom nord0: Background" #2e3440
+@var color nord1 "Custom nord1: Surfaces: cards, sidebars, inputs" #3b4252
+@var color nord2 "Custom nord2: Raised surfaces: hover, selection" #434c5e
+@var color nord3 "Custom nord3: Borders and muted elements" #4c566a
+@var color nord4 "Custom nord4: Text" #d8dee9
+@var color nord5 "Custom nord5: Brighter text" #e5e9f0
+@var color nord6 "Custom nord6: Headings and brightest text" #eceff4
+@var color nord7 "Custom nord7: Frost teal" #8fbcbb
+@var color nord8 "Custom nord8: Main accent: links, highlights" #88c0d0
+@var color nord9 "Custom nord9: Frost blue" #81a1c1
+@var color nord10 "Custom nord10: Deep blue: buttons" #5e81ac
+@var color nord11 "Custom nord11: Red: errors" #bf616a
+@var color nord12 "Custom nord12: Orange" #d08770
+@var color nord13 "Custom nord13: Yellow: warnings" #ebcb8b
+@var color nord14 "Custom nord14: Green: success" #a3be8c
+@var color nord15 "Custom nord15: Purple" #b48ead
 ==/UserStyle== */
+
+/* ---------- Options ----------
+   Stylus compiles this file with Less. The options only set CSS variables:
+   every colour below is var(--nord0) ... var(--nord15), or a color-mix() of them,
+   so one palette recolours the whole style. --nord-deep and --nord-peak sit past
+   the background and text ends of the palette (black and white in a dark one),
+   and --nord-on-accent is the text colour for filled accent backgrounds.
+   --nordN-rgb, where present, holds the same colour as an "r, g, b" list for Bootstrap. */
+@nord-apply: if((@apply = dark), ~"(prefers-color-scheme: dark)", if((@apply = light), ~"(prefers-color-scheme: light)", ~"all"));
+.nord-preset(nord) {
+  --nord0: #2e3440;
+  --nord1: #3b4252;
+  --nord2: #434c5e;
+  --nord3: #4c566a;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  .nord-mode(dark);
+}
+.nord-preset(darker) {
+  --nord0: #242933;
+  --nord1: #2b303b;
+  --nord2: #353b49;
+  --nord3: #434c5e;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  .nord-mode(dark);
+}
+.nord-preset(light) {
+  --nord0: #eceff4;
+  --nord1: #e5e9f0;
+  --nord2: #d8dee9;
+  --nord3: #b4bcc9;
+  --nord4: #3b4252;
+  --nord5: #353b49;
+  --nord6: #2e3440;
+  --nord7: #497473;
+  --nord8: #3c7382;
+  --nord9: #516f8d;
+  --nord10: #4c6e98;
+  --nord11: #ab4f59;
+  --nord12: #9f5a45;
+  --nord13: #866828;
+  --nord14: #5b7344;
+  --nord15: #84607e;
+  .nord-mode(light);
+}
+.nord-preset(custom) {
+  --nord0: @nord0;
+  --nord1: @nord1;
+  --nord2: @nord2;
+  --nord3: @nord3;
+  --nord4: @nord4;
+  --nord5: @nord5;
+  --nord6: @nord6;
+  --nord7: @nord7;
+  --nord8: @nord8;
+  --nord9: @nord9;
+  --nord10: @nord10;
+  --nord11: @nord11;
+  --nord12: @nord12;
+  --nord13: @nord13;
+  --nord14: @nord14;
+  --nord15: @nord15;
+  .nord-mode(@custom_type);
+}
+.nord-preset(auto) {
+  .nord-preset(nord);
+  @media (prefers-color-scheme: light) { .nord-preset(light); }
+}
+.nord-mode(dark) { --nord-deep: #000; --nord-peak: #fff; --nord-scheme: dark; --nord-on-accent: var(--nord6); .nord-site(dark); }
+.nord-mode(light) { --nord-deep: #fff; --nord-peak: #000; --nord-scheme: light; --nord-on-accent: var(--nord0); .nord-site(light); }
+.nord-site(@mode) {}
+/* The Arch logo has white lettering for a dark bar */
+.nord-site(dark) { --nord-logo-filter: none; }
+.nord-site(light) { --nord-logo-filter: invert(1) hue-rotate(180deg); }
+
 
 /* Palette and the navigation bar shared by every archlinux.org site.
    domain("archlinux.org") also matches every subdomain, so only rules that are
    safe everywhere belong here. */
 @-moz-document domain("archlinux.org") {
+@media @nord-apply {
+:root { .nord-preset(@palette); }
+
 :root {
-    --nord0: #2e3440; --nord1: #3b4252; --nord2: #434c5e; --nord3: #4c566a;
-    --nord4: #d8dee9; --nord5: #e5e9f0; --nord6: #eceff4;
-    --nord7: #8fbcbb; --nord8: #88c0d0; --nord9: #81a1c1; --nord10: #5e81ac;
-    --nord11: #bf616a; --nord12: #d08770; --nord13: #ebcb8b; --nord14: #a3be8c; --nord15: #b48ead;
-    color-scheme: dark !important;
+
+
+    color-scheme: var(--nord-scheme) !important;
 }
 #archnavbar { background: var(--nord0) !important; border-bottom: 5px solid var(--nord9) !important; }
 #archnavbarlist li a { color: var(--nord9) !important; font-weight: bold !important; text-decoration: none !important; }
-#archnavbarlist li.anb-selected a, #archnavbarlist li a:hover { color: var(--nord10) !important; }
+#archnavbar ul#archnavbarlist li.anb-selected a, #archnavbar ul#archnavbarlist li a:hover { color: var(--nord10) !important; }
+/* archlinux.org marks the current section through a class on <header> */
+header.anb-home li#anb-home#anb-home a, header.anb-packages li#anb-packages#anb-packages a, header.anb-forums li#anb-forums#anb-forums a, header.anb-wiki li#anb-wiki#anb-wiki a, header.anb-gitlab li#anb-gitlab#anb-gitlab a, header.anb-security li#anb-security#anb-security a, header.anb-aur li#anb-aur#anb-aur a, header.anb-download li#anb-download#anb-download a { color: var(--nord10) !important; }
+#archnavbarlogo, #archnavbar #logo { filter: var(--nord-logo-filter); }
+}
 }
 
 /* archlinux.org (not its subdomains) and the AUR, which share the archweb layout */
 @-moz-document url-prefix("https://archlinux.org/"), url-prefix("https://www.archlinux.org/"), domain("aur.archlinux.org") {
+@media @nord-apply {
+:root { .nord-preset(@palette); }
+
 body { background: var(--nord1) !important; color: var(--nord4) !important; }
 a:link, a:visited, th a:visited { color: var(--nord9) !important; }
 a:hover, a:focus, a:visited:hover { color: var(--nord10) !important; text-decoration: underline; }
-#news h3 a { background: var(--nord10) !important; color: var(--nord6) !important; }
+#news h3 a { background: var(--nord10) !important; color: var(--nord-on-accent) !important; }
 h3 span.arrow { border-top-color: var(--nord10) !important; }
 div.box { margin-bottom: 1.5em; padding: 0.65em; background: var(--nord1) !important; border: 1px solid var(--nord9) !important; }
-#pkgsearch { background: var(--nord10) !important; color: var(--nord6) !important; border: 1px solid var(--nord9) !important; }
-#pkgsearch label { color: var(--nord6) !important; }
+#pkgsearch { background: var(--nord10) !important; color: var(--nord-on-accent) !important; border: 1px solid var(--nord9) !important; }
+#pkgsearch label { color: var(--nord-on-accent) !important; }
 div.news-article .article-info { color: var(--nord14) !important; }
 #news h4, h2 { border-bottom: 1px solid var(--nord9) !important; }
 code, pre { background: var(--nord3) !important; border: 1px solid var(--nord3) !important; color: var(--nord4) !important; }
@@ -55,18 +193,22 @@ thead, tbody { border-color: var(--nord3) !important; }
 #pkgsearch input { color: var(--nord4) !important; background: var(--nord2) !important; border: 1px solid var(--nord9) !important; }
 .pkgsearch-typeahead { background-color: var(--nord3) !important; border: 1px solid var(--nord9) !important; }
 #pkgdetails #detailslinks > div { background: var(--nord2) !important; border: 1px solid var(--nord9) !important; }
-.keyword:link, .keyword:visited { background-color: var(--nord10) !important; color: var(--nord6) !important; }
+.keyword:link, .keyword:visited { background-color: var(--nord10) !important; color: var(--nord-on-accent) !important; }
 .keyword:hover { background-color: var(--nord9) !important; color: var(--nord0) !important; }
 .error { color: var(--nord11) !important; }
 #pkgdetails #metadata h3 { background: var(--nord2) !important; color: var(--nord4) !important; font-size: 1.1em !important; margin: 0 !important; padding: 8px 12px !important; border-bottom: 1px solid var(--nord3) !important; }
-.comments-header h3 span.text { background: var(--nord10) !important; color: var(--nord6) !important; }
+.comments-header h3 span.text { background: var(--nord10) !important; color: var(--nord-on-accent) !important; }
 #pkgdetails #metadata .listing { background: var(--nord1) !important; border: 1px solid var(--nord3) !important; border-radius: 4px !important;  margin-bottom: 15px !important; overflow: hidden !important;  box-sizing: border-box !important; }
 #pkgdetails #metadata ul, #pkgdetails #metadata > div p { padding: 10px 12px !important; margin: 0 !important; }
 #pkgdepslist { list-style-type: none !important; }
 #pkgdepslist li { padding-bottom: 4px !important; }
 }
+}
 
 @-moz-document domain("wiki.archlinux.org") {
+@media @nord-apply {
+:root { .nord-preset(@palette); }
+
 :root {
     --background-color-base: var(--nord0) !important; --background-color-interactive: var(--nord1) !important; --background-color-interactive-subtle: var(--nord1) !important;
     --color-surface: var(--nord0) !important; --color-surface-background: var(--nord0) !important; --color-surface-interactive: var(--nord1) !important;
@@ -91,7 +233,7 @@ table.wikitable { background-color: var(--nord1) !important; border: 1px solid v
 table.wikitable > tr > th, table.wikitable > * > tr > th { background-color: var(--nord2) !important; border: 1px solid var(--nord3) !important; color: var(--nord4) !important; }
 table.wikitable > tr > td, table.wikitable > * > tr > td { border: 1px solid var(--nord3) !important; }
 .archwiki-template-g { background-color: var(--nord14) !important; color: var(--nord0) !important; }
-.archwiki-template-r { background-color: var(--nord11) !important; color: var(--nord6) !important; }
+.archwiki-template-r { background-color: var(--nord11) !important; color: var(--nord-on-accent) !important; }
 .archwiki-template-y { background-color: var(--nord13) !important; color: var(--nord0) !important; }
 pre, code, .mw-code { background-color: var(--nord1) !important; border: 1px solid var(--nord3) !important; color: var(--nord4) !important; font-family: monospace, monospace !important; }
 .cdx-button, .cdx-text-input__input { background-color: var(--nord1) !important; color: var(--nord4) !important; border-color: var(--nord3) !important; }
@@ -103,8 +245,12 @@ pre, code, .mw-code { background-color: var(--nord1) !important; border: 1px sol
 .mw-heading h2::before, .mw-heading2 h2::before, #mw-content-text h2::before { color: var(--nord13) !important; }
 .mw-heading, .mw-heading2 { border-bottom-color: var(--nord3) !important; }
 }
+}
 
 @-moz-document domain("bbs.archlinux.org") {
+@media @nord-apply {
+:root { .nord-preset(@palette); }
+
 html, body, .pun { background: var(--nord0) !important; color: var(--nord4) !important; }
 .pun .punwrap { background: var(--nord0) !important; border: none !important; }
 #brdmenu { background: transparent !important; border: none !important; }
@@ -139,7 +285,7 @@ html, body, .pun { background: var(--nord0) !important; color: var(--nord4) !imp
 #brdfooter select { background: var(--nord1) !important; color: var(--nord4) !important; border: 1px solid var(--nord3) !important; padding: 4px 8px !important; border-radius: 4px !important; outline: none !important; cursor: pointer !important; }
 #brdfooter select:hover, #brdfooter select:focus { border-color: var(--nord8) !important; }
 #brdfooter input[type="submit"] { background: var(--nord3) !important; color: var(--nord4) !important; border: 1px solid var(--nord3) !important; padding: 4px 12px !important; border-radius: 4px !important; cursor: pointer !important; margin-left: 5px !important; transition: all 0.2s ease-in-out; }
-#brdfooter input[type="submit"]:hover { background: var(--nord10) !important; color: var(--nord6) !important; border-color: var(--nord10) !important; }
+#brdfooter input[type="submit"]:hover { background: var(--nord10) !important; color: var(--nord-on-accent) !important; border-color: var(--nord10) !important; }
 .pun .blockform .inform, .pun .blockform .infldset { background: transparent !important; border: none !important; color: var(--nord4) !important; }
 .pun .blockform fieldset { border: 1px solid var(--nord3) !important; border-radius: 6px !important; padding: 15px !important; background: var(--nord0) !important; margin-bottom: 15px !important; }
 .pun .blockform legend { background: transparent !important; border: none !important; color: var(--nord8) !important; font-weight: bold !important; padding: 0 10px !important; }
@@ -150,7 +296,7 @@ html, body, .pun { background: var(--nord0) !important; color: var(--nord4) !imp
 .pun .checklist fieldset:last-child { border-bottom: none !important; }
 .pun .checklist legend { color: var(--nord9) !important; font-size: 0.9em !important; padding: 0 !important; }
 .pun .blockform p.buttons { text-align: center !important; margin-top: 15px !important; }
-.pun input[type="submit"] { background: var(--nord10) !important; color: var(--nord6) !important; border: none !important; padding: 8px 20px !important; border-radius: 4px !important; font-weight: bold !important; cursor: pointer !important; transition: background-color 0.2s ease !important; }
+.pun input[type="submit"] { background: var(--nord10) !important; color: var(--nord-on-accent) !important; border: none !important; padding: 8px 20px !important; border-radius: 4px !important; font-weight: bold !important; cursor: pointer !important; transition: background-color 0.2s ease !important; }
 .pun input[type="submit"]:hover { background: var(--nord8) !important; color: var(--nord1) !important; }
 .pun label, .pun legend, #adminconsole fieldset th { color: var(--nord4); }
 .pun p, .pun label, .pun .blockform .conl, .pun .blockform .rbox label, .pun .usercontent { color: var(--nord4) !important; }
@@ -161,14 +307,18 @@ html, body, .pun { background: var(--nord0) !important; color: var(--nord4) !imp
 .pun .blockpost h3 { color: var(--nord8) !important; border-bottom: 1px solid var(--nord3) !important; padding-bottom: 8px !important; margin-bottom: 12px !important; font-weight: 600 !important; }
 .pun .blockpost h2 span, .pun .blockpost h2 a { color: var(--nord4) !important; }
 /* Secondary text uses a slate grey (#566579) that disappears on Nord backgrounds */
-.pun .byuser, .pun .pagestext, .pun .spacer, .pun .closedtext, .pun .tc2, .pun .tc3, .pun .tcr span, .pun .forumdesc, .pun .crumbs, .pun .crumbs span, .pun .pagelink, #brdwelcome span, #brdstats dd, #brdstats dt, .pun .postfoot, .pun .postfoot span, .pun .postedit em { color: #a3adbf !important; }
+.pun .byuser, .pun .pagestext, .pun .spacer, .pun .closedtext, .pun .tc2, .pun .tc3, .pun .tcr span, .pun .forumdesc, .pun .crumbs, .pun .crumbs span, .pun .pagelink, #brdwelcome span, #brdstats dd, #brdstats dt, .pun .postfoot, .pun .postfoot span, .pun .postedit em { color: color-mix(in srgb, color-mix(in srgb, var(--nord3) 31.2%, var(--nord4)) 87.8%, var(--nord10)) !important; }
 .pun .codebox { background: var(--nord1) !important; border: 1px solid var(--nord3) !important; }
 .pun .codebox pre, .pun .codebox code { background: var(--nord1) !important; color: var(--nord4) !important; }
 .pun .quotebox cite { color: var(--nord8) !important; }
 .pun hr, #brdmain hr { background-color: var(--nord3) !important; color: var(--nord3) !important; border-color: var(--nord3) !important; }
 }
+}
 
 @-moz-document domain("man.archlinux.org"), domain("security.archlinux.org") {
+@media @nord-apply {
+:root { .nord-preset(@palette); }
+
 body { background: var(--nord1) !important; color: var(--nord4) !important; }
 a:link, a:visited { color: var(--nord9) !important; }
 a:hover, a:focus { color: var(--nord8) !important; }
@@ -182,9 +332,14 @@ th { background: var(--nord0) !important; color: var(--nord8) !important; border
 td { border-color: var(--nord3) !important; }
 tr:nth-child(even) td { background: var(--nord0) !important; }
 }
+}
 
 @-moz-document domain("gitlab.archlinux.org") {
+@media @nord-apply {
+:root { .nord-preset(@palette); }
+
 .gl-heading-1 { color: var(--nord4) !important; }
 .\!gl-text-gray-900 { color: var(--nord4) !important; }
 body { background-color: var(--nord0) !important; color: var(--nord4) !important; }
+}
 }

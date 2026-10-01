@@ -1,16 +1,56 @@
 /* ==UserStyle==
 @name         Youtube Nord
-@version      20261001.00.00
+@version      20261001.01.00
 @namespace    ?
 @description  Nord theme for YouTube
 @homepageURL  https://github.com/SignorBananone/userstyles
 @author       SignorBananone
 @license      MIT
+@preprocessor   less
+
+@var select apply "Apply the theme" {
+  "Always*": "always",
+  "Only when the browser or system is in dark mode": "dark",
+  "Only when the browser or system is in light mode": "light"
+}
+@var select palette "Palette" {
+  "Nord: Polar Night backgrounds*": "nord",
+  "Nord darker": "darker",
+  "Nord light: Snow Storm backgrounds": "light",
+  "Follow the browser: Nord when dark, Nord light when light": "auto",
+  "Custom: the colours below": "custom"
+}
+@var select custom_type "Custom palette type" {
+  "Dark: light text on dark backgrounds*": "dark",
+  "Light: dark text on light backgrounds": "light"
+}
+@var color nord0 "Custom nord0: Background" #2e3440
+@var color nord1 "Custom nord1: Surfaces: cards, sidebars, inputs" #3b4252
+@var color nord2 "Custom nord2: Raised surfaces: hover, selection" #434c5e
+@var color nord3 "Custom nord3: Borders and muted elements" #4c566a
+@var color nord4 "Custom nord4: Text" #d8dee9
+@var color nord5 "Custom nord5: Brighter text" #e5e9f0
+@var color nord6 "Custom nord6: Headings and brightest text" #eceff4
+@var color nord7 "Custom nord7: Frost teal" #8fbcbb
+@var color nord8 "Custom nord8: Main accent: links, highlights" #88c0d0
+@var color nord9 "Custom nord9: Frost blue" #81a1c1
+@var color nord10 "Custom nord10: Deep blue: buttons" #5e81ac
+@var color nord11 "Custom nord11: Red: errors" #bf616a
+@var color nord12 "Custom nord12: Orange" #d08770
+@var color nord13 "Custom nord13: Yellow: warnings" #ebcb8b
+@var color nord14 "Custom nord14: Green: success" #a3be8c
+@var color nord15 "Custom nord15: Purple" #b48ead
 ==/UserStyle== */
 
-@-moz-document domain("www.youtube.com") {
-/* --- 1. GLOBAL NORD PALETTE --- */
-:root {
+/* ---------- Options ----------
+   Stylus compiles this file with Less. The options only set CSS variables:
+   every colour below is var(--nord0) ... var(--nord15), or a color-mix() of them,
+   so one palette recolours the whole style. --nord-deep and --nord-peak sit past
+   the background and text ends of the palette (black and white in a dark one),
+   and --nord-on-accent is the text colour for filled accent backgrounds.
+   --nordN-rgb, where present, holds the same colour as an "r, g, b" list for Bootstrap. */
+@nord-apply: if((@apply = dark), ~"(prefers-color-scheme: dark)", if((@apply = light), ~"(prefers-color-scheme: light)", ~"all"));
+.nord-preset(nord) {
   --nord0: #2e3440;
   --nord1: #3b4252;
   --nord2: #434c5e;
@@ -23,7 +63,91 @@
   --nord9: #81a1c1;
   --nord10: #5e81ac;
   --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
   --nord14: #a3be8c;
+  --nord15: #b48ead;
+  .nord-mode(dark);
+}
+.nord-preset(darker) {
+  --nord0: #242933;
+  --nord1: #2b303b;
+  --nord2: #353b49;
+  --nord3: #434c5e;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  .nord-mode(dark);
+}
+.nord-preset(light) {
+  --nord0: #eceff4;
+  --nord1: #e5e9f0;
+  --nord2: #d8dee9;
+  --nord3: #b4bcc9;
+  --nord4: #3b4252;
+  --nord5: #353b49;
+  --nord6: #2e3440;
+  --nord7: #497473;
+  --nord8: #3c7382;
+  --nord9: #516f8d;
+  --nord10: #4c6e98;
+  --nord11: #ab4f59;
+  --nord12: #9f5a45;
+  --nord13: #866828;
+  --nord14: #5b7344;
+  --nord15: #84607e;
+  .nord-mode(light);
+}
+.nord-preset(custom) {
+  --nord0: @nord0;
+  --nord1: @nord1;
+  --nord2: @nord2;
+  --nord3: @nord3;
+  --nord4: @nord4;
+  --nord5: @nord5;
+  --nord6: @nord6;
+  --nord7: @nord7;
+  --nord8: @nord8;
+  --nord9: @nord9;
+  --nord10: @nord10;
+  --nord11: @nord11;
+  --nord12: @nord12;
+  --nord13: @nord13;
+  --nord14: @nord14;
+  --nord15: @nord15;
+  .nord-mode(@custom_type);
+}
+.nord-preset(auto) {
+  .nord-preset(nord);
+  @media (prefers-color-scheme: light) { .nord-preset(light); }
+}
+.nord-mode(dark) { --nord-deep: #000; --nord-peak: #fff; --nord-scheme: dark; --nord-on-accent: var(--nord6); .nord-site(dark); }
+.nord-mode(light) { --nord-deep: #fff; --nord-peak: #000; --nord-scheme: light; --nord-on-accent: var(--nord0); .nord-site(light); }
+.nord-site(@mode) {}
+
+
+@-moz-document domain("www.youtube.com") {
+@media @nord-apply {
+:root { .nord-preset(@palette); }
+
+/* --- 1. GLOBAL NORD PALETTE --- */
+:root {
+
+
+
+
+
+
+
 }
 
 /* --- 2. THEME BASE VARIABLES --- */
@@ -190,7 +314,7 @@ input.ytSearchboxComponentInput, input.yt-searchbox-input {
 }
 
 ytd-subscribe-button-renderer tp-yt-paper-button, tp-yt-paper-button.ytd-subscribe-button-renderer {
-  color: var(--nord6) !important;
+  color: var(--nord-on-accent) !important;
 }
 
 .html5-video-player:not(.ytp-transparent), .html5-video-player.unstarted-mode, .html5-video-player.ad-showing, .html5-video-player.ended-mode {
@@ -320,17 +444,17 @@ yt-live-chat-author-chip[disable-highlighting] #author-name.yt-live-chat-author-
 /* --- 12. LATER FIXES (2026-10) --- */
 /* translucent top bar, behind its blur */
 #background.ytd-masthead {
-  background: rgba(46, 52, 64, 0.92) !important;
+  background: color-mix(in srgb, var(--nord0) 92%, transparent) !important;
 }
 
 #country-code.ytd-topbar-logo-renderer, ytd-guide-renderer #footer, ytd-guide-renderer #footer a, ytd-guide-renderer #copyright {
-  color: #7b88a1 !important;
+  color: color-mix(in srgb, color-mix(in srgb, var(--nord3) 60.3%, var(--nord4)) 75.3%, var(--nord10)) !important;
 }
 
 /* notification count */
 .ytSpecIconBadgeShapeBadge {
   background-color: var(--nord11) !important;
-  color: var(--nord6) !important;
+  color: var(--nord-on-accent) !important;
 }
 
 /* "Show more" under shelves in search results */
@@ -354,6 +478,325 @@ ytd-playlist-panel-video-renderer[selected] {
 
 /* unplayed part of the progress bar */
 .ytp-progress-list {
-  background: rgba(76, 86, 106, 0.6) !important;
+  background: color-mix(in srgb, var(--nord3) 60%, transparent) !important;
+}
+
+/* --- 13. DESCRIPTIONS ---
+   YouTube writes the dark-theme text colour inline on description runs, and uses its own blue for links */
+span.ytAttributedStringLinkInheritColor[style*="color: rgb(255, 255, 255)"] {
+  color: var(--nord6) !important;
+}
+.ytAttributedStringLinkCallToActionColor {
+  color: var(--nord8) !important;
+}
+/* "New" badge on thumbnails: white in both YouTube themes */
+.ytBadgeShapeThumbnailSpecial, .ytBadgeShapeThumbnailSpecial .ytBadgeShapeText {
+  background-color: var(--nord6) !important;
+  color: var(--nord0) !important;
+}
+
+/* --- 14. EVERY OTHER DARK-THEME COLOUR VARIABLE ---
+   YouTube's own dark values, each moved to the nearest Nord colour, so nothing keeps
+   YouTube's greys whatever the palette. Overlay and static colours (on top of video) are left alone. */
+html, html[dark], [dark] {
+  --yt-deprecated-general-background-a: color-mix(in srgb, var(--nord0) 39.9%, var(--nord1)) !important;
+  --yt-deprecated-general-background-b: var(--nord0) !important;
+  --yt-deprecated-general-background-c: var(--nord0) !important;
+  --yt-deprecated-paper-tab-ink: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 29.8%, transparent) !important;
+  --yt-emoji-picker-search-background-color: color-mix(in srgb, var(--nord9) 18%, var(--nord3)) !important;
+  --yt-emoji-picker-search-color: var(--nord6) !important;
+  --yt-emoji-picker-search-placeholder-color: color-mix(in srgb, color-mix(in srgb, var(--nord3) 34.7%, var(--nord4)) 86.8%, var(--nord10)) !important;
+  --yt-emoji-picker-variant-selector-bg-color: color-mix(in srgb, var(--nord2) 58.2%, var(--nord3)) !important;
+  --yt-live-chat-action-panel-background-color-transparent: color-mix(in srgb, var(--nord2) 80%, transparent) !important;
+  --yt-live-chat-action-panel-renderer-fallback-background-color: color-mix(in srgb, var(--nord1) 13.6%, var(--nord2)) !important;
+  --yt-live-chat-automod-button-background-color-hover: color-mix(in srgb, var(--nord6) 50.2%, transparent) !important;
+  --yt-live-chat-automod-button-explanation-color: color-mix(in srgb, var(--nord6) 69.8%, transparent) !important;
+  --yt-live-chat-deleted-message-bar-color: color-mix(in srgb, var(--nord6) 50.2%, transparent) !important;
+  --yt-live-chat-deleted-message-color: color-mix(in srgb, var(--nord6) 50.2%, transparent) !important;
+  --yt-live-chat-dialog-background-color: color-mix(in srgb, var(--nord9) 14.7%, var(--nord3)) !important;
+  --yt-live-chat-disabled-button-background-color: color-mix(in srgb, var(--nord9) 18%, var(--nord3)) !important;
+  --yt-live-chat-disabled-icon-button-color: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 29.8%, transparent) !important;
+  --yt-live-chat-enabled-send-button-color: var(--nord6) !important;
+  --yt-live-chat-mention-background-color: var(--nord11) !important;
+  --yt-live-chat-mention-text-color: var(--nord6) !important;
+  --yt-live-chat-mode-change-background-color: color-mix(in srgb, var(--nord2) 32.3%, var(--nord3)) !important;
+  --yt-live-chat-moderation-mode-hover-background-color: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 29.8%, transparent) !important;
+  --yt-live-chat-moderator-color: var(--nord9) !important;
+  --yt-live-chat-owner-color: var(--nord13) !important;
+  --yt-live-chat-picker-button-hover-color: color-mix(in srgb, var(--nord6) 74.1%, transparent) !important;
+  --yt-live-chat-poll-choice-vote-bar-color: color-mix(in srgb, var(--nord3) 96.3%, var(--nord4)) !important;
+  --yt-live-chat-product-picker-disabled-icon-color: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 29.8%, transparent) !important;
+  --yt-live-chat-product-picker-hover-color: color-mix(in srgb, var(--nord9) 18%, var(--nord3)) !important;
+  --yt-live-chat-product-picker-icon-color: color-mix(in srgb, var(--nord6) 50.2%, transparent) !important;
+  --yt-live-chat-reconnect-message-color: var(--nord6) !important;
+  --yt-live-chat-secondary-background-color: var(--nord2) !important;
+  --yt-live-chat-secondary-text-color: color-mix(in srgb, var(--nord6) 69.8%, transparent) !important;
+  --yt-live-chat-shimmer-background-color: #11111166 !important;
+  --yt-live-chat-slider-active-color: var(--nord10) !important;
+  --yt-live-chat-slider-container-color: color-mix(in srgb, color-mix(in srgb, var(--nord3) 84.1%, var(--nord4)) 77.9%, var(--nord10)) !important;
+  --yt-live-chat-slider-markers-color: var(--nord6) !important;
+  --yt-live-chat-sponsor-color: var(--nord14) !important;
+  --yt-live-chat-tertiary-text-color: color-mix(in srgb, var(--nord6) 54.1%, transparent) !important;
+  --yt-live-chat-text-input-field-inactive-underline-color: color-mix(in srgb, color-mix(in srgb, var(--nord3) 70.1%, var(--nord4)) 77.1%, var(--nord10)) !important;
+  --yt-live-chat-text-input-field-placeholder-color: color-mix(in srgb, color-mix(in srgb, var(--nord3) 70.1%, var(--nord4)) 77.1%, var(--nord10)) !important;
+  --yt-live-chat-text-input-field-suggestion-background-color: color-mix(in srgb, var(--nord9) 8.8%, var(--nord3)) !important;
+  --yt-live-chat-text-input-field-suggestion-background-color-hover: color-mix(in srgb, var(--nord2) 25.8%, var(--nord3)) !important;
+  --yt-live-chat-toast-background-color: color-mix(in srgb, var(--nord2) 41.8%, var(--nord3)) !important;
+  --yt-live-chat-vem-background-color: color-mix(in srgb, var(--nord9) 8.8%, var(--nord3)) !important;
+  --yt-sys-color-baseline--add-on-green-base-background: color-mix(in srgb, var(--nord14) 39.6%, var(--nord0)) !important;
+  --yt-sys-color-baseline--add-on-green-primary: color-mix(in srgb, var(--nord14) 39.6%, var(--nord0)) !important;
+  --yt-sys-color-baseline--add-on-green-text-primary: color-mix(in srgb, var(--nord13) 49.6%, var(--nord6)) !important;
+  --yt-sys-color-baseline--add-on-magenta-base-background: var(--nord15) !important;
+  --yt-sys-color-baseline--add-on-magenta-primary: var(--nord15) !important;
+  --yt-sys-color-baseline--add-on-magenta-text-prinary: var(--nord15) !important;
+  --yt-sys-color-baseline--add-on-orange-base-background: var(--nord11) !important;
+  --yt-sys-color-baseline--add-on-orange-primary: var(--nord11) !important;
+  --yt-sys-color-baseline--add-on-orange-text-primary: color-mix(in srgb, var(--nord11) 49.9%, var(--nord6)) !important;
+  --yt-sys-color-baseline--add-on-purple-base-background: color-mix(in srgb, var(--nord15) 40.3%, var(--nord0)) !important;
+  --yt-sys-color-baseline--add-on-purple-primary: var(--nord15) !important;
+  --yt-sys-color-baseline--add-on-purple-text-primary: var(--nord15) !important;
+  --yt-sys-color-baseline--add-on-red-base-background: color-mix(in srgb, var(--nord11) 40%, var(--nord0)) !important;
+  --yt-sys-color-baseline--add-on-red-primary: var(--nord11) !important;
+  --yt-sys-color-baseline--add-on-red-text-primary: var(--nord11) !important;
+  --yt-sys-color-baseline--add-on-teal-base-background: color-mix(in srgb, var(--nord14) 35.3%, var(--nord0)) !important;
+  --yt-sys-color-baseline--add-on-teal-primary: color-mix(in srgb, var(--nord14) 35.3%, var(--nord0)) !important;
+  --yt-sys-color-baseline--add-on-teal-text-primary: color-mix(in srgb, var(--nord14) 49.9%, var(--nord6)) !important;
+  --yt-sys-color-baseline--additive-background: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 10.2%, transparent) !important;
+  --yt-sys-color-baseline--additive-background-inverse: #0000000d !important;
+  --yt-sys-color-baseline--assistive-feed-themed-gradient-1: color-mix(in srgb, var(--nord7) 31.7%, var(--nord0)) !important;
+  --yt-sys-color-baseline--assistive-feed-themed-gradient-2: color-mix(in srgb, var(--nord15) 27.6%, var(--nord0)) !important;
+  --yt-sys-color-baseline--assistive-feed-themed-gradient-3: color-mix(in srgb, var(--nord11) 32.6%, var(--nord0)) !important;
+  --yt-sys-color-baseline--assistive-feed-vibrant-gradient-1: color-mix(in srgb, var(--nord7) 39%, var(--nord0)) !important;
+  --yt-sys-color-baseline--assistive-feed-vibrant-gradient-2: color-mix(in srgb, var(--nord15) 42.4%, var(--nord0)) !important;
+  --yt-sys-color-baseline--assistive-feed-vibrant-gradient-3: var(--nord11) !important;
+  --yt-sys-color-baseline--background-complete: color-mix(in srgb, color-mix(in srgb, var(--nord14) 27.5%, var(--nord0)) 60%, transparent) !important;
+  --yt-sys-color-baseline--background-warning: color-mix(in srgb, color-mix(in srgb, var(--nord12) 39.6%, var(--nord0)) 60%, transparent) !important;
+  --yt-sys-color-baseline--blue-1: color-mix(in srgb, var(--nord10) 44.3%, var(--nord0)) !important;
+  --yt-sys-color-baseline--blue-2: var(--nord10) !important;
+  --yt-sys-color-baseline--blue-3: var(--nord9) !important;
+  --yt-sys-color-baseline--blue-4: var(--nord9) !important;
+  --yt-sys-color-baseline--blue-5: var(--nord8) !important;
+  --yt-sys-color-baseline--blue-6: var(--nord8) !important;
+  --yt-sys-color-baseline--blue-7: color-mix(in srgb, var(--nord8) 49.8%, var(--nord6)) !important;
+  --yt-sys-color-baseline--brand-red-contrast: var(--nord11) !important;
+  --yt-sys-color-baseline--button-chip-background-hover: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 20%, transparent) !important;
+  --yt-sys-color-baseline--call-to-action: var(--nord9) !important;
+  --yt-sys-color-baseline--call-to-action-hover: var(--nord9) !important;
+  --yt-sys-color-baseline--call-to-action-inverse: var(--nord10) !important;
+  --yt-sys-color-baseline--error-background-red: color-mix(in srgb, var(--nord11) 20%, transparent) !important;
+  --yt-sys-color-baseline--error-indicator: var(--nord11) !important;
+  --yt-sys-color-baseline--error-indicator-inverse: var(--nord11) !important;
+  --yt-sys-color-baseline--feed-vibrant-gradient1: color-mix(in srgb, var(--nord7) 39%, var(--nord0)) !important;
+  --yt-sys-color-baseline--feed-vibrant-gradient2: color-mix(in srgb, var(--nord15) 42.4%, var(--nord0)) !important;
+  --yt-sys-color-baseline--feed-vibrant-gradient3: var(--nord11) !important;
+  --yt-sys-color-baseline--frosted-glass-desktop: #0f0f0fcc !important;
+  --yt-sys-color-baseline--frosted-glass-mobile: #0f0f0fb2 !important;
+  --yt-sys-color-baseline--genai-1: color-mix(in srgb, var(--nord7) 39%, var(--nord0)) !important;
+  --yt-sys-color-baseline--genai-1-additive: color-mix(in srgb, color-mix(in srgb, var(--nord7) 39%, var(--nord0)) 29.8%, transparent) !important;
+  --yt-sys-color-baseline--genai-2: color-mix(in srgb, var(--nord15) 42.4%, var(--nord0)) !important;
+  --yt-sys-color-baseline--genai-2-additive: color-mix(in srgb, color-mix(in srgb, var(--nord15) 42.4%, var(--nord0)) 29.8%, transparent) !important;
+  --yt-sys-color-baseline--genai-3: var(--nord15) !important;
+  --yt-sys-color-baseline--genai-3-additive: color-mix(in srgb, var(--nord15) 29.8%, transparent) !important;
+  --yt-sys-color-baseline--genai-4: var(--nord11) !important;
+  --yt-sys-color-baseline--genai-4-additive: color-mix(in srgb, var(--nord11) 29.8%, transparent) !important;
+  --yt-sys-color-baseline--green-6: var(--nord13) !important;
+  --yt-sys-color-baseline--grey-4: var(--nord8) !important;
+  --yt-sys-color-baseline--grey-6: color-mix(in srgb, var(--nord5) 70.3%, var(--nord6)) !important;
+  --yt-sys-color-baseline--icon-warning: var(--nord12) !important;
+  --yt-sys-color-baseline--inverted-background: color-mix(in srgb, var(--nord5) 76.2%, var(--nord6)) !important;
+  --yt-sys-color-baseline--inverted-background-hover: color-mix(in srgb, var(--nord4) 61.7%, var(--nord5)) !important;
+  --yt-sys-color-baseline--keyboard-background: var(--nord1) !important;
+  --yt-sys-color-baseline--keyboard-background-action: color-mix(in srgb, var(--nord8) 49.8%, var(--nord6)) !important;
+  --yt-sys-color-baseline--keyboard-background-bar: color-mix(in srgb, var(--nord2) 41.8%, var(--nord3)) !important;
+  --yt-sys-color-baseline--keyboard-background-emoji: var(--nord1) !important;
+  --yt-sys-color-baseline--keyboard-background-key: color-mix(in srgb, var(--nord2) 41.8%, var(--nord3)) !important;
+  --yt-sys-color-baseline--keyboard-background-key-alt: color-mix(in srgb, color-mix(in srgb, var(--nord3) 90%, var(--nord4)) 85.2%, var(--nord10)) !important;
+  --yt-sys-color-baseline--keyboard-background-switch: var(--nord9) !important;
+  --yt-sys-color-baseline--keyboard-divider: color-mix(in srgb, var(--nord2) 19.1%, var(--nord3)) !important;
+  --yt-sys-color-baseline--keyboard-text-action: var(--nord1) !important;
+  --yt-sys-color-baseline--keyboard-text-character: color-mix(in srgb, var(--nord5) 70.3%, var(--nord6)) !important;
+  --yt-sys-color-baseline--keyboard-text-chevron: var(--nord6) !important;
+  --yt-sys-color-baseline--keyboard-text-icon: var(--nord6) !important;
+  --yt-sys-color-baseline--keyboard-text-symbol: var(--nord4) !important;
+  --yt-sys-color-baseline--mono-filled-hover: color-mix(in srgb, var(--nord4) 61.7%, var(--nord5)) !important;
+  --yt-sys-color-baseline--mono-filled-hover-inverse: color-mix(in srgb, var(--nord1) 13.6%, var(--nord2)) !important;
+  --yt-sys-color-baseline--mono-tonal-hover: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 20%, transparent) !important;
+  --yt-sys-color-baseline--mono-tonal-hover-inverse: #0000001a !important;
+  --yt-sys-color-baseline--outline: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 20%, transparent) !important;
+  --yt-sys-color-baseline--outline-inverse: #0000001a !important;
+  --yt-sys-color-baseline--outline-inverse-opaque: color-mix(in srgb, var(--nord4) 25.4%, var(--nord5)) !important;
+  --yt-sys-color-baseline--outline-opaque: color-mix(in srgb, var(--nord9) 10.2%, var(--nord3)) !important;
+  --yt-sys-color-baseline--outline-rim: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 14.9%, transparent) !important;
+  --yt-sys-color-baseline--outline-rim-inverse: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 29.8%, transparent) !important;
+  --yt-sys-color-baseline--outline-wash: #00000000 !important;
+  --yt-sys-color-baseline--purple-6: var(--nord15) !important;
+  --yt-sys-color-baseline--red-3: var(--nord11) !important;
+  --yt-sys-color-baseline--red-4: var(--nord11) !important;
+  --yt-sys-color-baseline--red-indicator: var(--nord11) !important;
+  --yt-sys-color-baseline--scrim-background-gradient-1: #0f0f0f00 !important;
+  --yt-sys-color-baseline--scrim-background-gradient-2: #0f0f0f4c !important;
+  --yt-sys-color-baseline--scrim-background-gradient-3: #0f0f0f99 !important;
+  --yt-sys-color-baseline--scrim-background-gradient-4: #0f0f0fe6 !important;
+  --yt-sys-color-baseline--scrim-background-gradient-5: var(--nord0) !important;
+  --yt-sys-color-baseline--shadow-medium: #00000040 !important;
+  --yt-sys-color-baseline--solid-background: color-mix(in srgb, var(--nord4) 22.1%, var(--nord5)) !important;
+  --yt-sys-color-baseline--solid-background-inverse: var(--nord0) !important;
+  --yt-sys-color-baseline--solid-rim: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 20%, transparent) !important;
+  --yt-sys-color-baseline--solid-rim-inverse: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 20%, transparent) !important;
+  --yt-sys-color-baseline--solid-wash: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 29.8%, transparent) !important;
+  --yt-sys-color-baseline--solid-wash-inverse: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 14.9%, transparent) !important;
+  --yt-sys-color-baseline--state-mono-filled-hovered: #0000000d !important;
+  --yt-sys-color-baseline--state-mono-filled-pressed: #0000001a !important;
+  --yt-sys-color-baseline--state-mono-standard-hovered: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 5.1%, transparent) !important;
+  --yt-sys-color-baseline--state-mono-standard-pressed: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 10.2%, transparent) !important;
+  --yt-sys-color-baseline--status-bar: var(--nord6) !important;
+  --yt-sys-color-baseline--suggested-action: color-mix(in srgb, var(--nord10) 37.8%, var(--nord0)) !important;
+  --yt-sys-color-baseline--suggested-action-hover: color-mix(in srgb, color-mix(in srgb, var(--nord3) 78.5%, var(--nord4)) 76.8%, var(--nord10)) !important;
+  --yt-sys-color-baseline--suggested-action-inverse: color-mix(in srgb, var(--nord8) 49.8%, var(--nord6)) !important;
+  --yt-sys-color-baseline--system-bar: var(--nord6) !important;
+  --yt-sys-color-baseline--text-complete: var(--nord14) !important;
+  --yt-sys-color-baseline--text-disabled-inverse: color-mix(in srgb, color-mix(in srgb, var(--nord3) 39.9%, var(--nord4)) 82.4%, var(--nord10)) !important;
+  --yt-sys-color-baseline--text-error: var(--nord11) !important;
+  --yt-sys-color-baseline--text-secondary-inverse: color-mix(in srgb, color-mix(in srgb, var(--nord3) 73.9%, var(--nord4)) 77.9%, var(--nord10)) !important;
+  --yt-sys-color-baseline--text-warning: var(--nord12) !important;
+  --yt-sys-color-baseline--themed-green: var(--nord14) !important;
+  --yt-sys-color-baseline--themed-green-inverse: color-mix(in srgb, var(--nord14) 41.1%, var(--nord0)) !important;
+  --yt-sys-color-baseline--tonal-background: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 10.2%, transparent) !important;
+  --yt-sys-color-baseline--tonal-background-inverse: #0000001a !important;
+  --yt-sys-color-baseline--tonal-rim: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 10.2%, transparent) !important;
+  --yt-sys-color-baseline--tonal-rim-inverse: #0000000d !important;
+  --yt-sys-color-baseline--tonal-wash: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 5.1%, transparent) !important;
+  --yt-sys-color-baseline--tonal-wash-inverse: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 20%, transparent) !important;
+  --yt-sys-color-baseline--touch-response: var(--nord6) !important;
+  --yt-sys-color-baseline--touch-response-inverse: var(--nord0) !important;
+  --yt-sys-color-baseline--wordmark-text: var(--nord6) !important;
+}
+/* YouTube's hashed design tokens (--t followed by 16 hex digits), dark values moved to Nord.
+   YouTube renames some of them on new releases: stale names are harmless. */
+html, [dark], [light] {
+  --t02c0a2c868c14ce8: color-mix(in srgb, var(--nord4) 25.4%, var(--nord5)) !important;
+  --t08a7c6c176cbc5c2: var(--nord2) !important;
+  --t0a1249f7c9e82b5e: #0000001a !important;
+  --t0ccd1ace000d5e93: #000000cc !important;
+  --t0f59291ce5504543: var(--nord6) !important;
+  --t124b7dafe9bc366d: color-mix(in srgb, var(--nord7) 39%, var(--nord0)) !important;
+  --t1405e70a39276293: color-mix(in srgb, var(--nord5) 76.2%, var(--nord6)) !important;
+  --t1aab759cd9ddbe39: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 5.1%, transparent) !important;
+  --t1f1729a8e756e8bf: var(--nord15) !important;
+  --t20480717de80f555: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 20%, transparent) !important;
+  --t206f3fa2e01af22d: var(--nord8) !important;
+  --t21af08fdbf6a1406: var(--nord6) !important;
+  --t231ac42975008fa5: var(--nord14) !important;
+  --t264e2c9cb87891f9: var(--nord8) !important;
+  --t296c7f81dd09a9c3: var(--nord6) !important;
+  --t2986df03ecf88759: var(--nord11) !important;
+  --t2c3bbff6c15a3eb2: color-mix(in srgb, var(--nord14) 41.1%, var(--nord0)) !important;
+  --t2c3e55cb638348df: #0000001a !important;
+  --t2d807bb79e75606d: var(--nord9) !important;
+  --t331d13276596b01e: color-mix(in srgb, var(--nord14) 35.3%, var(--nord0)) !important;
+  --t3410c91649e5eb8a: var(--nord4) !important;
+  --t34f46f0f2c13d328: color-mix(in srgb, var(--nord8) 49.8%, var(--nord6)) !important;
+  --t374de7a0f7f6b6a4: var(--nord9) !important;
+  --t3a480c2f814ef19c: color-mix(in srgb, var(--nord14) 39.6%, var(--nord0)) !important;
+  --t3e41d7b17b187f69: var(--nord0) !important;
+  --t3f3bdb4140d3ead7: var(--nord12) !important;
+  --t416e5931fc464589: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 20%, transparent) !important;
+  --t42381e7a43d9caf4: color-mix(in srgb, var(--nord14) 49.9%, var(--nord6)) !important;
+  --t432fbdbd7f2f3f71: #0000000d !important;
+  --t441a0e44e495381a: color-mix(in srgb, var(--nord8) 49.8%, var(--nord6)) !important;
+  --t45b2a38314924357: var(--nord0) !important;
+  --t4726c68ef6d7b08f: color-mix(in srgb, color-mix(in srgb, var(--nord14) 27.5%, var(--nord0)) 60%, transparent) !important;
+  --t4a6da19e16bf221a: color-mix(in srgb, color-mix(in srgb, var(--nord3) 24.3%, var(--nord4)) 89.9%, var(--nord10)) !important;
+  --t4aeaa857de8a786b: color-mix(in srgb, color-mix(in srgb, var(--nord3) 30.3%, var(--nord4)) 87.6%, var(--nord10)) !important;
+  --t4d4f132f4712716a: color-mix(in srgb, var(--nord7) 39%, var(--nord0)) !important;
+  --t4d7776c28db21122: var(--nord14) !important;
+  --t4e6df9b2b6b97e00: var(--nord15) !important;
+  --t4f0922e5a3d0c20f: var(--nord13) !important;
+  --t4fb0f67b251e1a42: var(--nord6) !important;
+  --t5088a11581fecd14: color-mix(in srgb, var(--nord14) 35.3%, var(--nord0)) !important;
+  --t518e925f61bdcb91: color-mix(in srgb, var(--nord1) 59.7%, var(--nord2)) !important;
+  --t5208fd177a788cfa: var(--nord11) !important;
+  --t53991d599b1488f5: var(--nord11) !important;
+  --t53c1a9d86136aded: color-mix(in srgb, var(--nord11) 40%, var(--nord0)) !important;
+  --t53dda9125e8d1324: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 14.9%, transparent) !important;
+  --t544e31714f63d53c: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 29.8%, transparent) !important;
+  --t5884672004d56120: var(--nord11) !important;
+  --t5978da8d584b8fe9: #0f0f0fb2 !important;
+  --t617db776af0de196: var(--nord9) !important;
+  --t6216186c28b3834b: var(--nord0) !important;
+  --t6931aa1826b373b2: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 29.8%, transparent) !important;
+  --t735e435a8b7ad67c: var(--nord6) !important;
+  --t77e217518bcd986b: color-mix(in srgb, var(--nord14) 39.6%, var(--nord0)) !important;
+  --t7a2234c5eadde886: var(--nord15) !important;
+  --t7c4965c11f8537c0: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 10.2%, transparent) !important;
+  --t7d8b8e5ee291aec0: #0000000d !important;
+  --t7dfa6f84c9346edf: color-mix(in srgb, var(--nord5) 70.3%, var(--nord6)) !important;
+  --t7e34d5baa4ea6277: color-mix(in srgb, color-mix(in srgb, var(--nord3) 63.3%, var(--nord4)) 75.8%, var(--nord10)) !important;
+  --t7f4f2c6d54836ce0: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 10.2%, transparent) !important;
+  --t7f9b7e1603e20b94: var(--nord6) !important;
+  --t832f22ce6618e99e: color-mix(in srgb, var(--nord4) 22.1%, var(--nord5)) !important;
+  --t8533f30445e4a126: var(--nord11) !important;
+  --t854c79338d8ca8a7: var(--nord11) !important;
+  --t858b809f8044e962: var(--nord5) !important;
+  --t87eabf113a15ac96: color-mix(in srgb, var(--nord0) 28.7%, var(--nord1)) !important;
+  --t8cdc9846a76caf1f: color-mix(in srgb, var(--nord4) 61.7%, var(--nord5)) !important;
+  --t904a88c623ca27ab: var(--nord14) !important;
+  --t933d7922f3158dc5: var(--nord9) !important;
+  --t965644ecdbe4b7b8: color-mix(in srgb, var(--nord2) 41.8%, var(--nord3)) !important;
+  --t99f774684cbb9703: color-mix(in srgb, color-mix(in srgb, var(--nord15) 42.4%, var(--nord0)) 29.8%, transparent) !important;
+  --t9bc0b740242da017: color-mix(in srgb, color-mix(in srgb, var(--nord3) 78.5%, var(--nord4)) 76.8%, var(--nord10)) !important;
+  --t9d7bdcaefc975d44: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 20%, transparent) !important;
+  --ta057e2d872f2a0d4: #0000000d !important;
+  --ta08e036410c14538: var(--nord0) !important;
+  --ta1001186d5b625f8: var(--nord15) !important;
+  --ta564d8212bccb16a: color-mix(in srgb, var(--nord15) 42.4%, var(--nord0)) !important;
+  --ta5930fb3c4c7209c: var(--nord15) !important;
+  --ta7d628facfe84d18: var(--nord9) !important;
+  --ta889dfda9605a358: #0f0f0fcc !important;
+  --tab8059236063cadb: color-mix(in srgb, var(--nord5) 70.3%, var(--nord6)) !important;
+  --tad8443faed66c111: color-mix(in srgb, var(--nord4) 61.7%, var(--nord5)) !important;
+  --taf1bdd961423c15f: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 5.1%, transparent) !important;
+  --taf7bd2f2e5a02772: var(--nord9) !important;
+  --tb13ff8797829e79e: color-mix(in srgb, var(--nord2) 41.8%, var(--nord3)) !important;
+  --tb14a10c3b43a15a3: var(--nord1) !important;
+  --tb628117fc164ad87: var(--nord10) !important;
+  --tb7d74bb3291c951d: #0000001a !important;
+  --tb8b31ac562fbe9b5: color-mix(in srgb, var(--nord15) 29.8%, transparent) !important;
+  --tb927f5c0149004c6: var(--nord11) !important;
+  --tbe42269534655e67: color-mix(in srgb, var(--nord2) 19.1%, var(--nord3)) !important;
+  --tc04ba3e73561953c: #0000001a !important;
+  --tc2512a21369bd447: var(--nord11) !important;
+  --tc4b26042d4cb141f: color-mix(in srgb, color-mix(in srgb, var(--nord3) 39.9%, var(--nord4)) 82.4%, var(--nord10)) !important;
+  --tc5e0863356bf5767: color-mix(in srgb, var(--nord13) 49.6%, var(--nord6)) !important;
+  --tc604113d09fee05d: var(--nord4) !important;
+  --tc87f6a7f05e65fc4: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 10.2%, transparent) !important;
+  --tc980c5478124c8c7: color-mix(in srgb, var(--nord8) 49.8%, var(--nord6)) !important;
+  --td340014d093b0821: var(--nord15) !important;
+  --td545df04e2c659d7: var(--nord11) !important;
+  --td8562cdc203bc683: color-mix(in srgb, var(--nord9) 10.2%, var(--nord3)) !important;
+  --td9c19f4f8cecd56e: color-mix(in srgb, color-mix(in srgb, var(--nord3) 73.9%, var(--nord4)) 77.9%, var(--nord10)) !important;
+  --tdbe50d27d51f5093: color-mix(in srgb, color-mix(in srgb, var(--nord7) 39%, var(--nord0)) 29.8%, transparent) !important;
+  --tdc8af6750f0dad0d: var(--nord5) !important;
+  --tde41338fc2bd4ba5: var(--nord6) !important;
+  --te0c856964146535b: var(--nord11) !important;
+  --te1b64e6971040396: color-mix(in srgb, var(--nord1) 13.6%, var(--nord2)) !important;
+  --te2867b13d771d055: var(--nord10) !important;
+  --te5668e6111aba0ed: color-mix(in srgb, color-mix(in srgb, var(--nord3) 90%, var(--nord4)) 85.2%, var(--nord10)) !important;
+  --te6d2b428de68554a: var(--nord1) !important;
+  --tecbdf924b63b27fc: var(--nord12) !important;
+  --ted4236536899e4b3: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 14.9%, transparent) !important;
+  --tef70ca245445b52b: color-mix(in srgb, var(--nord11) 29.8%, transparent) !important;
+  --tf0a0d1154827847f: color-mix(in srgb, color-mix(in srgb, var(--nord12) 39.6%, var(--nord0)) 60%, transparent) !important;
+  --tf3fc855af2285f5f: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 20%, transparent) !important;
+  --tf4689f158df519fa: color-mix(in srgb, var(--nord0) 28.7%, var(--nord1)) !important;
+  --tf5f050c65aebead5: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 10.2%, transparent) !important;
+  --tf630d2cff7da8057: color-mix(in srgb, var(--nord11) 49.9%, var(--nord6)) !important;
+  --tf69032263d26c015: color-mix(in srgb, var(--nord15) 40.3%, var(--nord0)) !important;
+  --tfa3475c508f5dfef: color-mix(in srgb, var(--nord10) 37.8%, var(--nord0)) !important;
+  --tfaae96692cc182e4: var(--nord15) !important;
+  --tfd295fd3f8d41cf1: var(--nord12) !important;
+  --tff65993384bb4560: color-mix(in srgb, var(--nord10) 44.3%, var(--nord0)) !important;
+  --tffc2fd3a644f6275: color-mix(in srgb, var(--nord5) 76.2%, var(--nord6)) !important;
+}
 }
 }
