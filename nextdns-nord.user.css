@@ -153,7 +153,7 @@
    Layout
    ------------------------------------------------------------------ */
 
-/* Logo: the bitmap is drawn for a light background, so only recolour it in dark mode */
+/* Logo: the app ships one bitmap per theme; only the dark-theme one is recoloured */
 [data-bs-theme="dark"] img.d-inline[alt=""] {
     filter: invert(61%) sepia(10%) saturate(600%) hue-rotate(180deg) brightness(92%) contrast(90%);
 }
