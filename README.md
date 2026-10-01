@@ -9,16 +9,21 @@ Each style lives in its own `.user.css` file. The userstyles.world pages mirror 
 Every style has the same options, set from Stylus (the gear icon next to the style, or *Configure* in the manager). The defaults are the dark Nord look.
 
 - **Apply the theme**: always, or only when the browser or system is in dark mode, or only when it is in light mode. When the condition does not hold, the site keeps its own colours.
-- **Palette**:
-  - *Nord*: Polar Night backgrounds and Snow Storm text, the default;
-  - *Nord dim*: a lighter dark theme, with backgrounds one step up the Polar Night scale (nord1 as the page background);
-  - *Nord darker*: deeper backgrounds, same text and accents;
-  - *Nord black*: near-black backgrounds with a hint of Nord blue, for OLED screens and dark rooms;
-  - *Nord light*: Snow Storm backgrounds, Polar Night text, and accents darkened enough to stay readable on a light background;
-  - *Nord light dim*: greyer Snow Storm backgrounds (nord4 as the page background) for less glare, with the accents darkened a little more;
-  - *Follow the browser*: Nord when the browser is dark, Nord light when it is light;
-  - *Follow the browser, softer*: Nord dim when the browser is dark, Nord light dim when it is light;
+- **Palette**, listed from the darkest to the lightest:
+  1. *Black*: near-black backgrounds with a hint of Nord blue, for OLED screens and dark rooms;
+  2. *Deep*: darker than Nord;
+  3. *Nord*: the original Polar Night backgrounds with Snow Storm text, the default;
+  4. *Dim*: a little lighter than Nord (nord1 as the page background);
+  5. *Slate*: the lightest dark palette, grey-blue, with brighter text and slightly lifted accents;
+  6. *Fog*: a grey light palette (nord4 as the page background), the least glare;
+  7. *Mist*: a soft light palette, between Fog and Snow;
+  8. *Snow*: the original Nord light, Snow Storm backgrounds and Polar Night text;
+  9. *Paper*: almost white, for bright rooms;
+  - *Colourful dark* and *Colourful light*: bluer backgrounds and more saturated Frost and Aurora accents;
+  - *Follow the browser*: one dark and one light palette, picked in **Follow the browser: palette when the browser is dark / light** (Nord and Snow by default);
   - *Custom*: the sixteen colours below.
+
+  In every light palette the accents are darkened until they reach a 4.5:1 contrast on cards.
 - **Custom palette type** and **Custom nord0 ... nord15**: used only by the *Custom* palette. Each colour picker is labelled with its role (background, surfaces, borders, text, main accent, red for errors, ...). For a light custom palette, put light colours in nord0 to nord3, dark ones in nord4 to nord6, and set the type to *Light*.
 
 The styles are compiled by Stylus' built-in Less preprocessor. Every colour in them is one of the sixteen palette colours, or a `color-mix()` of them, so a palette recolours the whole style. Shades that are not in Nord (a slightly lighter grey, a tinted background) are written as mixes of their neighbours in the palette and follow whichever palette is selected.

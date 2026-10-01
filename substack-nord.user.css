@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name         substack nord
-@version      20261001.02.00
+@version      20261001.03.00
 @namespace    ?
 @description  Nord theme for Substack, including each publication's own colour theme
 @homepageURL  https://github.com/SignorBananone/userstyles
@@ -13,16 +13,35 @@
   "Only when the browser or system is in dark mode": "dark",
   "Only when the browser or system is in light mode": "light"
 }
-@var select palette "Palette" {
-  "Nord: Polar Night backgrounds*": "nord",
-  "Nord dim: lighter Polar Night backgrounds": "dim",
-  "Nord darker": "darker",
-  "Nord black: near-black backgrounds, for OLED screens": "black",
-  "Nord light: Snow Storm backgrounds": "light",
-  "Nord light dim: greyer Snow Storm, less glare": "lightdim",
-  "Follow the browser: Nord when dark, Nord light when light": "auto",
-  "Follow the browser, softer: Nord dim when dark, Nord light dim when light": "autodim",
+@var select palette "Palette, from the darkest to the lightest" {
+  "1. Black: near-black, for OLED screens and dark rooms": "black",
+  "2. Deep: darker than Nord": "darker",
+  "3. Nord: the original Polar Night*": "nord",
+  "4. Dim: a little lighter than Nord": "dim",
+  "5. Slate: the lightest dark palette, grey-blue": "slate",
+  "6. Fog: grey light palette, the least glare": "lightdim",
+  "7. Mist: soft light palette": "soft",
+  "8. Snow: the original Nord light": "light",
+  "9. Paper: almost white, for bright rooms": "bright",
+  "Colourful dark: deep blue backgrounds, vivid accents": "vividdark",
+  "Colourful light: blue-white backgrounds, vivid accents": "vividlight",
+  "Follow the browser: the two palettes chosen below": "auto",
   "Custom: the colours below": "custom"
+}
+@var select auto_dark "Follow the browser: palette when the browser is dark" {
+  "1. Black: near-black, for OLED screens and dark rooms": "black",
+  "2. Deep: darker than Nord": "darker",
+  "3. Nord: the original Polar Night*": "nord",
+  "4. Dim: a little lighter than Nord": "dim",
+  "5. Slate: the lightest dark palette, grey-blue": "slate",
+  "Colourful dark: deep blue backgrounds, vivid accents": "vividdark"
+}
+@var select auto_light "Follow the browser: palette when the browser is light" {
+  "6. Fog: grey light palette, the least glare": "lightdim",
+  "7. Mist: soft light palette": "soft",
+  "8. Snow: the original Nord light*": "light",
+  "9. Paper: almost white, for bright rooms": "bright",
+  "Colourful light: blue-white backgrounds, vivid accents": "vividlight"
 }
 @var select custom_type "Custom palette type" {
   "Dark: light text on dark backgrounds*": "dark",
@@ -54,11 +73,11 @@
    and --nord-on-accent is the text colour for filled accent backgrounds.
    --nordN-rgb, where present, holds the same colour as an "r, g, b" list for Bootstrap. */
 @nord-apply: if((@apply = dark), ~"(prefers-color-scheme: dark)", if((@apply = light), ~"(prefers-color-scheme: light)", ~"all"));
-.nord-preset(nord) {
-  --nord0: #2e3440;
-  --nord1: #3b4252;
-  --nord2: #434c5e;
-  --nord3: #4c566a;
+.nord-preset(black) {
+  --nord0: #16191f;
+  --nord1: #1e222a;
+  --nord2: #272c36;
+  --nord3: #3b4252;
   --nord4: #d8dee9;
   --nord5: #e5e9f0;
   --nord6: #eceff4;
@@ -71,10 +90,10 @@
   --nord13: #ebcb8b;
   --nord14: #a3be8c;
   --nord15: #b48ead;
-  --nord0-rgb: 46, 52, 64;
-  --nord1-rgb: 59, 66, 82;
-  --nord2-rgb: 67, 76, 94;
-  --nord3-rgb: 76, 86, 106;
+  --nord0-rgb: 22, 25, 31;
+  --nord1-rgb: 30, 34, 42;
+  --nord2-rgb: 39, 44, 54;
+  --nord3-rgb: 59, 66, 82;
   --nord4-rgb: 216, 222, 233;
   --nord5-rgb: 229, 233, 240;
   --nord6-rgb: 236, 239, 244;
@@ -124,6 +143,181 @@
   --nord15-rgb: 180, 142, 173;
   .nord-mode(dark);
 }
+.nord-preset(nord) {
+  --nord0: #2e3440;
+  --nord1: #3b4252;
+  --nord2: #434c5e;
+  --nord3: #4c566a;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  --nord0-rgb: 46, 52, 64;
+  --nord1-rgb: 59, 66, 82;
+  --nord2-rgb: 67, 76, 94;
+  --nord3-rgb: 76, 86, 106;
+  --nord4-rgb: 216, 222, 233;
+  --nord5-rgb: 229, 233, 240;
+  --nord6-rgb: 236, 239, 244;
+  --nord7-rgb: 143, 188, 187;
+  --nord8-rgb: 136, 192, 208;
+  --nord9-rgb: 129, 161, 193;
+  --nord10-rgb: 94, 129, 172;
+  --nord11-rgb: 191, 97, 106;
+  --nord12-rgb: 208, 135, 112;
+  --nord13-rgb: 235, 203, 139;
+  --nord14-rgb: 163, 190, 140;
+  --nord15-rgb: 180, 142, 173;
+  .nord-mode(dark);
+}
+.nord-preset(dim) {
+  --nord0: #3b4252;
+  --nord1: #434c5e;
+  --nord2: #4c566a;
+  --nord3: #5a6478;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  --nord0-rgb: 59, 66, 82;
+  --nord1-rgb: 67, 76, 94;
+  --nord2-rgb: 76, 86, 106;
+  --nord3-rgb: 90, 100, 120;
+  --nord4-rgb: 216, 222, 233;
+  --nord5-rgb: 229, 233, 240;
+  --nord6-rgb: 236, 239, 244;
+  --nord7-rgb: 143, 188, 187;
+  --nord8-rgb: 136, 192, 208;
+  --nord9-rgb: 129, 161, 193;
+  --nord10-rgb: 94, 129, 172;
+  --nord11-rgb: 191, 97, 106;
+  --nord12-rgb: 208, 135, 112;
+  --nord13-rgb: 235, 203, 139;
+  --nord14-rgb: 163, 190, 140;
+  --nord15-rgb: 180, 142, 173;
+  .nord-mode(dark);
+}
+.nord-preset(slate) {
+  --nord0: #4c566a;
+  --nord1: #56617a;
+  --nord2: #616d87;
+  --nord3: #76829b;
+  --nord4: #e5e9f0;
+  --nord5: #eceff4;
+  --nord6: #f4f6f9;
+  --nord7: #84c7c5;
+  --nord8: #7ec6da;
+  --nord9: #97b8d8;
+  --nord10: #5e81ac;
+  --nord11: #e4a5aa;
+  --nord12: #e6a692;
+  --nord13: #f3ce83;
+  --nord14: #a2c981;
+  --nord15: #d2a8ca;
+  --nord0-rgb: 76, 86, 106;
+  --nord1-rgb: 86, 97, 122;
+  --nord2-rgb: 97, 109, 135;
+  --nord3-rgb: 118, 130, 155;
+  --nord4-rgb: 229, 233, 240;
+  --nord5-rgb: 236, 239, 244;
+  --nord6-rgb: 244, 246, 249;
+  --nord7-rgb: 132, 199, 197;
+  --nord8-rgb: 126, 198, 218;
+  --nord9-rgb: 151, 184, 216;
+  --nord10-rgb: 94, 129, 172;
+  --nord11-rgb: 228, 165, 170;
+  --nord12-rgb: 230, 166, 146;
+  --nord13-rgb: 243, 206, 131;
+  --nord14-rgb: 162, 201, 129;
+  --nord15-rgb: 210, 168, 202;
+  .nord-mode(dark);
+}
+.nord-preset(lightdim) {
+  --nord0: #d8dee9;
+  --nord1: #cfd6e1;
+  --nord2: #c3cbd8;
+  --nord3: #a3adbf;
+  --nord4: #2e3440;
+  --nord5: #2e3440;
+  --nord6: #242933;
+  --nord7: #3d6160;
+  --nord8: #33626f;
+  --nord9: #445d76;
+  --nord10: #405d80;
+  --nord11: #91434b;
+  --nord12: #864c3a;
+  --nord13: #705722;
+  --nord14: #4d613a;
+  --nord15: #6f516a;
+  --nord0-rgb: 216, 222, 233;
+  --nord1-rgb: 207, 214, 225;
+  --nord2-rgb: 195, 203, 216;
+  --nord3-rgb: 163, 173, 191;
+  --nord4-rgb: 46, 52, 64;
+  --nord5-rgb: 46, 52, 64;
+  --nord6-rgb: 36, 41, 51;
+  --nord7-rgb: 61, 97, 96;
+  --nord8-rgb: 51, 98, 111;
+  --nord9-rgb: 68, 93, 118;
+  --nord10-rgb: 64, 93, 128;
+  --nord11-rgb: 145, 67, 75;
+  --nord12-rgb: 134, 76, 58;
+  --nord13-rgb: 112, 87, 34;
+  --nord14-rgb: 77, 97, 58;
+  --nord15-rgb: 111, 81, 106;
+  .nord-mode(light);
+}
+.nord-preset(soft) {
+  --nord0: #e5e9f0;
+  --nord1: #dce2eb;
+  --nord2: #cfd6e1;
+  --nord3: #aab3c3;
+  --nord4: #3b4252;
+  --nord5: #353b49;
+  --nord6: #2e3440;
+  --nord7: #426968;
+  --nord8: #376a78;
+  --nord9: #4a6580;
+  --nord10: #46658c;
+  --nord11: #9b4851;
+  --nord12: #91523f;
+  --nord13: #7a5f24;
+  --nord14: #53693e;
+  --nord15: #7a5874;
+  --nord0-rgb: 229, 233, 240;
+  --nord1-rgb: 220, 226, 235;
+  --nord2-rgb: 207, 214, 225;
+  --nord3-rgb: 170, 179, 195;
+  --nord4-rgb: 59, 66, 82;
+  --nord5-rgb: 53, 59, 73;
+  --nord6-rgb: 46, 52, 64;
+  --nord7-rgb: 66, 105, 104;
+  --nord8-rgb: 55, 106, 120;
+  --nord9-rgb: 74, 101, 128;
+  --nord10-rgb: 70, 101, 140;
+  --nord11-rgb: 155, 72, 81;
+  --nord12-rgb: 145, 82, 63;
+  --nord13-rgb: 122, 95, 36;
+  --nord14-rgb: 83, 105, 62;
+  --nord15-rgb: 122, 88, 116;
+  .nord-mode(light);
+}
 .nord-preset(light) {
   --nord0: #eceff4;
   --nord1: #e5e9f0;
@@ -157,6 +351,111 @@
   --nord13-rgb: 134, 104, 40;
   --nord14-rgb: 91, 115, 68;
   --nord15-rgb: 132, 96, 126;
+  .nord-mode(light);
+}
+.nord-preset(bright) {
+  --nord0: #fafbfc;
+  --nord1: #f0f3f7;
+  --nord2: #e5e9f0;
+  --nord3: #c3cad6;
+  --nord4: #3b4252;
+  --nord5: #353b49;
+  --nord6: #2e3440;
+  --nord7: #497473;
+  --nord8: #3c7382;
+  --nord9: #516f8d;
+  --nord10: #4c6e98;
+  --nord11: #ab4f59;
+  --nord12: #9f5a45;
+  --nord13: #866828;
+  --nord14: #5b7344;
+  --nord15: #84607e;
+  --nord0-rgb: 250, 251, 252;
+  --nord1-rgb: 240, 243, 247;
+  --nord2-rgb: 229, 233, 240;
+  --nord3-rgb: 195, 202, 214;
+  --nord4-rgb: 59, 66, 82;
+  --nord5-rgb: 53, 59, 73;
+  --nord6-rgb: 46, 52, 64;
+  --nord7-rgb: 73, 116, 115;
+  --nord8-rgb: 60, 115, 130;
+  --nord9-rgb: 81, 111, 141;
+  --nord10-rgb: 76, 110, 152;
+  --nord11-rgb: 171, 79, 89;
+  --nord12-rgb: 159, 90, 69;
+  --nord13-rgb: 134, 104, 40;
+  --nord14-rgb: 91, 115, 68;
+  --nord15-rgb: 132, 96, 126;
+  .nord-mode(light);
+}
+.nord-preset(vividdark) {
+  --nord0: #1d253a;
+  --nord1: #26314a;
+  --nord2: #303d5a;
+  --nord3: #425070;
+  --nord4: #d4dded;
+  --nord5: #e1e8f4;
+  --nord6: #f0f3fa;
+  --nord7: #83d2d1;
+  --nord8: #7ecde4;
+  --nord9: #74a6d8;
+  --nord10: #4b84c9;
+  --nord11: #e27983;
+  --nord12: #e68364;
+  --nord13: #fad486;
+  --nord14: #a7d480;
+  --nord15: #cc81be;
+  --nord0-rgb: 29, 37, 58;
+  --nord1-rgb: 38, 49, 74;
+  --nord2-rgb: 48, 61, 90;
+  --nord3-rgb: 66, 80, 112;
+  --nord4-rgb: 212, 221, 237;
+  --nord5-rgb: 225, 232, 244;
+  --nord6-rgb: 240, 243, 250;
+  --nord7-rgb: 131, 210, 209;
+  --nord8-rgb: 126, 205, 228;
+  --nord9-rgb: 116, 166, 216;
+  --nord10-rgb: 75, 132, 201;
+  --nord11-rgb: 226, 121, 131;
+  --nord12-rgb: 230, 131, 100;
+  --nord13-rgb: 250, 212, 134;
+  --nord14-rgb: 167, 212, 128;
+  --nord15-rgb: 204, 129, 190;
+  .nord-mode(dark);
+}
+.nord-preset(vividlight) {
+  --nord0: #f3f6fc;
+  --nord1: #e3ebf7;
+  --nord2: #cedaee;
+  --nord3: #a1b2ce;
+  --nord4: #2d3a58;
+  --nord5: #25304b;
+  --nord6: #1b253c;
+  --nord7: #287372;
+  --nord8: #207187;
+  --nord9: #336ba3;
+  --nord10: #2e69b0;
+  --nord11: #c22e3e;
+  --nord12: #b04726;
+  --nord13: #876110;
+  --nord14: #4c7325;
+  --nord15: #a14391;
+  --nord0-rgb: 243, 246, 252;
+  --nord1-rgb: 227, 235, 247;
+  --nord2-rgb: 206, 218, 238;
+  --nord3-rgb: 161, 178, 206;
+  --nord4-rgb: 45, 58, 88;
+  --nord5-rgb: 37, 48, 75;
+  --nord6-rgb: 27, 37, 60;
+  --nord7-rgb: 40, 115, 114;
+  --nord8-rgb: 32, 113, 135;
+  --nord9-rgb: 51, 107, 163;
+  --nord10-rgb: 46, 105, 176;
+  --nord11-rgb: 194, 46, 62;
+  --nord12-rgb: 176, 71, 38;
+  --nord13-rgb: 135, 97, 16;
+  --nord14-rgb: 76, 115, 37;
+  --nord15-rgb: 161, 67, 145;
   .nord-mode(light);
 }
 .nord-preset(custom) {
@@ -195,117 +494,8 @@
   .nord-mode(@custom_type);
 }
 .nord-preset(auto) {
-  .nord-preset(nord);
-  @media (prefers-color-scheme: light) { .nord-preset(light); }
-}
-.nord-preset(dim) {
-  --nord0: #3b4252;
-  --nord1: #434c5e;
-  --nord2: #4c566a;
-  --nord3: #5a6478;
-  --nord4: #d8dee9;
-  --nord5: #e5e9f0;
-  --nord6: #eceff4;
-  --nord7: #8fbcbb;
-  --nord8: #88c0d0;
-  --nord9: #81a1c1;
-  --nord10: #5e81ac;
-  --nord11: #bf616a;
-  --nord12: #d08770;
-  --nord13: #ebcb8b;
-  --nord14: #a3be8c;
-  --nord15: #b48ead;
-  --nord0-rgb: 59, 66, 82;
-  --nord1-rgb: 67, 76, 94;
-  --nord2-rgb: 76, 86, 106;
-  --nord3-rgb: 90, 100, 120;
-  --nord4-rgb: 216, 222, 233;
-  --nord5-rgb: 229, 233, 240;
-  --nord6-rgb: 236, 239, 244;
-  --nord7-rgb: 143, 188, 187;
-  --nord8-rgb: 136, 192, 208;
-  --nord9-rgb: 129, 161, 193;
-  --nord10-rgb: 94, 129, 172;
-  --nord11-rgb: 191, 97, 106;
-  --nord12-rgb: 208, 135, 112;
-  --nord13-rgb: 235, 203, 139;
-  --nord14-rgb: 163, 190, 140;
-  --nord15-rgb: 180, 142, 173;
-  .nord-mode(dark);
-}
-.nord-preset(black) {
-  --nord0: #16191f;
-  --nord1: #1e222a;
-  --nord2: #272c36;
-  --nord3: #3b4252;
-  --nord4: #d8dee9;
-  --nord5: #e5e9f0;
-  --nord6: #eceff4;
-  --nord7: #8fbcbb;
-  --nord8: #88c0d0;
-  --nord9: #81a1c1;
-  --nord10: #5e81ac;
-  --nord11: #bf616a;
-  --nord12: #d08770;
-  --nord13: #ebcb8b;
-  --nord14: #a3be8c;
-  --nord15: #b48ead;
-  --nord0-rgb: 22, 25, 31;
-  --nord1-rgb: 30, 34, 42;
-  --nord2-rgb: 39, 44, 54;
-  --nord3-rgb: 59, 66, 82;
-  --nord4-rgb: 216, 222, 233;
-  --nord5-rgb: 229, 233, 240;
-  --nord6-rgb: 236, 239, 244;
-  --nord7-rgb: 143, 188, 187;
-  --nord8-rgb: 136, 192, 208;
-  --nord9-rgb: 129, 161, 193;
-  --nord10-rgb: 94, 129, 172;
-  --nord11-rgb: 191, 97, 106;
-  --nord12-rgb: 208, 135, 112;
-  --nord13-rgb: 235, 203, 139;
-  --nord14-rgb: 163, 190, 140;
-  --nord15-rgb: 180, 142, 173;
-  .nord-mode(dark);
-}
-.nord-preset(lightdim) {
-  --nord0: #d8dee9;
-  --nord1: #cfd6e1;
-  --nord2: #c3cbd8;
-  --nord3: #a3adbf;
-  --nord4: #2e3440;
-  --nord5: #2e3440;
-  --nord6: #242933;
-  --nord7: #416766;
-  --nord8: #366775;
-  --nord9: #48637d;
-  --nord10: #446287;
-  --nord11: #98464f;
-  --nord12: #8e503d;
-  --nord13: #775d24;
-  --nord14: #52673d;
-  --nord15: #775671;
-  --nord0-rgb: 216, 222, 233;
-  --nord1-rgb: 207, 214, 225;
-  --nord2-rgb: 195, 203, 216;
-  --nord3-rgb: 163, 173, 191;
-  --nord4-rgb: 46, 52, 64;
-  --nord5-rgb: 46, 52, 64;
-  --nord6-rgb: 36, 41, 51;
-  --nord7-rgb: 65, 103, 102;
-  --nord8-rgb: 54, 103, 117;
-  --nord9-rgb: 72, 99, 125;
-  --nord10-rgb: 68, 98, 135;
-  --nord11-rgb: 152, 70, 79;
-  --nord12-rgb: 142, 80, 61;
-  --nord13-rgb: 119, 93, 36;
-  --nord14-rgb: 82, 103, 61;
-  --nord15-rgb: 119, 86, 113;
-  .nord-mode(light);
-}
-.nord-preset(autodim) {
-  .nord-preset(dim);
-  @media (prefers-color-scheme: light) { .nord-preset(lightdim); }
+  .nord-preset(@auto_dark);
+  @media (prefers-color-scheme: light) { .nord-preset(@auto_light); }
 }
 .nord-mode(dark) { --nord-deep: #000; --nord-peak: #fff; --nord-scheme: dark; --nord-on-accent: var(--nord6); .nord-site(dark); }
 .nord-mode(light) { --nord-deep: #fff; --nord-peak: #000; --nord-scheme: light; --nord-on-accent: var(--nord0); .nord-site(light); }
