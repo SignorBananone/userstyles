@@ -121,6 +121,7 @@ One style for several Google services, with a checkbox per service in the Stylus
 | Google Calendar | calendar.google.com; event colours are kept |
 | Google Keep | keep.google.com |
 | Gemini | gemini.google.com |
+| NotebookLM | notebooklm.google.com, notebook.google.com |
 | Google Maps | www.google.*/maps; panels only, the map is unchanged |
 | Google Scholar | scholar.google.* (same code as Google Scholar Nord) |
 | YouTube | www.youtube.com (same code as YouTube Nord) |
@@ -130,7 +131,7 @@ One style for several Google services, with a checkbox per service in the Stylus
 
 A site must not be themed twice: if Gmail Nord, Google Scholar Nord or YouTube Nord is installed too, disable it or untick the matching module.
 
-Drive, Docs, Calendar and the account pages are themed through their Material 3 colour roles and their own token sets (`--dt-*`, `--cal-sys-color-*`, `--identity-colorscheme-*`). Search and Gemini have dark themes of their own, whose colour values are mapped onto the palette. Keep and Maps paint fixed colours, so their modules are generated from the sites' stylesheets, like Gmail's.
+Drive, Docs, Calendar and the account pages are themed through their Material 3 colour roles and their own token sets (`--dt-*`, `--cal-sys-color-*`, `--identity-colorscheme-*`). Search, Gemini and NotebookLM have dark themes of their own, whose colour values are mapped onto the palette. Keep and Maps paint fixed colours, so their modules are generated from the sites' stylesheets, like Gmail's.
 
 ## UniBG eLearning Nord
 

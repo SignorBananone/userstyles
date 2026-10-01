@@ -1,8 +1,8 @@
 /* ==UserStyle==
 @name         Google Nord
-@version      20261001.02.00
+@version      20261001.03.00
 @namespace    https://github.com/SignorBananone/userstyles
-@description  Nord theme for Google services (Search, Account, Gmail, Drive, Docs, Calendar, Keep, Gemini, Maps, Scholar, YouTube), one switchable module per service
+@description  Nord theme for Google services (Search, Account, Gmail, Drive, Docs, Calendar, Keep, Gemini, NotebookLM, Maps, Scholar, YouTube), one switchable module per service
 @homepageURL  https://github.com/SignorBananone/userstyles
 @author       SignorBananone
 @license      MIT
@@ -48,6 +48,7 @@
 @var checkbox mod_calendar "Module: Google Calendar" 1
 @var checkbox mod_keep "Module: Google Keep" 1
 @var checkbox mod_gemini "Module: Gemini" 1
+@var checkbox mod_notebook "Module: NotebookLM" 1
 @var checkbox mod_maps "Module: Google Maps (panels, not the map)" 1
 @var checkbox mod_scholar "Module: Google Scholar" 1
 @var checkbox mod_youtube "Module: YouTube" 1
@@ -2107,6 +2108,359 @@ html { color-scheme: var(--nord-scheme); }
 :where(.theme-host){--mat-app-background-color:var(--nord0) !important;--mat-app-text-color:var(--nord5) !important;--mat-option-label-text-color:var(--nord5) !important;--mat-option-selected-state-label-text-color:var(--nord8) !important;--mat-option-selected-state-layer-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-optgroup-label-text-color:var(--nord4) !important;--mat-pseudo-checkbox-full-disabled-selected-checkmark-color:var(--nord0) !important;--mat-pseudo-checkbox-full-selected-checkmark-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-pseudo-checkbox-full-selected-icon-color:var(--nord8) !important;--mat-pseudo-checkbox-full-unselected-icon-color:var(--nord4) !important;--mat-pseudo-checkbox-minimal-selected-checkmark-color:var(--nord8) !important;--mat-bottom-sheet-container-text-color:var(--nord5) !important;--mat-bottom-sheet-container-background-color:var(--nord0) !important;--mat-button-toggle-divider-color:color-mix(in srgb, var(--nord4) 55%, var(--nord3)) !important;--mat-button-toggle-selected-state-background-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-button-toggle-selected-state-text-color:var(--nord8) !important;--mat-button-toggle-state-layer-color:var(--nord5) !important;--mat-button-toggle-text-color:var(--nord5) !important;--mat-divider-color:var(--nord3) !important;--mat-expansion-actions-divider-color:color-mix(in srgb, var(--nord4) 55%, var(--nord3)) !important;--mat-expansion-container-background-color:var(--nord0) !important;--mat-expansion-container-text-color:var(--nord5) !important;--mat-expansion-header-description-color:var(--nord4) !important;--mat-expansion-header-indicator-color:var(--nord4) !important;--mat-expansion-header-text-color:var(--nord5) !important;--mat-sidenav-container-background-color:var(--nord0) !important;--mat-sidenav-container-text-color:var(--nord4) !important;--mat-sidenav-content-background-color:var(--nord0) !important;--mat-sidenav-content-text-color:var(--nord5) !important;--mat-button-filled-container-color:var(--nord8) !important;--mat-button-filled-disabled-state-layer-color:var(--nord4) !important;--mat-button-filled-label-text-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-button-filled-progress-active-indicator-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-button-filled-state-layer-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-button-outlined-disabled-state-layer-color:var(--nord4) !important;--mat-button-outlined-label-text-color:var(--nord8) !important;--mat-button-outlined-outline-color:color-mix(in srgb, var(--nord4) 55%, var(--nord3)) !important;--mat-button-outlined-state-layer-color:var(--nord8) !important;--mat-button-protected-container-color:var(--nord0) !important;--mat-button-protected-disabled-state-layer-color:var(--nord4) !important;--mat-button-protected-label-text-color:var(--nord8) !important;--mat-button-protected-state-layer-color:var(--nord8) !important;--mat-button-text-disabled-state-layer-color:var(--nord4) !important;--mat-button-text-label-text-color:var(--nord8) !important;--mat-button-text-state-layer-color:var(--nord8) !important;--mat-button-tonal-container-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-button-tonal-disabled-state-layer-color:var(--nord4) !important;--mat-button-tonal-label-text-color:var(--nord8) !important;--mat-button-tonal-state-layer-color:var(--nord8) !important;--mat-card-elevated-container-color:var(--nord0) !important;--mat-card-filled-container-color:var(--nord1) !important;--mat-card-outlined-container-color:var(--nord0) !important;--mat-card-outlined-outline-color:var(--nord3) !important;--mat-card-subtitle-text-color:var(--nord5) !important;--mat-dialog-container-color:var(--nord0) !important;--mat-dialog-subhead-color:var(--nord5) !important;--mat-dialog-supporting-text-color:var(--nord4) !important;--mat-icon-button-disabled-state-layer-color:var(--nord4) !important;--mat-icon-button-icon-color:var(--nord4) !important;--mat-icon-button-state-layer-color:var(--nord4) !important;--mat-form-field-enabled-select-arrow-color:var(--nord4) !important;--mat-form-field-error-focus-trailing-icon-color:var(--nord11) !important;--mat-form-field-error-hover-trailing-icon-color:var(--nord5) !important;--mat-form-field-error-text-color:var(--nord11) !important;--mat-form-field-error-trailing-icon-color:var(--nord11) !important;--mat-form-field-filled-active-indicator-color:var(--nord4) !important;--mat-form-field-filled-caret-color:var(--nord8) !important;--mat-form-field-filled-container-color:var(--nord3) !important;--mat-form-field-filled-error-active-indicator-color:var(--nord11) !important;--mat-form-field-filled-error-caret-color:var(--nord11) !important;--mat-form-field-filled-error-focus-active-indicator-color:var(--nord11) !important;--mat-form-field-filled-error-focus-label-text-color:var(--nord11) !important;--mat-form-field-filled-error-hover-active-indicator-color:var(--nord5) !important;--mat-form-field-filled-error-hover-label-text-color:var(--nord5) !important;--mat-form-field-filled-error-label-text-color:var(--nord11) !important;--mat-form-field-filled-focus-active-indicator-color:var(--nord8) !important;--mat-form-field-filled-focus-label-text-color:var(--nord8) !important;--mat-form-field-filled-hover-active-indicator-color:var(--nord5) !important;--mat-form-field-filled-hover-label-text-color:var(--nord4) !important;--mat-form-field-filled-input-text-color:var(--nord5) !important;--mat-form-field-filled-input-text-placeholder-color:var(--nord4) !important;--mat-form-field-filled-label-text-color:var(--nord4) !important;--mat-form-field-focus-select-arrow-color:var(--nord8) !important;--mat-form-field-leading-icon-color:var(--nord4) !important;--mat-form-field-outlined-caret-color:var(--nord8) !important;--mat-form-field-outlined-error-caret-color:var(--nord11) !important;--mat-form-field-outlined-error-focus-label-text-color:var(--nord11) !important;--mat-form-field-outlined-error-focus-outline-color:var(--nord11) !important;--mat-form-field-outlined-error-hover-label-text-color:var(--nord5) !important;--mat-form-field-outlined-error-hover-outline-color:var(--nord5) !important;--mat-form-field-outlined-error-label-text-color:var(--nord11) !important;--mat-form-field-outlined-error-outline-color:var(--nord11) !important;--mat-form-field-outlined-focus-label-text-color:var(--nord8) !important;--mat-form-field-outlined-focus-outline-color:var(--nord8) !important;--mat-form-field-outlined-hover-label-text-color:var(--nord5) !important;--mat-form-field-outlined-hover-outline-color:var(--nord5) !important;--mat-form-field-outlined-input-text-color:var(--nord5) !important;--mat-form-field-outlined-input-text-placeholder-color:var(--nord4) !important;--mat-form-field-outlined-label-text-color:var(--nord4) !important;--mat-form-field-outlined-outline-color:color-mix(in srgb, var(--nord4) 55%, var(--nord3)) !important;--mat-form-field-select-option-text-color:var(--nord0) !important;--mat-form-field-state-layer-color:var(--nord5) !important;--mat-form-field-trailing-icon-color:var(--nord4) !important;--mat-list-active-indicator-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-list-list-item-disabled-label-text-color:var(--nord5) !important;--mat-list-list-item-disabled-leading-icon-color:var(--nord5) !important;--mat-list-list-item-disabled-state-layer-color:var(--nord5) !important;--mat-list-list-item-disabled-trailing-icon-color:var(--nord5) !important;--mat-list-list-item-focus-label-text-color:var(--nord5) !important;--mat-list-list-item-focus-state-layer-color:var(--nord5) !important;--mat-list-list-item-hover-label-text-color:var(--nord5) !important;--mat-list-list-item-hover-state-layer-color:var(--nord5) !important;--mat-list-list-item-label-text-color:var(--nord5) !important;--mat-list-list-item-leading-avatar-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-list-list-item-leading-icon-color:var(--nord4) !important;--mat-list-list-item-selected-trailing-icon-color:var(--nord8) !important;--mat-list-list-item-supporting-text-color:var(--nord4) !important;--mat-list-list-item-trailing-icon-color:var(--nord4) !important;--mat-list-list-item-trailing-supporting-text-color:var(--nord4) !important;--mat-slide-toggle-disabled-label-text-color:var(--nord5) !important;--mat-slide-toggle-disabled-selected-handle-color:var(--nord0) !important;--mat-slide-toggle-disabled-selected-icon-color:var(--nord5) !important;--mat-slide-toggle-disabled-selected-track-color:var(--nord5) !important;--mat-slide-toggle-disabled-unselected-handle-color:var(--nord5) !important;--mat-slide-toggle-disabled-unselected-icon-color:var(--nord3) !important;--mat-slide-toggle-disabled-unselected-track-color:var(--nord3) !important;--mat-slide-toggle-disabled-unselected-track-outline-color:var(--nord5) !important;--mat-slide-toggle-label-text-color:var(--nord5) !important;--mat-slide-toggle-selected-focus-handle-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-slide-toggle-selected-focus-state-layer-color:var(--nord8) !important;--mat-slide-toggle-selected-focus-track-color:var(--nord8) !important;--mat-slide-toggle-selected-handle-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-slide-toggle-selected-hover-handle-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-slide-toggle-selected-hover-state-layer-color:var(--nord8) !important;--mat-slide-toggle-selected-hover-track-color:var(--nord8) !important;--mat-slide-toggle-selected-icon-color:var(--nord5) !important;--mat-slide-toggle-selected-pressed-handle-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-slide-toggle-selected-pressed-state-layer-color:var(--nord8) !important;--mat-slide-toggle-selected-pressed-track-color:var(--nord8) !important;--mat-slide-toggle-selected-track-color:var(--nord8) !important;--mat-slide-toggle-track-outline-color:color-mix(in srgb, var(--nord4) 55%, var(--nord3)) !important;--mat-slide-toggle-unselected-focus-handle-color:var(--nord4) !important;--mat-slide-toggle-unselected-focus-state-layer-color:var(--nord5) !important;--mat-slide-toggle-unselected-focus-track-color:var(--nord3) !important;--mat-slide-toggle-unselected-handle-color:color-mix(in srgb, var(--nord4) 55%, var(--nord3)) !important;--mat-slide-toggle-unselected-hover-handle-color:var(--nord4) !important;--mat-slide-toggle-unselected-hover-state-layer-color:var(--nord5) !important;--mat-slide-toggle-unselected-hover-track-color:var(--nord3) !important;--mat-slide-toggle-unselected-icon-color:var(--nord3) !important;--mat-slide-toggle-unselected-pressed-handle-color:var(--nord4) !important;--mat-slide-toggle-unselected-pressed-state-layer-color:var(--nord5) !important;--mat-slide-toggle-unselected-pressed-track-color:var(--nord3) !important;--mat-slide-toggle-unselected-track-color:var(--nord3) !important;--mat-slider-active-track-color:var(--nord8) !important;--mat-slider-disabled-active-track-color:var(--nord5) !important;--mat-slider-disabled-handle-color:var(--nord5) !important;--mat-slider-disabled-inactive-track-color:var(--nord5) !important;--mat-slider-focus-handle-color:var(--nord8) !important;--mat-slider-handle-color:var(--nord8) !important;--mat-slider-hover-handle-color:var(--nord8) !important;--mat-slider-inactive-track-color:var(--nord3) !important;--mat-slider-label-container-color:var(--nord8) !important;--mat-slider-label-label-text-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-slider-ripple-color:var(--nord8) !important;--mat-slider-with-overlap-handle-outline-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-slider-with-tick-marks-active-container-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-slider-with-tick-marks-disabled-container-color:var(--nord5) !important;--mat-slider-with-tick-marks-inactive-container-color:var(--nord4) !important;--mat-snack-bar-button-color:var(--nord10) !important;--mat-snack-bar-container-color:var(--nord5) !important;--mat-snack-bar-supporting-text-color:var(--nord1) !important;--mat-chip-elevated-selected-container-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-chip-focus-outline-color:var(--nord4) !important;--mat-chip-focus-state-layer-color:var(--nord4) !important;--mat-chip-hover-state-layer-color:var(--nord4) !important;--mat-chip-label-text-color:var(--nord4) !important;--mat-chip-outline-color:color-mix(in srgb, var(--nord4) 55%, var(--nord3)) !important;--mat-chip-selected-disabled-trailing-icon-color:var(--nord5) !important;--mat-chip-selected-focus-state-layer-color:var(--nord8) !important;--mat-chip-selected-hover-state-layer-color:var(--nord8) !important;--mat-chip-selected-label-text-color:var(--nord8) !important;--mat-chip-selected-trailing-action-state-layer-color:var(--nord8) !important;--mat-chip-selected-trailing-icon-color:var(--nord8) !important;--mat-chip-trailing-action-state-layer-color:var(--nord4) !important;--mat-chip-with-icon-disabled-icon-color:var(--nord5) !important;--mat-chip-with-icon-icon-color:var(--nord4) !important;--mat-chip-with-icon-selected-icon-color:var(--nord8) !important;--mat-chip-with-trailing-icon-disabled-trailing-icon-color:var(--nord5) !important;--mat-chip-with-trailing-icon-trailing-icon-color:var(--nord4) !important;--mat-menu-divider-color:var(--nord3) !important;--mat-menu-item-label-text-color:var(--nord5) !important;--mat-menu-item-icon-color:var(--nord4) !important;--mat-menu-container-color:var(--nord0) !important;--mat-checkbox-disabled-selected-checkmark-color:var(--nord0) !important;--mat-checkbox-label-text-color:var(--nord5) !important;--mat-checkbox-selected-checkmark-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-checkbox-selected-focus-icon-color:var(--nord8) !important;--mat-checkbox-selected-focus-state-layer-color:var(--nord8) !important;--mat-checkbox-selected-hover-icon-color:var(--nord8) !important;--mat-checkbox-selected-hover-state-layer-color:var(--nord8) !important;--mat-checkbox-selected-icon-color:var(--nord8) !important;--mat-checkbox-selected-pressed-icon-color:var(--nord8) !important;--mat-checkbox-selected-pressed-state-layer-color:var(--nord5) !important;--mat-checkbox-unselected-focus-icon-color:var(--nord5) !important;--mat-checkbox-unselected-focus-state-layer-color:var(--nord5) !important;--mat-checkbox-unselected-hover-icon-color:var(--nord5) !important;--mat-checkbox-unselected-hover-state-layer-color:var(--nord5) !important;--mat-checkbox-unselected-icon-color:var(--nord4) !important;--mat-checkbox-unselected-pressed-state-layer-color:var(--nord8) !important;--mat-tooltip-container-color:var(--nord5) !important;--mat-tooltip-supporting-text-color:var(--nord1) !important;--mat-progress-bar-active-indicator-color:var(--nord8) !important;--mat-progress-bar-track-color:var(--nord3) !important;--mat-progress-spinner-active-indicator-color:var(--nord8) !important;--mat-select-panel-background-color:var(--nord0) !important;--mat-select-enabled-trigger-text-color:var(--nord5) !important;--mat-select-placeholder-text-color:var(--nord4) !important;--mat-select-enabled-arrow-color:var(--nord4) !important;--mat-select-focused-arrow-color:var(--nord8) !important;--mat-select-invalid-arrow-color:var(--nord11) !important;--mat-radio-checked-ripple-color:var(--nord8) !important;--mat-radio-disabled-selected-icon-color:var(--nord5) !important;--mat-radio-disabled-unselected-icon-color:var(--nord5) !important;--mat-radio-label-text-color:var(--nord5) !important;--mat-radio-ripple-color:var(--nord5) !important;--mat-radio-selected-focus-icon-color:var(--nord8) !important;--mat-radio-selected-hover-icon-color:var(--nord8) !important;--mat-radio-selected-icon-color:var(--nord8) !important;--mat-radio-selected-pressed-icon-color:var(--nord8) !important;--mat-radio-unselected-focus-icon-color:var(--nord5) !important;--mat-radio-unselected-hover-icon-color:var(--nord5) !important;--mat-radio-unselected-icon-color:var(--nord4) !important;--mat-radio-unselected-pressed-icon-color:var(--nord5) !important;--mat-datepicker-calendar-body-label-text-color:var(--nord5) !important;--mat-datepicker-calendar-container-background-color:color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important;--mat-datepicker-calendar-container-text-color:var(--nord5) !important;--mat-datepicker-calendar-date-in-comparison-range-state-background-color:color-mix(in srgb, var(--nord14) 40%, var(--nord1)) !important;--mat-datepicker-calendar-date-in-overlap-range-selected-state-background-color:var(--nord8) !important;--mat-datepicker-calendar-date-in-overlap-range-state-background-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-datepicker-calendar-date-in-range-state-background-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-datepicker-calendar-date-preview-state-outline-color:var(--nord8) !important;--mat-datepicker-calendar-date-selected-state-background-color:var(--nord8) !important;--mat-datepicker-calendar-date-selected-state-text-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-datepicker-calendar-date-text-color:var(--nord5) !important;--mat-datepicker-calendar-date-today-outline-color:var(--nord8) !important;--mat-datepicker-calendar-date-today-selected-state-outline-color:var(--nord8) !important;--mat-datepicker-calendar-header-text-color:var(--nord4) !important;--mat-datepicker-calendar-navigation-button-icon-color:var(--nord4) !important;--mat-datepicker-calendar-period-button-icon-color:var(--nord4) !important;--mat-datepicker-calendar-period-button-text-color:var(--nord4) !important;--mat-datepicker-range-input-separator-color:var(--nord5) !important;--mat-datepicker-toggle-active-state-icon-color:var(--nord8) !important;--mat-datepicker-toggle-icon-color:var(--nord4) !important;--mat-fab-container-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-fab-foreground-color:var(--nord5) !important;--mat-fab-small-container-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--mat-fab-small-foreground-color:var(--nord5) !important;--mat-fab-small-state-layer-color:var(--nord5) !important;--mat-fab-state-layer-color:var(--nord5) !important;--mat-tab-active-focus-indicator-color:var(--nord8) !important;--mat-tab-active-focus-label-text-color:var(--nord5) !important;--mat-tab-active-hover-indicator-color:var(--nord8) !important;--mat-tab-active-hover-label-text-color:var(--nord5) !important;--mat-tab-active-indicator-color:var(--nord8) !important;--mat-tab-active-label-text-color:var(--nord5) !important;--mat-tab-active-ripple-color:var(--nord5) !important;--mat-tab-divider-color:var(--nord3) !important;--mat-tab-inactive-focus-label-text-color:var(--nord5) !important;--mat-tab-inactive-hover-label-text-color:var(--nord5) !important;--mat-tab-inactive-label-text-color:var(--nord5) !important;--mat-tab-inactive-ripple-color:var(--nord5) !important;--mat-tab-pagination-icon-color:var(--nord5) !important;--mat-tab-disabled-ripple-color:var(--nord4) !important;--mat-focus-indicator-border-color:var(--nord8) !important}
 :where(.theme-host){--gem-sys-color--brand-blue:var(--nord8) !important;--gem-sys-color--brand-floaty-blue:var(--nord8) !important;--gem-sys-color--brand-green:var(--nord14) !important;--gem-sys-color--brand-red:var(--nord11) !important;--gem-sys-color--brand-transition-blue-1:var(--nord10) !important;--gem-sys-color--brand-transition-blue-2:var(--nord8) !important;--gem-sys-color--brand-transition-orange:var(--nord12) !important;--gem-sys-color--brand-transition-pink:var(--nord11) !important;--gem-sys-color--brand-transition-purple:var(--nord15) !important;--gem-sys-color--brand-transition-red:var(--nord11) !important;--gem-sys-color--brand-transition-teal:var(--nord7) !important;--gem-sys-color--brand-yellow:var(--nord13) !important;--gem-sys-color--error:var(--nord11) !important;--gem-sys-color--gems-blue-high:var(--nord8) !important;--gem-sys-color--gems-blue-low:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--gem-sys-color--gems-cyan-high:var(--nord7) !important;--gem-sys-color--gems-cyan-low:color-mix(in srgb, var(--nord7) 40%, var(--nord1)) !important;--gem-sys-color--gems-grey-high:color-mix(in srgb, var(--nord4) 55%, var(--nord3)) !important;--gem-sys-color--gems-grey-low:var(--nord2) !important;--gem-sys-color--gems-orange-high:var(--nord12) !important;--gem-sys-color--gems-orange-low:color-mix(in srgb, var(--nord12) 40%, var(--nord1)) !important;--gem-sys-color--gems-pink-high:var(--nord11) !important;--gem-sys-color--gems-pink-low:color-mix(in srgb, var(--nord11) 40%, var(--nord1)) !important;--gem-sys-color--gems-purple-high:var(--nord15) !important;--gem-sys-color--gems-purple-low:color-mix(in srgb, var(--nord15) 40%, var(--nord1)) !important;--gem-sys-color--gems-teal-high:var(--nord7) !important;--gem-sys-color--gems-teal-low:color-mix(in srgb, var(--nord7) 40%, var(--nord1)) !important;--gem-sys-color--gems-violet-high:var(--nord8) !important;--gem-sys-color--gems-violet-low:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--gem-sys-color--gems-yellow-high:var(--nord13) !important;--gem-sys-color--gems-yellow-low:color-mix(in srgb, var(--nord13) 40%, var(--nord1)) !important;--gem-sys-color--image-stop:var(--nord2) !important;--gem-sys-color--inverse-on-surface:var(--nord1) !important;--gem-sys-color--inverse-primary:var(--nord10) !important;--gem-sys-color--inverse-surface:var(--nord5) !important;--gem-sys-color--on-error:color-mix(in srgb, var(--nord11) 40%, var(--nord1)) !important;--gem-sys-color--on-error-container:var(--nord5) !important;--gem-sys-color--on-primary:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--gem-sys-color--on-primary-container:var(--nord5) !important;--gem-sys-color--on-primary-container-emphasis-1:var(--nord8) !important;--gem-sys-color--on-primary-emphasis-1:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--gem-sys-color--on-primary-fixed:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--gem-sys-color--on-primary-fixed-variant:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--gem-sys-color--on-secondary:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--gem-sys-color--on-secondary-container:var(--nord8) !important;--gem-sys-color--on-secondary-fixed:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--gem-sys-color--on-secondary-fixed-variant:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--gem-sys-color--on-surface:var(--nord5) !important;--gem-sys-color--on-surface-low:color-mix(in srgb, var(--nord4) 55%, var(--nord3)) !important;--gem-sys-color--on-surface-variant:var(--nord4) !important;--gem-sys-color--on-tertiary:color-mix(in srgb, var(--nord14) 40%, var(--nord1)) !important;--gem-sys-color--on-tertiary-container:var(--nord14) !important;--gem-sys-color--on-tertiary-fixed:color-mix(in srgb, var(--nord14) 40%, var(--nord1)) !important;--gem-sys-color--on-tertiary-fixed-variant:color-mix(in srgb, var(--nord14) 40%, var(--nord1)) !important;--gem-sys-color--outline:color-mix(in srgb, var(--nord4) 55%, var(--nord3)) !important;--gem-sys-color--outline-gradient-stop-1:var(--nord15) !important;--gem-sys-color--outline-low:var(--nord3) !important;--gem-sys-color--outline-solid-1:var(--nord15) !important;--gem-sys-color--outline-variant:var(--nord3) !important;--gem-sys-color--primary:var(--nord8) !important;--gem-sys-color--primary-container:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--gem-sys-color--primary-container-emphasis-1:var(--nord10) !important;--gem-sys-color--primary-container-emphasis-2:var(--nord8) !important;--gem-sys-color--primary-emphasis-1:var(--nord8) !important;--gem-sys-color--primary-emphasis-2:var(--nord8) !important;--gem-sys-color--primary-fixed:var(--nord5) !important;--gem-sys-color--primary-fixed-dim:var(--nord8) !important;--gem-sys-color--scrim:var(--nord0) !important;--gem-sys-color--secondary:var(--nord8) !important;--gem-sys-color--secondary-container:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--gem-sys-color--secondary-container-emphasis-1:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--gem-sys-color--secondary-container-emphasis-2:var(--nord15) !important;--gem-sys-color--secondary-emphasis-1:var(--nord6) !important;--gem-sys-color--secondary-emphasis-2:var(--nord6) !important;--gem-sys-color--secondary-fixed:var(--nord8) !important;--gem-sys-color--secondary-fixed-dim:var(--nord8) !important;--gem-sys-color--shadow:var(--nord0) !important;--gem-sys-color--surface:var(--nord0) !important;--gem-sys-color--surface-bright:var(--nord0) !important;--gem-sys-color--surface-container:var(--nord0) !important;--gem-sys-color--surface-container-high:color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important;--gem-sys-color--surface-container-highest:var(--nord1) !important;--gem-sys-color--surface-container-low:var(--nord0) !important;--gem-sys-color--surface-container-lowest:var(--nord0) !important;--gem-sys-color--surface-dim:var(--nord0) !important;--gem-sys-color--surface-variant:var(--nord3) !important;--gem-sys-color--tertiary:var(--nord14) !important;--gem-sys-color--tertiary-container:color-mix(in srgb, var(--nord14) 40%, var(--nord1)) !important;--gem-sys-color--tertiary-container-emphasis-1:var(--nord8) !important;--gem-sys-color--tertiary-container-emphasis-2:var(--nord8) !important;--gem-sys-color--tertiary-emphasis-1:var(--nord8) !important;--gem-sys-color--tertiary-emphasis-2:var(--nord8) !important;--gem-sys-color--tertiary-fixed:var(--nord14) !important;--gem-sys-color--tertiary-fixed-dim:var(--nord14) !important;--gem-sys-color--blue-high:var(--nord6) !important;--gem-sys-color--blue-low:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--gem-sys-color--blue-medium:var(--nord8) !important;--gem-sys-color--blue-primary:var(--nord8) !important;--gem-sys-color--error-container:color-mix(in srgb, var(--nord11) 40%, var(--nord1)) !important;--gem-sys-color--green-high:color-mix(in srgb, var(--nord14) 25%, var(--nord6)) !important;--gem-sys-color--green-low:color-mix(in srgb, var(--nord14) 40%, var(--nord1)) !important;--gem-sys-color--green-medium:var(--nord14) !important;--gem-sys-color--green-primary:var(--nord14) !important;--gem-sys-color--mic-gradient-stop-1:var(--nord15) !important;--gem-sys-color--mic-gradient-stop-2:var(--nord15) !important;--gem-sys-color--mic-gradient-stop-3:var(--nord15) !important;--gem-sys-color--orange-high:var(--nord6) !important;--gem-sys-color--orange-low:color-mix(in srgb, var(--nord12) 40%, var(--nord1)) !important;--gem-sys-color--orange-medium:var(--nord12) !important;--gem-sys-color--orange-primary:var(--nord12) !important;--gem-sys-color--outline-gradient-stop-2:var(--nord6) !important;--gem-sys-color--outline-gradient-stop-3:var(--nord8) !important;--gem-sys-color--outline-solid-2:var(--nord10) !important;--gem-sys-color--outline-solid-3:var(--nord6) !important;--gem-sys-color--purple-high:var(--nord6) !important;--gem-sys-color--purple-low:color-mix(in srgb, var(--nord15) 40%, var(--nord1)) !important;--gem-sys-color--purple-medium:var(--nord15) !important;--gem-sys-color--purple-primary:var(--nord15) !important;--gem-sys-color--red-high:var(--nord6) !important;--gem-sys-color--red-low:color-mix(in srgb, var(--nord11) 40%, var(--nord1)) !important;--gem-sys-color--red-medium:var(--nord11) !important;--gem-sys-color--red-primary:var(--nord11) !important;--gem-sys-color--soft-glow-blue-1:var(--nord8) !important;--gem-sys-color--soft-glow-blue-2:var(--nord10) !important;--gem-sys-color--soft-glow-pink-1:var(--nord15) !important;--gem-sys-color--soft-glow-pink-2:var(--nord11) !important;--gem-sys-color--text-advanced-stop-high:var(--nord11) !important;--gem-sys-color--text-advanced-stop-low:color-mix(in srgb, var(--nord11) 40%, var(--nord1)) !important;--gem-sys-color--text-basic-stop-high:var(--nord10) !important;--gem-sys-color--text-basic-stop-low:var(--nord1) !important;--gem-sys-color--universal-stop:var(--nord3) !important;--lumi-sys-color--black:var(--nord0) !important;--lumi-sys-color--code-background:var(--nord0) !important;--lumi-sys-color--code-blue-text:var(--nord8) !important;--lumi-sys-color--code-green-text:var(--nord14) !important;--lumi-sys-color--code-grey-text:color-mix(in srgb, var(--nord4) 55%, var(--nord3)) !important;--lumi-sys-color--code-pink-text:var(--nord15) !important;--lumi-sys-color--code-primary-text:var(--nord6) !important;--lumi-sys-color--code-purple-text:var(--nord8) !important;--lumi-sys-color--code-red-text:var(--nord11) !important;--lumi-sys-color--code-yellow-text:var(--nord13) !important;--lumi-sys-color--error:var(--nord11) !important;--lumi-sys-color--error-container:color-mix(in srgb, var(--nord11) 40%, var(--nord1)) !important;--lumi-sys-color--on-error-container:var(--nord11) !important;--lumi-sys-color--on-positive-container:var(--nord14) !important;--lumi-sys-color--on-surface:var(--nord5) !important;--lumi-sys-color--on-surface-low:color-mix(in srgb, var(--nord6) 12%, transparent) !important;--lumi-sys-color--on-surface-variant:color-mix(in srgb, var(--nord6) 55%, transparent) !important;--lumi-sys-color--positive:var(--nord14) !important;--lumi-sys-color--positive-container:var(--nord0) !important;--lumi-sys-color--surface:var(--nord0) !important;--lumi-sys-color--surface-accent:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--lumi-sys-color--surface-background:var(--nord0) !important;--lumi-sys-color--surface-bright:var(--nord0) !important;--lumi-sys-color--surface-dim:var(--nord0) !important;--lumi-sys-color--white:var(--nord6) !important;--lumi-sys-color-acc-color--accent:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--lumi-sys-color-acc-color--accent-container:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--lumi-sys-color-acc-color--accent-fixed:var(--nord8) !important;--lumi-sys-color-states--disabled-label-on-surface:color-mix(in srgb, var(--nord6) 38%, transparent) !important;--lumi-sys-color-states--disabled-on-surface:color-mix(in srgb, var(--nord6) 12%, transparent) !important;--lumi-sys-color-states--focus-on-surface:color-mix(in srgb, var(--nord6) 8%, transparent) !important;--lumi-sys-color-states--hover-on-surface:color-mix(in srgb, var(--nord6) 8%, transparent) !important;--lumi-sys-color-states--pressed-on-surface:color-mix(in srgb, var(--nord6) 12%, transparent) !important;--lumi-sys-elevation--level1-color:color-mix(in srgb, var(--nord-deep) 28%, transparent) !important;--lumi-sys-elevation--level2-color:color-mix(in srgb, var(--nord-deep) 40%, transparent) !important}
 @media screen and (max-width:959.98px){:where(.theme-host):where(.enable-lm-mobile-tokens){--lumi-sys-color--black:var(--nord0) !important;--lumi-sys-color--code-background:var(--nord0) !important;--lumi-sys-color--code-blue-text:var(--nord8) !important;--lumi-sys-color--code-green-text:var(--nord14) !important;--lumi-sys-color--code-grey-text:color-mix(in srgb, var(--nord4) 55%, var(--nord3)) !important;--lumi-sys-color--code-pink-text:var(--nord15) !important;--lumi-sys-color--code-primary-text:var(--nord6) !important;--lumi-sys-color--code-purple-text:var(--nord8) !important;--lumi-sys-color--code-red-text:var(--nord11) !important;--lumi-sys-color--code-yellow-text:var(--nord13) !important;--lumi-sys-color--error:var(--nord11) !important;--lumi-sys-color--error-container:color-mix(in srgb, var(--nord11) 40%, var(--nord1)) !important;--lumi-sys-color--on-error-container:var(--nord11) !important;--lumi-sys-color--on-positive-container:var(--nord14) !important;--lumi-sys-color--on-surface:var(--nord5) !important;--lumi-sys-color--on-surface-low:color-mix(in srgb, var(--nord6) 12%, transparent) !important;--lumi-sys-color--on-surface-variant:color-mix(in srgb, var(--nord6) 55%, transparent) !important;--lumi-sys-color--positive:var(--nord14) !important;--lumi-sys-color--positive-container:var(--nord0) !important;--lumi-sys-color--surface:var(--nord0) !important;--lumi-sys-color--surface-accent:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;--lumi-sys-color--surface-background:var(--nord0) !important;--lumi-sys-color--surface-bright:var(--nord0) !important;--lumi-sys-color--surface-dim:var(--nord0) !important;--lumi-sys-color--white:var(--nord6) !important;--lumi-sys-color-states--disabled-label-on-surface:color-mix(in srgb, var(--nord6) 38%, transparent) !important;--lumi-sys-color-states--disabled-on-surface:color-mix(in srgb, var(--nord6) 12%, transparent) !important;--lumi-sys-color-states--focus-on-surface:color-mix(in srgb, var(--nord6) 8%, transparent) !important;--lumi-sys-color-states--hover-on-surface:color-mix(in srgb, var(--nord6) 8%, transparent) !important;--lumi-sys-color-states--pressed-on-surface:color-mix(in srgb, var(--nord6) 12%, transparent) !important;--lumi-sys-elevation--level1-color:color-mix(in srgb, var(--nord-deep) 28%, transparent) !important;--lumi-sys-elevation--level2-color:color-mix(in srgb, var(--nord-deep) 40%, transparent) !important}}
+html, body { background-color: var(--nord0) !important; }
+html { color-scheme: var(--nord-scheme); }
+}
+}
+}
+
+
+/* ======== Module: NotebookLM ======== */
+
+.nord-site(notebook; dark) {}
+.nord-site(notebook; light) {}
+
+& when (@mod_notebook = 1) {
+@-moz-document domain("notebooklm.google.com"), domain("notebook.google.com") {
+@media @nord-apply {
+:root { .nord-preset(@palette; notebook); }
+
+/* NotebookLM (now also at notebook.google.com) draws from Angular Material (--mat-sys-*),
+   Material Web (--md-sys-color-*), Material 3 (--gm3-sys-color-*) and its own --nb-sys-* and --nlm-* sets,
+   each defined again on its theme classes, so they are pinned there with !important. */
+:root, body, .dark-theme, .light-theme, .dark-mode, .luminous-ui, .peopleKitStyleGm3,
+.peopleShareKitThemesThemes {
+  .gm3-roles();
+  --mat-sys-background: var(--nord0) !important;
+  --mat-sys-error: var(--nord11) !important;
+  --mat-sys-error-container: color-mix(in srgb, var(--nord11) 30%, var(--nord1)) !important;
+  --mat-sys-inverse-on-surface: var(--nord0) !important;
+  --mat-sys-inverse-primary: var(--nord10) !important;
+  --mat-sys-inverse-surface: var(--nord6) !important;
+  --mat-sys-on-background: var(--nord6) !important;
+  --mat-sys-on-error: var(--nord-on-accent) !important;
+  --mat-sys-on-error-container: var(--nord6) !important;
+  --mat-sys-on-primary: var(--nord0) !important;
+  --mat-sys-on-primary-container: var(--nord6) !important;
+  --mat-sys-on-primary-fixed: var(--nord0) !important;
+  --mat-sys-on-primary-fixed-variant: var(--nord0) !important;
+  --mat-sys-on-secondary: var(--nord0) !important;
+  --mat-sys-on-secondary-container: var(--nord6) !important;
+  --mat-sys-on-secondary-fixed: var(--nord0) !important;
+  --mat-sys-on-secondary-fixed-variant: var(--nord0) !important;
+  --mat-sys-on-surface: var(--nord6) !important;
+  --mat-sys-on-surface-variant: var(--nord4) !important;
+  --mat-sys-on-tertiary: var(--nord0) !important;
+  --mat-sys-on-tertiary-container: var(--nord6) !important;
+  --mat-sys-on-tertiary-fixed: var(--nord0) !important;
+  --mat-sys-on-tertiary-fixed-variant: var(--nord0) !important;
+  --mat-sys-outline: color-mix(in srgb, var(--nord4) 40%, var(--nord3)) !important;
+  --mat-sys-outline-variant: var(--nord3) !important;
+  --mat-sys-primary: var(--nord8) !important;
+  --mat-sys-primary-container: color-mix(in srgb, var(--nord8) 30%, var(--nord1)) !important;
+  --mat-sys-primary-fixed: var(--nord8) !important;
+  --mat-sys-primary-fixed-dim: color-mix(in srgb, var(--nord8) 80%, var(--nord0)) !important;
+  --mat-sys-secondary: var(--nord9) !important;
+  --mat-sys-secondary-container: color-mix(in srgb, var(--nord9) 30%, var(--nord1)) !important;
+  --mat-sys-secondary-fixed: var(--nord9) !important;
+  --mat-sys-secondary-fixed-dim: color-mix(in srgb, var(--nord9) 80%, var(--nord0)) !important;
+  --mat-sys-surface: var(--nord0) !important;
+  --mat-sys-surface-bright: var(--nord2) !important;
+  --mat-sys-surface-container: var(--nord1) !important;
+  --mat-sys-surface-container-high: color-mix(in srgb, var(--nord2) 50%, var(--nord1)) !important;
+  --mat-sys-surface-container-highest: var(--nord2) !important;
+  --mat-sys-surface-container-low: color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important;
+  --mat-sys-surface-container-lowest: color-mix(in srgb, var(--nord0) 85%, var(--nord-deep)) !important;
+  --mat-sys-surface-dim: var(--nord0) !important;
+  --mat-sys-surface-tint: var(--nord8) !important;
+  --mat-sys-surface-variant: var(--nord2) !important;
+  --mat-sys-tertiary: var(--nord7) !important;
+  --mat-sys-tertiary-container: color-mix(in srgb, var(--nord7) 30%, var(--nord1)) !important;
+  --mat-sys-tertiary-fixed: var(--nord7) !important;
+  --mat-sys-tertiary-fixed-dim: color-mix(in srgb, var(--nord7) 80%, var(--nord0)) !important;
+  --mat-sys-info: var(--nord10) !important;
+  --mat-sys-on-info: var(--nord-on-accent) !important;
+  --mat-sys-info-container: color-mix(in srgb, var(--nord10) 30%, var(--nord1)) !important;
+  --mat-sys-on-info-container: var(--nord6) !important;
+  --mat-sys-success: var(--nord14) !important;
+  --mat-sys-on-success: var(--nord0) !important;
+  --mat-sys-success-container: color-mix(in srgb, var(--nord14) 30%, var(--nord1)) !important;
+  --mat-sys-on-success-container: var(--nord6) !important;
+  --mat-sys-warning: var(--nord13) !important;
+  --mat-sys-on-warning: var(--nord0) !important;
+  --mat-sys-warning-container: color-mix(in srgb, var(--nord13) 30%, var(--nord1)) !important;
+  --mat-sys-on-warning-container: var(--nord6) !important;
+  --md-sys-color-background: var(--nord0) !important;
+  --md-sys-color-error: var(--nord11) !important;
+  --md-sys-color-error-container: color-mix(in srgb, var(--nord11) 30%, var(--nord1)) !important;
+  --md-sys-color-inverse-on-surface: var(--nord0) !important;
+  --md-sys-color-inverse-primary: var(--nord10) !important;
+  --md-sys-color-inverse-surface: var(--nord6) !important;
+  --md-sys-color-on-background: var(--nord6) !important;
+  --md-sys-color-on-error: var(--nord-on-accent) !important;
+  --md-sys-color-on-error-container: var(--nord6) !important;
+  --md-sys-color-on-primary: var(--nord0) !important;
+  --md-sys-color-on-primary-container: var(--nord6) !important;
+  --md-sys-color-on-primary-fixed: var(--nord0) !important;
+  --md-sys-color-on-primary-fixed-variant: var(--nord0) !important;
+  --md-sys-color-on-secondary: var(--nord0) !important;
+  --md-sys-color-on-secondary-container: var(--nord6) !important;
+  --md-sys-color-on-secondary-fixed: var(--nord0) !important;
+  --md-sys-color-on-secondary-fixed-variant: var(--nord0) !important;
+  --md-sys-color-on-surface: var(--nord6) !important;
+  --md-sys-color-on-surface-variant: var(--nord4) !important;
+  --md-sys-color-on-tertiary: var(--nord0) !important;
+  --md-sys-color-on-tertiary-container: var(--nord6) !important;
+  --md-sys-color-on-tertiary-fixed: var(--nord0) !important;
+  --md-sys-color-on-tertiary-fixed-variant: var(--nord0) !important;
+  --md-sys-color-outline: color-mix(in srgb, var(--nord4) 40%, var(--nord3)) !important;
+  --md-sys-color-outline-variant: var(--nord3) !important;
+  --md-sys-color-primary: var(--nord8) !important;
+  --md-sys-color-primary-container: color-mix(in srgb, var(--nord8) 30%, var(--nord1)) !important;
+  --md-sys-color-primary-fixed: var(--nord8) !important;
+  --md-sys-color-primary-fixed-dim: color-mix(in srgb, var(--nord8) 80%, var(--nord0)) !important;
+  --md-sys-color-secondary: var(--nord9) !important;
+  --md-sys-color-secondary-container: color-mix(in srgb, var(--nord9) 30%, var(--nord1)) !important;
+  --md-sys-color-secondary-fixed: var(--nord9) !important;
+  --md-sys-color-secondary-fixed-dim: color-mix(in srgb, var(--nord9) 80%, var(--nord0)) !important;
+  --md-sys-color-surface: var(--nord0) !important;
+  --md-sys-color-surface-bright: var(--nord2) !important;
+  --md-sys-color-surface-container: var(--nord1) !important;
+  --md-sys-color-surface-container-high: color-mix(in srgb, var(--nord2) 50%, var(--nord1)) !important;
+  --md-sys-color-surface-container-highest: var(--nord2) !important;
+  --md-sys-color-surface-container-low: color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important;
+  --md-sys-color-surface-container-lowest: color-mix(in srgb, var(--nord0) 85%, var(--nord-deep)) !important;
+  --md-sys-color-surface-dim: var(--nord0) !important;
+  --md-sys-color-surface-tint: var(--nord8) !important;
+  --md-sys-color-surface-variant: var(--nord2) !important;
+  --md-sys-color-tertiary: var(--nord7) !important;
+  --md-sys-color-tertiary-container: color-mix(in srgb, var(--nord7) 30%, var(--nord1)) !important;
+  --md-sys-color-tertiary-fixed: var(--nord7) !important;
+  --md-sys-color-tertiary-fixed-dim: color-mix(in srgb, var(--nord7) 80%, var(--nord0)) !important;
+  --mat-sys-scrim: color-mix(in srgb, var(--nord-deep) 32%, transparent) !important;
+  --md-sys-color-scrim: color-mix(in srgb, var(--nord-deep) 32%, transparent) !important;
+  --mat-sys-shadow: #000 !important;
+  --md-sys-color-shadow: #000 !important;
+  --mat-sys-blue: var(--nord8) !important;
+  --mat-sys-on-blue: var(--nord0) !important;
+  --mat-sys-blue-container: color-mix(in srgb, var(--nord8) 30%, var(--nord1)) !important;
+  --mat-sys-on-blue-container: color-mix(in srgb, var(--nord8) 70%, var(--nord6)) !important;
+  --mat-sys-red: var(--nord11) !important;
+  --mat-sys-on-red: var(--nord-on-accent) !important;
+  --mat-sys-red-container: color-mix(in srgb, var(--nord11) 30%, var(--nord1)) !important;
+  --mat-sys-on-red-container: color-mix(in srgb, var(--nord11) 70%, var(--nord6)) !important;
+  --mat-sys-yellow: var(--nord13) !important;
+  --mat-sys-on-yellow: var(--nord0) !important;
+  --mat-sys-yellow-container: color-mix(in srgb, var(--nord13) 30%, var(--nord1)) !important;
+  --mat-sys-on-yellow-container: color-mix(in srgb, var(--nord13) 70%, var(--nord6)) !important;
+  --mat-sys-green: var(--nord14) !important;
+  --mat-sys-on-green: var(--nord0) !important;
+  --mat-sys-green-container: color-mix(in srgb, var(--nord14) 30%, var(--nord1)) !important;
+  --mat-sys-on-green-container: color-mix(in srgb, var(--nord14) 70%, var(--nord6)) !important;
+  --mat-sys-orange: var(--nord12) !important;
+  --mat-sys-on-orange: var(--nord0) !important;
+  --mat-sys-orange-container: color-mix(in srgb, var(--nord12) 30%, var(--nord1)) !important;
+  --mat-sys-on-orange-container: color-mix(in srgb, var(--nord12) 70%, var(--nord6)) !important;
+  --mat-sys-pink: var(--nord15) !important;
+  --mat-sys-on-pink: var(--nord-on-accent) !important;
+  --mat-sys-pink-container: color-mix(in srgb, var(--nord15) 30%, var(--nord1)) !important;
+  --mat-sys-on-pink-container: color-mix(in srgb, var(--nord15) 70%, var(--nord6)) !important;
+  --mat-sys-purple: var(--nord15) !important;
+  --mat-sys-on-purple: var(--nord-on-accent) !important;
+  --mat-sys-purple-container: color-mix(in srgb, var(--nord15) 30%, var(--nord1)) !important;
+  --mat-sys-on-purple-container: color-mix(in srgb, var(--nord15) 70%, var(--nord6)) !important;
+  --mat-sys-cyan: var(--nord7) !important;
+  --mat-sys-on-cyan: var(--nord0) !important;
+  --mat-sys-cyan-container: color-mix(in srgb, var(--nord7) 30%, var(--nord1)) !important;
+  --mat-sys-on-cyan-container: color-mix(in srgb, var(--nord7) 70%, var(--nord6)) !important;
+  --mat-sys-grey: var(--nord4) !important;
+  --mat-sys-on-grey: var(--nord1) !important;
+  --mat-sys-grey-container: var(--nord3) !important;
+  --mat-sys-on-grey-container: var(--nord5) !important;
+  --mat-sys-neutral-variant20: var(--nord1) !important;
+  --mat-sys-neutral10: var(--nord0) !important;
+  --mat-sys-link: var(--nord8) !important;
+  --mat-sys-link-hover: color-mix(in srgb, var(--nord8) 75%, var(--nord6)) !important;
+  --mat-sys-link-visited: var(--nord15) !important;
+  --nb-sys-color--black: var(--nord0) !important;
+  --nb-sys-color--white: var(--nord6) !important;
+  --nb-sys-color--code-background: var(--nord1) !important;
+  --nb-sys-color--code-blue-text: var(--nord8) !important;
+  --nb-sys-color--code-green-text: var(--nord14) !important;
+  --nb-sys-color--code-grey-text: color-mix(in srgb, var(--nord4) 55%, var(--nord3)) !important;
+  --nb-sys-color--code-pink-text: var(--nord15) !important;
+  --nb-sys-color--code-primary-text: var(--nord6) !important;
+  --nb-sys-color--code-purple-text: var(--nord15) !important;
+  --nb-sys-color--code-red-text: var(--nord11) !important;
+  --nb-sys-color--code-yellow-text: var(--nord13) !important;
+  --nb-sys-color--error: var(--nord11) !important;
+  --nb-sys-color--error-container: color-mix(in srgb, var(--nord11) 30%, var(--nord1)) !important;
+  --nb-sys-color--on-error-container: color-mix(in srgb, var(--nord11) 70%, var(--nord6)) !important;
+  --nb-sys-color--on-positive-container: color-mix(in srgb, var(--nord14) 70%, var(--nord6)) !important;
+  --nb-sys-color--on-surface: var(--nord6) !important;
+  --nb-sys-color--on-surface-low: color-mix(in srgb, var(--nord6) 12%, transparent) !important;
+  --nb-sys-color--on-surface-variant: var(--nord4) !important;
+  --nb-sys-color--positive: var(--nord14) !important;
+  --nb-sys-color--positive-container: color-mix(in srgb, var(--nord14) 30%, var(--nord1)) !important;
+  --nb-sys-color--surface: var(--nord0) !important;
+  --nb-sys-color--surface-accent: color-mix(in srgb, var(--nord10) 30%, var(--nord1)) !important;
+  --nb-sys-color--surface-background: var(--nord0) !important;
+  --nb-sys-color--surface-bright: var(--nord2) !important;
+  --nb-sys-color--surface-dim: var(--nord0) !important;
+  --nb-sys-color-acc-color--accent: var(--nord10) !important;
+  --nb-sys-color-acc-color--accent-container: color-mix(in srgb, var(--nord10) 30%, var(--nord1)) !important;
+  --nb-sys-color-acc-color--accent-fixed: var(--nord8) !important;
+  --nb-sys-color-states--disabled-label-on-surface: color-mix(in srgb, var(--nord6) 38%, transparent) !important;
+  --nb-sys-color-states--disabled-on-surface: color-mix(in srgb, var(--nord6) 12%, transparent) !important;
+  --nb-sys-color-states--focus-on-surface: color-mix(in srgb, var(--nord6) 8%, transparent) !important;
+  --nb-sys-color-states--hover-on-surface: color-mix(in srgb, var(--nord6) 8%, transparent) !important;
+  --nb-sys-color-states--pressed-on-surface: color-mix(in srgb, var(--nord6) 12%, transparent) !important;
+  --nb-sys-elevation--level1-color: color-mix(in srgb, var(--nord-deep) 28%, transparent) !important;
+  --nb-sys-elevation--level2-color: color-mix(in srgb, var(--nord-deep) 40%, transparent) !important;
+  --nb-studio-accent-blue: var(--nord8) !important;
+  --nb-studio-accent-teal: var(--nord7) !important;
+  --nb-studio-accent-green: var(--nord14) !important;
+  --nb-studio-accent-purple: var(--nord15) !important;
+  --nb-studio-accent-pink: var(--nord11) !important;
+  --nb-studio-accent-warm: var(--nord13) !important;
+  --nb-studio-disabled-label: color-mix(in srgb, var(--nord6) 38%, transparent) !important;
+  --pkw-scrim: color-mix(in srgb, var(--nord-deep) 32%, transparent) !important;
+  --pkw-error-container-low: color-mix(in srgb, var(--nord11) 30%, var(--nord1)) !important;
+  --pkw-caution: var(--nord13) !important;
+  --pkw-caution-container: color-mix(in srgb, var(--nord13) 30%, var(--nord1)) !important;
+  --pkw-caution-container-low: color-mix(in srgb, var(--nord13) 30%, var(--nord1)) !important;
+  --pkw-on-caution-container: color-mix(in srgb, var(--nord13) 70%, var(--nord6)) !important;
+
+  --nlm-fills-surface-panel-transparent-70: color-mix(in srgb, var(--nord-deep) 70%, transparent) !important;
+  --nlm-grey-0: var(--nord0) !important;
+  --nlm-tiles-yellow: var(--nord2) !important;
+  --nlm-tiles-on-blue: var(--nord8) !important;
+  --nlm-fills-ui-caution-subtle: color-mix(in srgb, var(--nord13) 25%, var(--nord1)) !important;
+  --nlm-green-60: var(--nord14) !important;
+  --nlm-background-secondary: var(--nord1) !important;
+  --nlm-states-on-tertiary-hover: color-mix(in srgb, var(--nord6) 8%, transparent) !important;
+  --nlm-states-on-artifacts-hover: color-mix(in srgb, var(--nord6) 8%, transparent) !important;
+  --nlm-tiles-on-pink-hover: color-mix(in srgb, var(--nord15) 8%, transparent) !important;
+  --nlm-grey-60: color-mix(in srgb, var(--nord4) 55%, var(--nord3)) !important;
+  --nlm-states-drag-over: color-mix(in srgb, var(--nord8) 8%, transparent) !important;
+  --nlm-grey-10: var(--nord0) !important;
+  --nlm-fills-surface-card: color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important;
+  --nlm-fills-ui-dark-grey-fill: color-mix(in srgb, var(--nord4) 55%, var(--nord3)) !important;
+  --nlm-ctas-buttons-primary: var(--nord10) !important;
+  --nlm-tiles-on-yellow: color-mix(in srgb, var(--nord13) 25%, var(--nord6)) !important;
+  --nlm-green-50: var(--nord14) !important;
+  --nlm-tiles-green: var(--nord1) !important;
+  --nlm-states-on-secondary-hover: color-mix(in srgb, var(--nord8) 8%, transparent) !important;
+  --nlm-ctas-buttons-pill: var(--nord8) !important;
+  --nlm-tiles-on-blue-hover: color-mix(in srgb, var(--nord8) 8%, transparent) !important;
+  --nlm-icons-yellow: var(--nord13) !important;
+  --nlm-blue-20: color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;
+  --nlm-cta-text-and-icon-primary: var(--nord6) !important;
+  --nlm-pastel-yellow: color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important;
+  --nlm-tiles-on-cyan-hover: color-mix(in srgb, var(--nord6) 8%, transparent) !important;
+  --nlm-pastel-orange: var(--nord0) !important;
+  --nlm-skeleton-shimmer-base: var(--nord3) !important;
+  --nlm-tiles-on-grey: var(--nord3) !important;
+  --nlm-text-body-text: var(--nord4) !important;
+  --nlm-blue-2: var(--nord0) !important;
+  --nlm-fills-surface-page-grey: var(--nord0) !important;
+  --nlm-fills-surface-landing: color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important;
+  --nlm-text-secondary: var(--nord5) !important;
+  --nlm-surface-primary: var(--nord1) !important;
+  --nlm-icons-default: var(--nord6) !important;
+  --nlm-brand-light-blue: color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;
+  --nlm-grey-40: var(--nord3) !important;
+  --nlm-blue-100: var(--nord6) !important;
+  --nlm-blue-80: var(--nord8) !important;
+  --nlm-ctas-buttons-tertiary: var(--nord2) !important;
+  --nlm-fills-ui-blue-fill: color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important;
+  --nlm-blue-98: var(--nord6) !important;
+  --nlm-grey-98: var(--nord6) !important;
+  --nlm-blue-5: var(--nord0) !important;
+  --nlm-grey-80: var(--nord4) !important;
+  --nlm-tiles-on-orange-hover: color-mix(in srgb, var(--nord6) 8%, transparent) !important;
+  --nlm-green-100: var(--nord6) !important;
+  --nlm-blue-95: var(--nord8) !important;
+  --nlm-tiles-on-cyan: var(--nord7) !important;
+  --nlm-icons-blue: var(--nord10) !important;
+  --nlm-states-on-primary-hover: color-mix(in srgb, var(--nord6) 8%, transparent) !important;
+  --nlm-text-cta-text-tertiary: var(--nord6) !important;
+  --nlm-text-buttons-primary: var(--nord8) !important;
+  --nlm-strong-focus-indicator: var(--nord8) !important;
+  --nlm-fills-surface-panel: color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important;
+  --nlm-fills-x-icon: color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important;
+  --nlm-blue-50: var(--nord10) !important;
+  --nlm-red-50: var(--nord11) !important;
+  --nlm-ctas-buttons-secondary: var(--nord6) !important;
+  --nlm-stroke-focus: var(--nord3) !important;
+  --nlm-text-warning: var(--nord13) !important;
+  --nlm-cta-text-and-icon-blue-reverse: var(--nord10) !important;
+  --nlm-green-80: color-mix(in srgb, var(--nord14) 25%, var(--nord6)) !important;
+  --nlm-grey-90: var(--nord5) !important;
+  --nlm-stroke-default: var(--nord2) !important;
+  --nlm-fills-surface-panel-transparent-80: color-mix(in srgb, var(--nord-deep) 80%, transparent) !important;
+  --nlm-blue-10: color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;
+  --nlm-grey-100: var(--nord6) !important;
+  --nlm-text-primary: var(--nord6) !important;
+  --nlm-fills-scrim: color-mix(in srgb, var(--nord-deep) 60%, transparent) !important;
+  --nlm-brand-dark-blue: color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;
+  --nlm-brand-green: var(--nord14) !important;
+  --nlm-tiles-on-yellow-hover: color-mix(in srgb, var(--nord13) 8%, transparent) !important;
+  --nlm-green-70: var(--nord14) !important;
+  --nlm-fills-surface-page: var(--nord0) !important;
+  --nlm-tiles-grey: var(--nord3) !important;
+  --nlm-grey-50: color-mix(in srgb, var(--nord4) 55%, var(--nord3)) !important;
+  --nlm-skeleton-shimmer-highlight: color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;
+  --nlm-grey-20: var(--nord1) !important;
+  --nlm-text-ghost-text: color-mix(in srgb, var(--nord4) 55%, var(--nord3)) !important;
+  --nlm-brand-blue: var(--nord10) !important;
+  --nlm-text-titles-and-labels: var(--nord6) !important;
+  --nlm-tiles-pink: var(--nord1) !important;
+  --nlm-pastel-blue: color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important;
+  --nlm-states-on-tertiary-focus: color-mix(in srgb, var(--nord6) 12%, transparent) !important;
+  --nlm-icons-pink: var(--nord15) !important;
+  --nlm-tiles-cyan: var(--nord2) !important;
+  --nlm-states-on-secondary-focus: color-mix(in srgb, var(--nord8) 12%, transparent) !important;
+  --nlm-icons-green: var(--nord14) !important;
+  --nlm-text-cta-text-secondary: var(--nord6) !important;
+  --nlm-ctas-text-and-icon-reverse: var(--nord10) !important;
+  --nlm-tiles-on-grey-hover: color-mix(in srgb, var(--nord-deep) 8%, transparent) !important;
+  --nlm-states-surface-panel-0: color-mix(in srgb, var(--nord-deep) 1%, transparent) !important;
+  --nlm-button-fills-primary: var(--nord10) !important;
+  --nlm-blue-90: var(--nord8) !important;
+  --nlm-grey-30: var(--nord3) !important;
+  --nlm-grey-95: var(--nord6) !important;
+  --nlm-tiles-on-orange: var(--nord12) !important;
+  --nlm-ctas-text-and-icon: var(--nord8) !important;
+  --nlm-loading-shimmer-highlight: color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;
+  --nlm-tiles-on-green-hover: color-mix(in srgb, var(--nord14) 8%, transparent) !important;
+  --nlm-blue-60: var(--nord10) !important;
+  --nlm-states-on-primary-focus: color-mix(in srgb, var(--nord6) 12%, transparent) !important;
+  --nlm-brand-black: var(--nord0) !important;
+  --nlm-pastel-purple: var(--nord0) !important;
+  --nlm-blue-70: var(--nord8) !important;
+  --nlm-text-secondary-text: var(--nord4) !important;
+  --nlm-icons-red: var(--nord11) !important;
+  --nlm-pastel-pink: var(--nord0) !important;
+  --nlm-strong-focus-indicator-reverse: var(--nord10) !important;
+  --nlm-pastel-green: var(--nord0) !important;
+  --nlm-fills-ui-grey-fill: var(--nord3) !important;
+  --nlm-states-tile-edit-button-hover: color-mix(in srgb, var(--nord6) 16%, transparent) !important;
+  --nlm-icons-youtube: var(--nord11) !important;
+  --nlm-tiles-on-green: var(--nord14) !important;
+  --nlm-fills-ui-light-grey-fill: var(--nord0) !important;
+  --nlm-blue-40: var(--nord10) !important;
+  --nlm-blue-30: color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;
+  --nlm-states-tile-edit-button-focus: color-mix(in srgb, var(--nord6) 18%, transparent) !important;
+  --nlm-brand-white: var(--nord6) !important;
+  --nlm-tiles-blue: var(--nord1) !important;
+  --nlm-tiles-orange: var(--nord1) !important;
+  --nlm-tiles-on-pink: var(--nord15) !important;
+  --nlm-states-drag-over-subtle: color-mix(in srgb, var(--nord8) 4%, transparent) !important;
+  --nlm-background-primary: var(--nord0) !important;
+  --nlm-grey-70: var(--nord4) !important;
+
+}
 html, body { background-color: var(--nord0) !important; }
 html { color-scheme: var(--nord-scheme); }
 }
