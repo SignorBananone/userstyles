@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Strava Nord V2
 @namespace      Strava Nord V2 by SignorBananone (fork of Strava Darkest Fusion by ATX)
-@version        2026.10.01.4
+@version        2026.10.01.5
 @description    Nord theme for Strava. Rewritten to rely on tags, ARIA roles, data-testid and stable class prefixes instead of hashed class names, so it survives Strava's CSS deploys.
 @homepageURL    https://github.com/SignorBananone/userstyles
 @license        MIT
@@ -677,6 +677,17 @@
     :is([data-testid$="avatar"]:not([data-testid="avatar"]), [data-testid="avatar-wrapper"]) > div,
     [class*="Avatar_imgWrapper"] {
       background-color: var(--nord3) !important;
+    }
+    /* Kudos avatars: the stack is a role="button" wrapper, so the button rule would
+       draw a square behind it; the white ring that separates the overlapping
+       avatars takes the card colour. */
+    [data-testid="avatar_group"],
+    [data-testid="avatar_group"]:hover {
+      background-color: transparent !important;
+      border-color: transparent !important;
+    }
+    [data-testid="avatar_group"] li > div {
+      border-color: var(--nt-surface) !important;
     }
     .video-js {
       background-color: #000 !important;
