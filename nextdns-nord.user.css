@@ -1,8 +1,8 @@
 /* ==UserStyle==
 @name         my.nextdns.io
-@version      20261001.01.00
+@version      20261001.02.00
 @namespace    ?
-@description  Nord theme for the NextDNS dashboard (my.nextdns.io), for both its dark and light themes
+@description  Nord theme for the NextDNS dashboard (my.nextdns.io), dark in both of its themes
 @homepageURL  https://github.com/SignorBananone/userstyles
 @author       SignorBananone
 @license      MIT
@@ -13,10 +13,10 @@
 /* ------------------------------------------------------------------
    Palette
    The dashboard switches theme through data-bs-theme on <html>.
-   Dark uses Polar Night surfaces, light uses Snow Storm surfaces.
+   Both of its themes get the same Polar Night colours.
    ------------------------------------------------------------------ */
 
-:root, [data-bs-theme=dark] {
+:root, [data-bs-theme=dark], :root[data-bs-theme=light], [data-bs-theme=light] {
     --nord-bg: #2e3440;
     --nord-surface: #3b4252;
     --nord-surface-2: #434c5e;
@@ -37,28 +37,7 @@
     color-scheme: dark;
 }
 
-:root[data-bs-theme=light], [data-bs-theme=light] {
-    --nord-bg: #eceff4;
-    --nord-surface: #e5e9f0;
-    --nord-surface-2: #d8dee9;
-    --nord-border: #c9d0dc;
-    --nord-fg: #2e3440;
-    --nord-fg-strong: #2e3440;
-    --nord-fg-rgb: 46, 52, 64;
-    --nord-accent-text: #5e81ac;
-    --nord-accent-border: #5e81ac;
-    --nord-green-text: #5f7f4a;
-    --nord-badge-bg: #5e81ac;
-    --nord-badge-fg: #eceff4;
-    --nord-switch-knob: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%234c566a'/%3e%3c/svg%3e");
-    --nord-chart-stroke: #5e81ac;
-    --nord-chart-fill: #d8dee9;
-    --nord-chart-light-slice: #4c566a;
-    --nord-chart-other: #d8dee9;
-    color-scheme: light;
-}
-
-/* Bootstrap variables, shared by both themes */
+/* Bootstrap variables */
 :root, [data-bs-theme=dark], :root[data-bs-theme=light], [data-bs-theme=light] {
     --bs-blue: #5e81ac;
     --bs-indigo: #81a1c1;
@@ -137,6 +116,8 @@
     --bs-heading-color: inherit;
     --bs-link-color: var(--nord-accent-text);
     --bs-link-hover-color: var(--nord-accent-border);
+    --bs-link-color-rgb: 136, 192, 208;
+    --bs-link-hover-color-rgb: 129, 161, 193;
     --bs-code-color: #b48ead;
     --bs-highlight-color: var(--nord-fg);
     --bs-highlight-bg: var(--nord-surface);
@@ -153,9 +134,19 @@
    Layout
    ------------------------------------------------------------------ */
 
-/* Logo: the app ships one bitmap per theme; only the dark-theme one is recoloured */
+/* Logo: the app ships one bitmap per theme (light text for dark, black text for light).
+   The light one is first turned into the dark one, then both get the same Nord tint. */
 [data-bs-theme="dark"] img.d-inline[alt=""] {
     filter: invert(61%) sepia(10%) saturate(600%) hue-rotate(180deg) brightness(92%) contrast(90%);
+}
+
+[data-bs-theme="light"] img.d-inline[alt=""] {
+    filter: invert(88%) hue-rotate(180deg) invert(61%) sepia(10%) saturate(600%) hue-rotate(180deg) brightness(92%) contrast(90%);
+}
+
+/* Web3 partner logos in Settings: the light theme loads versions with dark text */
+[data-bs-theme="light"] img.d-inline[alt="ENS"], [data-bs-theme="light"] img[alt="Unstoppable Domains"] {
+    filter: invert(1) hue-rotate(180deg);
 }
 
 .Header, [data-bs-theme=dark] .Header {
@@ -422,16 +413,26 @@ path.recharts-sector[fill="#7cbb00"] { fill: #a3be8c; }
 path.recharts-sector[fill="#ffffff"] { fill: var(--nord-chart-light-slice); }
 path.recharts-sector[fill="#ff9900"] { fill: #d08770; }
 path.recharts-sector[fill="#494B4D"] { fill: var(--nord-chart-other); }
+/* the light theme draws Apple and Others with its own greys */
+path.recharts-sector[fill="#323232"] { fill: var(--nord-chart-light-slice); }
+path.recharts-sector[fill="#f3f5f7"] { fill: var(--nord-chart-other); }
 div[style*="background-color: rgb(66, 133, 244)"] { background-color: #5e81ac !important; }
 div[style*="background-color: rgb(59, 89, 152)"] { background-color: #b48ead !important; }
 div[style*="background-color: rgb(124, 187, 0)"] { background-color: #a3be8c !important; }
 div[style*="background-color: rgb(255, 255, 255)"] { background-color: var(--nord-chart-light-slice) !important; }
 div[style*="background-color: rgb(255, 153, 0)"] { background-color: #d08770 !important; }
 div[style*="background-color: rgb(73, 75, 77)"] { background-color: var(--nord-chart-other) !important; }
+div[style*="background-color: rgb(50, 50, 50)"] { background-color: var(--nord-chart-light-slice) !important; }
+div[style*="background-color: rgb(243, 245, 247)"] { background-color: var(--nord-chart-other) !important; }
 
 /* traffic destination map: country shades are computed in JavaScript, so tone them down */
 .rsm-svg {
     filter: saturate(0.5);
+}
+
+/* the light theme shades from white to blue: invert it so it reads like the dark theme */
+[data-bs-theme="light"] .rsm-svg {
+    filter: invert(0.75) hue-rotate(180deg) saturate(0.6) brightness(1.1);
 }
 
 }

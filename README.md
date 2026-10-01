@@ -33,7 +33,7 @@ Each site has its own section. Stylus' `domain()` also matches subdomains, so th
 
 ## NextDNS Nord
 
-A Nord theme for the [NextDNS](https://nextdns.io/) dashboard at [my.nextdns.io](https://my.nextdns.io/), including the analytics charts and the logs. It follows the dashboard's own theme setting: Polar Night colours in dark mode, Snow Storm colours in light mode.
+A Nord theme for the [NextDNS](https://nextdns.io/) dashboard at [my.nextdns.io](https://my.nextdns.io/), including the analytics charts and the logs. The dashboard's light and dark themes both get the same dark Nord colours.
 
 - File: [`nextdns-nord.user.css`](nextdns-nord.user.css)
 - Install: [userstyles.world/style/24237](https://userstyles.world/style/24237) or open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/nextdns-nord.user.css) with Stylus installed.
