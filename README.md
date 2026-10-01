@@ -105,7 +105,32 @@ A Nord theme for [Gmail](https://mail.google.com/): the message list, open conve
 - File: [`gmail-nord.user.css`](gmail-nord.user.css)
 - Install: open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/gmail-nord.user.css) with Stylus installed. Not on userstyles.world yet.
 
-Gmail's newer components use Material 3 colour roles (`--gm3-sys-color-*`), which the style maps onto the palette; the older parts are recoloured through Gmail's class names. Gmail's icons are bitmaps, dark for light themes and white for dark ones: a filter flattens either kind and tints it, so the icons match whatever Gmail theme is selected. Message bodies keep the sender's colours on a light sheet, since most HTML emails assume a white background.
+Gmail's newer components use Material 3 colour roles (`--gm3-sys-color-*`), which the style maps onto the palette. Everything Gmail still writes as a fixed colour (its default light theme, the picture and dark themes, menus and dialogs) comes from a generated block: each colour declaration of Gmail's own stylesheet, mapped onto the palette by property. Hand-written rules on Gmail's class names refine the main surfaces, and the Gmail wordmark is swapped for Google's white-text version. Gmail's icons are bitmaps, dark for light themes and white for dark ones: a filter flattens either kind and tints it, so the icons match whatever Gmail theme is selected. Message bodies keep the sender's colours on a light sheet, since most HTML emails assume a white background.
+
+## Google Nord
+
+One style for several Google services, with a checkbox per service in the Stylus options:
+
+| Module | Sites |
+|---|---|
+| Google Account | myaccount, accounts (sign-in), myactivity, passwords, takeout |
+| Google Search | www.google.*, except Maps |
+| Gmail | mail.google.com (same code as Gmail Nord) |
+| Google Drive | drive.google.com |
+| Docs, Sheets, Slides, Forms | docs.google.com; the document page itself stays white |
+| Google Calendar | calendar.google.com; event colours are kept |
+| Google Keep | keep.google.com |
+| Gemini | gemini.google.com |
+| Google Maps | www.google.*/maps; panels only, the map is unchanged |
+| Google Scholar | scholar.google.* (same code as Google Scholar Nord) |
+| YouTube | www.youtube.com (same code as YouTube Nord) |
+
+- File: [`google-nord.user.css`](google-nord.user.css)
+- Install: open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/google-nord.user.css) with Stylus installed. Not on userstyles.world.
+
+A site must not be themed twice: if Gmail Nord, Google Scholar Nord or YouTube Nord is installed too, disable it or untick the matching module.
+
+Drive, Docs, Calendar and the account pages are themed through their Material 3 colour roles and their own token sets (`--dt-*`, `--cal-sys-color-*`, `--identity-colorscheme-*`). Search and Gemini have dark themes of their own, whose colour values are mapped onto the palette. Keep and Maps paint fixed colours, so their modules are generated from the sites' stylesheets, like Gmail's.
 
 ## UniBG eLearning Nord
 
