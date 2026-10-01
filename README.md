@@ -38,6 +38,15 @@ A Nord theme for the [NextDNS](https://nextdns.io/) dashboard at [my.nextdns.io]
 - File: [`nextdns-nord.user.css`](nextdns-nord.user.css)
 - Install: [userstyles.world/style/24237](https://userstyles.world/style/24237) or open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/nextdns-nord.user.css) with Stylus installed.
 
+## ChatGPT Nord
+
+A Nord theme for [ChatGPT](https://chatgpt.com/). ChatGPT's light and dark themes both get the same dark Nord colours.
+
+- File: [`chatgpt-nord.user.css`](chatgpt-nord.user.css)
+- Install: [userstyles.world/style/22760](https://userstyles.world/style/22760) or open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/chatgpt-nord.user.css) with Stylus installed.
+
+ChatGPT derives its colours from a few palettes of CSS variables (`--gray-*`, `--blue-*`, `--red-*`, ...). The style redefines those palettes rather than individual elements, so it survives most redesigns. The Nord values were generated from the site's own: greys mapped onto Polar Night and Snow Storm by lightness, colours onto the Frost or Aurora colour of the same hue.
+
 ## License
 
 [MIT](LICENSE).
