@@ -11,9 +11,13 @@ Every style has the same options, set from Stylus (the gear icon next to the sty
 - **Apply the theme**: always, or only when the browser or system is in dark mode, or only when it is in light mode. When the condition does not hold, the site keeps its own colours.
 - **Palette**:
   - *Nord*: Polar Night backgrounds and Snow Storm text, the default;
+  - *Nord dim*: a lighter dark theme, with backgrounds one step up the Polar Night scale (nord1 as the page background);
   - *Nord darker*: deeper backgrounds, same text and accents;
+  - *Nord black*: near-black backgrounds with a hint of Nord blue, for OLED screens and dark rooms;
   - *Nord light*: Snow Storm backgrounds, Polar Night text, and accents darkened enough to stay readable on a light background;
+  - *Nord light dim*: greyer Snow Storm backgrounds (nord4 as the page background) for less glare, with the accents darkened a little more;
   - *Follow the browser*: Nord when the browser is dark, Nord light when it is light;
+  - *Follow the browser, softer*: Nord dim when the browser is dark, Nord light dim when it is light;
   - *Custom*: the sixteen colours below.
 - **Custom palette type** and **Custom nord0 ... nord15**: used only by the *Custom* palette. Each colour picker is labelled with its role (background, surfaces, borders, text, main accent, red for errors, ...). For a light custom palette, put light colours in nord0 to nord3, dark ones in nord4 to nord6, and set the type to *Light*.
 

@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name         Gmail Nord
-@version      20261001.02.00
+@version      20261001.03.00
 @namespace    https://github.com/SignorBananone/userstyles
 @description  Nord theme for Gmail, whatever Gmail theme is selected
 @homepageURL  https://github.com/SignorBananone/userstyles
@@ -15,9 +15,13 @@
 }
 @var select palette "Palette" {
   "Nord: Polar Night backgrounds*": "nord",
+  "Nord dim: lighter Polar Night backgrounds": "dim",
   "Nord darker": "darker",
+  "Nord black: near-black backgrounds, for OLED screens": "black",
   "Nord light: Snow Storm backgrounds": "light",
+  "Nord light dim: greyer Snow Storm, less glare": "lightdim",
   "Follow the browser: Nord when dark, Nord light when light": "auto",
+  "Follow the browser, softer: Nord dim when dark, Nord light dim when light": "autodim",
   "Custom: the colours below": "custom"
 }
 @var select custom_type "Custom palette type" {
@@ -193,6 +197,115 @@
 .nord-preset(auto) {
   .nord-preset(nord);
   @media (prefers-color-scheme: light) { .nord-preset(light); }
+}
+.nord-preset(dim) {
+  --nord0: #3b4252;
+  --nord1: #434c5e;
+  --nord2: #4c566a;
+  --nord3: #5a6478;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  --nord0-rgb: 59, 66, 82;
+  --nord1-rgb: 67, 76, 94;
+  --nord2-rgb: 76, 86, 106;
+  --nord3-rgb: 90, 100, 120;
+  --nord4-rgb: 216, 222, 233;
+  --nord5-rgb: 229, 233, 240;
+  --nord6-rgb: 236, 239, 244;
+  --nord7-rgb: 143, 188, 187;
+  --nord8-rgb: 136, 192, 208;
+  --nord9-rgb: 129, 161, 193;
+  --nord10-rgb: 94, 129, 172;
+  --nord11-rgb: 191, 97, 106;
+  --nord12-rgb: 208, 135, 112;
+  --nord13-rgb: 235, 203, 139;
+  --nord14-rgb: 163, 190, 140;
+  --nord15-rgb: 180, 142, 173;
+  .nord-mode(dark);
+}
+.nord-preset(black) {
+  --nord0: #16191f;
+  --nord1: #1e222a;
+  --nord2: #272c36;
+  --nord3: #3b4252;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  --nord0-rgb: 22, 25, 31;
+  --nord1-rgb: 30, 34, 42;
+  --nord2-rgb: 39, 44, 54;
+  --nord3-rgb: 59, 66, 82;
+  --nord4-rgb: 216, 222, 233;
+  --nord5-rgb: 229, 233, 240;
+  --nord6-rgb: 236, 239, 244;
+  --nord7-rgb: 143, 188, 187;
+  --nord8-rgb: 136, 192, 208;
+  --nord9-rgb: 129, 161, 193;
+  --nord10-rgb: 94, 129, 172;
+  --nord11-rgb: 191, 97, 106;
+  --nord12-rgb: 208, 135, 112;
+  --nord13-rgb: 235, 203, 139;
+  --nord14-rgb: 163, 190, 140;
+  --nord15-rgb: 180, 142, 173;
+  .nord-mode(dark);
+}
+.nord-preset(lightdim) {
+  --nord0: #d8dee9;
+  --nord1: #cfd6e1;
+  --nord2: #c3cbd8;
+  --nord3: #a3adbf;
+  --nord4: #2e3440;
+  --nord5: #2e3440;
+  --nord6: #242933;
+  --nord7: #416766;
+  --nord8: #366775;
+  --nord9: #48637d;
+  --nord10: #446287;
+  --nord11: #98464f;
+  --nord12: #8e503d;
+  --nord13: #775d24;
+  --nord14: #52673d;
+  --nord15: #775671;
+  --nord0-rgb: 216, 222, 233;
+  --nord1-rgb: 207, 214, 225;
+  --nord2-rgb: 195, 203, 216;
+  --nord3-rgb: 163, 173, 191;
+  --nord4-rgb: 46, 52, 64;
+  --nord5-rgb: 46, 52, 64;
+  --nord6-rgb: 36, 41, 51;
+  --nord7-rgb: 65, 103, 102;
+  --nord8-rgb: 54, 103, 117;
+  --nord9-rgb: 72, 99, 125;
+  --nord10-rgb: 68, 98, 135;
+  --nord11-rgb: 152, 70, 79;
+  --nord12-rgb: 142, 80, 61;
+  --nord13-rgb: 119, 93, 36;
+  --nord14-rgb: 82, 103, 61;
+  --nord15-rgb: 119, 86, 113;
+  .nord-mode(light);
+}
+.nord-preset(autodim) {
+  .nord-preset(dim);
+  @media (prefers-color-scheme: light) { .nord-preset(lightdim); }
 }
 .nord-mode(dark) { --nord-deep: #000; --nord-peak: #fff; --nord-scheme: dark; --nord-on-accent: var(--nord6); .nord-site(dark); }
 .nord-mode(light) { --nord-deep: #fff; --nord-peak: #000; --nord-scheme: light; --nord-on-accent: var(--nord0); .nord-site(light); }
