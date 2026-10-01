@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Strava Nord V2
 @namespace      Strava Nord V2 by SignorBananone (fork of Strava Darkest Fusion by ATX)
-@version        2026.10.01.3
+@version        2026.10.01.4
 @description    Nord theme for Strava. Rewritten to rely on tags, ARIA roles, data-testid and stable class prefixes instead of hashed class names, so it survives Strava's CSS deploys.
 @homepageURL    https://github.com/SignorBananone/userstyles
 @license        MIT
@@ -719,8 +719,29 @@
       background-color: var(--nt-surface-2) !important;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
     }
+    /* Unread notifications: Strava gives them a peach background through a hashed
+       class; read ones have an empty class attribute. */
+    #notifications-list > li[class]:not([class=""]) {
+      background-color: color-mix(in srgb, var(--nt-accent) 22%, var(--nt-surface-2)) !important;
+      box-shadow: inset 3px 0 0 var(--nt-accent) !important;
+    }
     #notifications-list > li:hover {
       background-color: var(--nord3) !important;
+    }
+    /* Global search suggestions (jQuery UI autocomplete under the search field) */
+    .ui-autocomplete.ui-menu {
+      background-color: var(--nt-surface-2) !important;
+      border: 1px solid var(--nt-border) !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
+      color: var(--nt-text) !important;
+    }
+    .ui-autocomplete :is(li, a) {
+      color: var(--nt-text) !important;
+    }
+    .ui-autocomplete :is(.ui-state-focus, .ui-state-active, .ui-state-hover),
+    .ui-autocomplete .ui-menu-item:hover {
+      background-color: var(--nord3) !important;
+      border-color: transparent !important;
     }
     #notifications-list a {
       color: var(--nt-text) !important;
