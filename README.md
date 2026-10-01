@@ -133,6 +133,15 @@ A site must not be themed twice: if Gmail Nord, Google Scholar Nord or YouTube N
 
 Drive, Docs, Calendar and the account pages are themed through their Material 3 colour roles and their own token sets (`--dt-*`, `--cal-sys-color-*`, `--identity-colorscheme-*`). Search, Gemini and NotebookLM have dark themes of their own, whose colour values are mapped onto the palette. Keep and Maps paint fixed colours, so their modules are generated from the sites' stylesheets, like Gmail's.
 
+## Amazon Nord
+
+A Nord theme for the Amazon stores (amazon.it, .com, .de, .fr, .es, .co.uk and the other national stores): home, search, product pages, cart, orders, account and lists.
+
+- File: [`amazon-nord.user.css`](amazon-nord.user.css)
+- Install: open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/amazon-nord.user.css) with Stylus installed. Not on userstyles.world yet.
+
+Amazon paints its pages with fixed colours, not theme variables, so most of the style is generated: every colour declaration in Amazon's own stylesheets (home, search, product, cart, orders, deals, best sellers, lists and help pages) is moved to the palette by kind (background, text, border) and colour. Hand-written rules follow for the header, the buttons (which Amazon draws with gradients), inputs, pop-overs and the home page widgets. Product pictures have white backgrounds, so they sit on a light "paper"; Amazon's `multiply` blending, which would darken them on dark cards, is switched off. Only `www.` store pages are matched: AWS, Music, Seller Central and the other services on Amazon subdomains are left alone.
+
 ## UniBG eLearning Nord
 
 A Nord theme for the University of Bergamo Moodle at [elearning15.unibg.it](https://elearning15.unibg.it/): the front page, dashboard, course list, course pages, drawers, forms and messages.
