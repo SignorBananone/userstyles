@@ -47,6 +47,22 @@ A Nord theme for [ChatGPT](https://chatgpt.com/). ChatGPT's light and dark theme
 
 ChatGPT derives its colours from a few palettes of CSS variables (`--gray-*`, `--blue-*`, `--red-*`, ...). The style redefines those palettes rather than individual elements, so it survives most redesigns. The Nord values were generated from the site's own: greys mapped onto Polar Night and Snow Storm by lightness, colours onto the Frost or Aurora colour of the same hue.
 
+## Substack Nord
+
+A Nord theme for [Substack](https://substack.com/): the home feed, chat, profiles and every publication on a `*.substack.com` address. Publications on their own domain are not covered.
+
+- File: [`substack-nord.user.css`](substack-nord.user.css)
+- Install: [userstyles.world/style/23674](https://userstyles.world/style/23674) or open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/substack-nord.user.css) with Stylus installed.
+
+Each publication sets its own colour theme (cover colours, accent, contrast steps); the style replaces those too, so every publication looks the same.
+
+## YouTube Nord
+
+A Nord theme for [YouTube](https://www.youtube.com/): home, search, watch page, Shorts, menus and live chat.
+
+- File: [`youtube-nord.user.css`](youtube-nord.user.css)
+- Install: [userstyles.world/style/27575](https://userstyles.world/style/27575) or open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/youtube-nord.user.css) with Stylus installed.
+
 ## License
 
 [MIT](LICENSE).

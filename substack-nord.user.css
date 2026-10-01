@@ -1,0 +1,559 @@
+/* ==UserStyle==
+@name         substack nord
+@version      20261001.00.00
+@namespace    ?
+@description  Nord theme for Substack, including each publication's own colour theme
+@homepageURL  https://github.com/SignorBananone/userstyles
+@author       SignorBananone
+@license      MIT
+==/UserStyle== */
+
+@-moz-document domain("substack.com") {
+/* ==========================================================================
+   SUBSTACK NORD THEME - COMPLETE PROFESSIONAL EDITION
+   A comprehensive, minimal dark theme based on the Nord color palette.
+   ========================================================================== */
+
+:root, 
+.substack-theme, 
+.light-theme, 
+.dark-theme, 
+.dark-mode, 
+body,
+[class*="pubTheme"],       /* Overrides individual authors' custom themes */
+[class*="pubAccentTheme"]  /* Overrides individual authors' custom accents */
+{
+    
+    /* 1. NORD COLOR PRIMITIVES
+       ---------------------------------------------------------------------- */
+    --nord0: #2E3440; /* Base background */
+    --nord1: #3B4252; /* Elevated background 1 (Inputs, Cards) */
+    --nord2: #434C5E; /* Elevated background 2 (Hover states) */
+    --nord3: #4C566A; /* Borders and subtle utilities */
+    --nord4: #D8DEE9; /* Primary text */
+    --nord5: #E9EDF3; /* Secondary text */
+    --nord6: #ECEFF4; /* Highlight text */
+    
+    --nord-blue: #5E81AC;
+    --nord-blue-hover: #4C6781;
+    --nord-cyan: #88C0D0;
+
+    /* 2. BASE SURFACES & FOREGROUNDS
+       ---------------------------------------------------------------------- */
+    --color-fg-primary: var(--nord6) !important;
+    --color-fg-secondary: var(--nord5) !important;
+    --color-fg-tertiary: var(--nord4) !important;
+
+    --color-bg-primary: var(--nord0) !important;
+    --color-bg-primary-hover: var(--nord1) !important;
+    --color-bg-secondary: var(--nord1) !important;
+    --color-bg-tertiary: var(--nord2) !important;
+    --color-bg-quaternary: var(--nord3) !important;
+    
+    --color-bg-elevated-primary: var(--nord1) !important;
+    --color-bg-elevated-secondary: var(--nord2) !important;
+    --color-bg-elevated-tertiary: var(--nord3) !important;
+    --color-bg-sunken-primary: #242933 !important; /* Slightly darker than base */
+
+    /* 3. NATIVE SUBSTACK OVERRIDES (Ensures persistence across light/dark modes)
+       ---------------------------------------------------------------------- */
+    --color-light-bg-primary: var(--nord0) !important;
+    --color-light-bg-secondary: var(--nord1) !important;
+    --color-light-bg-primary-hover: var(--nord1) !important;
+    --color-dark-bg-primary: var(--nord0) !important;
+    --color-dark-bg-secondary: var(--nord1) !important;
+    --color-dark-bg-primary-hover: var(--nord1) !important;
+    
+    --color-utility-detail: var(--nord3) !important;
+    --color-utility-white: var(--nord6) !important;
+    --color-utility-black: var(--nord0) !important;
+    --color-utility-transparent: transparent !important;
+    --color-utility-modal: rgba(46,52,64,.86) !important;
+
+    /* 4. ACCENT COLORS
+       ---------------------------------------------------------------------- */
+    --color-accent-fg-red: #BF616A !important;
+    --color-accent-fg-orange: #D08770 !important;
+    --color-accent-fg-yellow: #EBCB8B !important;
+    --color-accent-fg-green: #A3BE8C !important;
+    --color-accent-fg-cyan: var(--nord-cyan) !important;
+    --color-accent-fg-blue: var(--nord-blue) !important;
+    --color-accent-fg-purple: #B48EAD !important;
+    
+    --color-accent-fg-blue-hover: var(--nord-blue-hover) !important;
+
+    /* 5. BRAND & POP COLORS
+       ---------------------------------------------------------------------- */
+    --background_pop: var(--nord-blue) !important;
+    --background_pop_darken: var(--nord-blue-hover) !important;
+    --print_on_pop: var(--nord6) !important;
+
+    /* 6. SEMANTIC BUTTON VARIABLES
+       ---------------------------------------------------------------------- */
+    /* Primary Buttons (e.g., Global "Create" button) */
+    --color-button-primary-bg: var(--background_pop) !important;
+    --color-button-primary-fg: var(--print_on_pop) !important;
+    --color-button-primary-bg-hover: var(--background_pop_darken) !important;
+    --color-light-button-primary-bg: var(--background_pop) !important;
+
+    /* Secondary Buttons (e.g., Feed interaction pills like comment, like) */
+    --color-button-secondary-bg: transparent !important;
+    --color-button-secondary-fg: var(--color-fg-primary) !important;
+    --color-button-secondary-bg-hover: var(--color-bg-tertiary) !important;
+    --color-light-button-secondary-bg: transparent !important;
+    --color-light-button-secondary-fg: var(--color-fg-primary) !important;
+
+    /* Secondary Accent Buttons (e.g., "Subscribe" in the sidebar) */
+    --color-button-secondary-accent-bg: var(--nord-blue) !important;
+    --color-button-secondary-accent-fg: var(--nord6) !important;
+    --color-button-secondary-accent-bg-hover: var(--nord-blue-hover) !important;
+    --color-button-secondary-accent-fg-hover: var(--nord6) !important;
+    --color-light-button-secondary-accent-bg: var(--nord-blue) !important;
+    --color-light-button-secondary-accent-fg: var(--nord6) !important;
+    --color-light-button-secondary-accent-bg-hover: var(--nord-blue-hover) !important;
+    --color-light-button-secondary-accent-fg-hover: var(--nord6) !important;
+
+    /* Tertiary Buttons (e.g., Context menus, ellipses, close icons) */
+    --color-button-tertiary-bg: transparent !important;
+    --color-button-tertiary-fg: var(--color-fg-tertiary) !important;
+    --color-button-tertiary-bg-hover: var(--color-bg-tertiary) !important;
+    --color-light-button-tertiary-bg: transparent !important;
+    --color-light-button-tertiary-fg: var(--color-fg-tertiary) !important;
+    
+    /* Quaternary Buttons (e.g., "For you" feed filter dropdown) */
+    --color-button-quaternary-bg: var(--color-bg-secondary) !important;
+    --color-button-quaternary-fg: var(--color-fg-primary) !important;
+    --color-button-quaternary-bg-hover: var(--color-bg-tertiary) !important;
+    --color-light-button-quaternary-bg: var(--color-bg-secondary) !important;
+    --color-light-button-quaternary-fg: var(--color-fg-primary) !important;
+
+    /* Accented Tertiary (e.g., "Subscribe" text button in feed) */
+    --color-button-tertiary-accent-bg: transparent !important;
+    --color-button-tertiary-accent-fg: var(--nord-cyan) !important; 
+    --color-button-tertiary-accent-bg-hover: var(--color-bg-tertiary) !important;
+    --color-button-tertiary-accent-fg-hover: var(--nord-blue-hover) !important; 
+    --color-light-button-tertiary-accent-bg: transparent !important;
+    --color-light-button-tertiary-accent-fg: var(--nord-cyan) !important;
+    --color-light-button-tertiary-accent-bg-hover: var(--color-bg-tertiary) !important;
+    --color-light-button-tertiary-accent-fg-hover: var(--nord-blue-hover) !important;
+
+    /* Composer & Inputs */
+    --input_background: var(--nord1) !important;
+    --web_bg_color: var(--nord0) !important;
+    --border_subtle: var(--nord3) !important;
+    --border-default: 1px solid var(--border_subtle) !important;
+    
+}
+
+/* ==========================================================================
+   PUBLICATION THEMES
+   Every publication writes its own palette into an inline :root block
+   (cover colours, accent, contrast steps). Without this, grey taglines and
+   white cover backgrounds from a light publication theme show through.
+   ========================================================================== */
+
+:root,
+body,
+[class*="pubTheme"],
+[class*="pubAccentTheme"] {
+    --color_theme_bg_pop: var(--nord-blue) !important;
+    --color_theme_bg_pop_darken: var(--nord-blue-hover) !important;
+    --color_theme_print_on_pop: var(--nord6) !important;
+    --color_theme_bg_pop_20: rgba(94, 129, 172, 0.2) !important;
+    --color_theme_bg_pop_30: rgba(94, 129, 172, 0.3) !important;
+    --color_theme_bg_pop_rgb: 94, 129, 172 !important;
+    --background_pop_rgb: 94, 129, 172 !important;
+    --background_contrast_pop: rgba(94, 129, 172, 0.4) !important;
+    --color_theme_bg_contrast_pop: rgba(94, 129, 172, 0.4) !important;
+    --print_pop: var(--nord-cyan) !important;
+    --color_theme_accent: var(--nord-cyan) !important;
+    --color_theme_accent_rgb: 136, 192, 208 !important;
+
+    --cover_bg_color: var(--nord0) !important;
+    --cover_bg_color_secondary: var(--nord1) !important;
+    --cover_print_primary: var(--nord6) !important;
+    --cover_print_secondary: var(--nord4) !important;
+    --cover_print_tertiary: #A3ADBF !important;
+    --cover_border_color: var(--nord3) !important;
+
+    --background_contrast_1: var(--nord1) !important;
+    --background_contrast_2: var(--nord2) !important;
+    --background_contrast_3: var(--nord3) !important;
+    --background_contrast_4: #7B88A1 !important;
+    --background_contrast_5: var(--nord4) !important;
+    --color_theme_detail: var(--nord3) !important;
+    --theme_bg_is_dark: 1 !important;
+}
+
+/* Welcome page shown on a publication's first visit */
+.intro-popup,
+.intro-popup-page {
+    background: var(--color-bg-primary) !important;
+}
+
+/* ==========================================================================
+   GLOBAL TYPOGRAPHY & BASE HTML
+   ========================================================================== */
+
+html { 
+    color-scheme: dark; 
+}
+
+body, 
+.use-theme-bg, 
+.typography .markup, 
+.post, 
+.page {
+    color: var(--color-fg-primary) !important;
+    background: var(--color-bg-primary) !important;
+}
+
+h1, h2, h3, h4, h5, h6, p, li, a {
+    color: var(--color-fg-primary) !important;
+}
+
+.use-theme-bg a,
+.typography .markup a {
+    color: var(--color-fg-primary) !important; 
+}
+
+/* ==========================================================================
+   THEMED TEXT COLOR OVERRIDES
+   Fixes custom publication text colors clashing with the dark background.
+   ========================================================================== */
+
+[class*="color-pub-primary"],
+[class*="color-primary-"] {
+    color: var(--nord6) !important;
+}
+
+[class*="color-pub-secondary"],
+[class*="color-secondary-"] {
+    color: var(--nord5) !important;
+}
+
+[class*="color-pub-tertiary"],
+[class*="color-tertiary-"] {
+    color: var(--nord4) !important;
+}
+
+/* ==========================================================================
+   SURFACES, CARDS & CONTAINERS
+   ========================================================================== */
+
+/* Main component containers */
+.modal .modal-content,
+.publication.card,
+.embedded-post,
+.embedded-publication,
+.tweet,
+.subscribe-widget form.form .sideBySideWrap input[name="email"],
+pre:not(.text) {
+    background: var(--color-bg-elevated-primary) !important;
+    color: var(--color-fg-primary) !important;
+    border-color: var(--border_subtle) !important;
+}
+
+/* Substack specific utility classes mapping */
+.bg-elevated-hKevif, 
+.bg-secondary-UUD3_J,
+.bg-tertiary-CPDeXV {
+    background-color: var(--color-bg-secondary) !important;
+}
+
+/* Composer box wrappers (e.g., "What's on your mind") */
+.pencraft[class*="bg-secondary"],
+.pencraft[class*="bg-elevated"] {
+    background-color: var(--color-bg-secondary) !important;
+}
+
+/* Standard Inputs */
+input, textarea, select {
+    background-color: var(--color-bg-secondary) !important;
+    color: var(--color-fg-primary) !important;
+    border-color: var(--border_subtle) !important;
+}
+
+::placeholder { 
+    color: var(--color-fg-tertiary) !important; 
+}
+
+/* Borders & Structure */
+hr, .divider, .tw-border-substack-detail, .tw-border-substack-bg, .border-detail-EGrm7T {
+    border-color: var(--border_subtle) !important; 
+}
+
+/* Hard-coded native component normalizers */
+.classic-home-page .post-list .post-list-hidden-posts > .container .collapse-toggle,
+.typography .markup a.bandcamp-wrap,
+.typography .markup a.soundcloud-wrap,
+.typography .markup .tiktok-wrap.static,
+.typography .markup .tiktok-wrap .fallback-failure {
+    background: var(--color-bg-secondary) !important;
+    border-color: var(--border_subtle) !important;
+}
+
+/* ==========================================================================
+   COMMENTS, CHAT & THREAD COMPONENTS
+   ========================================================================== */
+
+/* Thread reply bubbles */
+.bubble-JnQPTp.cursor-pointer-LYORKw {
+    background-color: var(--color-bg-secondary) !important;
+    border: 1px solid var(--border_subtle) !important;
+    color: var(--color-fg-primary) !important;
+    transition: background-color 0.2s ease, border-color 0.2s ease !important;
+}
+
+.bubble-JnQPTp.cursor-pointer-LYORKw:hover {
+    background-color: var(--color-bg-tertiary) !important;
+    border-color: var(--color-utility-detail) !important;
+}
+
+.bubble-JnQPTp.cursor-pointer-LYORKw span,
+.bubble-JnQPTp.cursor-pointer-LYORKw svg {
+    color: var(--color-fg-primary) !important;
+    stroke: var(--color-fg-primary) !important; 
+}
+
+/* "More Replies" box inside comments */
+.more-replies-container,
+.more-replies {
+    background-color: var(--nord1) !important;
+    color: var(--nord6) !important;
+    border-color: var(--nord3) !important;
+}
+
+/* Overlapping avatars (Facepile) normalization */
+.bubble-JnQPTp .facepileAvatar-F_BcFw,
+.bubble-JnQPTp .container-TAtrWj {
+    background-color: var(--color-bg-primary) !important;
+    border-color: var(--border_subtle) !important;
+}
+
+/* ==========================================================================
+   FEED POST ICONS & INTERACTIONS
+   ========================================================================== */
+
+/* Ensures scalable vector graphics inherit correct thematic foregrounds */
+button[class*="priority_tertiary"] svg,
+button[class*="priority_secondary"] svg {
+    stroke: var(--color-fg-secondary) !important;
+}
+
+button[class*="priority_tertiary"]:hover svg,
+button[class*="priority_secondary"]:hover svg {
+    stroke: var(--color-fg-primary) !important;
+}
+
+/* ==========================================================================
+   ICON BUTTONS FIX ("...", "X")
+   ========================================================================== */
+
+/* Makes purely icon-based buttons completely transparent by default */
+button[class*="iconButton"] {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Subtle background on hover to indicate interactivity */
+button[class*="iconButton"]:hover {
+    background-color: var(--color-bg-tertiary) !important;
+}
+
+/* Ensures icons (ellipsis and X) are subtly colored and brighten on hover */
+button[class*="iconButton"] svg {
+    stroke: var(--color-fg-tertiary) !important;
+}
+
+button[class*="iconButton"]:hover svg {
+    stroke: var(--color-fg-primary) !important;
+}
+
+/* ==========================================================================
+   ACTION BUTTONS FIX (Profile, Sidebar, and Messages)
+   ========================================================================== */
+
+/* Primary & Accent (Forces Subscribe Buttons to Nord Blue) */
+button[class*="priority_primary"],
+button[class*="priority_secondary-accent"] {
+    background-color: var(--nord-blue) !important;
+    color: var(--nord6) !important;
+    border: 1px solid var(--nord-blue) !important;
+    transition: all 0.2s ease !important;
+}
+
+button[class*="priority_primary"]:hover,
+button[class*="priority_secondary-accent"]:hover {
+    background-color: var(--nord-blue-hover) !important;
+    border-color: var(--nord-blue-hover) !important;
+}
+
+/* Standard Secondary Buttons (e.g., "Message" on profiles -> Dark Grey) */
+button[class*="priority_secondary"]:not([class*="priority_secondary-accent"]):not([class*="priority_secondary-outline"]) {
+    background-color: var(--nord1) !important;
+    color: var(--nord6) !important;
+    border: 1px solid var(--nord3) !important;
+    transition: all 0.2s ease !important;
+}
+
+button[class*="priority_secondary"]:not([class*="priority_secondary-accent"]):not([class*="priority_secondary-outline"]):hover {
+    background-color: var(--nord2) !important;
+}
+
+/* Secondary Outline Buttons (e.g., "Liked by author" badge in comments) */
+button[class*="priority_secondary-outline"] {
+    background-color: transparent !important;
+    color: var(--nord5) !important;
+    border: 1px solid var(--nord3) !important;
+}
+
+/* ==========================================================================
+   VERIFIED BADGES & HARDCODED ICONS FIX
+   ========================================================================== */
+
+/* Replaces hardcoded orange strokes (like the verified checkmark) with Nord Cyan */
+path[stroke="#FF6719" i],
+svg[stroke="#FF6719" i] {
+    stroke: var(--nord-cyan) !important;
+}
+
+/* Replaces hardcoded orange fills */
+path[fill="#FF6719" i],
+svg[fill="#FF6719" i] {
+    fill: var(--nord-cyan) !important;
+}
+
+/* ==========================================================================
+   FOOTER NORMALIZATION
+   Overrides the publication's custom background and Substack's branding.
+   ========================================================================== */
+
+/* Footer background and top border */
+.footer-wrap,
+.publication-footer,
+.footer.themed-background {
+    background-color: var(--nord0) !important; 
+    background-image: none !important;         
+    color: var(--color-fg-secondary) !important;
+    border-top: 1px solid var(--nord3) !important; 
+}
+
+/* Footer links and text */
+.footer-terms a,
+.footer-slogan-blurb a {
+    color: var(--color-fg-primary) !important;
+    text-decoration-color: var(--nord3) !important; 
+    transition: color 0.2s ease !important;
+}
+
+.footer-terms a:hover,
+.footer-slogan-blurb a:hover {
+    color: var(--nord-cyan) !important;
+}
+
+/* Pill-style buttons ("Start your Substack", "Get the app") */
+a[class*="footerSubstackCta"] {
+    background-color: var(--nord1) !important;
+    color: var(--color-fg-primary) !important;
+    border: 1px solid var(--border_subtle) !important;
+    box-shadow: none !important;
+    transition: background-color 0.2s ease !important;
+}
+
+a[class*="footerSubstackCta"]:hover {
+    background-color: var(--nord2) !important;
+}
+
+/* Forces the Substack logo (SVG) to adopt the Nord Cyan color */
+a[class*="footerSubstackCta"] svg {
+    fill: var(--nord-cyan) !important;
+}
+
+/* ==========================================================================
+   RADIX DROPDOWN & POPUP NUCLEAR FIX
+   Targets dropdown menus teleported outside the body element and forces Hex.
+   ========================================================================== */
+
+/* 1. Dropdown background and removal of native gradients */
+div[role="menu"],
+div[data-radix-popper-content-wrapper] .panel-folKVn,
+div[data-radix-popper-content-wrapper] .elevated {
+    background: #3B4252 !important;       /* Direct Nord1 Hex */
+    background-color: #3B4252 !important; /* Direct Nord1 Hex */
+    border: 1px solid #4C566A !important; /* Direct Nord3 Hex */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* 2. Ensures internal buttons do not cover the background */
+div[role="menu"] button,
+div[data-radix-popper-content-wrapper] button {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    margin: 1px 0 !important;
+    border-radius: 4px !important;
+}
+
+/* 3. Smooth hover effects using Nord colors */
+div[role="menu"] button:hover,
+div[data-radix-popper-content-wrapper] button:hover {
+    background: #434C5E !important;       /* Direct Nord2 Hex */
+    background-color: #434C5E !important; /* Direct Nord2 Hex */
+}
+
+/* 4. Text and icon colors (both standard and destructive actions) */
+div[role="menu"] button div[class*="color-primary"],
+div[data-radix-popper-content-wrapper] button div[class*="color-primary"] {
+    color: #E9EDF3 !important; /* Nord5 */
+}
+
+div[role="menu"] button svg,
+div[data-radix-popper-content-wrapper] button svg {
+    stroke: #D8DEE9 !important; /* Nord4 */
+}
+
+/* Destructive items like Report/Block */
+div[role="menu"] button[class*="priority_destructive"] div,
+div[role="menu"] button[class*="priority_destructive"] svg {
+    color: #BF616A !important;   /* Nord Red */
+    stroke: #BF616A !important;  /* Nord Red */
+}
+
+/* 5. Softens harsh internal dividers */
+div[role="menu"] hr,
+div[data-radix-popper-content-wrapper] hr {
+    border-color: #4C566A !important; /* Nord3 */
+    opacity: 0.5 !important;
+}
+
+/* ==========================================================================
+   "SEE MORE" TRUNCATION FIX
+   Fixes the hardcoded fade-to-white gradient and text color.
+   ========================================================================== */
+
+/* 1. Colors the "See more" text in Cyan to indicate interactivity */
+div[class*="seeMoreText"],
+div[class*="seeMoreText"] a,
+div[class*="seeMoreText"] span {
+    color: var(--nord-cyan) !important;
+    transition: color 0.2s ease !important;
+}
+
+/* Hover effect on text */
+div[class*="seeMoreText"] a:hover {
+    color: var(--nord-blue) !important;
+}
+
+/* 2. Fixes the default fade-to-white gradient effect */
+div[class*="seeMoreFade"] {
+    /* Creates a smooth gradient from transparent to the dark card background */
+    background: linear-gradient(to right, transparent, var(--color-bg-secondary) 75%) !important;
+}
+
+/* Fallback for vertical gradients on long posts */
+.post-preview-content div[class*="seeMoreFade"] {
+    background: linear-gradient(to bottom, transparent, var(--color-bg-secondary) 75%) !important;
+}
+}

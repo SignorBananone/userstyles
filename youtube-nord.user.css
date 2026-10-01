@@ -1,0 +1,359 @@
+/* ==UserStyle==
+@name         Youtube Nord
+@version      20261001.00.00
+@namespace    ?
+@description  Nord theme for YouTube
+@homepageURL  https://github.com/SignorBananone/userstyles
+@author       SignorBananone
+@license      MIT
+==/UserStyle== */
+
+@-moz-document domain("www.youtube.com") {
+/* --- 1. GLOBAL NORD PALETTE --- */
+:root {
+  --nord0: #2e3440;
+  --nord1: #3b4252;
+  --nord2: #434c5e;
+  --nord3: #4c566a;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord14: #a3be8c;
+}
+
+/* --- 2. THEME BASE VARIABLES --- */
+html, body, [light], html:not([dark]), html[dark], html[darker-dark-theme], [color-version="v2_0"], html[color-version="v2_0"] {
+  --yt-spec-base-background: var(--nord0) !important;
+  --yt-spec-raised-background: var(--nord1) !important;
+  --yt-spec-menu-background: var(--nord1) !important;
+  --yt-spec-inverted-background: var(--nord6) !important;
+  --yt-spec-additive-background: var(--nord2) !important;
+  --yt-spec-outline: var(--nord2) !important;
+  --yt-spec-text-primary: var(--nord6) !important;
+  --yt-spec-text-secondary: var(--nord4) !important;
+  --yt-spec-text-disabled: var(--nord3) !important;
+  --yt-sys-color-baseline--base-background: var(--nord0) !important;
+  --yt-sys-color-baseline--raised-background: var(--nord1) !important;
+  --yt-sys-color-baseline--menu-background: var(--nord1) !important;
+  --yt-sys-color-baseline--text-primary: var(--nord6) !important;
+  --yt-sys-color-baseline--text-secondary: var(--nord4) !important;
+  --yt-sys-color-baseline--text-disabled: var(--nord3) !important;
+  --yt-sys-color-baseline--text-primary-inverse: var(--nord0) !important;
+  --nord-bg: var(--nord0);
+  --nord-skeleton: var(--nord1);
+  --nord-shadow: rgba(0, 0, 0, 0.4);
+}
+
+/* --- 3. LAYOUT & TYPOGRAPHY OVERRIDES --- */
+html, body, ytd-app, #masthead-container, #masthead, app-drawer#guide, #guide-wrapper, #guide-content.ytd-app, #guide-content, #content, ytd-page-manager, ytd-watch-flexy, ytd-browse, .button-container.ytd-rich-shelf-renderer, #page-header-container.ytd-tabbed-page-header, #tabs-container.ytd-tabbed-page-header, #page-header.ytd-tabbed-page-header, #tabs-inner-container.ytd-tabbed-page-header {
+  background-color: var(--nord-bg) !important;
+  background: var(--nord-bg) !important;
+  color: var(--yt-spec-text-primary) !important;
+}
+
+#video-title, #video-title-link, .ytd-channel-name .yt-formatted-string, .ytd-video-meta-block, .ytLockupMetadataViewModelTitle, .ytLockupMetadataViewModelTitle span, .yt-core-attributed-string--link-inherit-color, .shortsLockupViewModelHostOutsideMetadataEndpoint, .shortsLockupViewModelHostOutsideMetadataEndpoint span, ytd-guide-entry-renderer .title, ytd-mini-guide-entry-renderer .title, .title.ytd-guide-entry-renderer {
+  color: var(--nord6) !important;
+}
+
+#metadata-line span, #byline-container .yt-formatted-string, .ytLockupMetadataViewModelHost .yt-core-attributed-string[color="text-secondary"], .ytLockupMetadataViewModelHost span {
+  color: var(--nord4) !important;
+}
+
+.ytLockupMetadataViewModelTitle span, .shortsLockupViewModelHostOutsideMetadataEndpoint span {
+  color: var(--nord6) !important;
+}
+
+yt-chip-cloud-chip-renderer, yt-chip-cloud-chip-renderer .yt-core-attributed-string, .ytChipShape {
+  background-color: var(--nord1) !important;
+  color: var(--nord6) !important;
+  border-color: var(--nord2) !important;
+}
+
+yt-chip-cloud-chip-renderer[selected], yt-chip-cloud-chip-renderer[selected] .yt-core-attributed-string, .ytChipShapeActive {
+  background-color: var(--nord3) !important;
+  color: var(--nord6) !important;
+}
+
+ytd-feed-nudge-renderer[nudge-style=modernized-nudge] #content-wrapper.ytd-feed-nudge-renderer, ytd-feed-nudge-renderer {
+  background-color: var(--nord1) !important;
+}
+
+/* --- 4. SHORTS & REELS COMPONENTS --- */
+ytd-shorts, #shorts-container, #shorts-inner-container, ytd-reel-video-renderer, ytd-reel-video-renderer[is-active], ytd-engagement-panel-section-list-renderer, #engagement-panel-scrim {
+  background-color: var(--nord-bg) !important;
+  background: var(--nord-bg) !important;
+}
+
+/* --- 5. CINEMATIC MODE & PLAYER BACKGROUNDS --- */
+#player-container-outer, #player-container-inner, #player-full-bleed-container, #full-bleed-container, #player-container, ytd-watch-flexy[flexy] #player-container-outer, ytd-watch-flexy[flexy] #player-container-inner, .ytd-watch-flexy, #columns {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+#cinematics, #cinematics-container {
+  display: none !important;
+  opacity: 0 !important;
+}
+
+/* --- 6. SEARCH INPUT & SUGGESTIONS --- */
+yt-searchbox, .ytSearchboxComponentInputContainer, .ytSearchboxComponentSearchForm {
+  background-color: transparent !important;
+}
+
+.ytSearchboxComponentInputBox, .ytSearchboxComponentInputBoxDark {
+  background-color: var(--nord1) !important;
+  border-color: var(--nord2) !important;
+  box-shadow: none !important; 
+}
+
+input.ytSearchboxComponentInput, input.yt-searchbox-input {
+  background-color: transparent !important;
+  color: var(--nord6) !important; 
+  box-shadow: none !important;
+}
+
+.ytSearchboxComponentSearchButton, .ytSearchboxComponentSearchButtonDark {
+  background-color: var(--nord1) !important;
+  border-color: var(--nord2) !important;
+  color: var(--nord6) !important;
+}
+
+.ytSearchboxComponentSearchButton:hover, .ytSearchboxComponentSearchButtonDark:hover, .ytSuggestionComponentSuggestion:hover {
+  background-color: var(--nord2) !important;
+}
+
+.ytSearchboxComponentSearchButton .ytIconWrapperHost, .ytSearchboxComponentSearchButtonDark .ytIconWrapperHost, .ytSuggestionComponentIcon .ytIconWrapperHost, .ytSuggestionComponentText, .ytSuggestionComponentText span {
+  color: var(--nord6) !important;
+  fill: var(--nord6) !important;
+}
+
+.ytSearchboxComponentSuggestionsContainer, .ytSearchboxComponentSuggestionsContainerDark {
+  background-color: var(--nord1) !important;
+  border-color: var(--nord2) !important;
+}
+
+.ytSuggestionComponentSuggestion, .ytSearchboxComponentReportButton {
+  background-color: transparent !important;
+}
+
+.ytSuggestionComponentBold {
+  color: var(--nord8) !important; 
+}
+
+.ytSearchboxComponentReportButton {
+  color: var(--nord4) !important;
+}
+
+.ytSearchboxComponentReportButton:hover {
+  background-color: var(--nord2) !important;
+}
+
+#search-input, #search-icon-legacy {
+  background-color: var(--nord1) !important;
+  border-color: var(--nord2) !important;
+  color: var(--nord6) !important;
+}
+
+/* --- 7. MODERN BUTTONS & PLAYER CONTROLS --- */
+.yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal, .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--outline, .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--text, .ytSpecButtonShapeNextMono.ytSpecButtonShapeNextTonal, .ytSpecButtonShapeNextMono.ytSpecButtonShapeNextOutline, .ytSpecButtonShapeNextMono.ytSpecButtonShapeNextText {
+  color: var(--nord6) !important;
+}
+
+.yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal, .ytSpecButtonShapeNextMono.ytSpecButtonShapeNextTonal {
+  background-color: var(--nord1) !important;
+}
+
+.yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal:hover, .ytSpecButtonShapeNextMono.ytSpecButtonShapeNextTonal:hover {
+  background-color: var(--nord2) !important;
+}
+
+.yt-spec-button-shape-next--mono.yt-spec-button-shape-next--filled, .ytSpecButtonShapeNextMono.ytSpecButtonShapeNextFilled {
+  background-color: var(--nord3) !important;
+  color: var(--nord6) !important;
+}
+
+.yt-spec-button-shape-next--mono.yt-spec-button-shape-next--filled:hover, .ytSpecButtonShapeNextMono.ytSpecButtonShapeNextFilled:hover {
+  background-color: var(--nord2) !important;
+}
+
+.ytp-swatch-background-color, .ytp-play-progress, ytd-subscribe-button-renderer tp-yt-paper-button, tp-yt-paper-button.ytd-subscribe-button-renderer {
+  background-color: var(--nord11) !important;
+}
+
+.ytp-swatch-color {
+  color: var(--nord11) !important;
+}
+
+ytd-subscribe-button-renderer tp-yt-paper-button, tp-yt-paper-button.ytd-subscribe-button-renderer {
+  color: var(--nord6) !important;
+}
+
+.html5-video-player:not(.ytp-transparent), .html5-video-player.unstarted-mode, .html5-video-player.ad-showing, .html5-video-player.ended-mode {
+  background-color: #000000 !important;
+}
+
+/* --- 8. SKELETON LOADERS & SCROLLBARS --- */
+#grid-container-skeleton, #watch-page-skeleton {
+  background-color: var(--nord-bg) !important;
+}
+
+.watch-skeleton .skeleton-bg-color, #grid-container-skeleton .skeleton-bg-color {
+  background-color: var(--nord-skeleton) !important;
+}
+
+html, body {
+  scrollbar-color: var(--nord3) transparent !important;
+}
+
+body::-webkit-scrollbar {
+  width: 14px !important;
+  background-color: var(--nord-bg) !important;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--nord3) !important;
+  border-radius: 8px !important;
+  border: 3px solid var(--nord-bg) !important;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: var(--nord2) !important;
+}
+
+/* --- 9. BRANDING & LOGO --- */
+ytd-topbar-logo-renderer svg path[fill="#FF0033"], ytd-topbar-logo-renderer svg path[fill="#FF0000"] {
+  fill: var(--nord11) !important;
+}
+
+ytd-topbar-logo-renderer svg path[fill="white"], ytd-topbar-logo-renderer svg path[fill="#FFFFFF"], ytd-topbar-logo-renderer svg g#youtube-paths_yt10 path, ytd-topbar-logo-renderer svg g#youtube-paths path, ytd-topbar-logo-renderer svg path:not([fill]) {
+  fill: var(--nord6) !important; 
+}
+
+#country-code.ytd-topbar-logo-renderer {
+  color: var(--nord3) !important; 
+}
+
+/* --- 10. MENUS, NOTIFICATIONS & DIALOGS --- */
+.ytContextualSheetLayoutHost, .ytContextualSheetLayoutContentContainer, ytd-menu-popup-renderer, tp-yt-paper-listbox, ytd-multi-page-menu-renderer, ytd-simple-menu-header-renderer {
+  background-color: var(--nord1) !important;
+  background: var(--nord1) !important;
+}
+
+.ytContextualSheetLayoutContentContainer, ytd-menu-popup-renderer, tp-yt-paper-listbox, ytd-multi-page-menu-renderer {
+  border: 1px solid var(--nord2) !important;
+  border-radius: 12px !important; 
+  box-shadow: 0 4px 12px var(--nord-shadow) !important;
+}
+
+ytd-simple-menu-header-renderer {
+  color: var(--nord6) !important;
+  border-bottom: 1px solid var(--nord2) !important;
+}
+
+ytd-simple-menu-header-renderer h2, ytd-simple-menu-header-renderer yt-formatted-string, yt-multi-page-menu-section-renderer #section-title h2, yt-multi-page-menu-section-renderer #section-title yt-formatted-string {
+  color: var(--nord6) !important;
+}
+
+.ytListItemViewModelHost, .ytListItemViewModelContainer, .ytRadioShapeTappable, ytd-menu-service-item-renderer, ytd-menu-navigation-item-renderer, ytd-notification-renderer {
+  background-color: transparent !important;
+}
+
+.ytListItemViewModelHost:hover, .ytListItemViewModelContainer:hover, .ytRadioShapeTappable:hover, ytd-menu-service-item-renderer:hover, ytd-menu-navigation-item-renderer:hover, ytd-notification-renderer:hover {
+  background-color: var(--nord2) !important;
+}
+
+.ytListItemViewModelTitle, .ytListItemViewModelTextWrapper, .ytIconWrapperHost, ytd-notification-renderer .message, ytd-notification-renderer .message span, ytd-notification-renderer .message yt-formatted-string {
+  color: var(--nord6) !important;
+  fill: var(--nord6) !important;
+}
+
+ytd-notification-renderer .metadata, ytd-notification-renderer .metadata span, ytd-notification-renderer .metadata yt-formatted-string {
+  color: var(--nord4) !important;
+}
+
+yt-list-item-view-model[aria-checked="true"] .ytListItemViewModelTitle, .ytRadioShapeCheckIcon .ytIconWrapperHost {
+  color: var(--nord8) !important;
+  fill: var(--nord8) !important;
+  font-weight: bold !important;
+}
+
+ytd-notification-renderer.unread #new {
+  background-color: var(--nord8) !important;
+}
+
+/* --- 11. LIVE CHAT & PREMIERES --- */
+yt-live-chat-app, yt-live-chat-renderer {
+  background-color: var(--nord-bg) !important;
+  color: var(--nord6) !important;
+}
+
+yt-live-chat-header-renderer, yt-live-chat-message-input-renderer {
+  background-color: var(--nord1) !important;
+}
+
+yt-live-chat-text-message-renderer #content, yt-live-chat-membership-item-renderer #content, yt-live-chat-paid-message-renderer #content, yt-live-chat-viewer-engagement-message-renderer #content {
+  background-color: transparent !important;
+}
+
+yt-live-chat-text-message-renderer:hover, yt-live-chat-membership-item-renderer:hover, yt-live-chat-viewer-engagement-message-renderer:hover {
+  background-color: var(--nord2) !important;
+}
+
+#card.yt-live-chat-paid-message-renderer, #header.yt-live-chat-paid-message-renderer {
+  background-color: var(--nord2) !important;
+  color: var(--nord6) !important;
+}
+
+#menu.yt-live-chat-paid-message-renderer {
+  background: linear-gradient(to right, transparent, var(--nord2) 100%) !important;
+}
+
+yt-live-chat-author-chip[disable-highlighting] #author-name.yt-live-chat-author-chip {
+  color: var(--nord4) !important;
+}
+
+/* --- 12. LATER FIXES (2026-10) --- */
+/* translucent top bar, behind its blur */
+#background.ytd-masthead {
+  background: rgba(46, 52, 64, 0.92) !important;
+}
+
+#country-code.ytd-topbar-logo-renderer, ytd-guide-renderer #footer, ytd-guide-renderer #footer a, ytd-guide-renderer #copyright {
+  color: #7b88a1 !important;
+}
+
+/* notification count */
+.ytSpecIconBadgeShapeBadge {
+  background-color: var(--nord11) !important;
+  color: var(--nord6) !important;
+}
+
+/* "Show more" under shelves in search results */
+.ytGridShelfViewModelGridShelfBottomButtonContainer {
+  background-color: var(--nord0) !important;
+}
+
+/* chapters strip under search results, tinted from the thumbnail */
+ytd-expandable-metadata-renderer {
+  background-color: var(--nord1) !important;
+}
+
+/* playlist panel on the watch page */
+ytd-playlist-panel-renderer .header, ytd-playlist-panel-renderer #items, ytd-playlist-panel-renderer #container {
+  background-color: var(--nord1) !important;
+}
+
+ytd-playlist-panel-video-renderer[selected] {
+  background-color: var(--nord2) !important;
+}
+
+/* unplayed part of the progress bar */
+.ytp-progress-list {
+  background: rgba(76, 86, 106, 0.6) !important;
+}
+}
