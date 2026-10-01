@@ -31,6 +31,13 @@ A Nord theme for the Arch Linux websites: [archlinux.org](https://archlinux.org/
 
 Each site has its own section. Stylus' `domain()` also matches subdomains, so the section for archlinux.org itself uses `url-prefix()` to stay off the wiki, forums and other subdomains.
 
+## NextDNS Nord
+
+A Nord theme for the [NextDNS](https://nextdns.io/) dashboard at [my.nextdns.io](https://my.nextdns.io/), including the analytics charts and the logs. It is built for the dashboard's dark theme.
+
+- File: [`nextdns-nord.user.css`](nextdns-nord.user.css)
+- Install: [userstyles.world/style/24237](https://userstyles.world/style/24237) or open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/nextdns-nord.user.css) with Stylus installed.
+
 ## License
 
 [MIT](LICENSE).
