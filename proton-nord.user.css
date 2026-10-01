@@ -1,0 +1,501 @@
+/* ==UserStyle==
+@name         Proton Nord
+@version      20261001.00.00
+@namespace    https://github.com/SignorBananone/userstyles
+@description  Nord theme for Proton: account, Mail, Calendar, Drive, Pass, VPN and Lumo on proton.me
+@homepageURL  https://github.com/SignorBananone/userstyles
+@author       SignorBananone
+@license      MIT
+@preprocessor   less
+
+@var select apply "Apply the theme" {
+  "Always*": "always",
+  "Only when the browser or system is in dark mode": "dark",
+  "Only when the browser or system is in light mode": "light"
+}
+@var select palette "Palette" {
+  "Nord: Polar Night backgrounds*": "nord",
+  "Nord darker": "darker",
+  "Nord light: Snow Storm backgrounds": "light",
+  "Follow the browser: Nord when dark, Nord light when light": "auto",
+  "Custom: the colours below": "custom"
+}
+@var select custom_type "Custom palette type" {
+  "Dark: light text on dark backgrounds*": "dark",
+  "Light: dark text on light backgrounds": "light"
+}
+@var color nord0 "Custom nord0: Background" #2e3440
+@var color nord1 "Custom nord1: Surfaces: cards, sidebars, inputs" #3b4252
+@var color nord2 "Custom nord2: Raised surfaces: hover, selection" #434c5e
+@var color nord3 "Custom nord3: Borders and muted elements" #4c566a
+@var color nord4 "Custom nord4: Text" #d8dee9
+@var color nord5 "Custom nord5: Brighter text" #e5e9f0
+@var color nord6 "Custom nord6: Headings and brightest text" #eceff4
+@var color nord7 "Custom nord7: Frost teal" #8fbcbb
+@var color nord8 "Custom nord8: Main accent: links, highlights" #88c0d0
+@var color nord9 "Custom nord9: Frost blue" #81a1c1
+@var color nord10 "Custom nord10: Deep blue: buttons" #5e81ac
+@var color nord11 "Custom nord11: Red: errors" #bf616a
+@var color nord12 "Custom nord12: Orange" #d08770
+@var color nord13 "Custom nord13: Yellow: warnings" #ebcb8b
+@var color nord14 "Custom nord14: Green: success" #a3be8c
+@var color nord15 "Custom nord15: Purple" #b48ead
+==/UserStyle== */
+
+/* ---------- Options ----------
+   Stylus compiles this file with Less. The options only set CSS variables:
+   every colour below is var(--nord0) ... var(--nord15), or a color-mix() of them,
+   so one palette recolours the whole style. --nord-deep and --nord-peak sit past
+   the background and text ends of the palette (black and white in a dark one),
+   and --nord-on-accent is the text colour for filled accent backgrounds.
+   --nordN-rgb, where present, holds the same colour as an "r, g, b" list for Bootstrap. */
+@nord-apply: if((@apply = dark), ~"(prefers-color-scheme: dark)", if((@apply = light), ~"(prefers-color-scheme: light)", ~"all"));
+.nord-preset(nord) {
+  --nord0: #2e3440;
+  --nord1: #3b4252;
+  --nord2: #434c5e;
+  --nord3: #4c566a;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  .nord-mode(dark);
+}
+.nord-preset(darker) {
+  --nord0: #242933;
+  --nord1: #2b303b;
+  --nord2: #353b49;
+  --nord3: #434c5e;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  .nord-mode(dark);
+}
+.nord-preset(light) {
+  --nord0: #eceff4;
+  --nord1: #e5e9f0;
+  --nord2: #d8dee9;
+  --nord3: #b4bcc9;
+  --nord4: #3b4252;
+  --nord5: #353b49;
+  --nord6: #2e3440;
+  --nord7: #497473;
+  --nord8: #3c7382;
+  --nord9: #516f8d;
+  --nord10: #4c6e98;
+  --nord11: #ab4f59;
+  --nord12: #9f5a45;
+  --nord13: #866828;
+  --nord14: #5b7344;
+  --nord15: #84607e;
+  .nord-mode(light);
+}
+.nord-preset(custom) {
+  --nord0: @nord0;
+  --nord1: @nord1;
+  --nord2: @nord2;
+  --nord3: @nord3;
+  --nord4: @nord4;
+  --nord5: @nord5;
+  --nord6: @nord6;
+  --nord7: @nord7;
+  --nord8: @nord8;
+  --nord9: @nord9;
+  --nord10: @nord10;
+  --nord11: @nord11;
+  --nord12: @nord12;
+  --nord13: @nord13;
+  --nord14: @nord14;
+  --nord15: @nord15;
+  .nord-mode(@custom_type);
+}
+.nord-preset(auto) {
+  .nord-preset(nord);
+  @media (prefers-color-scheme: light) { .nord-preset(light); }
+}
+.nord-mode(dark) { --nord-deep: #000; --nord-peak: #fff; --nord-scheme: dark; --nord-on-accent: var(--nord6); .nord-site(dark); }
+.nord-mode(light) { --nord-deep: #fff; --nord-peak: #000; --nord-scheme: light; --nord-on-accent: var(--nord0); .nord-site(light); }
+.nord-site(@mode) {}
+
+
+@-moz-document domain("proton.me") {
+@media @nord-apply {
+:root { .nord-preset(@palette); }
+
+
+/* Proton builds every app from one set of theme variables (--background-norm,
+   --text-norm, --interaction-norm...), written by JavaScript into <style id="theme-root">
+   for the theme picked in the settings. This style replaces them for every theme.
+   The core ones are set by hand; the product-specific ones (Mail, Pass, VPN, Lumo)
+   come from Proton's own dark themes, moved to the nearest Nord colour. */
+:root, .ui-standard, .ui-prominent, .ui-alias {
+  --primary-minor-3: color-mix(in srgb, var(--nord8) 10%, var(--nord0)) !important;
+  --primary-minor-2: color-mix(in srgb, var(--nord8) 20%, var(--nord0)) !important;
+  --primary-minor-1: color-mix(in srgb, var(--nord8) 32%, var(--nord0)) !important;
+  --primary: var(--nord8) !important;
+  --primary-major-1: color-mix(in srgb, var(--nord8) 88%, var(--nord6)) !important;
+  --primary-major-2: color-mix(in srgb, var(--nord8) 76%, var(--nord6)) !important;
+  --primary-major-3: color-mix(in srgb, var(--nord8) 64%, var(--nord6)) !important;
+  --primary-contrast: var(--nord0) !important;
+  --interaction-norm-minor-3: color-mix(in srgb, var(--nord10) 10%, var(--nord0)) !important;
+  --interaction-norm-minor-2: color-mix(in srgb, var(--nord10) 20%, var(--nord0)) !important;
+  --interaction-norm-minor-1: color-mix(in srgb, var(--nord10) 32%, var(--nord0)) !important;
+  --interaction-norm: var(--nord10) !important;
+  --interaction-norm-major-1: color-mix(in srgb, var(--nord10) 88%, var(--nord6)) !important;
+  --interaction-norm-major-2: color-mix(in srgb, var(--nord10) 76%, var(--nord6)) !important;
+  --interaction-norm-major-3: color-mix(in srgb, var(--nord10) 64%, var(--nord6)) !important;
+  --interaction-norm-contrast: var(--nord-on-accent) !important;
+  --interaction-weak-minor-3: color-mix(in srgb, var(--nord3) 10%, var(--nord0)) !important;
+  --interaction-weak-minor-2: color-mix(in srgb, var(--nord3) 20%, var(--nord0)) !important;
+  --interaction-weak-minor-1: color-mix(in srgb, var(--nord3) 32%, var(--nord0)) !important;
+  --interaction-weak: var(--nord3) !important;
+  --interaction-weak-major-1: color-mix(in srgb, var(--nord3) 88%, var(--nord6)) !important;
+  --interaction-weak-major-2: color-mix(in srgb, var(--nord3) 76%, var(--nord6)) !important;
+  --interaction-weak-major-3: color-mix(in srgb, var(--nord3) 64%, var(--nord6)) !important;
+  --interaction-weak-contrast: var(--nord6) !important;
+  --signal-danger-minor-3: color-mix(in srgb, var(--nord11) 10%, var(--nord0)) !important;
+  --signal-danger-minor-2: color-mix(in srgb, var(--nord11) 20%, var(--nord0)) !important;
+  --signal-danger-minor-1: color-mix(in srgb, var(--nord11) 32%, var(--nord0)) !important;
+  --signal-danger: var(--nord11) !important;
+  --signal-danger-major-1: color-mix(in srgb, var(--nord11) 88%, var(--nord6)) !important;
+  --signal-danger-major-2: color-mix(in srgb, var(--nord11) 76%, var(--nord6)) !important;
+  --signal-danger-major-3: color-mix(in srgb, var(--nord11) 64%, var(--nord6)) !important;
+  --signal-danger-contrast: var(--nord-on-accent) !important;
+  --signal-warning-minor-3: color-mix(in srgb, var(--nord13) 10%, var(--nord0)) !important;
+  --signal-warning-minor-2: color-mix(in srgb, var(--nord13) 20%, var(--nord0)) !important;
+  --signal-warning-minor-1: color-mix(in srgb, var(--nord13) 32%, var(--nord0)) !important;
+  --signal-warning: var(--nord13) !important;
+  --signal-warning-major-1: color-mix(in srgb, var(--nord13) 88%, var(--nord6)) !important;
+  --signal-warning-major-2: color-mix(in srgb, var(--nord13) 76%, var(--nord6)) !important;
+  --signal-warning-major-3: color-mix(in srgb, var(--nord13) 64%, var(--nord6)) !important;
+  --signal-warning-contrast: var(--nord0) !important;
+  --signal-success-minor-3: color-mix(in srgb, var(--nord14) 10%, var(--nord0)) !important;
+  --signal-success-minor-2: color-mix(in srgb, var(--nord14) 20%, var(--nord0)) !important;
+  --signal-success-minor-1: color-mix(in srgb, var(--nord14) 32%, var(--nord0)) !important;
+  --signal-success: var(--nord14) !important;
+  --signal-success-major-1: color-mix(in srgb, var(--nord14) 88%, var(--nord6)) !important;
+  --signal-success-major-2: color-mix(in srgb, var(--nord14) 76%, var(--nord6)) !important;
+  --signal-success-major-3: color-mix(in srgb, var(--nord14) 64%, var(--nord6)) !important;
+  --signal-success-contrast: var(--nord0) !important;
+  --signal-info-minor-3: color-mix(in srgb, var(--nord10) 10%, var(--nord0)) !important;
+  --signal-info-minor-2: color-mix(in srgb, var(--nord10) 20%, var(--nord0)) !important;
+  --signal-info-minor-1: color-mix(in srgb, var(--nord10) 32%, var(--nord0)) !important;
+  --signal-info: var(--nord10) !important;
+  --signal-info-major-1: color-mix(in srgb, var(--nord10) 88%, var(--nord6)) !important;
+  --signal-info-major-2: color-mix(in srgb, var(--nord10) 76%, var(--nord6)) !important;
+  --signal-info-major-3: color-mix(in srgb, var(--nord10) 64%, var(--nord6)) !important;
+  --signal-info-contrast: var(--nord-on-accent) !important;
+  --background-norm: var(--nord0) !important;
+  --background-weak: var(--nord1) !important;
+  --background-strong: var(--nord2) !important;
+  --background-invert: var(--nord6) !important;
+  --background-main-canvas: var(--nord0) !important;
+  --background-light: var(--nord1) !important;
+  --optional-background-elevated: color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important;
+  --optional-background-lowered: color-mix(in srgb, var(--nord0) 85%, var(--nord-deep)) !important;
+  --text-norm: var(--nord6) !important;
+  --text-strong: var(--nord6) !important;
+  --text-weak: color-mix(in srgb, var(--nord4) 75%, var(--nord3)) !important;
+  --text-secondary: color-mix(in srgb, var(--nord4) 75%, var(--nord3)) !important;
+  --text-hint: color-mix(in srgb, var(--nord4) 45%, var(--nord3)) !important;
+  --text-disabled: color-mix(in srgb, var(--nord4) 25%, var(--nord3)) !important;
+  --text-invert: var(--nord0) !important;
+  --text-dark: var(--nord0) !important;
+  --field-norm: var(--nord3) !important;
+  --field-hover: color-mix(in srgb, var(--nord4) 25%, var(--nord3)) !important;
+  --field-disabled: var(--nord2) !important;
+  --border-norm: var(--nord3) !important;
+  --border-weak: var(--nord2) !important;
+  --border-strong: color-mix(in srgb, var(--nord4) 25%, var(--nord3)) !important;
+  --focus-outline: var(--nord8) !important;
+  --focus-ring: color-mix(in srgb, var(--nord8) 30%, transparent) !important;
+  --interaction-default: transparent !important;
+  --interaction-default-hover: color-mix(in srgb, var(--nord3) 35%, transparent) !important;
+  --interaction-default-active: color-mix(in srgb, var(--nord3) 60%, transparent) !important;
+  --interaction-norm-hover: var(--interaction-norm-major-1) !important;
+  --interaction-norm-active: var(--interaction-norm-major-2) !important;
+  --interaction-weak-hover: var(--interaction-weak-major-1) !important;
+  --interaction-weak-active: var(--interaction-weak-major-2) !important;
+  --backdrop-norm: color-mix(in srgb, var(--nord0) 60%, transparent) !important;
+  --optional-scrollbar-thumb-color: var(--nord3) !important;
+  --link-norm: var(--nord8) !important;
+  --link-hover: color-mix(in srgb, var(--nord8) 80%, var(--nord6)) !important;
+  --link-active: var(--nord9) !important;
+  --optional-link-norm: var(--nord8) !important;
+  --optional-link-hover: color-mix(in srgb, var(--nord8) 80%, var(--nord6)) !important;
+  --optional-link-active: var(--nord9) !important;
+  --optional-email-item-read-text-color: var(--text-weak) !important;
+  --optional-mini-calendar-today-color: var(--nord6) !important;
+  --optional-logo-text-proton-color: var(--nord6) !important;
+  --optional-logo-text-product-color: var(--nord6) !important;
+  --optional-selection-background-color: color-mix(in srgb, var(--nord10) 45%, transparent) !important;
+  --background-blur: var(--nord10) !important;
+  --background-composer-mobile: color-mix(in srgb, var(--nord2) 74.2%, var(--nord3)) !important;
+  --background-upsell-button: color-mix(in srgb, var(--nord2) 74.2%, var(--nord3)) !important;
+  --background-upsell-toggle: color-mix(in srgb, color-mix(in srgb, color-mix(in srgb, var(--nord3) 73.7%, var(--nord4)) 75.9%, var(--nord10)) 60%, transparent) !important;
+  --background-upsell-toggle-button: var(--nord0) !important;
+  --background-upsell-toggle-ghost-mode: color-mix(in srgb, color-mix(in srgb, color-mix(in srgb, var(--nord3) 73.7%, var(--nord4)) 75.9%, var(--nord10)) 60%, transparent) !important;
+  --background-upsell-toggle-ghost-mode-button: color-mix(in srgb, var(--nord4) 83.8%, var(--nord5)) !important;
+  --bg-overlay: var(--nord0) !important;
+  --button-darker-active-background-color: color-mix(in srgb, var(--nord1) 69.5%, var(--nord2)) !important;
+  --button-darker-default-background-color: color-mix(in srgb, var(--nord8) 49.8%, var(--nord6)) !important;
+  --button-darker-hover-background-color: var(--nord9) !important;
+  --button-lighter-active-background-color: var(--nord10) !important;
+  --button-lighter-default-background-color: color-mix(in srgb, var(--nord10) 29.6%, var(--nord0)) !important;
+  --button-lighter-hover-background-color: color-mix(in srgb, var(--nord10) 39%, var(--nord0)) !important;
+  --composer-focus-outer-ring: color-mix(in srgb, var(--nord10) 44.3%, var(--nord0)) !important;
+  --composer-glow-border: color-mix(in srgb, var(--nord8) 49.8%, var(--nord6)) !important;
+  --composer-hover-border: color-mix(in srgb, color-mix(in srgb, var(--nord3) 63.8%, var(--nord4)) 74%, var(--nord10)) !important;
+  --control-border: var(--nord2) !important;
+  --control-border-focus: var(--nord9) !important;
+  --control-border-mid: color-mix(in srgb, var(--nord9) 10.2%, var(--nord3)) !important;
+  --control-border-translucent: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 10.2%, transparent) !important;
+  --control-brand-fill: var(--nord9) !important;
+  --control-brand-fill-mid: var(--nord9) !important;
+  --control-brand-fill-strong: var(--nord8) !important;
+  --control-brand-text: var(--nord6) !important;
+  --control-fill-contrast: var(--nord6) !important;
+  --control-fill-low: color-mix(in srgb, var(--nord0) 28.7%, var(--nord1)) !important;
+  --control-fill-mid: var(--nord2) !important;
+  --control-fill-strong: color-mix(in srgb, var(--nord9) 10.2%, var(--nord3)) !important;
+  --control-fill-strong-2: color-mix(in srgb, color-mix(in srgb, var(--nord3) 83.2%, var(--nord4)) 77.7%, var(--nord10)) !important;
+  --control-fill-translucent: color-mix(in srgb, color-mix(in srgb, var(--nord9) 81.8%, var(--nord-peak)) 5.1%, transparent) !important;
+  --field-background-color: color-mix(in srgb, var(--nord10) 29.6%, var(--nord0)) !important;
+  --field-focus-background-color: color-mix(in srgb, var(--nord10) 29.6%, var(--nord0)) !important;
+  --field-hover-background-color: color-mix(in srgb, var(--nord10) 29.6%, var(--nord0)) !important;
+  --glyph: color-mix(in srgb, var(--nord5) 53.5%, var(--nord6)) !important;
+  --glyph-brand: var(--nord9) !important;
+  --glyph-brand-mid: var(--nord9) !important;
+  --glyph-brand-strong: var(--nord8) !important;
+  --glyph-contrast: var(--nord6) !important;
+  --glyph-disabled: color-mix(in srgb, var(--nord9) 10.2%, var(--nord3)) !important;
+  --glyph-glyph-hint: color-mix(in srgb, color-mix(in srgb, var(--nord3) 63.8%, var(--nord4)) 74%, var(--nord10)) !important;
+  --glyph-inverse: var(--nord0) !important;
+  --glyph-low: color-mix(in srgb, color-mix(in srgb, var(--nord3) 63.8%, var(--nord4)) 74%, var(--nord10)) !important;
+  --glyph-mid: color-mix(in srgb, color-mix(in srgb, var(--nord3) 37.1%, var(--nord4)) 83.7%, var(--nord10)) !important;
+  --interaction-secondary: var(--nord12) !important;
+  --interaction-secondary-active: var(--nord12) !important;
+  --interaction-secondary-hover: var(--nord12) !important;
+  --interaction-solid-weak-custom: var(--nord2) !important;
+  --interaction-solid-weak-custom-active: color-mix(in srgb, color-mix(in srgb, var(--nord3) 83.2%, var(--nord4)) 77.7%, var(--nord10)) !important;
+  --interaction-solid-weak-custom-contrast: var(--nord2) !important;
+  --interaction-solid-weak-custom-hover: color-mix(in srgb, var(--nord9) 10.2%, var(--nord3)) !important;
+  --lumo-logo-tag-plus-background: color-mix(in srgb, var(--nord0) 64.7%, var(--nord1)) !important;
+  --lumo-logo-tag-plus-text: color-mix(in srgb, color-mix(in srgb, var(--nord3) 47.6%, var(--nord4)) 78.5%, var(--nord10)) !important;
+  --lumo-logo-tag-pro-background: color-mix(in srgb, var(--nord6) 69.8%, transparent) !important;
+  --lumo-plus-logo-plus-sign-text: color-mix(in srgb, var(--nord5) 29.7%, var(--nord6)) !important;
+  --lumo-welcome-text: var(--nord6) !important;
+  --markdown-code-background: color-mix(in srgb, var(--nord2) 67.7%, var(--nord3)) !important;
+  --markdown-pre-background: color-mix(in srgb, var(--nord2) 67.7%, var(--nord3)) !important;
+  --markdown-pre-border: var(--nord3) !important;
+  --optional-bg-promotion-bw-button: var(--nord0) !important;
+  --optional-email-item-read-background-color: var(--nord0) !important;
+  --optional-email-item-unread-background-color: var(--nord0) !important;
+  --optional-field-background-color: var(--nord0) !important;
+  --optional-navigation-current-item-background-color: var(--nord0) !important;
+  --optional-navigation-item-count-background-color: var(--nord15) !important;
+  --optional-promotion-background-end: color-mix(in srgb, var(--nord9) 10.2%, transparent) !important;
+  --optional-promotion-background-start: color-mix(in srgb, var(--nord9) 29.8%, transparent) !important;
+  --optional-promotion-interaction-hover: color-mix(in srgb, var(--nord9) 20%, transparent) !important;
+  --optional-promotion-secondary-color: var(--nord15) !important;
+  --optional-promotion-text-color: var(--nord6) !important;
+  --optional-promotion-text-weak: var(--nord8) !important;
+  --optional-upgrade-color-1: var(--nord12) !important;
+  --optional-upgrade-color-2: var(--nord9) !important;
+  --pass-scroll-shadow-color: color-mix(in srgb, color-mix(in srgb, var(--nord5) 76.2%, var(--nord6)) 10.2%, transparent) !important;
+  --reinforce-active: var(--nord9) !important;
+  --reinforce-hover: var(--nord9) !important;
+  --reinforce-norm: var(--nord9) !important;
+  --search-field-focus-background: var(--nord0) !important;
+  --settings-modal-upsell-background: var(--nord0) !important;
+  --surface-foreground: color-mix(in srgb, var(--nord0) 77.8%, var(--nord1)) !important;
+  --text-error-banner-button: var(--nord6) !important;
+  --text-error-banner-message: var(--nord6) !important;
+  --text-error-banner-title: var(--nord6) !important;
+  --text-markdown: var(--nord6) !important;
+}
+
+/* Product accent classes (Pass vaults, VPN, Drive...) */
+.ui-violet {
+  --interaction-norm-minor-3: color-mix(in srgb, var(--nord15) 10%, var(--nord0)) !important;
+  --interaction-norm-minor-2: color-mix(in srgb, var(--nord15) 20%, var(--nord0)) !important;
+  --interaction-norm-minor-1: color-mix(in srgb, var(--nord15) 32%, var(--nord0)) !important;
+  --interaction-norm: var(--nord15) !important;
+  --interaction-norm-major-1: color-mix(in srgb, var(--nord15) 88%, var(--nord6)) !important;
+  --interaction-norm-major-2: color-mix(in srgb, var(--nord15) 76%, var(--nord6)) !important;
+  --interaction-norm-major-3: color-mix(in srgb, var(--nord15) 64%, var(--nord6)) !important;
+  --interaction-norm-contrast: var(--nord0) !important;
+  --interaction-norm-hover: var(--interaction-norm-major-1) !important;
+  --interaction-norm-active: var(--interaction-norm-major-2) !important;
+  --focus-outline: var(--nord15) !important;
+}
+.ui-purple {
+  --interaction-norm-minor-3: color-mix(in srgb, var(--nord15) 10%, var(--nord0)) !important;
+  --interaction-norm-minor-2: color-mix(in srgb, var(--nord15) 20%, var(--nord0)) !important;
+  --interaction-norm-minor-1: color-mix(in srgb, var(--nord15) 32%, var(--nord0)) !important;
+  --interaction-norm: var(--nord15) !important;
+  --interaction-norm-major-1: color-mix(in srgb, var(--nord15) 88%, var(--nord6)) !important;
+  --interaction-norm-major-2: color-mix(in srgb, var(--nord15) 76%, var(--nord6)) !important;
+  --interaction-norm-major-3: color-mix(in srgb, var(--nord15) 64%, var(--nord6)) !important;
+  --interaction-norm-contrast: var(--nord0) !important;
+  --interaction-norm-hover: var(--interaction-norm-major-1) !important;
+  --interaction-norm-active: var(--interaction-norm-major-2) !important;
+  --focus-outline: var(--nord15) !important;
+}
+.ui-pink {
+  --interaction-norm-minor-3: color-mix(in srgb, var(--nord15) 10%, var(--nord0)) !important;
+  --interaction-norm-minor-2: color-mix(in srgb, var(--nord15) 20%, var(--nord0)) !important;
+  --interaction-norm-minor-1: color-mix(in srgb, var(--nord15) 32%, var(--nord0)) !important;
+  --interaction-norm: var(--nord15) !important;
+  --interaction-norm-major-1: color-mix(in srgb, var(--nord15) 88%, var(--nord6)) !important;
+  --interaction-norm-major-2: color-mix(in srgb, var(--nord15) 76%, var(--nord6)) !important;
+  --interaction-norm-major-3: color-mix(in srgb, var(--nord15) 64%, var(--nord6)) !important;
+  --interaction-norm-contrast: var(--nord0) !important;
+  --interaction-norm-hover: var(--interaction-norm-major-1) !important;
+  --interaction-norm-active: var(--interaction-norm-major-2) !important;
+  --focus-outline: var(--nord15) !important;
+}
+.ui-teal {
+  --interaction-norm-minor-3: color-mix(in srgb, var(--nord7) 10%, var(--nord0)) !important;
+  --interaction-norm-minor-2: color-mix(in srgb, var(--nord7) 20%, var(--nord0)) !important;
+  --interaction-norm-minor-1: color-mix(in srgb, var(--nord7) 32%, var(--nord0)) !important;
+  --interaction-norm: var(--nord7) !important;
+  --interaction-norm-major-1: color-mix(in srgb, var(--nord7) 88%, var(--nord6)) !important;
+  --interaction-norm-major-2: color-mix(in srgb, var(--nord7) 76%, var(--nord6)) !important;
+  --interaction-norm-major-3: color-mix(in srgb, var(--nord7) 64%, var(--nord6)) !important;
+  --interaction-norm-contrast: var(--nord0) !important;
+  --interaction-norm-hover: var(--interaction-norm-major-1) !important;
+  --interaction-norm-active: var(--interaction-norm-major-2) !important;
+  --focus-outline: var(--nord7) !important;
+}
+.ui-orange {
+  --interaction-norm-minor-3: color-mix(in srgb, var(--nord12) 10%, var(--nord0)) !important;
+  --interaction-norm-minor-2: color-mix(in srgb, var(--nord12) 20%, var(--nord0)) !important;
+  --interaction-norm-minor-1: color-mix(in srgb, var(--nord12) 32%, var(--nord0)) !important;
+  --interaction-norm: var(--nord12) !important;
+  --interaction-norm-major-1: color-mix(in srgb, var(--nord12) 88%, var(--nord6)) !important;
+  --interaction-norm-major-2: color-mix(in srgb, var(--nord12) 76%, var(--nord6)) !important;
+  --interaction-norm-major-3: color-mix(in srgb, var(--nord12) 64%, var(--nord6)) !important;
+  --interaction-norm-contrast: var(--nord0) !important;
+  --interaction-norm-hover: var(--interaction-norm-major-1) !important;
+  --interaction-norm-active: var(--interaction-norm-major-2) !important;
+  --focus-outline: var(--nord12) !important;
+}
+.ui-red {
+  --interaction-norm-minor-3: color-mix(in srgb, var(--nord11) 10%, var(--nord0)) !important;
+  --interaction-norm-minor-2: color-mix(in srgb, var(--nord11) 20%, var(--nord0)) !important;
+  --interaction-norm-minor-1: color-mix(in srgb, var(--nord11) 32%, var(--nord0)) !important;
+  --interaction-norm: var(--nord11) !important;
+  --interaction-norm-major-1: color-mix(in srgb, var(--nord11) 88%, var(--nord6)) !important;
+  --interaction-norm-major-2: color-mix(in srgb, var(--nord11) 76%, var(--nord6)) !important;
+  --interaction-norm-major-3: color-mix(in srgb, var(--nord11) 64%, var(--nord6)) !important;
+  --interaction-norm-contrast: var(--nord6) !important;
+  --interaction-norm-hover: var(--interaction-norm-major-1) !important;
+  --interaction-norm-active: var(--interaction-norm-major-2) !important;
+  --focus-outline: var(--nord11) !important;
+}
+.ui-lime {
+  --interaction-norm-minor-3: color-mix(in srgb, var(--nord14) 10%, var(--nord0)) !important;
+  --interaction-norm-minor-2: color-mix(in srgb, var(--nord14) 20%, var(--nord0)) !important;
+  --interaction-norm-minor-1: color-mix(in srgb, var(--nord14) 32%, var(--nord0)) !important;
+  --interaction-norm: var(--nord14) !important;
+  --interaction-norm-major-1: color-mix(in srgb, var(--nord14) 88%, var(--nord6)) !important;
+  --interaction-norm-major-2: color-mix(in srgb, var(--nord14) 76%, var(--nord6)) !important;
+  --interaction-norm-major-3: color-mix(in srgb, var(--nord14) 64%, var(--nord6)) !important;
+  --interaction-norm-contrast: var(--nord0) !important;
+  --interaction-norm-hover: var(--interaction-norm-major-1) !important;
+  --interaction-norm-active: var(--interaction-norm-major-2) !important;
+  --focus-outline: var(--nord14) !important;
+}
+.ui-green {
+  --interaction-norm-minor-3: color-mix(in srgb, var(--nord14) 10%, var(--nord0)) !important;
+  --interaction-norm-minor-2: color-mix(in srgb, var(--nord14) 20%, var(--nord0)) !important;
+  --interaction-norm-minor-1: color-mix(in srgb, var(--nord14) 32%, var(--nord0)) !important;
+  --interaction-norm: var(--nord14) !important;
+  --interaction-norm-major-1: color-mix(in srgb, var(--nord14) 88%, var(--nord6)) !important;
+  --interaction-norm-major-2: color-mix(in srgb, var(--nord14) 76%, var(--nord6)) !important;
+  --interaction-norm-major-3: color-mix(in srgb, var(--nord14) 64%, var(--nord6)) !important;
+  --interaction-norm-contrast: var(--nord0) !important;
+  --interaction-norm-hover: var(--interaction-norm-major-1) !important;
+  --interaction-norm-active: var(--interaction-norm-major-2) !important;
+  --focus-outline: var(--nord14) !important;
+}
+.ui-blue {
+  --interaction-norm-minor-3: color-mix(in srgb, var(--nord9) 10%, var(--nord0)) !important;
+  --interaction-norm-minor-2: color-mix(in srgb, var(--nord9) 20%, var(--nord0)) !important;
+  --interaction-norm-minor-1: color-mix(in srgb, var(--nord9) 32%, var(--nord0)) !important;
+  --interaction-norm: var(--nord9) !important;
+  --interaction-norm-major-1: color-mix(in srgb, var(--nord9) 88%, var(--nord6)) !important;
+  --interaction-norm-major-2: color-mix(in srgb, var(--nord9) 76%, var(--nord6)) !important;
+  --interaction-norm-major-3: color-mix(in srgb, var(--nord9) 64%, var(--nord6)) !important;
+  --interaction-norm-contrast: var(--nord0) !important;
+  --interaction-norm-hover: var(--interaction-norm-major-1) !important;
+  --interaction-norm-active: var(--interaction-norm-major-2) !important;
+  --focus-outline: var(--nord9) !important;
+}
+.ui-gray {
+  --interaction-norm-minor-3: color-mix(in srgb, var(--nord3) 10%, var(--nord0)) !important;
+  --interaction-norm-minor-2: color-mix(in srgb, var(--nord3) 20%, var(--nord0)) !important;
+  --interaction-norm-minor-1: color-mix(in srgb, var(--nord3) 32%, var(--nord0)) !important;
+  --interaction-norm: var(--nord3) !important;
+  --interaction-norm-major-1: color-mix(in srgb, var(--nord3) 88%, var(--nord6)) !important;
+  --interaction-norm-major-2: color-mix(in srgb, var(--nord3) 76%, var(--nord6)) !important;
+  --interaction-norm-major-3: color-mix(in srgb, var(--nord3) 64%, var(--nord6)) !important;
+  --interaction-norm-contrast: var(--nord6) !important;
+  --interaction-norm-hover: var(--interaction-norm-major-1) !important;
+  --interaction-norm-active: var(--interaction-norm-major-2) !important;
+  --focus-outline: var(--nord3) !important;
+}
+
+html {
+  color-scheme: var(--nord-scheme);
+}
+
+/* Sign-in and account-switch pages: a lilac gradient and an illustration */
+.sign-layout-bg {
+  background: var(--background-norm) !important;
+}
+.sign-layout-container {
+  background-image: none !important;
+}
+
+/* Proton logos: purple fill and a purple gradient */
+svg.logo path[fill="#6351E1" i],
+svg.logo path[fill="#6D4AFF" i] {
+  fill: var(--nord8) !important;
+}
+svg.logo path[fill="#AC9FDF" i] {
+  fill: var(--nord9) !important;
+}
+
+/* Upgrade buttons: purple-to-blue gradients */
+[class*="button-promotion--"][class*="-gradient"] {
+  background-image: linear-gradient(to right, var(--nord15), var(--nord10)) !important;
+  color: var(--nord-on-accent) !important;
+  border-color: transparent !important;
+}
+svg.logo stop:first-child {
+  stop-color: var(--nord8) !important;
+}
+svg.logo stop:last-child {
+  stop-color: var(--nord10) !important;
+}
+}
+}

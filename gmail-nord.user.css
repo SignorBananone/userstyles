@@ -1,0 +1,568 @@
+/* ==UserStyle==
+@name         Gmail Nord
+@version      20261001.00.00
+@namespace    https://github.com/SignorBananone/userstyles
+@description  Nord theme for Gmail, whatever Gmail theme is selected
+@homepageURL  https://github.com/SignorBananone/userstyles
+@author       SignorBananone
+@license      MIT
+@preprocessor   less
+
+@var select apply "Apply the theme" {
+  "Always*": "always",
+  "Only when the browser or system is in dark mode": "dark",
+  "Only when the browser or system is in light mode": "light"
+}
+@var select palette "Palette" {
+  "Nord: Polar Night backgrounds*": "nord",
+  "Nord darker": "darker",
+  "Nord light: Snow Storm backgrounds": "light",
+  "Follow the browser: Nord when dark, Nord light when light": "auto",
+  "Custom: the colours below": "custom"
+}
+@var select custom_type "Custom palette type" {
+  "Dark: light text on dark backgrounds*": "dark",
+  "Light: dark text on light backgrounds": "light"
+}
+@var color nord0 "Custom nord0: Background" #2e3440
+@var color nord1 "Custom nord1: Surfaces: cards, sidebars, inputs" #3b4252
+@var color nord2 "Custom nord2: Raised surfaces: hover, selection" #434c5e
+@var color nord3 "Custom nord3: Borders and muted elements" #4c566a
+@var color nord4 "Custom nord4: Text" #d8dee9
+@var color nord5 "Custom nord5: Brighter text" #e5e9f0
+@var color nord6 "Custom nord6: Headings and brightest text" #eceff4
+@var color nord7 "Custom nord7: Frost teal" #8fbcbb
+@var color nord8 "Custom nord8: Main accent: links, highlights" #88c0d0
+@var color nord9 "Custom nord9: Frost blue" #81a1c1
+@var color nord10 "Custom nord10: Deep blue: buttons" #5e81ac
+@var color nord11 "Custom nord11: Red: errors" #bf616a
+@var color nord12 "Custom nord12: Orange" #d08770
+@var color nord13 "Custom nord13: Yellow: warnings" #ebcb8b
+@var color nord14 "Custom nord14: Green: success" #a3be8c
+@var color nord15 "Custom nord15: Purple" #b48ead
+==/UserStyle== */
+
+/* ---------- Options ----------
+   Stylus compiles this file with Less. The options only set CSS variables:
+   every colour below is var(--nord0) ... var(--nord15), or a color-mix() of them,
+   so one palette recolours the whole style. --nord-deep and --nord-peak sit past
+   the background and text ends of the palette (black and white in a dark one),
+   and --nord-on-accent is the text colour for filled accent backgrounds.
+   --nordN-rgb, where present, holds the same colour as an "r, g, b" list for Bootstrap. */
+@nord-apply: if((@apply = dark), ~"(prefers-color-scheme: dark)", if((@apply = light), ~"(prefers-color-scheme: light)", ~"all"));
+.nord-preset(nord) {
+  --nord0: #2e3440;
+  --nord1: #3b4252;
+  --nord2: #434c5e;
+  --nord3: #4c566a;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  --nord0-rgb: 46, 52, 64;
+  --nord1-rgb: 59, 66, 82;
+  --nord2-rgb: 67, 76, 94;
+  --nord3-rgb: 76, 86, 106;
+  --nord4-rgb: 216, 222, 233;
+  --nord5-rgb: 229, 233, 240;
+  --nord6-rgb: 236, 239, 244;
+  --nord7-rgb: 143, 188, 187;
+  --nord8-rgb: 136, 192, 208;
+  --nord9-rgb: 129, 161, 193;
+  --nord10-rgb: 94, 129, 172;
+  --nord11-rgb: 191, 97, 106;
+  --nord12-rgb: 208, 135, 112;
+  --nord13-rgb: 235, 203, 139;
+  --nord14-rgb: 163, 190, 140;
+  --nord15-rgb: 180, 142, 173;
+  .nord-mode(dark);
+}
+.nord-preset(darker) {
+  --nord0: #242933;
+  --nord1: #2b303b;
+  --nord2: #353b49;
+  --nord3: #434c5e;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  --nord0-rgb: 36, 41, 51;
+  --nord1-rgb: 43, 48, 59;
+  --nord2-rgb: 53, 59, 73;
+  --nord3-rgb: 67, 76, 94;
+  --nord4-rgb: 216, 222, 233;
+  --nord5-rgb: 229, 233, 240;
+  --nord6-rgb: 236, 239, 244;
+  --nord7-rgb: 143, 188, 187;
+  --nord8-rgb: 136, 192, 208;
+  --nord9-rgb: 129, 161, 193;
+  --nord10-rgb: 94, 129, 172;
+  --nord11-rgb: 191, 97, 106;
+  --nord12-rgb: 208, 135, 112;
+  --nord13-rgb: 235, 203, 139;
+  --nord14-rgb: 163, 190, 140;
+  --nord15-rgb: 180, 142, 173;
+  .nord-mode(dark);
+}
+.nord-preset(light) {
+  --nord0: #eceff4;
+  --nord1: #e5e9f0;
+  --nord2: #d8dee9;
+  --nord3: #b4bcc9;
+  --nord4: #3b4252;
+  --nord5: #353b49;
+  --nord6: #2e3440;
+  --nord7: #497473;
+  --nord8: #3c7382;
+  --nord9: #516f8d;
+  --nord10: #4c6e98;
+  --nord11: #ab4f59;
+  --nord12: #9f5a45;
+  --nord13: #866828;
+  --nord14: #5b7344;
+  --nord15: #84607e;
+  --nord0-rgb: 236, 239, 244;
+  --nord1-rgb: 229, 233, 240;
+  --nord2-rgb: 216, 222, 233;
+  --nord3-rgb: 180, 188, 201;
+  --nord4-rgb: 59, 66, 82;
+  --nord5-rgb: 53, 59, 73;
+  --nord6-rgb: 46, 52, 64;
+  --nord7-rgb: 73, 116, 115;
+  --nord8-rgb: 60, 115, 130;
+  --nord9-rgb: 81, 111, 141;
+  --nord10-rgb: 76, 110, 152;
+  --nord11-rgb: 171, 79, 89;
+  --nord12-rgb: 159, 90, 69;
+  --nord13-rgb: 134, 104, 40;
+  --nord14-rgb: 91, 115, 68;
+  --nord15-rgb: 132, 96, 126;
+  .nord-mode(light);
+}
+.nord-preset(custom) {
+  --nord0: @nord0;
+  --nord1: @nord1;
+  --nord2: @nord2;
+  --nord3: @nord3;
+  --nord4: @nord4;
+  --nord5: @nord5;
+  --nord6: @nord6;
+  --nord7: @nord7;
+  --nord8: @nord8;
+  --nord9: @nord9;
+  --nord10: @nord10;
+  --nord11: @nord11;
+  --nord12: @nord12;
+  --nord13: @nord13;
+  --nord14: @nord14;
+  --nord15: @nord15;
+  --nord0-rgb: red(@nord0), green(@nord0), blue(@nord0);
+  --nord1-rgb: red(@nord1), green(@nord1), blue(@nord1);
+  --nord2-rgb: red(@nord2), green(@nord2), blue(@nord2);
+  --nord3-rgb: red(@nord3), green(@nord3), blue(@nord3);
+  --nord4-rgb: red(@nord4), green(@nord4), blue(@nord4);
+  --nord5-rgb: red(@nord5), green(@nord5), blue(@nord5);
+  --nord6-rgb: red(@nord6), green(@nord6), blue(@nord6);
+  --nord7-rgb: red(@nord7), green(@nord7), blue(@nord7);
+  --nord8-rgb: red(@nord8), green(@nord8), blue(@nord8);
+  --nord9-rgb: red(@nord9), green(@nord9), blue(@nord9);
+  --nord10-rgb: red(@nord10), green(@nord10), blue(@nord10);
+  --nord11-rgb: red(@nord11), green(@nord11), blue(@nord11);
+  --nord12-rgb: red(@nord12), green(@nord12), blue(@nord12);
+  --nord13-rgb: red(@nord13), green(@nord13), blue(@nord13);
+  --nord14-rgb: red(@nord14), green(@nord14), blue(@nord14);
+  --nord15-rgb: red(@nord15), green(@nord15), blue(@nord15);
+  .nord-mode(@custom_type);
+}
+.nord-preset(auto) {
+  .nord-preset(nord);
+  @media (prefers-color-scheme: light) { .nord-preset(light); }
+}
+.nord-mode(dark) { --nord-deep: #000; --nord-peak: #fff; --nord-scheme: dark; --nord-on-accent: var(--nord6); .nord-site(dark); }
+.nord-mode(light) { --nord-deep: #fff; --nord-peak: #000; --nord-scheme: light; --nord-on-accent: var(--nord0); .nord-site(light); }
+.nord-site(@mode) {}
+/* Gmail icons are bitmaps: flatten them to black, then tint them for the palette.
+   --nord-paper is the sheet behind message bodies, light in every palette. */
+.nord-site(dark) {
+  --nord-icon-filter: brightness(0) invert(85%) sepia(10%) saturate(300%) hue-rotate(180deg);
+  --nord-paper: #eceff4;
+  --nord-paper-ink: #2e3440;
+}
+.nord-site(light) {
+  --nord-icon-filter: brightness(0) invert(25%) sepia(10%) saturate(300%) hue-rotate(180deg);
+  --nord-paper: #ffffff;
+  --nord-paper-ink: #2e3440;
+}
+
+
+@-moz-document domain("mail.google.com") {
+@media @nord-apply {
+:root { .nord-preset(@palette); }
+
+
+/* Gmail's newer components draw from Material 3 colour roles (--gm3-sys-color-*,
+   --ws-sys-color-*). Gmail sets them on :root and again on a few dozen containers,
+   with obfuscated class names that have stayed the same for years. */
+/* Material 3 colour roles, set on :root and on every container that redefines them */
+:root,
+.GYfbG,
+.MxSLJe,
+.s8Kcyb,
+.Zmxtcf :disabled,
+.KYatzc,
+.RuSUmb,
+.bGV,
+.nptvo,
+.bkL,
+.qp,
+.IU,
+.ar4,
+.r4,
+.fp0W3e,
+.BmOHPe,
+.CzOgqb,
+.uf7Ibe,
+.o9kyXe,
+.lBV8Rb,
+.fP5mL,
+.bbL,
+.bbM,
+.Lov59,
+.V9kMTd,
+.gMjUJ,
+.ldAxn,
+.pay4fe,
+.AlFUWe,
+.aLF-aPX-bil-bip,
+.RiZsyf,
+.YP1I1b,
+.znasJc,
+.GS14fc,
+.lOpKR,
+.wGvdHe,
+.xNrdse,
+.JwUC2c,
+.tV7Lpe,
+.q70Nge,
+.EMAdud,
+.JnEIz {
+  --gm3-sys-color-background: var(--nord0) !important;
+  --gm3-sys-color-background-rgb: var(--nord0-rgb) !important;
+  --gm3-sys-color-surface: var(--nord0) !important;
+  --gm3-sys-color-surface-rgb: var(--nord0-rgb) !important;
+  --gm3-sys-color-surface-dim: var(--nord0) !important;
+  --gm3-sys-color-surface-dim-rgb: var(--nord0-rgb) !important;
+  --gm3-sys-color-surface-container-lowest: color-mix(in srgb, var(--nord0) 85%, var(--nord-deep)) !important;
+  --gm3-sys-color-surface-container-lowest-rgb: var(--nord0-rgb) !important;
+  --gm3-sys-color-surface-container-low: color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important;
+  --gm3-sys-color-surface-container-low-rgb: var(--nord0-rgb) !important;
+  --gm3-sys-color-surface-container: var(--nord1) !important;
+  --gm3-sys-color-surface-container-rgb: var(--nord1-rgb) !important;
+  --gm3-sys-color-surface-container-high: color-mix(in srgb, var(--nord2) 50%, var(--nord1)) !important;
+  --gm3-sys-color-surface-container-high-rgb: var(--nord1-rgb) !important;
+  --gm3-sys-color-surface-container-highest: var(--nord2) !important;
+  --gm3-sys-color-surface-container-highest-rgb: var(--nord2-rgb) !important;
+  --gm3-sys-color-surface-bright: var(--nord2) !important;
+  --gm3-sys-color-surface-bright-rgb: var(--nord2-rgb) !important;
+  --gm3-sys-color-surface-variant: var(--nord2) !important;
+  --gm3-sys-color-surface-variant-rgb: var(--nord2-rgb) !important;
+  --gm3-sys-color-surface-tint: var(--nord8) !important;
+  --gm3-sys-color-surface-tint-rgb: var(--nord8-rgb) !important;
+  --gm3-sys-color-on-background: var(--nord6) !important;
+  --gm3-sys-color-on-background-rgb: var(--nord6-rgb) !important;
+  --gm3-sys-color-on-surface: var(--nord6) !important;
+  --gm3-sys-color-on-surface-rgb: var(--nord6-rgb) !important;
+  --gm3-sys-color-on-surface-variant: var(--nord4) !important;
+  --gm3-sys-color-on-surface-variant-rgb: var(--nord4-rgb) !important;
+  --gm3-sys-color-outline: color-mix(in srgb, var(--nord4) 40%, var(--nord3)) !important;
+  --gm3-sys-color-outline-rgb: var(--nord3-rgb) !important;
+  --gm3-sys-color-outline-variant: var(--nord3) !important;
+  --gm3-sys-color-outline-variant-rgb: var(--nord3-rgb) !important;
+  --gm3-sys-color-inverse-surface: var(--nord6) !important;
+  --gm3-sys-color-inverse-surface-rgb: var(--nord6-rgb) !important;
+  --gm3-sys-color-inverse-on-surface: var(--nord0) !important;
+  --gm3-sys-color-inverse-on-surface-rgb: var(--nord0-rgb) !important;
+  --gm3-sys-color-inverse-primary: var(--nord10) !important;
+  --gm3-sys-color-inverse-primary-rgb: var(--nord10-rgb) !important;
+  --gm3-sys-color-primary: var(--nord8) !important;
+  --gm3-sys-color-primary-rgb: var(--nord8-rgb) !important;
+  --gm3-sys-color-on-primary: var(--nord0) !important;
+  --gm3-sys-color-on-primary-rgb: var(--nord0-rgb) !important;
+  --gm3-sys-color-primary-container: color-mix(in srgb, var(--nord10) 45%, var(--nord1)) !important;
+  --gm3-sys-color-primary-container-rgb: var(--nord10-rgb) !important;
+  --gm3-sys-color-on-primary-container: var(--nord6) !important;
+  --gm3-sys-color-on-primary-container-rgb: var(--nord6-rgb) !important;
+  --gm3-sys-color-primary-fixed: var(--nord8) !important;
+  --gm3-sys-color-primary-fixed-rgb: var(--nord8-rgb) !important;
+  --gm3-sys-color-primary-fixed-dim: var(--nord9) !important;
+  --gm3-sys-color-primary-fixed-dim-rgb: var(--nord9-rgb) !important;
+  --gm3-sys-color-on-primary-fixed: var(--nord0) !important;
+  --gm3-sys-color-on-primary-fixed-rgb: var(--nord0-rgb) !important;
+  --gm3-sys-color-on-primary-fixed-variant: var(--nord1) !important;
+  --gm3-sys-color-on-primary-fixed-variant-rgb: var(--nord1-rgb) !important;
+  --gm3-sys-color-secondary: var(--nord9) !important;
+  --gm3-sys-color-secondary-rgb: var(--nord9-rgb) !important;
+  --gm3-sys-color-on-secondary: var(--nord0) !important;
+  --gm3-sys-color-on-secondary-rgb: var(--nord0-rgb) !important;
+  --gm3-sys-color-secondary-container: color-mix(in srgb, var(--nord10) 35%, var(--nord1)) !important;
+  --gm3-sys-color-secondary-container-rgb: var(--nord10-rgb) !important;
+  --gm3-sys-color-on-secondary-container: var(--nord6) !important;
+  --gm3-sys-color-on-secondary-container-rgb: var(--nord6-rgb) !important;
+  --gm3-sys-color-secondary-fixed: var(--nord9) !important;
+  --gm3-sys-color-secondary-fixed-rgb: var(--nord9-rgb) !important;
+  --gm3-sys-color-secondary-fixed-dim: var(--nord10) !important;
+  --gm3-sys-color-secondary-fixed-dim-rgb: var(--nord10-rgb) !important;
+  --gm3-sys-color-on-secondary-fixed: var(--nord0) !important;
+  --gm3-sys-color-on-secondary-fixed-rgb: var(--nord0-rgb) !important;
+  --gm3-sys-color-on-secondary-fixed-variant: var(--nord1) !important;
+  --gm3-sys-color-on-secondary-fixed-variant-rgb: var(--nord1-rgb) !important;
+  --gm3-sys-color-tertiary: var(--nord7) !important;
+  --gm3-sys-color-tertiary-rgb: var(--nord7-rgb) !important;
+  --gm3-sys-color-on-tertiary: var(--nord0) !important;
+  --gm3-sys-color-on-tertiary-rgb: var(--nord0-rgb) !important;
+  --gm3-sys-color-tertiary-container: color-mix(in srgb, var(--nord7) 35%, var(--nord1)) !important;
+  --gm3-sys-color-tertiary-container-rgb: var(--nord7-rgb) !important;
+  --gm3-sys-color-on-tertiary-container: var(--nord6) !important;
+  --gm3-sys-color-on-tertiary-container-rgb: var(--nord6-rgb) !important;
+  --gm3-sys-color-tertiary-fixed: var(--nord7) !important;
+  --gm3-sys-color-tertiary-fixed-rgb: var(--nord7-rgb) !important;
+  --gm3-sys-color-tertiary-fixed-dim: color-mix(in srgb, var(--nord7) 80%, var(--nord0)) !important;
+  --gm3-sys-color-tertiary-fixed-dim-rgb: var(--nord7-rgb) !important;
+  --gm3-sys-color-on-tertiary-fixed: var(--nord0) !important;
+  --gm3-sys-color-on-tertiary-fixed-rgb: var(--nord0-rgb) !important;
+  --gm3-sys-color-on-tertiary-fixed-variant: var(--nord1) !important;
+  --gm3-sys-color-on-tertiary-fixed-variant-rgb: var(--nord1-rgb) !important;
+  --gm3-sys-color-error: var(--nord11) !important;
+  --gm3-sys-color-error-rgb: var(--nord11-rgb) !important;
+  --gm3-sys-color-on-error: var(--nord-on-accent) !important;
+  --gm3-sys-color-on-error-rgb: var(--nord6-rgb) !important;
+  --gm3-sys-color-error-container: color-mix(in srgb, var(--nord11) 35%, var(--nord1)) !important;
+  --gm3-sys-color-error-container-rgb: var(--nord11-rgb) !important;
+  --gm3-sys-color-on-error-container: var(--nord6) !important;
+  --gm3-sys-color-on-error-container-rgb: var(--nord6-rgb) !important;
+  --ws-sys-color-extended-blue-fill: var(--nord10) !important;
+  --ws-sys-color-extended-blue-outline: var(--nord10) !important;
+  --ws-sys-color-extended-blue-tonal: color-mix(in srgb, var(--nord10) 30%, var(--nord1)) !important;
+  --ws-sys-color-extended-on-blue-fill: var(--nord-on-accent) !important;
+  --ws-sys-color-extended-on-blue-outline: var(--nord10) !important;
+  --ws-sys-color-extended-on-blue-tonal: color-mix(in srgb, var(--nord10) 70%, var(--nord6)) !important;
+  --ws-sys-color-extended-cyan-fill: var(--nord8) !important;
+  --ws-sys-color-extended-cyan-outline: var(--nord8) !important;
+  --ws-sys-color-extended-cyan-tonal: color-mix(in srgb, var(--nord8) 30%, var(--nord1)) !important;
+  --ws-sys-color-extended-on-cyan-fill: var(--nord0) !important;
+  --ws-sys-color-extended-on-cyan-outline: var(--nord8) !important;
+  --ws-sys-color-extended-on-cyan-tonal: color-mix(in srgb, var(--nord8) 70%, var(--nord6)) !important;
+  --ws-sys-color-extended-green-fill: var(--nord14) !important;
+  --ws-sys-color-extended-green-outline: var(--nord14) !important;
+  --ws-sys-color-extended-green-tonal: color-mix(in srgb, var(--nord14) 30%, var(--nord1)) !important;
+  --ws-sys-color-extended-on-green-fill: var(--nord0) !important;
+  --ws-sys-color-extended-on-green-outline: var(--nord14) !important;
+  --ws-sys-color-extended-on-green-tonal: color-mix(in srgb, var(--nord14) 70%, var(--nord6)) !important;
+  --ws-sys-color-extended-grey-fill: var(--nord3) !important;
+  --ws-sys-color-extended-grey-outline: var(--nord3) !important;
+  --ws-sys-color-extended-grey-tonal: color-mix(in srgb, var(--nord3) 30%, var(--nord1)) !important;
+  --ws-sys-color-extended-on-grey-fill: var(--nord-on-accent) !important;
+  --ws-sys-color-extended-on-grey-outline: var(--nord3) !important;
+  --ws-sys-color-extended-on-grey-tonal: color-mix(in srgb, var(--nord3) 70%, var(--nord6)) !important;
+  --ws-sys-color-extended-orange-fill: var(--nord12) !important;
+  --ws-sys-color-extended-orange-outline: var(--nord12) !important;
+  --ws-sys-color-extended-orange-tonal: color-mix(in srgb, var(--nord12) 30%, var(--nord1)) !important;
+  --ws-sys-color-extended-on-orange-fill: var(--nord0) !important;
+  --ws-sys-color-extended-on-orange-outline: var(--nord12) !important;
+  --ws-sys-color-extended-on-orange-tonal: color-mix(in srgb, var(--nord12) 70%, var(--nord6)) !important;
+  --ws-sys-color-extended-pink-fill: var(--nord15) !important;
+  --ws-sys-color-extended-pink-outline: var(--nord15) !important;
+  --ws-sys-color-extended-pink-tonal: color-mix(in srgb, var(--nord15) 30%, var(--nord1)) !important;
+  --ws-sys-color-extended-on-pink-fill: var(--nord-on-accent) !important;
+  --ws-sys-color-extended-on-pink-outline: var(--nord15) !important;
+  --ws-sys-color-extended-on-pink-tonal: color-mix(in srgb, var(--nord15) 70%, var(--nord6)) !important;
+  --ws-sys-color-extended-purple-fill: var(--nord15) !important;
+  --ws-sys-color-extended-purple-outline: var(--nord15) !important;
+  --ws-sys-color-extended-purple-tonal: color-mix(in srgb, var(--nord15) 30%, var(--nord1)) !important;
+  --ws-sys-color-extended-on-purple-fill: var(--nord-on-accent) !important;
+  --ws-sys-color-extended-on-purple-outline: var(--nord15) !important;
+  --ws-sys-color-extended-on-purple-tonal: color-mix(in srgb, var(--nord15) 70%, var(--nord6)) !important;
+  --ws-sys-color-extended-red-fill: var(--nord11) !important;
+  --ws-sys-color-extended-red-outline: var(--nord11) !important;
+  --ws-sys-color-extended-red-tonal: color-mix(in srgb, var(--nord11) 30%, var(--nord1)) !important;
+  --ws-sys-color-extended-on-red-fill: var(--nord-on-accent) !important;
+  --ws-sys-color-extended-on-red-outline: var(--nord11) !important;
+  --ws-sys-color-extended-on-red-tonal: color-mix(in srgb, var(--nord11) 70%, var(--nord6)) !important;
+  --ws-sys-color-extended-yellow-fill: var(--nord13) !important;
+  --ws-sys-color-extended-yellow-outline: var(--nord13) !important;
+  --ws-sys-color-extended-yellow-tonal: color-mix(in srgb, var(--nord13) 30%, var(--nord1)) !important;
+  --ws-sys-color-extended-on-yellow-fill: var(--nord0) !important;
+  --ws-sys-color-extended-on-yellow-outline: var(--nord13) !important;
+  --ws-sys-color-extended-on-yellow-tonal: color-mix(in srgb, var(--nord13) 70%, var(--nord6)) !important;
+}
+
+html {
+  color-scheme: var(--nord-scheme);
+}
+
+/* ---------- Page, theme picture and panels ---------- */
+/* Gmail themes paint a picture (.a4t) behind translucent white or black panels */
+.wl, body {
+  background-color: var(--nord0) !important;
+}
+.a4t {
+  background-image: none !important;
+}
+.bkK > .nH, .bkL > .nH {
+  background-color: var(--nord1) !important;
+}
+
+/* ---------- Left navigation ---------- */
+.TK .TO.nZ, .TK .TO.nZ:active, .TK .TO.ol {
+  background-color: var(--gm3-sys-color-secondary-container) !important;
+}
+.TK .TO:hover {
+  background-color: var(--nord2) !important;
+}
+
+/* ---------- Compose button ---------- */
+.T-I.T-I-KE {
+  background-color: var(--gm3-sys-color-primary-container) !important;
+  color: var(--nord6) !important;
+}
+.T-I.T-I-KE:hover {
+  background-color: color-mix(in srgb, var(--nord10) 60%, var(--nord1)) !important;
+}
+
+/* ---------- Message list ---------- */
+.zA {
+  background-color: transparent !important;
+}
+.zA.zE {
+  background-color: color-mix(in srgb, var(--nord2) 45%, var(--nord1)) !important;
+}
+.zA.x7 {
+  background-color: var(--gm3-sys-color-secondary-container) !important;
+}
+.zA:hover {
+  background-color: var(--nord2) !important;
+  box-shadow: none !important;
+}
+/* Light Gmail themes write dark text into the list */
+.zA, .zA .yP, .zA .zF, .zA .bog, .zA .bqe, .zA .xW span, .zA .xY span {
+  color: var(--nord4) !important;
+}
+.zA.zE, .zA.zE .yP, .zA.zE .zF, .zA.zE .bog, .zA.zE .bqe, .zA.zE .xW span {
+  color: var(--nord6) !important;
+}
+.zA .y2, .zA .y2 span {
+  color: color-mix(in srgb, var(--nord4) 60%, var(--nord3)) !important;
+}
+.Dj, .Dj span, .ts {
+  color: var(--nord4) !important;
+}
+
+/* ---------- Icons ----------
+   Gmail ships each icon twice, dark (_nv700_) for light themes and white for dark ones.
+   brightness(0) makes either one black first, so the same filter fits every Gmail theme.
+   Starred stars and coloured icons are left alone. */
+.T-I-J3, .T-Jo, .qj, .aAu, .TH, .G-asx, .T-KT:not(.T-KT-Jp), .bjy, .asf, .amI, .amJ {
+  filter: var(--nord-icon-filter) !important;
+}
+
+/* ---------- Search box ---------- */
+form.aJf, form[role="search"] {
+  background-color: var(--nord1) !important;
+}
+form.aJf:focus-within, form[role="search"]:focus-within {
+  background-color: var(--nord2) !important;
+}
+form.aJf input, form[role="search"] input {
+  color: var(--nord6) !important;
+}
+
+/* ---------- Footer under the list (storage, terms) ---------- */
+.aiD, .ma, a.l9, .l8 {
+  color: color-mix(in srgb, var(--nord4) 60%, var(--nord3)) !important;
+}
+
+/* ---------- Open conversation ---------- */
+.nH.a98, .nH.btDi4d, .nr.wR, .aeF, .nH.if, .adn.ads, .h7, .kv, .kQ, .gs {
+  background-color: var(--nord1) !important;
+}
+h2.hP {
+  color: var(--nord6) !important;
+}
+.gD, .gD span, .go, .g2 {
+  color: var(--nord6) !important;
+}
+.g3, .adl, .hb, .hb span, .ajB, .ajC {
+  color: color-mix(in srgb, var(--nord4) 70%, var(--nord3)) !important;
+}
+/* Reply, Reply all, Forward */
+.ams {
+  color: var(--nord4) !important;
+  border-color: var(--nord3) !important;
+  background-color: transparent !important;
+}
+.ams:hover {
+  background-color: var(--nord2) !important;
+}
+/* Message bodies keep the sender's colours, which assume white paper:
+   they sit on a Snow Storm sheet instead of the dark background */
+.a3s.aiL {
+  background-color: var(--nord-paper) !important;
+  color: var(--nord-paper-ink) !important;
+  padding: 12px 16px !important;
+  border-radius: 8px !important;
+}
+
+/* ---------- Compose window ---------- */
+.aaZ, .aGb, .aDj, td.Ap, .aoI, .I5, .aoP {
+  background-color: var(--nord1) !important;
+}
+.nH.Hd .Hp, .aYF, .aYF span, h2.a3E {
+  color: var(--nord6) !important;
+}
+input.agP, .aoT, .Am.Al.editable {
+  background-color: transparent !important;
+  color: var(--nord6) !important;
+}
+.gO, .aB, .aB.gQ, .aoD, .aoD span {
+  color: var(--nord4) !important;
+}
+.aoD, .aoT, .bze {
+  border-color: var(--nord2) !important;
+}
+/* Send button and the formatting bar */
+.T-I.T-I-atl {
+  background-color: var(--nord10) !important;
+  color: var(--nord-on-accent) !important;
+}
+.J-Z-M-I-Jm, .J-Z-M-I .J-J5-Ji {
+  color: var(--nord4) !important;
+}
+.aaA, .J-Z-I, .J-Z-M-I-JG {
+  filter: var(--nord-icon-filter) !important;
+}
+
+/* Navigation text: picture themes write it white over the picture */
+.TK a.J-Ke.n0, .TK .nU, .TK .nU a, .TK .bsU, span.CJ, span.aAv, .aAu, .Ls77Lb {
+  color: var(--nord4) !important;
+}
+.TK .TO.nZ a.J-Ke.n0, .TK .TO.nZ .bsU {
+  color: var(--nord6) !important;
+}
+}
+}

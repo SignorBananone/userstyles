@@ -1,6 +1,6 @@
 # userstyles
 
-UserCSS styles for [Stylus](https://github.com/openstyles/stylus), published on [userstyles.world](https://userstyles.world/user/SignorBananone). All of them use the [Nord](https://www.nordtheme.com/) palette.
+UserCSS styles for [Stylus](https://github.com/openstyles/stylus), most of them also published on [userstyles.world](https://userstyles.world/user/SignorBananone). All of them use the [Nord](https://www.nordtheme.com/) palette.
 
 Each style lives in its own `.user.css` file. The userstyles.world pages mirror this repository: pushing a new version here, with a higher `@version`, updates the style for everyone who installed it.
 
@@ -88,6 +88,33 @@ A Nord theme for the [Moontower](https://www.moontowermoney.com/) blog and its [
 - Install: [userstyles.world/style/17319](https://userstyles.world/style/17319) or open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/moontower-nord.user.css) with Stylus installed.
 
 Versions up to 20240721 were released under CC BY-SA 4.0. The 2026 rewrite is released under the MIT license.
+
+## Proton Nord
+
+A Nord theme for [Proton](https://proton.me/): the account pages (including the VPN dashboard), Mail, Calendar, Drive, Pass and Lumo.
+
+- File: [`proton-nord.user.css`](proton-nord.user.css)
+- Install: open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/proton-nord.user.css) with Stylus installed. Not on userstyles.world yet.
+
+Proton builds every app from one set of theme variables (`--background-norm`, `--text-norm`, `--interaction-norm`, ...), which it writes for the theme picked in its settings. The style replaces them for every Proton theme: the core ones by hand, the product-specific ones from Proton's own dark themes moved to the nearest Nord colour. Logos, the sign-in background and the upgrade buttons are recoloured separately.
+
+## Gmail Nord
+
+A Nord theme for [Gmail](https://mail.google.com/): the message list, open conversations, the compose window, the search box and the navigation. It works over every Gmail theme, including picture themes.
+
+- File: [`gmail-nord.user.css`](gmail-nord.user.css)
+- Install: open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/gmail-nord.user.css) with Stylus installed. Not on userstyles.world yet.
+
+Gmail's newer components use Material 3 colour roles (`--gm3-sys-color-*`), which the style maps onto the palette; the older parts are recoloured through Gmail's class names. Gmail's icons are bitmaps, dark for light themes and white for dark ones: a filter flattens either kind and tints it, so the icons match whatever Gmail theme is selected. Message bodies keep the sender's colours on a light sheet, since most HTML emails assume a white background.
+
+## UniBG eLearning Nord
+
+A Nord theme for the University of Bergamo Moodle at [elearning15.unibg.it](https://elearning15.unibg.it/): the front page, dashboard, course list, course pages, drawers, forms and messages.
+
+- File: [`unibg-elearning-nord.user.css`](unibg-elearning-nord.user.css)
+- Install: open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/unibg-elearning-nord.user.css) with Stylus installed. Not on userstyles.world yet.
+
+The site runs Moodle 4 with the Academi theme, compiled from Bootstrap 4 with fixed colours and no CSS variables, so the style targets Bootstrap's and Moodle's semantic classes (cards, navbars, buttons, alerts, course index, activity items).
 
 ## License
 
