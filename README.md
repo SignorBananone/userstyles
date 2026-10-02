@@ -151,6 +151,15 @@ A Nord theme for the Amazon stores (amazon.it, .com, .de, .fr, .es, .co.uk and t
 
 Amazon paints its pages with fixed colours, not theme variables, so most of the style is generated: every colour declaration in Amazon's own stylesheets (home, search, product, cart, orders, deals, best sellers, lists and help pages) is moved to the palette by kind (background, text, border) and colour. Hand-written rules follow for the header, the buttons (which Amazon draws with gradients), inputs, pop-overs and the home page widgets. Product pictures have white backgrounds, so they sit on a light "paper"; Amazon's `multiply` blending, which would darken them on dark cards, is switched off. Only `www.` store pages are matched: AWS, Music, Seller Central and the other services on Amazon subdomains are left alone.
 
+## MangaWorld Nord
+
+A Nord theme for MangaWorld: home, archive and filters, manga pages, the chapter reader and the account pages.
+
+- File: [`mangaworld-nord.user.css`](mangaworld-nord.user.css)
+- Install: open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/mangaworld-nord.user.css) with Stylus installed. Not on userstyles.world yet.
+
+MangaWorld is built on Bootstrap 4 with fixed colours, so most of the style is generated: every colour declaration in the site's stylesheets (home, archive, manga, reader and login pages) is moved to the palette by kind and colour, with the site's orange becoming Nord orange. Hand-written rules follow for fields, menus, filled buttons and the logo, whose SVG is used as a mask so the word and the stripes take the palette colours. The reader's own dark mode (the moon button) looks the same as the normal one. The site often moves to a new domain, so any `mangaworld.<domain>` address is matched; the adult sister site is not.
+
 ## UniBG eLearning Nord
 
 A Nord theme for the University of Bergamo Moodle at [elearning15.unibg.it](https://elearning15.unibg.it/): the front page, dashboard, course list, course pages, drawers, forms and messages.

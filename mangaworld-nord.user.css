@@ -1,0 +1,584 @@
+/* ==UserStyle==
+@name         MangaWorld Nord
+@version      20261002.01.00
+@namespace    https://github.com/SignorBananone/userstyles
+@description  Nord theme for MangaWorld (mangaworld.mx and the next domains it moves to): home, archive, manga pages, reader and account pages
+@homepageURL  https://github.com/SignorBananone/userstyles
+@author       SignorBananone
+@license      MIT
+@preprocessor   less
+
+@var select apply "Apply the theme" {
+  "Always*": "always",
+  "Only when the browser or system is in dark mode": "dark",
+  "Only when the browser or system is in light mode": "light"
+}
+@var select palette "Palette, from the darkest to the lightest" {
+  "1. Black: near-black, for OLED screens and dark rooms": "black",
+  "2. Deep: darker than Nord": "darker",
+  "3. Nord: the original Polar Night*": "nord",
+  "4. Dim: a little lighter than Nord": "dim",
+  "5. Slate: the lightest dark palette, grey-blue": "slate",
+  "6. Fog: grey light palette, the least glare": "lightdim",
+  "7. Mist: soft light palette": "soft",
+  "8. Snow: the original Nord light": "light",
+  "9. Paper: almost white, for bright rooms": "bright",
+  "Colourful dark: deep blue backgrounds, vivid accents": "vividdark",
+  "Colourful light: blue-white backgrounds, vivid accents": "vividlight",
+  "Follow the browser: the two palettes chosen below": "auto",
+  "Custom: the colours below": "custom"
+}
+@var select auto_dark "Follow the browser: palette when the browser is dark" {
+  "1. Black: near-black, for OLED screens and dark rooms": "black",
+  "2. Deep: darker than Nord": "darker",
+  "3. Nord: the original Polar Night*": "nord",
+  "4. Dim: a little lighter than Nord": "dim",
+  "5. Slate: the lightest dark palette, grey-blue": "slate",
+  "Colourful dark: deep blue backgrounds, vivid accents": "vividdark"
+}
+@var select auto_light "Follow the browser: palette when the browser is light" {
+  "6. Fog: grey light palette, the least glare": "lightdim",
+  "7. Mist: soft light palette": "soft",
+  "8. Snow: the original Nord light*": "light",
+  "9. Paper: almost white, for bright rooms": "bright",
+  "Colourful light: blue-white backgrounds, vivid accents": "vividlight"
+}
+@var select custom_type "Custom palette type" {
+  "Dark: light text on dark backgrounds*": "dark",
+  "Light: dark text on light backgrounds": "light"
+}
+@var color nord0 "Custom nord0: Background" #2e3440
+@var color nord1 "Custom nord1: Surfaces: cards, sidebars, inputs" #3b4252
+@var color nord2 "Custom nord2: Raised surfaces: hover, selection" #434c5e
+@var color nord3 "Custom nord3: Borders and muted elements" #4c566a
+@var color nord4 "Custom nord4: Text" #d8dee9
+@var color nord5 "Custom nord5: Brighter text" #e5e9f0
+@var color nord6 "Custom nord6: Headings and brightest text" #eceff4
+@var color nord7 "Custom nord7: Frost teal" #8fbcbb
+@var color nord8 "Custom nord8: Main accent: links, highlights" #88c0d0
+@var color nord9 "Custom nord9: Frost blue" #81a1c1
+@var color nord10 "Custom nord10: Deep blue: buttons" #5e81ac
+@var color nord11 "Custom nord11: Red: errors" #bf616a
+@var color nord12 "Custom nord12: Orange" #d08770
+@var color nord13 "Custom nord13: Yellow: warnings" #ebcb8b
+@var color nord14 "Custom nord14: Green: success" #a3be8c
+@var color nord15 "Custom nord15: Purple" #b48ead
+==/UserStyle== */
+
+/* ---------- Options ----------
+   Stylus compiles this file with Less. The options only set CSS variables:
+   every colour below is var(--nord0) ... var(--nord15), or a color-mix() of them,
+   so one palette recolours the whole style. --nord-deep and --nord-peak sit past
+   the background and text ends of the palette (black and white in a dark one),
+   and --nord-on-accent is the text colour for filled accent backgrounds.
+   --nordN-rgb, where present, holds the same colour as an "r, g, b" list for Bootstrap. */
+@nord-apply: if((@apply = dark), ~"(prefers-color-scheme: dark)", if((@apply = light), ~"(prefers-color-scheme: light)", ~"all"));
+.nord-preset(black) {
+  --nord0: #16191f;
+  --nord1: #1e222a;
+  --nord2: #272c36;
+  --nord3: #3b4252;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  .nord-mode(dark);
+}
+.nord-preset(darker) {
+  --nord0: #242933;
+  --nord1: #2b303b;
+  --nord2: #353b49;
+  --nord3: #434c5e;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  .nord-mode(dark);
+}
+.nord-preset(nord) {
+  --nord0: #2e3440;
+  --nord1: #3b4252;
+  --nord2: #434c5e;
+  --nord3: #4c566a;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  .nord-mode(dark);
+}
+.nord-preset(dim) {
+  --nord0: #3b4252;
+  --nord1: #434c5e;
+  --nord2: #4c566a;
+  --nord3: #5a6478;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  .nord-mode(dark);
+}
+.nord-preset(slate) {
+  --nord0: #4c566a;
+  --nord1: #56617a;
+  --nord2: #616d87;
+  --nord3: #76829b;
+  --nord4: #e5e9f0;
+  --nord5: #eceff4;
+  --nord6: #f4f6f9;
+  --nord7: #84c7c5;
+  --nord8: #7ec6da;
+  --nord9: #97b8d8;
+  --nord10: #5e81ac;
+  --nord11: #e4a5aa;
+  --nord12: #e6a692;
+  --nord13: #f3ce83;
+  --nord14: #a2c981;
+  --nord15: #d2a8ca;
+  .nord-mode(dark);
+}
+.nord-preset(lightdim) {
+  --nord0: #d8dee9;
+  --nord1: #cfd6e1;
+  --nord2: #c3cbd8;
+  --nord3: #a3adbf;
+  --nord4: #2e3440;
+  --nord5: #2e3440;
+  --nord6: #242933;
+  --nord7: #3d6160;
+  --nord8: #33626f;
+  --nord9: #445d76;
+  --nord10: #405d80;
+  --nord11: #91434b;
+  --nord12: #864c3a;
+  --nord13: #705722;
+  --nord14: #4d613a;
+  --nord15: #6f516a;
+  .nord-mode(light);
+}
+.nord-preset(soft) {
+  --nord0: #e5e9f0;
+  --nord1: #dce2eb;
+  --nord2: #cfd6e1;
+  --nord3: #aab3c3;
+  --nord4: #3b4252;
+  --nord5: #353b49;
+  --nord6: #2e3440;
+  --nord7: #426968;
+  --nord8: #376a78;
+  --nord9: #4a6580;
+  --nord10: #46658c;
+  --nord11: #9b4851;
+  --nord12: #91523f;
+  --nord13: #7a5f24;
+  --nord14: #53693e;
+  --nord15: #7a5874;
+  .nord-mode(light);
+}
+.nord-preset(light) {
+  --nord0: #eceff4;
+  --nord1: #e5e9f0;
+  --nord2: #d8dee9;
+  --nord3: #b4bcc9;
+  --nord4: #3b4252;
+  --nord5: #353b49;
+  --nord6: #2e3440;
+  --nord7: #497473;
+  --nord8: #3c7382;
+  --nord9: #516f8d;
+  --nord10: #4c6e98;
+  --nord11: #ab4f59;
+  --nord12: #9f5a45;
+  --nord13: #866828;
+  --nord14: #5b7344;
+  --nord15: #84607e;
+  .nord-mode(light);
+}
+.nord-preset(bright) {
+  --nord0: #fafbfc;
+  --nord1: #f0f3f7;
+  --nord2: #e5e9f0;
+  --nord3: #c3cad6;
+  --nord4: #3b4252;
+  --nord5: #353b49;
+  --nord6: #2e3440;
+  --nord7: #497473;
+  --nord8: #3c7382;
+  --nord9: #516f8d;
+  --nord10: #4c6e98;
+  --nord11: #ab4f59;
+  --nord12: #9f5a45;
+  --nord13: #866828;
+  --nord14: #5b7344;
+  --nord15: #84607e;
+  .nord-mode(light);
+}
+.nord-preset(vividdark) {
+  --nord0: #1d253a;
+  --nord1: #26314a;
+  --nord2: #303d5a;
+  --nord3: #425070;
+  --nord4: #d4dded;
+  --nord5: #e1e8f4;
+  --nord6: #f0f3fa;
+  --nord7: #83d2d1;
+  --nord8: #7ecde4;
+  --nord9: #74a6d8;
+  --nord10: #4b84c9;
+  --nord11: #e27983;
+  --nord12: #e68364;
+  --nord13: #fad486;
+  --nord14: #a7d480;
+  --nord15: #cc81be;
+  .nord-mode(dark);
+}
+.nord-preset(vividlight) {
+  --nord0: #f3f6fc;
+  --nord1: #e3ebf7;
+  --nord2: #cedaee;
+  --nord3: #a1b2ce;
+  --nord4: #2d3a58;
+  --nord5: #25304b;
+  --nord6: #1b253c;
+  --nord7: #287372;
+  --nord8: #207187;
+  --nord9: #336ba3;
+  --nord10: #2e69b0;
+  --nord11: #c22e3e;
+  --nord12: #b04726;
+  --nord13: #876110;
+  --nord14: #4c7325;
+  --nord15: #a14391;
+  .nord-mode(light);
+}
+.nord-preset(custom) {
+  --nord0: @nord0;
+  --nord1: @nord1;
+  --nord2: @nord2;
+  --nord3: @nord3;
+  --nord4: @nord4;
+  --nord5: @nord5;
+  --nord6: @nord6;
+  --nord7: @nord7;
+  --nord8: @nord8;
+  --nord9: @nord9;
+  --nord10: @nord10;
+  --nord11: @nord11;
+  --nord12: @nord12;
+  --nord13: @nord13;
+  --nord14: @nord14;
+  --nord15: @nord15;
+  .nord-mode(@custom_type);
+}
+.nord-preset(auto) {
+  .nord-preset(@auto_dark);
+  @media (prefers-color-scheme: light) { .nord-preset(@auto_light); }
+}
+.nord-mode(dark) { --nord-deep: #000; --nord-peak: #fff; --nord-scheme: dark; --nord-on-accent: var(--nord6); .nord-site(dark); }
+.nord-mode(light) { --nord-deep: #fff; --nord-peak: #000; --nord-scheme: light; --nord-on-accent: var(--nord0); .nord-site(light); }
+.nord-site(@mode) {}
+
+
+/* MangaWorld moves between domains (.so, .bz, .ac, .mx ...): match any of them.
+   The adult sister site (mangaworldadult.*) is a different name and is not matched. */
+@-moz-document regexp("https://(www\\.)?mangaworld\\.[a-z]+(/.*)?") {
+@media @nord-apply {
+:root { .nord-preset(@palette); }
+
+
+/* ---------- Generated from MangaWorld's own stylesheets ----------
+   Every colour declaration in the stylesheets of the home, archive, manga, reader and
+   login pages (Bootstrap 4 and the site's own sheets, including the reader's dark mode),
+   moved to the palette by kind (background, text, border) and colour. */
+.btn-primary:not(.next):not(.prev),.btn-primary:not(.next):not(.prev):focus{color:var(--nord6) !important;background-color:var(--nord12) !important;border-color:var(--nord12) !important}
+.container .top-bar.fixed-bar,#navbar #mobile-nav,.table-light,.table-light>td,.table-light>th,.custom-switch .custom-control-input:checked~.custom-control-label::after,.modal-backdrop,.carousel-indicators li,a.bg-dark:focus,a.bg-dark:hover,button.bg-dark:focus,button.bg-dark:hover,.bg-white,.slick-arrow-wrapper,.slick-arrow-wrapper .slick-arrow-button,.slider-before-loading .fs-carousel.fs-light.fs-carousel-enabled .fs-carousel-page,.fs-carousel.fs-light.fs-carousel-enabled .fs-carousel-page,.chapter-content-inner,.fastrefresh{background-color:var(--nord0) !important}
+.categories-menu-nav{color:var(--nord12) !important;background-color:var(--nord0) !important}
+#navbar #navbarContent .nav-item a:not(.dropdown-item),#navbar #mobile-nav .list-group-item,#navbar #mobile-nav .list-group-item > a,.slick-dots li button:hover:before,.slick-dots li button:focus:before,.slick-dots li.slick-active button:before,a:hover,.top-area form button,.menu-main>li:hover,.menu-main>li[class*=current-menu],.menu-main>li>a,.s-title .go-more:hover,.s-title .go-more i.fa,.comics-flex .vertical .name:hover,.comics-flex .horizontal .name:hover,.comics-flex .horizontal .chap,.comics-grid .entry a:hover,.single-comic .newest-chapters .chap:hover,.single-comic .newest-chapters .chap a:visited,.rating-container .counter,.breadcrumbs a:hover,.top-wrapper .entry .long .name,.top-wrapper .entry:nth-of-type(1) .indi,.top-wrapper .entry:nth-of-type(2) .indi,.top-wrapper .entry:nth-of-type(3) .indi,.top-wrapper .top-bottom,body.dark #navbar #navbarContent .nav-item a:not(.dropdown-item){color:var(--nord12) !important}
+#navbar #mobile-nav .nav-menu-divider-title,.bs-tooltip-auto[x-placement^=bottom] .arrow::before,.bs-tooltip-bottom .arrow::before{border-bottom-color:var(--nord4) !important}
+#mobile-nav-panel{background-color:color-mix(in srgb, var(--nord6) 30%, transparent) !important}
+#search-wrapper #search-bar,#search-wrapper #search-bar-mobile,#search-wrapper-mobile #search-bar,#search-wrapper-mobile #search-bar-mobile,.table-dark tbody+tbody,.table-dark td,.table-dark th,.table-dark thead th,.border-secondary,.border-dark,#chapterList-controls button,#vm18-modal li:before,body.dark .top-wrapper{border-color:var(--nord4) !important}
+#search-wrapper .form-control-feedback,#search-wrapper-mobile .form-control-feedback,.navbar-light .navbar-nav .nav-link.disabled,.bootstrap-select>.dropdown-toggle.bs-placeholder,.bootstrap-select>.dropdown-toggle.bs-placeholder:active,.bootstrap-select>.dropdown-toggle.bs-placeholder:focus,.bootstrap-select>.dropdown-toggle.bs-placeholder:hover,.top-wrapper .entry .indi{color:color-mix(in srgb, var(--nord4) 60%, var(--nord3)) !important}
+#search-wrapper #search-button,#search-wrapper #search-button-mobile,#search-wrapper-mobile #search-button,#search-wrapper-mobile #search-button-mobile,pre,.table,.form-control-plaintext,.btn,.btn:hover,.btn-outline-light.disabled,.btn-outline-light:disabled,.btn-outline-dark.disabled,.btn-outline-dark:disabled,.dropdown-item,.dropdown-item-text,.navbar-light .navbar-brand,.navbar-light .navbar-brand:focus,.navbar-light .navbar-brand:hover,.navbar-light .navbar-nav .active>.nav-link,.navbar-light .navbar-nav .nav-link.active,.navbar-light .navbar-nav .nav-link.show,.navbar-light .navbar-nav .show>.nav-link,.navbar-light .navbar-text a,.navbar-light .navbar-text a:focus,.navbar-light .navbar-text a:hover,.navbar-dark .navbar-brand,.navbar-dark .navbar-brand:focus,.navbar-dark .navbar-brand:hover,.navbar-dark .navbar-nav .active>.nav-link,.navbar-dark .navbar-nav .nav-link.active,.navbar-dark .navbar-nav .nav-link.show,.navbar-dark .navbar-nav .show>.nav-link,.navbar-dark .navbar-text a,.navbar-dark .navbar-text a:focus,.navbar-dark .navbar-text a:hover,.alert-secondary .alert-link,.alert-dark .alert-link,.close,.close:hover,.popover-body,.carousel-control-next,.carousel-control-prev,.carousel-control-next:focus,.carousel-control-next:hover,.carousel-control-prev:focus,.carousel-control-prev:hover,.carousel-caption,.text-white,.text-light,.text-dark,a.text-dark:focus,a.text-dark:hover,.text-body,.slick-dots li button::before,.tippy-arrow,.menu-main-mobile .sub-menu,.s-title .go-more,.breadcrumbs a,.bigger,.footer-icon-mw,a.manga-title,body.dark #sidebar-mobile-menu-button,body.dark #search-bar::placeholder,body.dark #search-bar-mobile::placeholder,body.dark #search-button,body.dark #search-button-mobile,body.dark #site-footer .footer-icon-mw,body.dark #theme-button{color:var(--nord6) !important}
+#search-wrapper #search-menu,#search-wrapper #search-menu-mobile,#search-wrapper-mobile #search-menu,#search-wrapper-mobile #search-menu-mobile{border-color:var(--nord4) !important;background-color:var(--nord0) !important}
+#search-wrapper #search-menu .search-result .content,#search-wrapper #search-menu-mobile .search-result .content,#search-wrapper-mobile #search-menu .search-result .content,#search-wrapper-mobile #search-menu-mobile .search-result .content,caption,.blockquote-footer,.figure-caption,.form-control::-webkit-input-placeholder,.form-control::placeholder,.form-check-input:disabled~.form-check-label,.form-check-input[disabled]~.form-check-label,.btn-outline-secondary.disabled,.btn-outline-secondary:disabled,.btn-link.disabled,.btn-link:disabled,.dropdown-item.disabled,.dropdown-item:disabled,.dropdown-header,.custom-control-input:disabled~.custom-control-label,.custom-control-input[disabled]~.custom-control-label,.nav-link.disabled,.nav-tabs .nav-link.disabled,.navbar-light .navbar-nav .nav-link,.navbar-light .navbar-text,.breadcrumb-item+.breadcrumb-item::before,.breadcrumb-item.active,.alert-light .alert-link,.text-secondary,.text-muted,.text-black-50,.wp-caption p.wp-caption-text,.menu-main>li,.latest-manga .entry .content,.top-wrapper .content{color:var(--nord4) !important}
+:root{--blue:var(--nord10) !important;--indigo:var(--nord8) !important;--purple:var(--nord15) !important;--pink:var(--nord11) !important;--red:var(--nord11) !important;--orange:var(--nord12) !important;--yellow:var(--nord13) !important;--green:var(--nord14) !important;--teal:var(--nord14) !important;--cyan:var(--nord7) !important;--white:var(--nord0) !important;--gray:var(--nord4) !important;--gray-dark:var(--nord6) !important;--primary:var(--nord10) !important;--secondary:var(--nord4) !important;--success:var(--nord14) !important;--info:var(--nord7) !important;--warning:var(--nord13) !important;--danger:var(--nord11) !important;--light:color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important;--dark:var(--nord6) !important}
+body,kbd,a.badge-dark:focus,a.badge-dark:hover,.tooltip-inner{color:var(--nord6) !important;background-color:var(--nord0) !important}
+a,a:hover,.btn-outline-primary.disabled,.btn-outline-primary:disabled,.btn-link,.btn-link:hover,.alert-primary .alert-link,.text-primary,a.text-primary:focus,a.text-primary:hover,.comics-grid .entry .genre a{color:var(--nord8) !important}
+hr{border-top-color:color-mix(in srgb, var(--nord6) 10%, transparent) !important}
+.mark,mark,.table-warning,.table-warning>td,.table-warning>th,.table-hover .table-warning:hover,.table-hover .table-warning:hover>td,.table-hover .table-warning:hover>th{background-color:color-mix(in srgb, var(--nord13) 30%, var(--nord1)) !important}
+.img-thumbnail{background-color:var(--nord0) !important;border-color:var(--nord2) !important}
+code,.invalid-feedback,.form-check-input.is-invalid~.form-check-label,.was-validated .form-check-input:invalid~.form-check-label,.custom-control-input.is-invalid~.custom-control-label,.was-validated .custom-control-input:invalid~.custom-control-label,.btn-outline-danger.disabled,.btn-outline-danger:disabled,.alert-danger .alert-link,.text-danger,a.text-danger:focus,a.text-danger:hover,.menu-main-mobile .sub-menu .sub-menu,.premium-page .fa-times{color:var(--nord11) !important}
+.table td,.table th,.table tbody+tbody,.dropdown-divider,.modal-footer,.bs-popover-auto[x-placement^=top]>.arrow::after,.bs-popover-top>.arrow::after,.border-top,.bootstrap-select.show-menu-arrow.dropup .dropdown-toggle .filter-option:after{border-top-color:var(--nord2) !important}
+.table thead th,.nav-tabs,.modal-header,.bs-popover-auto[x-placement^=bottom]>.arrow::after,.bs-popover-bottom>.arrow::after,.bs-popover-auto[x-placement^=bottom] .popover-header::before,.bs-popover-bottom .popover-header::before,.border-bottom,.bootstrap-select.show-menu-arrow .dropdown-toggle .filter-option:after,.single-comic .newest-chapters .chapter,.two-rows.go-border,.top-wrapper .entry,.auth-page .page-title,body.dark #navbar #mobile-nav .nav-menu-divider-title{border-bottom-color:var(--nord2) !important}
+.table-bordered,.table-bordered td,.table-bordered th,.table-light tbody+tbody,.table-light td,.table-light th,.table-light thead th,.border,.border-light,.border-white,.slider-before-loading .fs-carousel.fs-light.fs-carousel-enabled .fs-carousel-page:hover,.slider-before-loading .fs-carousel.fs-light.fs-carousel-enabled .fs-carousel-page[class*=active],.page-box,.single-comic .newest-chapters,.comic-info,.comic-description,.top-wrapper{border-color:var(--nord2) !important}
+.table-striped tbody tr:nth-of-type(odd){background-color:color-mix(in srgb, var(--nord6) 5%, transparent) !important}
+.table-hover tbody tr:hover{color:var(--nord6) !important;background-color:color-mix(in srgb, var(--nord6) 8%, transparent) !important}
+.table-primary,.table-primary>td,.table-primary>th,.table-hover .table-primary:hover,.table-hover .table-primary:hover>td,.table-hover .table-primary:hover>th,.custom-range::-webkit-slider-thumb,.custom-range::-webkit-slider-thumb:active,.bg-primary,a.bg-primary:focus,a.bg-primary:hover,button.bg-primary:focus,button.bg-primary:hover,.menu-main-mobile .current-menu-item,.menu-main-mobile .sub-menu .current-menu-parent,.menu-main-mobile .current-menu-item i.fa,.menu-main-mobile .sub-menu .current-menu-parent i.fa,.menu-main-mobile i.fa-angle-down,.menu-main-mobile i.fa-angle-up,.group-latest .slider-before-loading .fs-carousel.fs-light.fs-carousel-enabled .fs-carousel-page,.post-navi-direct a:hover{background-color:var(--nord10) !important}
+.table-primary tbody+tbody,.table-primary td,.table-primary th,.table-primary thead th,.custom-control-input:focus:not(:checked)~.custom-control-label::before,.custom-select:focus,.custom-file-input:focus~.custom-file-label,.border-primary{border-color:var(--nord8) !important}
+.table-secondary,.table-secondary>td,.table-secondary>th,.custom-range::-webkit-slider-runnable-track,a.bg-light:focus,a.bg-light:hover,button.bg-light:focus,button.bg-light:hover,.bg-dark,body.dark{background-color:var(--nord2) !important}
+.table-secondary tbody+tbody,.table-secondary td,.table-secondary th,.table-secondary thead th,.comics-flex.style-3,.pagination-container .page-numbers{border-color:var(--nord3) !important}
+.table-hover .table-secondary:hover,.table-hover .table-secondary:hover>td,.table-hover .table-secondary:hover>th,.table-dark,.table-dark>td,.table-dark>th,.table-hover .table-dark:hover,.table-hover .table-dark:hover>td,.table-hover .table-dark:hover>th,.custom-switch .custom-control-label::after,.custom-range:disabled::-webkit-slider-thumb,.bg-secondary,a.bg-secondary:focus,a.bg-secondary:hover,button.bg-secondary:focus,button.bg-secondary:hover,hr,body.dark hr{background-color:var(--nord3) !important}
+.table-success,.table-success>td,.table-success>th,.bg-tt{background-color:color-mix(in srgb, var(--nord14) 30%, var(--nord1)) !important}
+.table-success tbody+tbody,.table-success td,.table-success th,.table-success thead th,.form-control.is-valid,.was-validated .form-control:valid,.form-control.is-valid:focus,.was-validated .form-control:valid:focus,.custom-select.is-valid,.was-validated .custom-select:valid,.custom-select.is-valid:focus,.was-validated .custom-select:valid:focus,.custom-control-input.is-valid~.custom-control-label::before,.was-validated .custom-control-input:valid~.custom-control-label::before,.custom-control-input.is-valid:focus:not(:checked)~.custom-control-label::before,.was-validated .custom-control-input:valid:focus:not(:checked)~.custom-control-label::before,.custom-file-input.is-valid~.custom-file-label,.was-validated .custom-file-input:valid~.custom-file-label,.custom-file-input.is-valid:focus~.custom-file-label,.was-validated .custom-file-input:valid:focus~.custom-file-label,.border-success,.bootstrap-select.is-valid .dropdown-toggle,.was-validated .bootstrap-select select:valid+.dropdown-toggle{border-color:var(--nord14) !important}
+.table-hover .table-success:hover,.table-hover .table-success:hover>td,.table-hover .table-success:hover>th,.bg-success,a.bg-success:focus,a.bg-success:hover,button.bg-success:focus,button.bg-success:hover{background-color:var(--nord14) !important}
+.table-info,.table-info>td,.table-info>th{background-color:color-mix(in srgb, var(--nord7) 30%, var(--nord1)) !important}
+.table-info tbody+tbody,.table-info td,.table-info th,.table-info thead th,.border-info{border-color:var(--nord7) !important}
+.table-hover .table-info:hover,.table-hover .table-info:hover>td,.table-hover .table-info:hover>th,.bg-info,a.bg-info:focus,a.bg-info:hover,button.bg-info:focus,button.bg-info:hover{background-color:var(--nord7) !important}
+.table-warning tbody+tbody,.table-warning td,.table-warning th,.table-warning thead th,.border-warning{border-color:var(--nord13) !important}
+.table-danger,.table-danger>td,.table-danger>th,.table-hover .table-danger:hover,.table-hover .table-danger:hover>td,.table-hover .table-danger:hover>th,.bg-danger,a.bg-danger:focus,a.bg-danger:hover,button.bg-danger:focus,button.bg-danger:hover{background-color:var(--nord11) !important}
+.table-danger tbody+tbody,.table-danger td,.table-danger th,.table-danger thead th,.form-control.is-invalid,.was-validated .form-control:invalid,.form-control.is-invalid:focus,.was-validated .form-control:invalid:focus,.custom-select.is-invalid,.was-validated .custom-select:invalid,.custom-select.is-invalid:focus,.was-validated .custom-select:invalid:focus,.custom-control-input.is-invalid~.custom-control-label::before,.was-validated .custom-control-input:invalid~.custom-control-label::before,.custom-control-input.is-invalid:focus:not(:checked)~.custom-control-label::before,.was-validated .custom-control-input:invalid:focus:not(:checked)~.custom-control-label::before,.custom-file-input.is-invalid~.custom-file-label,.was-validated .custom-file-input:invalid~.custom-file-label,.custom-file-input.is-invalid:focus~.custom-file-label,.was-validated .custom-file-input:invalid:focus~.custom-file-label,.border-danger,.bootstrap-select.is-invalid .dropdown-toggle,.error .bootstrap-select .dropdown-toggle,.has-error .bootstrap-select .dropdown-toggle,.was-validated .bootstrap-select select:invalid+.dropdown-toggle{border-color:var(--nord11) !important}
+.table-hover .table-light:hover,.table-hover .table-light:hover>td,.table-hover .table-light:hover>th{background-color:color-mix(in srgb, var(--nord10) 30%, var(--nord1)) !important}
+.table-active,.table-active>td,.table-active>th,.table-hover .table-active:hover,.table-hover .table-active:hover>td,.table-hover .table-active:hover>th{background-color:color-mix(in srgb, var(--nord6) 8%, transparent) !important}
+.table .thead-dark th,.btn-dark,.btn-dark.disabled,.btn-dark:disabled,.btn-outline-dark:hover,.btn-outline-dark:not(:disabled):not(.disabled).active,.btn-outline-dark:not(:disabled):not(.disabled):active,.show>.btn-outline-dark.dropdown-toggle,.list-group-item-secondary.list-group-item-action.active{color:var(--nord6) !important;background-color:var(--nord2) !important;border-color:var(--nord4) !important}
+.table .thead-light th{color:var(--nord5) !important;background-color:var(--nord1) !important;border-color:var(--nord2) !important}
+.table-dark,a.badge-light:focus,a.badge-light:hover,.badge-dark{color:var(--nord6) !important;background-color:var(--nord2) !important}
+.table-dark.table-striped tbody tr:nth-of-type(odd){background-color:color-mix(in srgb, var(--nord0) 5%, transparent) !important}
+.table-dark.table-hover tbody tr:hover{color:var(--nord6) !important;background-color:color-mix(in srgb, var(--nord0) 8%, transparent) !important}
+.form-control,.custom-file-label{color:var(--nord5) !important;background-color:var(--nord0) !important;border-color:var(--nord3) !important}
+.form-control:focus{color:var(--nord5) !important;background-color:var(--nord0) !important;border-color:var(--nord8) !important}
+.form-control:disabled,.form-control[readonly],.custom-control-input:disabled~.custom-control-label::before,.custom-control-input[disabled]~.custom-control-label::before,.custom-file-input:disabled~.custom-file-label,.custom-file-input[disabled]~.custom-file-label,.breadcrumb,.jumbotron,.progress,.menu-main .sub-menu a:hover,.menu-main .sub-menu a[class*=current],.single-comic .chapters-wrapper .volume-collapse-button,hr{background-color:var(--nord1) !important}
+.valid-feedback,.form-check-input.is-valid~.form-check-label,.was-validated .form-check-input:valid~.form-check-label,.custom-control-input.is-valid~.custom-control-label,.was-validated .custom-control-input:valid~.custom-control-label,.btn-outline-success.disabled,.btn-outline-success:disabled,.alert-success .alert-link,.text-success,a.text-success:focus,a.text-success:hover,.premium-page .fa-check{color:var(--nord14) !important}
+.valid-tooltip{color:var(--nord6) !important;background-color:color-mix(in srgb, var(--nord14) 90%, transparent) !important}
+.custom-control-input.is-valid:checked~.custom-control-label::before,.was-validated .custom-control-input:valid:checked~.custom-control-label::before{border-color:var(--nord14) !important;background-color:var(--nord14) !important}
+.invalid-tooltip{color:var(--nord6) !important;background-color:color-mix(in srgb, var(--nord11) 90%, transparent) !important}
+.custom-control-input.is-invalid:checked~.custom-control-label::before,.was-validated .custom-control-input:invalid:checked~.custom-control-label::before{border-color:var(--nord11) !important;background-color:var(--nord11) !important}
+.btn-primary,.btn-primary:hover,.btn-primary.focus,.btn-primary:focus,.btn-primary.disabled,.btn-primary:disabled,.btn-primary:not(:disabled):not(.disabled).active,.btn-primary:not(:disabled):not(.disabled):active,.show>.btn-primary.dropdown-toggle,.btn-outline-primary:hover,.btn-outline-primary:not(:disabled):not(.disabled).active,.btn-outline-primary:not(:disabled):not(.disabled):active,.show>.btn-outline-primary.dropdown-toggle,.custom-control-input:not(:disabled):active~.custom-control-label::before,.page-item.active .page-link,.list-group-item.active{color:var(--nord6) !important;background-color:var(--nord10) !important;border-color:var(--nord8) !important}
+.btn-secondary,.btn-secondary:hover,.btn-secondary.focus,.btn-secondary:focus,.btn-secondary.disabled,.btn-secondary:disabled,.btn-secondary:not(:disabled):not(.disabled).active,.btn-secondary:not(:disabled):not(.disabled):active,.show>.btn-secondary.dropdown-toggle,.btn-outline-secondary:hover,.btn-outline-secondary:not(:disabled):not(.disabled).active,.btn-outline-secondary:not(:disabled):not(.disabled):active,.show>.btn-outline-secondary.dropdown-toggle,.list-group-item-light.list-group-item-action.active{color:var(--nord6) !important;background-color:var(--nord3) !important;border-color:var(--nord4) !important}
+.btn-success,.btn-success:hover,.btn-success.focus,.btn-success:focus,.btn-success.disabled,.btn-success:disabled,.btn-success:not(:disabled):not(.disabled).active,.btn-success:not(:disabled):not(.disabled):active,.show>.btn-success.dropdown-toggle,.btn-outline-success:hover,.btn-outline-success:not(:disabled):not(.disabled).active,.btn-outline-success:not(:disabled):not(.disabled):active,.show>.btn-outline-success.dropdown-toggle{color:var(--nord6) !important;background-color:var(--nord14) !important;border-color:var(--nord14) !important}
+.btn-info,.btn-info:hover,.btn-info.focus,.btn-info:focus,.btn-info.disabled,.btn-info:disabled,.btn-info:not(:disabled):not(.disabled).active,.btn-info:not(:disabled):not(.disabled):active,.show>.btn-info.dropdown-toggle,.btn-outline-info:hover,.btn-outline-info:not(:disabled):not(.disabled).active,.btn-outline-info:not(:disabled):not(.disabled):active,.show>.btn-outline-info.dropdown-toggle{color:var(--nord6) !important;background-color:var(--nord7) !important;border-color:var(--nord7) !important}
+.btn-warning,.btn-warning:hover,.btn-warning.focus,.btn-warning:focus,.btn-warning.disabled,.btn-warning:disabled,.btn-warning:not(:disabled):not(.disabled).active,.btn-warning:not(:disabled):not(.disabled):active,.show>.btn-warning.dropdown-toggle,.btn-outline-warning:hover,.btn-outline-warning:not(:disabled):not(.disabled).active,.btn-outline-warning:not(:disabled):not(.disabled):active,.show>.btn-outline-warning.dropdown-toggle,.list-group-item-warning.list-group-item-action.active{color:var(--nord6) !important;background-color:var(--nord13) !important;border-color:var(--nord13) !important}
+.btn-danger,.btn-danger:hover,.btn-danger.focus,.btn-danger:focus,.btn-danger.disabled,.btn-danger:disabled,.btn-danger:not(:disabled):not(.disabled).active,.btn-danger:not(:disabled):not(.disabled):active,.show>.btn-danger.dropdown-toggle,.btn-outline-danger:hover,.btn-outline-danger:not(:disabled):not(.disabled).active,.btn-outline-danger:not(:disabled):not(.disabled):active,.show>.btn-outline-danger.dropdown-toggle{color:var(--nord6) !important;background-color:var(--nord11) !important;border-color:var(--nord11) !important}
+.btn-light,.btn-light.disabled,.btn-light:disabled,.btn-outline-light:hover,.btn-outline-light:not(:disabled):not(.disabled).active,.btn-outline-light:not(:disabled):not(.disabled):active,.show>.btn-outline-light.dropdown-toggle{color:var(--nord6) !important;background-color:color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important;border-color:var(--nord2) !important}
+.btn-light:hover,.btn-light.focus,.btn-light:focus{color:var(--nord6) !important;background-color:var(--nord2) !important;border-color:var(--nord2) !important}
+.btn-light:not(:disabled):not(.disabled).active,.btn-light:not(:disabled):not(.disabled):active,.show>.btn-light.dropdown-toggle,.alert-dark{color:var(--nord6) !important;background-color:var(--nord2) !important;border-color:var(--nord3) !important}
+.btn-dark:hover,.btn-dark.focus,.btn-dark:focus{color:var(--nord6) !important;background-color:color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important;border-color:var(--nord4) !important}
+.btn-dark:not(:disabled):not(.disabled).active,.btn-dark:not(:disabled):not(.disabled):active,.show>.btn-dark.dropdown-toggle,.list-group-item-dark.list-group-item-action.active{color:var(--nord6) !important;background-color:var(--nord0) !important;border-color:var(--nord4) !important}
+.btn-outline-primary{color:var(--nord8) !important;border-color:var(--nord8) !important}
+.btn-outline-secondary{color:var(--nord4) !important;border-color:var(--nord4) !important}
+.btn-outline-success{color:var(--nord14) !important;border-color:var(--nord14) !important}
+.btn-outline-info{color:var(--nord7) !important;border-color:var(--nord7) !important}
+.btn-outline-info.disabled,.btn-outline-info:disabled,.alert-info .alert-link,.text-info,a.text-info:focus,a.text-info:hover{color:var(--nord7) !important}
+.btn-outline-warning{color:var(--nord13) !important;border-color:var(--nord13) !important}
+.btn-outline-warning.disabled,.btn-outline-warning:disabled,.alert-warning .alert-link,.text-warning,a.text-warning:focus,a.text-warning:hover,.comics-grid .entry .r-container .counter{color:var(--nord13) !important}
+.btn-outline-danger{color:var(--nord11) !important;border-color:var(--nord11) !important}
+.btn-outline-light{color:var(--nord6) !important;border-color:var(--nord2) !important}
+.btn-outline-dark{color:var(--nord6) !important;border-color:var(--nord4) !important}
+.dropdown-menu{color:var(--nord6) !important;background-color:var(--nord0) !important;border-color:color-mix(in srgb, var(--nord6) 15%, transparent) !important}
+.dropdown-item:focus,.dropdown-item:hover,.badge-light{color:var(--nord6) !important;background-color:color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important}
+.dropdown-item.active,.dropdown-item:active,.nav-pills .nav-link.active,.nav-pills .show>.nav-link,.badge-primary,a.badge-primary:focus,a.badge-primary:hover,.progress-bar{color:var(--nord6) !important;background-color:var(--nord10) !important}
+.input-group-text{color:var(--nord5) !important;background-color:var(--nord1) !important;border-color:var(--nord3) !important}
+.custom-control-input:checked~.custom-control-label::before{color:var(--nord6) !important;border-color:var(--nord8) !important;background-color:var(--nord10) !important}
+.custom-control-label::before{background-color:var(--nord0) !important;border-color:var(--nord3) !important}
+.custom-checkbox .custom-control-input:indeterminate~.custom-control-label::before{border-color:var(--nord8) !important;background-color:var(--nord10) !important}
+.custom-checkbox .custom-control-input:disabled:checked~.custom-control-label::before,.custom-checkbox .custom-control-input:disabled:indeterminate~.custom-control-label::before,.custom-radio .custom-control-input:disabled:checked~.custom-control-label::before,.custom-switch .custom-control-input:disabled:checked~.custom-control-label::before{background-color:color-mix(in srgb, var(--nord10) 50%, transparent) !important}
+.custom-select{color:var(--nord5) !important;border-color:var(--nord3) !important}
+.custom-select:disabled{color:var(--nord4) !important;background-color:var(--nord1) !important}
+.custom-file-label::after{color:var(--nord5) !important;background-color:var(--nord1) !important}
+.nav-tabs .nav-item.show .nav-link,.nav-tabs .nav-link.active{color:var(--nord5) !important;background-color:var(--nord0) !important}
+.navbar-light .navbar-nav .nav-link:focus,.navbar-light .navbar-nav .nav-link:hover,.list-group-item-action,a.text-secondary:focus,a.text-secondary:hover,a.text-light:focus,a.text-light:hover,.snp-powered a:visited,.snp-powered-b a,.snp-powered-b a:visited,.snp-powered-b a:hover,.snp-powered-b a:active,.snp-powered-b a:focus{color:var(--nord5) !important}
+.navbar-light .navbar-toggler{color:var(--nord4) !important;border-color:color-mix(in srgb, var(--nord6) 10%, transparent) !important}
+.navbar-dark .navbar-nav .nav-link,.navbar-dark .navbar-text,.text-white-50,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-danger,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-danger:active,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-danger:focus,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-danger:hover,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-dark,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-dark:active,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-dark:focus,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-dark:hover,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-info,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-info:active,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-info:focus,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-info:hover,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-primary,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-primary:active,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-primary:focus,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-primary:hover,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-secondary,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-secondary:active,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-secondary:focus,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-secondary:hover,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-success,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-success:active,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-success:focus,.bootstrap-select>.dropdown-toggle.bs-placeholder.btn-success:hover,.bootstrap-select .dropdown-menu li.active small{color:color-mix(in srgb, var(--nord6) 50%, transparent) !important}
+.navbar-dark .navbar-nav .nav-link:focus,.navbar-dark .navbar-nav .nav-link:hover{color:color-mix(in srgb, var(--nord6) 75%, transparent) !important}
+.navbar-dark .navbar-nav .nav-link.disabled{color:color-mix(in srgb, var(--nord6) 25%, transparent) !important}
+.navbar-dark .navbar-toggler{color:color-mix(in srgb, var(--nord6) 50%, transparent) !important;border-color:color-mix(in srgb, var(--nord6) 10%, transparent) !important}
+.card,.list-group-item{background-color:var(--nord0) !important;border-color:color-mix(in srgb, var(--nord6) 12%, transparent) !important}
+.card-header{background-color:color-mix(in srgb, var(--nord6) 3%, transparent) !important;border-bottom-color:color-mix(in srgb, var(--nord6) 12%, transparent) !important}
+.card-footer{background-color:color-mix(in srgb, var(--nord6) 3%, transparent) !important;border-top-color:color-mix(in srgb, var(--nord6) 12%, transparent) !important}
+.page-link{color:var(--nord8) !important;background-color:var(--nord0) !important;border-color:var(--nord2) !important}
+.page-link:hover{color:var(--nord8) !important;background-color:var(--nord1) !important;border-color:var(--nord2) !important}
+.page-item.disabled .page-link,.alert-light{color:var(--nord4) !important;background-color:var(--nord0) !important;border-color:var(--nord2) !important}
+.badge-secondary,a.badge-secondary:focus,a.badge-secondary:hover,.list-group-item-dark,.list-group-item-dark.list-group-item-action:focus,.list-group-item-dark.list-group-item-action:hover{color:var(--nord6) !important;background-color:var(--nord3) !important}
+.badge-success,a.badge-success:focus,a.badge-success:hover{color:var(--nord6) !important;background-color:var(--nord14) !important}
+.badge-info,a.badge-info:focus,a.badge-info:hover{color:var(--nord6) !important;background-color:var(--nord7) !important}
+.badge-warning,a.badge-warning:focus,a.badge-warning:hover{color:var(--nord6) !important;background-color:var(--nord13) !important}
+.badge-danger,a.badge-danger:focus,a.badge-danger:hover{color:var(--nord6) !important;background-color:var(--nord11) !important}
+.alert-primary{color:var(--nord8) !important;background-color:color-mix(in srgb, var(--nord10) 30%, var(--nord1)) !important;border-color:var(--nord8) !important}
+.alert-primary hr,.alert-light hr,.menu-main-mobile a{border-top-color:var(--nord8) !important}
+.alert-secondary{color:var(--nord5) !important;background-color:var(--nord2) !important;border-color:var(--nord3) !important}
+.alert-secondary hr,.alert-dark hr{border-top-color:var(--nord3) !important}
+.alert-success{color:var(--nord14) !important;background-color:color-mix(in srgb, var(--nord14) 30%, var(--nord1)) !important;border-color:var(--nord14) !important}
+.alert-success hr{border-top-color:var(--nord14) !important}
+.alert-info{color:var(--nord7) !important;background-color:color-mix(in srgb, var(--nord7) 30%, var(--nord1)) !important;border-color:var(--nord7) !important}
+.alert-info hr{border-top-color:var(--nord7) !important}
+.alert-warning{color:var(--nord13) !important;background-color:color-mix(in srgb, var(--nord13) 30%, var(--nord1)) !important;border-color:var(--nord13) !important}
+.alert-warning hr{border-top-color:var(--nord13) !important}
+.alert-danger{color:var(--nord11) !important;background-color:color-mix(in srgb, var(--nord11) 30%, var(--nord1)) !important;border-color:var(--nord11) !important}
+.alert-danger hr{border-top-color:var(--nord11) !important}
+.list-group-item-action:focus,.list-group-item-action:hover{color:var(--nord5) !important;background-color:color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important}
+.list-group-item-action:active{color:var(--nord6) !important;background-color:var(--nord1) !important}
+.list-group-item.disabled,.list-group-item:disabled,.list-group-item-light{color:var(--nord4) !important;background-color:var(--nord0) !important}
+.list-group-item-primary,.list-group-item-primary.list-group-item-action:focus,.list-group-item-primary.list-group-item-action:hover{color:var(--nord8) !important;background-color:var(--nord10) !important}
+.list-group-item-primary.list-group-item-action.active{color:var(--nord6) !important;background-color:color-mix(in srgb, var(--nord10) 40%, var(--nord1)) !important;border-color:var(--nord8) !important}
+.list-group-item-secondary{color:var(--nord5) !important;background-color:var(--nord2) !important}
+.list-group-item-secondary.list-group-item-action:focus,.list-group-item-secondary.list-group-item-action:hover{color:var(--nord5) !important;background-color:var(--nord3) !important}
+.list-group-item-success{color:var(--nord14) !important;background-color:color-mix(in srgb, var(--nord14) 30%, var(--nord1)) !important}
+.list-group-item-success.list-group-item-action:focus,.list-group-item-success.list-group-item-action:hover{color:var(--nord14) !important;background-color:var(--nord14) !important}
+.list-group-item-success.list-group-item-action.active{color:var(--nord6) !important;background-color:color-mix(in srgb, var(--nord14) 40%, var(--nord1)) !important;border-color:var(--nord14) !important}
+.list-group-item-info{color:var(--nord7) !important;background-color:color-mix(in srgb, var(--nord7) 30%, var(--nord1)) !important}
+.list-group-item-info.list-group-item-action:focus,.list-group-item-info.list-group-item-action:hover{color:var(--nord7) !important;background-color:var(--nord7) !important}
+.list-group-item-info.list-group-item-action.active{color:var(--nord6) !important;background-color:color-mix(in srgb, var(--nord7) 40%, var(--nord1)) !important;border-color:var(--nord7) !important}
+.list-group-item-warning,.list-group-item-warning.list-group-item-action:focus,.list-group-item-warning.list-group-item-action:hover{color:var(--nord13) !important;background-color:color-mix(in srgb, var(--nord13) 30%, var(--nord1)) !important}
+.list-group-item-danger,.list-group-item-danger.list-group-item-action:focus,.list-group-item-danger.list-group-item-action:hover{color:var(--nord11) !important;background-color:var(--nord11) !important}
+.list-group-item-danger.list-group-item-action.active{color:var(--nord6) !important;background-color:color-mix(in srgb, var(--nord11) 40%, var(--nord1)) !important;border-color:var(--nord11) !important}
+.list-group-item-light.list-group-item-action:focus,.list-group-item-light.list-group-item-action:hover{color:var(--nord4) !important;background-color:color-mix(in srgb, var(--nord10) 30%, var(--nord1)) !important}
+.toast{background-color:color-mix(in srgb, var(--nord0) 85%, transparent) !important;border-color:color-mix(in srgb, var(--nord6) 10%, transparent) !important}
+.toast-header{color:var(--nord4) !important;background-color:color-mix(in srgb, var(--nord0) 85%, transparent) !important;border-bottom-color:color-mix(in srgb, var(--nord6) 5%, transparent) !important}
+.modal-content,.popover{background-color:var(--nord0) !important;border-color:color-mix(in srgb, var(--nord6) 20%, transparent) !important}
+.bs-tooltip-auto[x-placement^=top] .arrow::before,.bs-tooltip-top .arrow::before{border-top-color:var(--nord4) !important}
+.bs-tooltip-auto[x-placement^=right] .arrow::before,.bs-tooltip-right .arrow::before{border-right-color:var(--nord4) !important}
+.bs-tooltip-auto[x-placement^=left] .arrow::before,.bs-tooltip-left .arrow::before{border-left-color:var(--nord4) !important}
+.bs-popover-auto[x-placement^=top]>.arrow::before,.bs-popover-top>.arrow::before{border-top-color:color-mix(in srgb, var(--nord6) 25%, transparent) !important}
+.bs-popover-auto[x-placement^=right]>.arrow::before,.bs-popover-right>.arrow::before{border-right-color:color-mix(in srgb, var(--nord6) 25%, transparent) !important}
+.bs-popover-auto[x-placement^=right]>.arrow::after,.bs-popover-right>.arrow::after,.border-right{border-right-color:var(--nord2) !important}
+.bs-popover-auto[x-placement^=bottom]>.arrow::before,.bs-popover-bottom>.arrow::before{border-bottom-color:color-mix(in srgb, var(--nord6) 25%, transparent) !important}
+.bs-popover-auto[x-placement^=left]>.arrow::before,.bs-popover-left>.arrow::before{border-left-color:color-mix(in srgb, var(--nord6) 25%, transparent) !important}
+.bs-popover-auto[x-placement^=left]>.arrow::after,.bs-popover-left>.arrow::after,.border-left{border-left-color:var(--nord2) !important}
+.popover-header{background-color:color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important;border-bottom-color:var(--nord2) !important}
+.bg-warning,a.bg-warning:focus,a.bg-warning:hover,button.bg-warning:focus,button.bg-warning:hover{background-color:var(--nord13) !important}
+.bg-light,.bootstrap-select .no-results{background-color:color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important}
+.stretched-link::after{background-color:transparent !important}
+.bootstrap-select .dropdown-menu .notify{background-color:color-mix(in srgb, var(--nord1) 50%, var(--nord0)) !important;border-color:var(--nord2) !important}
+.bootstrap-select.show-menu-arrow .dropdown-toggle .filter-option:before{border-bottom-color:color-mix(in srgb, var(--nord6) 20%, transparent) !important}
+.bootstrap-select.show-menu-arrow.dropup .dropdown-toggle .filter-option:before{border-top-color:color-mix(in srgb, var(--nord6) 20%, transparent) !important}
+.slick-slide .thumb .year,.tippy-box{background-color:var(--nord1) !important;color:var(--nord6) !important}
+.slick-slide .thumb .type,.comics-flex .vertical .chapter,.comics-flex .vertical .creation-date,.comics-flex .vertical .latest-chapter,.single-comic .chapters-wrapper .download-button,.breadcrumbs{background-color:var(--nord12) !important;color:var(--nord6) !important}
+blockquote,.s-title .tab-heads a:first-child{border-left-color:var(--nord3) !important}
+#site-header{border-bottom-color:var(--nord2) !important;background-color:var(--nord0) !important}
+.top-area form input,.top-area .header-social .icon{border-color:var(--nord2) !important;color:var(--nord6) !important}
+.top-area .header-social .icon:hover,.pagination-container .page-numbers.current,.pagination-container .page-numbers:hover{background-color:var(--nord12) !important;color:var(--nord6) !important;border-color:var(--nord12) !important}
+#site-footer{border-top-color:var(--nord13) !important;background-color:var(--nord0) !important;color:var(--nord6) !important}
+.menu-main>li[class*=current-menu] a{border-bottom-color:var(--nord12) !important}
+.menu-main .sub-menu{color:var(--nord12) !important;background-color:var(--nord0) !important;border-color:color-mix(in srgb, var(--nord6) 15%, transparent) !important}
+.menu-main .sub-menu-type,.post-navi-direct a{color:var(--nord6) !important;background-color:var(--nord12) !important}
+.menu-main .sub-menu a{border-bottom-color:color-mix(in srgb, var(--nord6) 12%, transparent) !important;color:var(--nord12) !important}
+.menu-main-mobile{background-color:var(--nord10) !important;color:var(--nord6) !important}
+.menu-main-mobile .menu-search input{background-color:var(--nord10) !important;color:var(--nord6) !important;border-top-color:var(--nord8) !important}
+.z-nav_handle{background-color:var(--nord12) !important;border-color:var(--nord12) !important;color:var(--nord6) !important}
+.s-title .tab-heads a{border-top-color:var(--nord3) !important;border-right-color:var(--nord3) !important}
+.s-title .tab-heads a.active{color:var(--nord12) !important;border-bottom-color:var(--nord2) !important}
+.group-latest .slider-before-loading .fs-carousel.fs-light.fs-carousel-enabled .fs-carousel-page:hover,.group-latest .slider-before-loading .fs-carousel.fs-light.fs-carousel-enabled .fs-carousel-page[class*=active],.z-btn:hover,.comics-grid .entry:hover,.page-box:hover,.form-control:focus{border-color:var(--nord12) !important}
+.z-btn{color:var(--nord12) !important;border-color:var(--nord3) !important;background-color:var(--nord0) !important}
+.comics-grid .entry{border-color:var(--nord2) !important;color:var(--nord4) !important}
+.single-comic .chapters-wrapper .volume-chapters{border-left-color:var(--nord12) !important}
+.single-comic .heading,.chapters-head{color:var(--nord12) !important;border-bottom-color:var(--nord12) !important}
+.post-navi-direct{background-color:var(--nord0) !important;color:var(--nord6) !important}
+.post-navi-direct a.bg-white{background-color:var(--nord0) !important;color:var(--nord5) !important}
+.dropdown-item.active,.dropdown-item:active,.badge-primary,.badge-primary:active,.badge-primary:focus,.badge-primary:hover{background-color:var(--nord12) !important}
+.vm18content,.selectbookmarkcontent{background-color:var(--nord11) !important;color:var(--nord6) !important}
+#pagination .page-item.active .page-link{background-color:var(--nord12) !important;border-color:var(--nord12) !important}
+body.dark #reader,body.dark #mobile-nav{background-color:var(--nord2) !important;color:var(--nord6) !important}
+body.dark .custom-select,body.dark #search-bar,body.dark #search-bar-mobile{background-color:var(--nord3) !important;color:var(--nord6) !important;border-color:var(--nord4) !important}
+body.dark #site-header{border-bottom-color:var(--nord4) !important;background-color:var(--nord1) !important}
+body.dark #site-footer{border-top-color:var(--nord4) !important;background-color:var(--nord1) !important;color:var(--nord6) !important}
+body.dark #navbar #mobile-nav .list-group-item{background-color:var(--nord2) !important;color:var(--nord12) !important}
+
+/* ---------- Hand-tuned parts ----------
+   These come after the generated block, so they win where both set the same property. */
+html, body, body.dark {
+  background-color: var(--nord0) !important;
+  color: var(--nord4) !important;
+}
+html { color-scheme: var(--nord-scheme); }
+
+/* Logo: a dark blue wordmark with an orange "N" made of stripes. The SVG (same origin, so it
+   can be a mask) is redrawn over two layers: a vertical cut between the word and the stripes,
+   and a cut along the 30 degree stripes between the orange ones and the blue ones. */
+img.custom-logo {
+  object-position: -99999px 0 !important;
+  background: linear-gradient(90deg, var(--nord6) 77.2%, transparent 77.2%),
+              linear-gradient(60deg, var(--nord12) 85%, var(--nord6) 85%) !important;
+  mask: url("/public/assets/svg/MangaWorldLogo.svg?6") center / 100% 100% no-repeat !important;
+}
+
+/* Filled accent buttons and badges: the text takes the background colour, which reads on
+   the accent in both dark and light palettes. ":root body" outranks the generated
+   .btn-primary:not(.next):not(.prev) rule. */
+:root body :is(.btn, .badge):is(.btn-primary, .btn-success, .btn-warning, .btn-info, .btn-danger,
+  .badge-primary, .badge-success, .badge-warning, .badge-info, .badge-danger),
+:root body :is(.btn, .badge):is(.btn-primary, .btn-success, .btn-warning, .btn-info, .btn-danger,
+  .badge-primary, .badge-success, .badge-warning, .badge-info, .badge-danger):is(:hover, :focus),
+:root body .page-item.active .page-link {
+  color: var(--nord0) !important;
+}
+.btn-dark, .btn-dark:hover { border-color: var(--nord3) !important; }
+
+/* Fields. Bootstrap's select sets a white background through the shorthand, and its arrow
+   is a dark SVG: a mid grey one reads on both dark and light palettes. */
+.form-control, .custom-select, #search-bar, #search-bar-mobile,
+body.dark .custom-select, body.dark #search-bar, body.dark #search-bar-mobile {
+  background-color: var(--nord1) !important;
+  color: var(--nord5) !important;
+  border-color: var(--nord3) !important;
+}
+.custom-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%238c96a8' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") !important;
+}
+.form-control:focus, .custom-select:focus {
+  border-color: var(--nord8) !important;
+  box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--nord8) 25%, transparent) !important;
+}
+.form-control::placeholder, #search-bar::placeholder, #search-bar-mobile::placeholder {
+  color: color-mix(in srgb, var(--nord4) 60%, var(--nord3)) !important;
+}
+
+/* The reader has its own dark mode (body.dark, the moon button). The palette is already in
+   charge of the colours, so both modes look the same. */
+body.dark #reader { background-color: transparent !important; }
+body.dark #site-header {
+  background-color: var(--nord0) !important;
+  border-bottom-color: var(--nord1) !important;
+}
+body.dark #site-footer {
+  background-color: var(--nord0) !important;
+  border-top-color: var(--nord13) !important;
+}
+body.dark .top-wrapper { border-color: var(--nord1) !important; }
+body.dark hr { background-color: var(--nord1) !important; }
+
+/* Menus: the header ones (Generi, Tipo, bookmarks) and bootstrap-select in the archive
+   filters sit on a raised surface. */
+.dropdown-menu, .categories-menu-nav {
+  background-color: var(--nord1) !important;
+  border: 1px solid var(--nord2) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+}
+.dropdown-item { color: var(--nord4) !important; }
+.dropdown-item:is(:hover, :focus), .dropdown-menu li:is(.selected, .active) > a,
+.dropdown-item.active, .dropdown-item:active {
+  background-color: var(--nord2) !important;
+  color: var(--nord6) !important;
+}
+.dropdown-menu .bs-searchbox .form-control { background-color: var(--nord0) !important; }
+}
+}
