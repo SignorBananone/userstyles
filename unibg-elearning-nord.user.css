@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name         UniBG eLearning Nord
-@version      20261001.02.00
+@version      20261008.01.00
 @namespace    https://github.com/SignorBananone/userstyles
 @description  Nord theme for the University of Bergamo Moodle (elearning15.unibg.it)
 @homepageURL  https://github.com/SignorBananone/userstyles
@@ -379,6 +379,12 @@ hr, .border, .border-top, .border-bottom, .border-left, .border-right {
   color: var(--nord6) !important;
   border-bottom-color: var(--nord8) !important;
 }
+/* Moodle lights up the hovered or focused menu entry in near-white (#f8f9fa) */
+.moremenu .nav-link:hover, .moremenu .nav-link:focus, .moremenu .nav-link.active:hover,
+.moremenu .nav-link.active:focus, .navbar .nav-link:hover, .navbar .nav-link:focus {
+  background-color: var(--nord1) !important;
+  color: var(--nord6) !important;
+}
 #page-footer, footer, .footer-main, #footer, .footer-bottom, .footer-copyright {
   background-color: var(--nord1) !important;
   color: var(--nord4) !important;
@@ -388,6 +394,10 @@ hr, .border, .border-top, .border-bottom, .border-left, .border-right {
 .address-head, .address-head span, .address-head a, #footer, #footer p, #footer span, #footer li,
 .navbar .icon, .popover-region-toggle .icon, .usermenu .userbutton {
   color: var(--nord4) !important;
+}
+/* the bell and chat glyphs are painted white on their ::before, unreadable in light palettes */
+:is(#usernavigation, .address-head, .navbar) .icon::before {
+  color: inherit !important;
 }
 
 /* ---------- Drawers and course index ---------- */
@@ -435,7 +445,7 @@ hr, .border, .border-top, .border-bottom, .border-left, .border-right {
 }
 
 /* ---------- Breadcrumbs, tabs, secondary navigation ---------- */
-.breadcrumb, .secondary-navigation, .nav-tabs, .tertiary-navigation {
+.breadcrumb, .breadcrumb-item, .secondary-navigation, .nav-tabs, .tertiary-navigation {
   background-color: transparent !important;
   border-color: var(--nord2) !important;
 }
@@ -464,6 +474,7 @@ hr, .border, .border-top, .border-bottom, .border-left, .border-right {
 .icons-collapse-expand, .course-section .collapsed-icon, .course-section .expanded-icon {
   background-color: var(--nord2) !important;
   color: var(--nord6) !important;
+  border-color: var(--nord3) !important;
 }
 
 /* ---------- Forms ---------- */
@@ -487,6 +498,20 @@ input[type="password"], input[type="number"], input[type="url"], textarea {
 }
 
 /* ---------- Buttons and badges ---------- */
+/* plain .btn (menus, toggles, filter rows) takes Moodle's dark text (#1d2125); the
+   :where() keeps the specificity low so the coloured variants below still win */
+:where(.btn):not(.btn-link) {
+  color: var(--nord4) !important;
+}
+.btn-success { background-color: var(--nord14) !important; border-color: var(--nord14) !important; color: var(--nord0) !important; }
+.btn-warning { background-color: var(--nord13) !important; border-color: var(--nord13) !important; color: var(--nord0) !important; }
+.btn-danger { background-color: var(--nord11) !important; border-color: var(--nord11) !important; color: var(--nord-on-accent) !important; }
+.btn-info { background-color: var(--nord8) !important; border-color: var(--nord8) !important; color: var(--nord0) !important; }
+:is(.btn-success, .btn-warning, .btn-danger, .btn-info):hover { filter: brightness(1.08); }
+.btn.btn-icon:hover, .btn.btn-icon:focus, .btn-footer-popover:hover {
+  background-color: var(--nord2) !important;
+  color: var(--nord6) !important;
+}
 .btn-primary, .btn-primary:not(:disabled):not(.disabled).active {
   background-color: var(--nord10) !important;
   border-color: var(--nord10) !important;
@@ -561,6 +586,147 @@ input[type="password"], input[type="number"], input[type="url"], textarea {
 .table thead th, .generaltable thead th {
   background-color: var(--nord1) !important;
   color: var(--nord6) !important;
+}
+/* Moodle paints the even rows, the sticky first column and the rows of the grade
+   report white (#fff, #f8f9fa); the sticky column needs an opaque background */
+.table tbody tr, .generaltable tbody tr, .generaltable tbody tr:nth-of-type(2n),
+.generaltable thead .sticky-column, .user-grade tbody tr {
+  background-color: var(--nord0) !important;
+  color: var(--nord4) !important;
+}
+.generaltable tbody tr:nth-of-type(2n) .sticky-column, .generaltable tbody tr:nth-of-type(odd) .sticky-column {
+  background-color: inherit !important;
+}
+.table-striped tbody tr:nth-of-type(odd), .generaltable tbody tr:nth-of-type(odd) {
+  background-color: color-mix(in srgb, var(--nord1) 60%, var(--nord0)) !important;
+}
+.table-hover tbody tr:hover, .generaltable tbody tr:nth-of-type(n):hover {
+  background-color: var(--nord2) !important;
+}
+.user-report-container, .grade-report-user .user-report-container, .activity-header {
+  background-color: var(--nord1) !important;
+  border-color: var(--nord2) !important;
+}
+
+/* ---------- Academi navy (#172642) on icons, small buttons and arrows ---------- */
+.btn.btn-link i::before, tr.discussion .btn i.icon {
+  color: inherit !important;
+}
+.table thead th i.icon, .text-primary, .text-info {
+  color: var(--nord8) !important;
+}
+.simplesearchform .btn-submit {
+  background-color: var(--nord10) !important;
+  border-color: var(--nord10) !important;
+  color: var(--nord-on-accent) !important;
+}
+.drawer .drawerheader .drawertoggle {
+  background-color: var(--nord2) !important;
+  color: var(--nord6) !important;
+}
+.drawer .drawerheader .drawertoggle:hover {
+  background-color: var(--nord3) !important;
+}
+/* Academi draws the current breadcrumb as a light pill with an arrow tip; the pill is
+   removed above, so the tip goes too */
+.breadcrumb-item::after {
+  border-left-color: transparent !important;
+}
+
+/* ---------- Calendar ---------- */
+.calendarmonth th, .calendarmonth td {
+  border-color: var(--nord2) !important;
+}
+.calendarmonth .today .day-number-circle {
+  background-color: var(--nord10) !important;
+  color: var(--nord-on-accent) !important;
+}
+
+/* ---------- Notification popover ---------- */
+.popover-region-container, .popover-region-header-container, .popover-region-footer-container,
+.popover-region-content-container, .popover-region .content-item-container {
+  background-color: var(--nord1) !important;
+  color: var(--nord4) !important;
+  border-color: var(--nord2) !important;
+}
+.popover-region-header-text, .popover-region .content-item-container .content-item-body,
+.popover-region .content-item-container .notification-message {
+  color: var(--nord6) !important;
+}
+.popover-region .content-item-container.unread {
+  background-color: color-mix(in srgb, var(--nord10) 22%, var(--nord1)) !important;
+  box-shadow: inset 3px 0 0 var(--nord8) !important;
+}
+.popover-region .content-item-container:hover, .popover-region .content-item-container.selected,
+.popover-region-footer-container:hover, .see-all-link:hover .popover-region-footer-container {
+  background-color: var(--nord2) !important;
+  color: var(--nord6) !important;
+}
+/* the little arrow under the bell is drawn by the toggle's ::before (border) and ::after (fill) */
+.popover-region .popover-region-toggle::before {
+  border-bottom-color: var(--nord2) !important;
+}
+.popover-region .popover-region-toggle::after {
+  border-bottom-color: var(--nord1) !important;
+}
+.popover-region .empty-message, .popover-region .timestamp {
+  color: color-mix(in srgb, var(--nord4) 65%, var(--nord3)) !important;
+}
+
+/* ---------- Pagination, user initials, loading placeholders, link focus ---------- */
+.page-link, .pagination .page-item .page-link {
+  background-color: var(--nord1) !important;
+  border-color: var(--nord2) !important;
+  color: var(--nord8) !important;
+}
+.page-link:hover, .pagination .page-item .page-link:hover, .page-link:focus {
+  background-color: var(--nord2) !important;
+  color: var(--nord6) !important;
+}
+.page-item.active .page-link, .pagination .page-item.active .page-link {
+  background-color: var(--nord10) !important;
+  border-color: var(--nord10) !important;
+  color: var(--nord-on-accent) !important;
+}
+.page-item.disabled .page-link {
+  background-color: var(--nord0) !important;
+  color: var(--nord3) !important;
+}
+.userinitials {
+  background-color: var(--nord2) !important;
+  color: var(--nord6) !important;
+}
+[class*="bg-pulse-grey"] {
+  background-color: var(--nord2) !important;
+}
+/* Course summaries and descriptions pasted from word processors carry inline black text
+   and white highlights; only those near-black and near-white values are overridden */
+:is(.no-overflow, .summary, .summarytext, .text_to_html, .generalbox, .course-description-item, .activity-description, .box)
+  :is([style*="color: rgb(0, 0, 0)"], [style*="color:rgb(0,0,0)"], [style*="color: #000"], [style*="color:#000"],
+      [style*="color: black"], [style*="color: rgb(34, 34, 34)"], [style*="color: #222"], [style*="color: rgb(33, 33, 33)"],
+      [style*="color: windowtext"], [style*="color: rgb(29, 33, 37)"], [style*="color: rgb(51, 51, 51)"], [style*="color: #333"]) {
+  color: inherit !important;
+}
+:is(.no-overflow, .summary, .summarytext, .text_to_html, .generalbox, .course-description-item, .activity-description, .box)
+  :is([style*="background-color: rgb(255, 255, 255)"], [style*="background-color:#fff"], [style*="background-color: #fff"],
+      [style*="background-color: white"], [style*="background: white"], [style*="background: #fff"]) {
+  background-color: transparent !important;
+}
+mark, .highlight {
+  background-color: color-mix(in srgb, var(--nord13) 35%, transparent) !important;
+  color: var(--nord6) !important;
+}
+/* Bootstrap 5 close button: a black cross drawn as a background image */
+.btn-close, .close {
+  filter: var(--nord-icon-filter) !important;
+  opacity: .8 !important;
+}
+
+/* Moodle highlights a focused link with a light blue fill (#84a0d4) and dark text */
+a:not([class]):focus, .aalink:focus, #page-footer a:not([class]):focus {
+  background-color: color-mix(in srgb, var(--nord8) 22%, transparent) !important;
+  color: var(--nord8) !important;
+  box-shadow: 0 0 0 .2rem color-mix(in srgb, var(--nord8) 40%, transparent) !important;
 }
 
 /* ---------- Activity completion and progress ---------- */
