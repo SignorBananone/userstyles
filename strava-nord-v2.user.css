@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Strava Nord V2
 @namespace      Strava Nord V2 by SignorBananone (fork of Strava Darkest Fusion by ATX)
-@version        2026.10.01.6
+@version        2026.10.15.1
 @description    Nord theme for Strava. Rewritten to rely on tags, ARIA roles, data-testid and stable class prefixes instead of hashed class names, so it survives Strava's CSS deploys.
 @homepageURL    https://github.com/SignorBananone/userstyles
 @license        MIT
@@ -753,6 +753,24 @@
     .ui-autocomplete .ui-menu-item:hover {
       background-color: var(--nord3) !important;
       border-color: transparent !important;
+    }
+    /* Place suggestions under the location fields (Maps, route builder, hidden addresses).
+       The component is a floating portal, so the blanket transparent rule leaves it see-through;
+       its CSS-module class names use "_" or "--" depending on the page */
+    [class*="GeoSearchBox"][class*="dropdown"] {
+      background-color: var(--nt-surface-2) !important;
+      border: 1px solid var(--nt-border) !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
+      color: var(--nt-text) !important;
+    }
+    [class*="GeoSearchBox"][class*="suggestionItem"]:is(:hover, [class*="selected"]) {
+      background-color: var(--nord3) !important;
+    }
+    [class*="GeoSearchBox"][class*="suggestionName"] {
+      color: var(--nt-text) !important;
+    }
+    [class*="GeoSearchBox"]:is([class*="suggestionAddress"], [class*="attribution"]) {
+      color: color-mix(in srgb, var(--nt-text) 70%, transparent) !important;
     }
     #notifications-list a {
       color: var(--nt-text) !important;
