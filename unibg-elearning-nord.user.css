@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name         UniBG eLearning Nord
-@version      20261008.01.00
+@version      20261015.01.00
 @namespace    https://github.com/SignorBananone/userstyles
 @description  Nord theme for the University of Bergamo Moodle (elearning15.unibg.it)
 @homepageURL  https://github.com/SignorBananone/userstyles
@@ -762,6 +762,16 @@ a:not([class]):focus, .aalink:focus, #page-footer a:not([class]):focus {
   background-color: var(--nord1) !important;
   color: var(--nord4) !important;
   border-color: var(--nord2) !important;
+}
+/* Login page: white wrapper card around the two login panels */
+#page-login-index .login-container, .login-wrapper .login-container {
+  background-color: var(--nord0) !important;
+  color: var(--nord4) !important;
+  border: 1px solid var(--nord2) !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, .35) !important;
+}
+.login-container .login-divider {
+  border-top-color: var(--nord2) !important;
 }
 /* University logo: dark navy artwork on a transparent background */
 .logo img, .navbar-brand img {
