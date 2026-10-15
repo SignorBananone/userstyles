@@ -1,8 +1,8 @@
 /* ==UserStyle==
 @name         UniBG eLearning Nord
-@version      20261015.01.00
+@version      20261015.02.00
 @namespace    https://github.com/SignorBananone/userstyles
-@description  Nord theme for the University of Bergamo Moodle (elearning15.unibg.it)
+@description  Nord theme for the University of Bergamo Moodle (elearning15.unibg.it) and its sign-in page (idp-idm.unibg.it)
 @homepageURL  https://github.com/SignorBananone/userstyles
 @author       SignorBananone
 @license      MIT
@@ -313,10 +313,14 @@
 .nord-site(dark) {
   --nord-icon-filter: brightness(0) invert(85%) sepia(10%) saturate(300%) hue-rotate(180deg);
   --nord-logo-filter: brightness(0) invert(88%) sepia(10%) saturate(300%) hue-rotate(180deg);
+  --nord-brand-filter: invert(1) hue-rotate(180deg) brightness(.92);
+  --nord-brand-blend: screen;
 }
 .nord-site(light) {
   --nord-icon-filter: brightness(0) invert(25%) sepia(10%) saturate(300%) hue-rotate(180deg);
   --nord-logo-filter: none;
+  --nord-brand-filter: none;
+  --nord-brand-blend: normal;
 }
 
 
@@ -783,6 +787,118 @@ a:not([class]):focus, .aalink:focus, #page-footer a:not([class]):focus {
 .tox .tox-statusbar, .tox-tinymce {
   background-color: var(--nord1) !important;
   border-color: var(--nord3) !important;
+}
+}
+}
+
+/* ---------- Single sign-on page (Shibboleth IdP, Bootstrap 5) ---------- */
+@-moz-document domain("idp-idm.unibg.it") {
+@media @nord-apply {
+:root { .nord-preset(@palette); }
+
+html {
+  color-scheme: var(--nord-scheme);
+}
+html, body, .idp-authside, .tab-content, .tab-pane {
+  background-color: var(--nord0) !important;
+  color: var(--nord4) !important;
+}
+/* Navy side panel; the logo SVG itself is navy and the site whitens it with a filter */
+.idp-leftside, .idp-topside {
+  background-color: var(--nord1) !important;
+  border-right: 1px solid var(--nord2) !important;
+}
+.idp-logo {
+  filter: var(--nord-logo-filter) !important;
+}
+.idp-authside-title {
+  color: var(--nord6) !important;
+}
+.idp-login-txt, .idp-login-to, .idp-login-to strong, .idp-link, .idp-auths-info, .idp-auths-info p,
+.form-label, label {
+  color: var(--nord4) !important;
+}
+a, .idp-link a {
+  color: var(--nord8) !important;
+}
+a:hover, .idp-link a:hover {
+  color: var(--nord7) !important;
+}
+
+/* Tabs: University / SPID / CIE */
+.nav-tabs {
+  border-bottom-color: var(--nord2) !important;
+}
+.nav-tabs .nav-link {
+  background-color: transparent !important;
+  color: var(--nord4) !important;
+  border-color: transparent !important;
+}
+.nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
+  color: var(--nord6) !important;
+  border-bottom-color: var(--nord3) !important;
+}
+.nav-tabs .nav-link.active {
+  background-color: var(--nord0) !important;
+  color: var(--nord6) !important;
+  border-bottom: 3px solid var(--nord8) !important;
+}
+
+/* Sign-in form */
+.form-control {
+  background-color: var(--nord1) !important;
+  color: var(--nord6) !important;
+  border-color: var(--nord3) !important;
+}
+.form-control::placeholder {
+  color: var(--nord3) !important;
+  opacity: 1 !important;
+}
+.form-control:focus {
+  border-color: var(--nord8) !important;
+  box-shadow: 0 0 0 .2rem color-mix(in srgb, var(--nord8) 30%, transparent) !important;
+}
+.btn-primary {
+  background-color: var(--nord10) !important;
+  border-color: var(--nord10) !important;
+  color: var(--nord-on-accent) !important;
+}
+.btn-primary:hover, .btn-primary:focus {
+  background-color: var(--nord9) !important;
+  border-color: var(--nord9) !important;
+}
+.alert-info {
+  background-color: color-mix(in srgb, var(--nord8) 15%, var(--nord1)) !important;
+  border-color: color-mix(in srgb, var(--nord8) 40%, var(--nord1)) !important;
+  color: var(--nord6) !important;
+}
+.alert-danger, .alert-warning {
+  background-color: color-mix(in srgb, var(--nord11) 15%, var(--nord1)) !important;
+  border-color: var(--nord11) !important;
+  color: var(--nord6) !important;
+}
+.invalid-feedback {
+  color: var(--nord11) !important;
+}
+
+/* SPID provider list and AgID footer: brand logos are drawn for a white background.
+   In dark palettes they are inverted (keeping their hue) and screen-blended, so the
+   white canvas of each logo disappears into the menu */
+.spid-idp-button-menu, .spid-idp-button .spid-idp-button-menu {
+  background-color: var(--nord1) !important;
+  border-color: var(--nord3) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .35) !important;
+}
+.spid-idp-button-link a, .spid-idp-button-menu li > a {
+  background-color: transparent !important;
+  border-color: var(--nord2) !important;
+}
+.spid-idp-button-link a:hover, .spid-idp-button-link a:focus {
+  background-color: var(--nord2) !important;
+}
+.spid-idp-button-logo, .idp-footer-spid-logo {
+  filter: var(--nord-brand-filter) !important;
+  mix-blend-mode: var(--nord-brand-blend) !important;
 }
 }
 }
