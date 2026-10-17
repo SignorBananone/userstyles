@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Strava Nord V2
 @namespace      Strava Nord V2 by SignorBananone (fork of Strava Darkest Fusion by ATX)
-@version        2026.10.15.1
+@version        2026.10.17.1
 @description    Nord theme for Strava. Rewritten to rely on tags, ARIA roles, data-testid and stable class prefixes instead of hashed class names, so it survives Strava's CSS deploys.
 @homepageURL    https://github.com/SignorBananone/userstyles
 @license        MIT
@@ -865,6 +865,183 @@
     }
     [class*="MediaThumbnailList--count"] {
       background-color: color-mix(in srgb, var(--nord0) 65%, transparent) !important;
+    }
+
+    /* ---------- Maps and route builder (React, CSS-module class names) ---------- */
+    /* Map controls: locate, zoom and compass icons are black SVG background images.
+       The layers button is icon-only, so the flat icon-button rule above would win:
+       :is() with an id raises the specificity above it. */
+    :is(#nt-specificity, [class*="ControlButton_controlButton"]) {
+      background-color: var(--nord2) !important;
+    }
+    :is(#nt-specificity, [class*="ControlButton_controlButton"]):hover:not(:disabled) {
+      background-color: var(--nord3) !important;
+    }
+    [class*="ControlButton_controlButton"] > span[class*="MapViewControls_"],
+    [class*="giftBtn"] img {
+      filter: var(--nord-icon-filter) !important;
+    }
+    [class*="MenuToggle_menuToggle"] svg {
+      background-color: transparent !important;
+    }
+    [class*="MenuToggle_menuToggle"]:hover {
+      background-color: var(--nord3) !important;
+    }
+    /* Attribution box and scale bar in the map corners */
+    [class*="Info_info__"] {
+      background-color: var(--nt-surface-2) !important;
+    }
+    [class*="Info_infoIcon"] {
+      border-color: var(--nt-surface-2) !important;
+    }
+    [class*="Info_infoText"],
+    [class*="Info_infoText"] a {
+      color: var(--nt-text) !important;
+    }
+    [class*="MapScale_mapScale"] {
+      background-color: var(--nt-surface-2) !important;
+      color: var(--nt-text) !important;
+      border-color: var(--nt-text) !important;
+    }
+    /* Map settings panel (styles, heatmaps, layers, terrain) */
+    [class*="MapPreferences_menuContainer"] {
+      background-color: var(--nt-surface-2) !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
+    }
+    [class*="MapPreferences_panelHeader"] {
+      border-bottom-color: var(--nord3) !important;
+    }
+    [class*="MapPreferenceOption_thumbnailButton"] {
+      background-color: transparent !important;
+    }
+    [class*="MapPreferenceOption_selected"] [class*="MapPreferenceOption_thumbnail__"] {
+      box-shadow: 0 0 0 2px var(--nt-surface-2), 0 0 0 4px var(--nt-accent) !important;
+    }
+    [class*="MapPreferenceOption_selectedLabel"] {
+      color: var(--nt-accent) !important;
+    }
+    [class*="MapPreferences_sportType"] {
+      color: var(--nt-muted) !important;
+    }
+    [class*="MapPreferences_editButton"] {
+      background-color: transparent !important;
+      border: 1px solid var(--nord3) !important;
+    }
+    [class*="MapPreferences_editButton"]:hover {
+      background-color: var(--nord3) !important;
+    }
+    /* Heatmaps menu */
+    [class*="MapNavHeatmapsMenu_heatmapMenuItem"]:hover {
+      background-color: var(--nord3) !important;
+    }
+    [class*="MapNavHeatmapsMenu_preferences"] {
+      color: var(--nt-accent) !important;
+    }
+    /* Sliders (heatmap opacity and others): rail and track are spans */
+    [class*="Slider_rail"] {
+      background-color: var(--nord3) !important;
+    }
+    [class*="Slider_track"] {
+      background-color: var(--nt-accent) !important;
+    }
+    [class*="Slider_root"][class*="disabled"] [class*="Slider_track"] {
+      background-color: var(--nt-muted) !important;
+    }
+    [class*="Slider_thumb"] {
+      background-color: var(--nord6) !important;
+      box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.25) !important;
+    }
+    [class*="Slider_valueLabel"] {
+      background-color: var(--nt-surface-2) !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
+    }
+    [class*="Slider_mark__"] {
+      background-color: var(--nord4) !important;
+    }
+    /* Switches (route builder preferences, map display) */
+    [class*="Switch_track"] {
+      background-color: var(--nord3) !important;
+      border-color: transparent !important;
+    }
+    [class*="Switch_active"] [class*="Switch_track"] {
+      background-color: var(--nt-accent) !important;
+    }
+    [class*="Switch_thumb"] {
+      background-color: var(--nord6) !important;
+    }
+    /* Segmented toggles (privacy in the save route dialog) */
+    [class*="ToggleButton_toggleButton__"]:hover {
+      background-color: var(--nord3) !important;
+    }
+    [class*="ToggleButton_toggleButton__"]:has(input:checked) {
+      border-color: var(--nt-accent) !important;
+    }
+    /* Route builder toolbar (undo, redo, clear...) floats over the map */
+    [class*="RouteToolbar_toolbar"] {
+      background-color: var(--nt-surface-2) !important;
+      border: 1px solid var(--nord3) !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
+    }
+    [class*="RouteToolbar_verticalLine"] {
+      border-right-color: var(--nord3) !important;
+    }
+    [class*="RouteToolbar_toolbar"] > button:not([class*="primary" i]) {
+      background-color: transparent !important;
+    }
+    [class*="RouteToolbar_toolbar"] > button:not([class*="primary" i]):hover:not(:disabled) {
+      background-color: var(--nord3) !important;
+    }
+    /* Waypoints: start, end, numbered and dragged points */
+    [class*="WaypointCircle_circle"] {
+      background-color: var(--nord6) !important;
+      border-color: var(--nord3) !important;
+    }
+    :is([class*="WaypointCircle_start"], [class*="WaypointCircle_end"], [class*="WaypointCircle_rabbit"],
+        [class*="WaypointCircle_number"], [class*="WaypointCircle_icon"]) [class*="WaypointCircle_circle"] {
+      border-color: var(--nord6) !important;
+    }
+    [class*="WaypointCircle_start"] [class*="WaypointCircle_circle"] {
+      background-color: var(--nord14) !important;
+    }
+    [class*="WaypointCircle_rabbit"] [class*="WaypointCircle_circle"] {
+      background-color: var(--nord10) !important;
+    }
+    [class*="WaypointCircle_number"] [class*="WaypointCircle_circle"] {
+      background-color: var(--nord3) !important;
+    }
+    [class*="DraggableHTMLWaypoint_dragging"] {
+      background-color: var(--nord7) !important;
+      border-color: var(--nord6) !important;
+    }
+    [class*="WaypointListItem_dragHandle"],
+    [class*="WaypointList_addWaypointBtn"] {
+      background-color: transparent !important;
+    }
+    [class*="WaypointList_addWaypointBtn"]:hover {
+      background-color: var(--nord3) !important;
+    }
+    /* Elevation profile and surface type breakdown */
+    svg [class*="Area_area"] {
+      fill: var(--nord3) !important;
+    }
+    [class*="SurfaceTypePath_surfaceType"] path[stroke="#ffffff" i] {
+      stroke: var(--nt-bg) !important;
+    }
+    [class*="SurfaceTypeBreakdown_breakdown"] {
+      border-color: var(--nt-accent) !important;
+    }
+    [class*="SurfaceTypeBreakdown_breakdown"][class*="SurfaceTypeBreakdown_inactive"] {
+      background-color: var(--nord3) !important;
+      border-color: var(--nord3) !important;
+    }
+    [class*="SurfaceTypeBreakdown_paved"] {
+      background-color: var(--nt-accent) !important;
+    }
+    [class*="SurfaceTypeBreakdown_unpaved"] {
+      background-image: linear-gradient(90deg, transparent, transparent 50%, var(--nt-accent) 0, var(--nt-accent)) !important;
+    }
+    [class*="SurfaceTypeBreakdown_unknown"] {
+      background-color: var(--nord6) !important;
     }
 
     /* ---------- Fills that carry data ----------
