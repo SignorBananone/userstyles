@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Strava Nord V2
 @namespace      Strava Nord V2 by SignorBananone (fork of Strava Darkest Fusion by ATX)
-@version        2026.10.17.1
+@version        2026.10.17.2
 @description    Nord theme for Strava. Rewritten to rely on tags, ARIA roles, data-testid and stable class prefixes instead of hashed class names, so it survives Strava's CSS deploys.
 @homepageURL    https://github.com/SignorBananone/userstyles
 @license        MIT
@@ -620,6 +620,7 @@
       color: inherit !important;
     }
     svg [fill="#242428"],
+    svg [fill="#21211f" i],
     svg [fill="#000"],
     svg [fill="#000000"],
     svg [fill="black"],
@@ -628,6 +629,7 @@
       fill: currentColor !important;
     }
     svg [stroke="#242428"],
+    svg [stroke="#21211f" i],
     svg [stroke="#000"],
     svg [stroke="black"] {
       stroke: currentColor !important;
@@ -881,6 +883,15 @@
     [class*="giftBtn"] img {
       filter: var(--nord-icon-filter) !important;
     }
+    /* Route builder icons: toolbar svgs get a dark fill from Strava's CSS,
+       some sidebar svgs have no fill at all (black by default) */
+    [class*="IconButtonWithTooltip_btn"] svg,
+    :is([class*="PreferenceToggle"], [class*="RoutePreference"]) svg:not([fill]) {
+      fill: currentColor !important;
+    }
+    [class*="RoutePreferenceSidebar_imageIcon"] {
+      filter: var(--nord-icon-filter) !important;
+    }
     [class*="MenuToggle_menuToggle"] svg {
       background-color: transparent !important;
     }
@@ -929,6 +940,25 @@
     }
     [class*="MapPreferences_editButton"]:hover {
       background-color: var(--nord3) !important;
+    }
+    /* Heatmaps / Segments buttons: when a layer is on, the group grows a second
+       (filters) button that is icon-only, so it ends up transparent */
+    [class*="MapNav_layerMenuButtonGroup"] {
+      background-color: var(--nord2) !important;
+    }
+    :is(#nt-specificity, [class*="MapNav_layerMenuButtonGroup"] button) {
+      background-color: transparent !important;
+    }
+    :is(#nt-specificity, [class*="MapNav_layerMenuButtonGroup"] button):hover {
+      background-color: var(--nord3) !important;
+    }
+    [class*="MapNav_mapNav"] [class*="MapNav_isActive"],
+    [class*="MapNav_mapNav"] [class*="MapNav_isActive"] button {
+      border-color: var(--nt-accent) !important;
+      color: var(--nt-accent) !important;
+    }
+    [class*="MapNav_isActive"] [class*="MapNav_mapButtonRight"] {
+      border-left: 1px solid var(--nord3) !important;
     }
     /* Heatmaps menu */
     [class*="MapNavHeatmapsMenu_heatmapMenuItem"]:hover {
