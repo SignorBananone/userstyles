@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Strava Nord V2
 @namespace      Strava Nord V2 by SignorBananone (fork of Strava Darkest Fusion by ATX)
-@version        2026.10.17.2
+@version        2026.10.19.1
 @description    Nord theme for Strava. Rewritten to rely on tags, ARIA roles, data-testid and stable class prefixes instead of hashed class names, so it survives Strava's CSS deploys.
 @homepageURL    https://github.com/SignorBananone/userstyles
 @license        MIT
@@ -1210,6 +1210,34 @@
     }
     svg text.crossbar-text {
       fill: var(--nord6) !important;
+    }
+    /* Stacked chart (activity overview/analysis): D3 rects with hardcoded light greys */
+    .base-chart svg :is(rect.static-label-box, rect.static-info-box),
+    .base-chart svg .xaxis-container rect.background {
+      fill: var(--nt-surface) !important;
+    }
+    .base-chart svg line.bottom-line {
+      stroke: var(--nord3) !important;
+    }
+    .base-chart svg g.button rect {
+      fill: var(--nord2) !important;
+      stroke: var(--nord3) !important;
+    }
+    .base-chart svg g.button:hover rect,
+    .base-chart svg g.button.selected rect {
+      fill: var(--nord3) !important;
+    }
+    .base-chart svg g.button image {
+      filter: var(--nord-icon-filter) !important;
+    }
+    .base-chart svg text.static-label-box.label {
+      fill: var(--nt-text) !important;
+    }
+    .base-chart svg text.static-info-box.value {
+      fill: var(--nt-text-strong) !important;
+    }
+    .base-chart svg text:is(.static-label-box, .static-info-box):not(.label, .value) {
+      fill: var(--nt-muted) !important;
     }
     /* Strava's neutral greys as hardcoded SVG attributes (visx charts and friends) */
     svg [stroke="#f2f2f0" i],
