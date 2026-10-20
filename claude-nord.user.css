@@ -1,0 +1,1096 @@
+/* ==UserStyle==
+@name         Claude Nord
+@version      20261021.01.00
+@namespace    https://github.com/SignorBananone/userstyles
+@description  Nord theme for claude.ai (chats, sidebar, projects, artifacts panel, settings), dark also when the site is in its light theme, with a configurable palette
+@homepageURL  https://github.com/SignorBananone/userstyles
+@author       SignorBananone
+@license      MIT
+@preprocessor   less
+
+@var select apply "Apply the theme" {
+  "Always*": "always",
+  "Only when the browser or system is in dark mode": "dark",
+  "Only when the browser or system is in light mode": "light"
+}
+@var select palette "Palette, from the darkest to the lightest" {
+  "1. Black: near-black, for OLED screens and dark rooms": "black",
+  "2. Deep: darker than Nord": "darker",
+  "3. Nord: the original Polar Night*": "nord",
+  "4. Dim: a little lighter than Nord": "dim",
+  "5. Slate: the lightest dark palette, grey-blue": "slate",
+  "6. Fog: grey light palette, the least glare": "lightdim",
+  "7. Mist: soft light palette": "soft",
+  "8. Snow: the original Nord light": "light",
+  "9. Paper: almost white, for bright rooms": "bright",
+  "Colourful dark: deep blue backgrounds, vivid accents": "vividdark",
+  "Colourful light: blue-white backgrounds, vivid accents": "vividlight",
+  "Follow the browser: the two palettes chosen below": "auto",
+  "Custom: the colours below": "custom"
+}
+@var select auto_dark "Follow the browser: palette when the browser is dark" {
+  "1. Black: near-black, for OLED screens and dark rooms": "black",
+  "2. Deep: darker than Nord": "darker",
+  "3. Nord: the original Polar Night*": "nord",
+  "4. Dim: a little lighter than Nord": "dim",
+  "5. Slate: the lightest dark palette, grey-blue": "slate",
+  "Colourful dark: deep blue backgrounds, vivid accents": "vividdark"
+}
+@var select auto_light "Follow the browser: palette when the browser is light" {
+  "6. Fog: grey light palette, the least glare": "lightdim",
+  "7. Mist: soft light palette": "soft",
+  "8. Snow: the original Nord light*": "light",
+  "9. Paper: almost white, for bright rooms": "bright",
+  "Colourful light: blue-white backgrounds, vivid accents": "vividlight"
+}
+@var select custom_type "Custom palette type" {
+  "Dark: light text on dark backgrounds*": "dark",
+  "Light: dark text on light backgrounds": "light"
+}
+@var color nord0 "Custom nord0: Background" #2e3440
+@var color nord1 "Custom nord1: Surfaces: cards, sidebars, inputs" #3b4252
+@var color nord2 "Custom nord2: Raised surfaces: hover, selection" #434c5e
+@var color nord3 "Custom nord3: Borders and muted elements" #4c566a
+@var color nord4 "Custom nord4: Text" #d8dee9
+@var color nord5 "Custom nord5: Brighter text" #e5e9f0
+@var color nord6 "Custom nord6: Headings and brightest text" #eceff4
+@var color nord7 "Custom nord7: Frost teal" #8fbcbb
+@var color nord8 "Custom nord8: Main accent: links, highlights" #88c0d0
+@var color nord9 "Custom nord9: Frost blue" #81a1c1
+@var color nord10 "Custom nord10: Deep blue: buttons" #5e81ac
+@var color nord11 "Custom nord11: Red: errors" #bf616a
+@var color nord12 "Custom nord12: Orange" #d08770
+@var color nord13 "Custom nord13: Yellow: warnings" #ebcb8b
+@var color nord14 "Custom nord14: Green: success" #a3be8c
+@var color nord15 "Custom nord15: Purple" #b48ead
+==/UserStyle== */
+
+/* ---------- Options ----------
+   Stylus compiles this file with Less. The options only set CSS variables:
+   every colour below is var(--nord0) ... var(--nord15), or a color-mix() of them,
+   so one palette recolours the whole style. --nord-deep and --nord-peak sit past
+   the background and text ends of the palette (black and white in a dark one),
+   and --nord-on-accent is the text colour for filled accent backgrounds.
+   --nordN-rgb, where present, holds the same colour as an "r, g, b" list for Bootstrap. */
+@nord-apply: if((@apply = dark), ~"(prefers-color-scheme: dark)", if((@apply = light), ~"(prefers-color-scheme: light)", ~"all"));
+.nord-preset(black) {
+  --nord0: #16191f;
+  --nord1: #1e222a;
+  --nord2: #272c36;
+  --nord3: #3b4252;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  .nord-mode(dark);
+}
+.nord-preset(darker) {
+  --nord0: #242933;
+  --nord1: #2b303b;
+  --nord2: #353b49;
+  --nord3: #434c5e;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  .nord-mode(dark);
+}
+.nord-preset(nord) {
+  --nord0: #2e3440;
+  --nord1: #3b4252;
+  --nord2: #434c5e;
+  --nord3: #4c566a;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  .nord-mode(dark);
+}
+.nord-preset(dim) {
+  --nord0: #3b4252;
+  --nord1: #434c5e;
+  --nord2: #4c566a;
+  --nord3: #5a6478;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: #bf616a;
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+  .nord-mode(dark);
+}
+.nord-preset(slate) {
+  --nord0: #4c566a;
+  --nord1: #56617a;
+  --nord2: #616d87;
+  --nord3: #76829b;
+  --nord4: #e5e9f0;
+  --nord5: #eceff4;
+  --nord6: #f4f6f9;
+  --nord7: #84c7c5;
+  --nord8: #7ec6da;
+  --nord9: #97b8d8;
+  --nord10: #5e81ac;
+  --nord11: #e4a5aa;
+  --nord12: #e6a692;
+  --nord13: #f3ce83;
+  --nord14: #a2c981;
+  --nord15: #d2a8ca;
+  .nord-mode(dark);
+}
+.nord-preset(lightdim) {
+  --nord0: #d8dee9;
+  --nord1: #cfd6e1;
+  --nord2: #c3cbd8;
+  --nord3: #a3adbf;
+  --nord4: #2e3440;
+  --nord5: #2e3440;
+  --nord6: #242933;
+  --nord7: #3d6160;
+  --nord8: #33626f;
+  --nord9: #445d76;
+  --nord10: #405d80;
+  --nord11: #91434b;
+  --nord12: #864c3a;
+  --nord13: #705722;
+  --nord14: #4d613a;
+  --nord15: #6f516a;
+  .nord-mode(light);
+}
+.nord-preset(soft) {
+  --nord0: #e5e9f0;
+  --nord1: #dce2eb;
+  --nord2: #cfd6e1;
+  --nord3: #aab3c3;
+  --nord4: #3b4252;
+  --nord5: #353b49;
+  --nord6: #2e3440;
+  --nord7: #426968;
+  --nord8: #376a78;
+  --nord9: #4a6580;
+  --nord10: #46658c;
+  --nord11: #9b4851;
+  --nord12: #91523f;
+  --nord13: #7a5f24;
+  --nord14: #53693e;
+  --nord15: #7a5874;
+  .nord-mode(light);
+}
+.nord-preset(light) {
+  --nord0: #eceff4;
+  --nord1: #e5e9f0;
+  --nord2: #d8dee9;
+  --nord3: #b4bcc9;
+  --nord4: #3b4252;
+  --nord5: #353b49;
+  --nord6: #2e3440;
+  --nord7: #497473;
+  --nord8: #3c7382;
+  --nord9: #516f8d;
+  --nord10: #4c6e98;
+  --nord11: #ab4f59;
+  --nord12: #9f5a45;
+  --nord13: #866828;
+  --nord14: #5b7344;
+  --nord15: #84607e;
+  .nord-mode(light);
+}
+.nord-preset(bright) {
+  --nord0: #fafbfc;
+  --nord1: #f0f3f7;
+  --nord2: #e5e9f0;
+  --nord3: #c3cad6;
+  --nord4: #3b4252;
+  --nord5: #353b49;
+  --nord6: #2e3440;
+  --nord7: #497473;
+  --nord8: #3c7382;
+  --nord9: #516f8d;
+  --nord10: #4c6e98;
+  --nord11: #ab4f59;
+  --nord12: #9f5a45;
+  --nord13: #866828;
+  --nord14: #5b7344;
+  --nord15: #84607e;
+  .nord-mode(light);
+}
+.nord-preset(vividdark) {
+  --nord0: #1d253a;
+  --nord1: #26314a;
+  --nord2: #303d5a;
+  --nord3: #425070;
+  --nord4: #d4dded;
+  --nord5: #e1e8f4;
+  --nord6: #f0f3fa;
+  --nord7: #83d2d1;
+  --nord8: #7ecde4;
+  --nord9: #74a6d8;
+  --nord10: #4b84c9;
+  --nord11: #e27983;
+  --nord12: #e68364;
+  --nord13: #fad486;
+  --nord14: #a7d480;
+  --nord15: #cc81be;
+  .nord-mode(dark);
+}
+.nord-preset(vividlight) {
+  --nord0: #f3f6fc;
+  --nord1: #e3ebf7;
+  --nord2: #cedaee;
+  --nord3: #a1b2ce;
+  --nord4: #2d3a58;
+  --nord5: #25304b;
+  --nord6: #1b253c;
+  --nord7: #287372;
+  --nord8: #207187;
+  --nord9: #336ba3;
+  --nord10: #2e69b0;
+  --nord11: #c22e3e;
+  --nord12: #b04726;
+  --nord13: #876110;
+  --nord14: #4c7325;
+  --nord15: #a14391;
+  .nord-mode(light);
+}
+.nord-preset(custom) {
+  --nord0: @nord0;
+  --nord1: @nord1;
+  --nord2: @nord2;
+  --nord3: @nord3;
+  --nord4: @nord4;
+  --nord5: @nord5;
+  --nord6: @nord6;
+  --nord7: @nord7;
+  --nord8: @nord8;
+  --nord9: @nord9;
+  --nord10: @nord10;
+  --nord11: @nord11;
+  --nord12: @nord12;
+  --nord13: @nord13;
+  --nord14: @nord14;
+  --nord15: @nord15;
+  .nord-mode(@custom_type);
+}
+.nord-preset(auto) {
+  .nord-preset(@auto_dark);
+  @media (prefers-color-scheme: light) { .nord-preset(@auto_light); }
+}
+.nord-mode(dark) { --nord-deep: #000; --nord-peak: #fff; --nord-scheme: dark; --nord-on-accent: var(--nord6); .nord-site(dark); }
+.nord-mode(light) { --nord-deep: #fff; --nord-peak: #000; --nord-scheme: light; --nord-on-accent: var(--nord0); .nord-site(light); }
+.nord-site(@mode) {}
+
+@-moz-document domain("claude.ai") {
+@media @nord-apply {
+:root { .nord-preset(@palette); color-scheme: var(--nord-scheme); }
+
+
+/* ---------- Generated from claude.ai's own stylesheets (private/src/claude/conv.py) ----------
+   The site ("cds" design system) builds every colour from ramps through CSS variables.
+   The ramps are remapped onto the palette, and the dark-mode wiring is applied in every
+   mode, so the site is dark Nord also when the account uses the light theme.
+   :is(#nt-specificity, ...) lifts the rules to id specificity, over the site's mode selectors. */
+/* 1. The ramps, by position: 0 is the lightest step, 900 the darkest */
+:is(#nt-specificity, :root, .cds-root, .cds-dark-scope) {
+  --cds-gray-0: var(--nord6);
+  --cds-gray-10: color-mix(in srgb, var(--nord6) 80%, var(--nord5));
+  --cds-gray-20: color-mix(in srgb, var(--nord6) 60%, var(--nord5));
+  --cds-gray-30: color-mix(in srgb, var(--nord6) 40%, var(--nord5));
+  --cds-gray-40: color-mix(in srgb, var(--nord6) 20%, var(--nord5));
+  --cds-gray-50: var(--nord5);
+  --cds-gray-60: color-mix(in srgb, var(--nord5) 90%, var(--nord4));
+  --cds-gray-70: color-mix(in srgb, var(--nord5) 80%, var(--nord4));
+  --cds-gray-80: color-mix(in srgb, var(--nord5) 70%, var(--nord4));
+  --cds-gray-90: color-mix(in srgb, var(--nord5) 60%, var(--nord4));
+  --cds-gray-100: color-mix(in srgb, var(--nord5) 50%, var(--nord4));
+  --cds-gray-150: var(--nord4);
+  --cds-gray-200: var(--nord4);
+  --cds-gray-250: color-mix(in srgb, var(--nord4) 50%, color-mix(in srgb, var(--nord4) 75%, var(--nord3)));
+  --cds-gray-300: color-mix(in srgb, var(--nord4) 75%, var(--nord3));
+  --cds-gray-350: color-mix(in srgb, color-mix(in srgb, var(--nord4) 75%, var(--nord3)) 50%, color-mix(in srgb, var(--nord4) 50%, var(--nord3)));
+  --cds-gray-400: color-mix(in srgb, var(--nord4) 50%, var(--nord3));
+  --cds-gray-450: color-mix(in srgb, color-mix(in srgb, var(--nord4) 50%, var(--nord3)) 75%, var(--nord3));
+  --cds-gray-500: color-mix(in srgb, color-mix(in srgb, var(--nord4) 50%, var(--nord3)) 50%, var(--nord3));
+  --cds-gray-550: color-mix(in srgb, color-mix(in srgb, var(--nord4) 50%, var(--nord3)) 25%, var(--nord3));
+  --cds-gray-600: var(--nord3);
+  --cds-gray-650: var(--nord3);
+  --cds-gray-700: color-mix(in srgb, var(--nord3) 50%, var(--nord2));
+  --cds-gray-750: var(--nord2);
+  --cds-gray-800: var(--nord1);
+  --cds-gray-810: color-mix(in srgb, var(--nord1) 80%, var(--nord0));
+  --cds-gray-820: color-mix(in srgb, var(--nord1) 60%, var(--nord0));
+  --cds-gray-830: color-mix(in srgb, var(--nord1) 40%, var(--nord0));
+  --cds-gray-840: color-mix(in srgb, var(--nord1) 20%, var(--nord0));
+  --cds-gray-850: var(--nord0);
+  --cds-gray-860: color-mix(in srgb, var(--nord0) 80%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-gray-870: color-mix(in srgb, var(--nord0) 60%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-gray-880: color-mix(in srgb, var(--nord0) 40%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-gray-890: color-mix(in srgb, var(--nord0) 20%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-gray-900: color-mix(in srgb, var(--nord0) 70%, var(--nord-deep));
+  --cds-red-0: var(--nord6);
+  --cds-red-10: color-mix(in srgb, var(--nord6) 90%, color-mix(in srgb, var(--nord11) 30%, var(--nord6)));
+  --cds-red-20: color-mix(in srgb, var(--nord6) 80%, color-mix(in srgb, var(--nord11) 30%, var(--nord6)));
+  --cds-red-30: color-mix(in srgb, var(--nord6) 70%, color-mix(in srgb, var(--nord11) 30%, var(--nord6)));
+  --cds-red-40: color-mix(in srgb, var(--nord6) 60%, color-mix(in srgb, var(--nord11) 30%, var(--nord6)));
+  --cds-red-50: color-mix(in srgb, var(--nord6) 50%, color-mix(in srgb, var(--nord11) 30%, var(--nord6)));
+  --cds-red-60: color-mix(in srgb, var(--nord6) 40%, color-mix(in srgb, var(--nord11) 30%, var(--nord6)));
+  --cds-red-70: color-mix(in srgb, var(--nord6) 30%, color-mix(in srgb, var(--nord11) 30%, var(--nord6)));
+  --cds-red-80: color-mix(in srgb, var(--nord6) 20%, color-mix(in srgb, var(--nord11) 30%, var(--nord6)));
+  --cds-red-90: color-mix(in srgb, var(--nord6) 10%, color-mix(in srgb, var(--nord11) 30%, var(--nord6)));
+  --cds-red-100: color-mix(in srgb, var(--nord11) 30%, var(--nord6));
+  --cds-red-150: color-mix(in srgb, color-mix(in srgb, var(--nord11) 30%, var(--nord6)) 75%, var(--nord11));
+  --cds-red-200: color-mix(in srgb, color-mix(in srgb, var(--nord11) 30%, var(--nord6)) 50%, var(--nord11));
+  --cds-red-250: color-mix(in srgb, color-mix(in srgb, var(--nord11) 30%, var(--nord6)) 25%, var(--nord11));
+  --cds-red-300: var(--nord11);
+  --cds-red-350: color-mix(in srgb, var(--nord11) 67%, var(--nord11));
+  --cds-red-400: color-mix(in srgb, var(--nord11) 33%, var(--nord11));
+  --cds-red-450: var(--nord11);
+  --cds-red-500: color-mix(in srgb, var(--nord11) 67%, color-mix(in srgb, var(--nord11) 60%, var(--nord1)));
+  --cds-red-550: color-mix(in srgb, var(--nord11) 33%, color-mix(in srgb, var(--nord11) 60%, var(--nord1)));
+  --cds-red-600: color-mix(in srgb, var(--nord11) 60%, var(--nord1));
+  --cds-red-650: color-mix(in srgb, color-mix(in srgb, var(--nord11) 60%, var(--nord1)) 50%, color-mix(in srgb, var(--nord11) 40%, var(--nord1)));
+  --cds-red-700: color-mix(in srgb, var(--nord11) 40%, var(--nord1));
+  --cds-red-750: color-mix(in srgb, color-mix(in srgb, var(--nord11) 40%, var(--nord1)) 50%, color-mix(in srgb, var(--nord11) 22%, var(--nord0)));
+  --cds-red-800: color-mix(in srgb, var(--nord11) 22%, var(--nord0));
+  --cds-red-810: color-mix(in srgb, color-mix(in srgb, var(--nord11) 22%, var(--nord0)) 90%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-red-820: color-mix(in srgb, color-mix(in srgb, var(--nord11) 22%, var(--nord0)) 80%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-red-830: color-mix(in srgb, color-mix(in srgb, var(--nord11) 22%, var(--nord0)) 70%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-red-840: color-mix(in srgb, color-mix(in srgb, var(--nord11) 22%, var(--nord0)) 60%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-red-850: color-mix(in srgb, color-mix(in srgb, var(--nord11) 22%, var(--nord0)) 50%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-red-860: color-mix(in srgb, color-mix(in srgb, var(--nord11) 22%, var(--nord0)) 40%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-red-870: color-mix(in srgb, color-mix(in srgb, var(--nord11) 22%, var(--nord0)) 30%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-red-880: color-mix(in srgb, color-mix(in srgb, var(--nord11) 22%, var(--nord0)) 20%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-red-890: color-mix(in srgb, color-mix(in srgb, var(--nord11) 22%, var(--nord0)) 10%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-red-900: color-mix(in srgb, var(--nord0) 70%, var(--nord-deep));
+  --cds-orange-0: var(--nord6);
+  --cds-orange-10: color-mix(in srgb, var(--nord6) 90%, color-mix(in srgb, var(--nord12) 30%, var(--nord6)));
+  --cds-orange-20: color-mix(in srgb, var(--nord6) 80%, color-mix(in srgb, var(--nord12) 30%, var(--nord6)));
+  --cds-orange-30: color-mix(in srgb, var(--nord6) 70%, color-mix(in srgb, var(--nord12) 30%, var(--nord6)));
+  --cds-orange-40: color-mix(in srgb, var(--nord6) 60%, color-mix(in srgb, var(--nord12) 30%, var(--nord6)));
+  --cds-orange-50: color-mix(in srgb, var(--nord6) 50%, color-mix(in srgb, var(--nord12) 30%, var(--nord6)));
+  --cds-orange-60: color-mix(in srgb, var(--nord6) 40%, color-mix(in srgb, var(--nord12) 30%, var(--nord6)));
+  --cds-orange-70: color-mix(in srgb, var(--nord6) 30%, color-mix(in srgb, var(--nord12) 30%, var(--nord6)));
+  --cds-orange-80: color-mix(in srgb, var(--nord6) 20%, color-mix(in srgb, var(--nord12) 30%, var(--nord6)));
+  --cds-orange-90: color-mix(in srgb, var(--nord6) 10%, color-mix(in srgb, var(--nord12) 30%, var(--nord6)));
+  --cds-orange-100: color-mix(in srgb, var(--nord12) 30%, var(--nord6));
+  --cds-orange-150: color-mix(in srgb, color-mix(in srgb, var(--nord12) 30%, var(--nord6)) 75%, var(--nord12));
+  --cds-orange-200: color-mix(in srgb, color-mix(in srgb, var(--nord12) 30%, var(--nord6)) 50%, var(--nord12));
+  --cds-orange-250: color-mix(in srgb, color-mix(in srgb, var(--nord12) 30%, var(--nord6)) 25%, var(--nord12));
+  --cds-orange-300: var(--nord12);
+  --cds-orange-350: color-mix(in srgb, var(--nord12) 67%, var(--nord12));
+  --cds-orange-400: color-mix(in srgb, var(--nord12) 33%, var(--nord12));
+  --cds-orange-450: var(--nord12);
+  --cds-orange-500: color-mix(in srgb, var(--nord12) 67%, color-mix(in srgb, var(--nord12) 60%, var(--nord1)));
+  --cds-orange-550: color-mix(in srgb, var(--nord12) 33%, color-mix(in srgb, var(--nord12) 60%, var(--nord1)));
+  --cds-orange-600: color-mix(in srgb, var(--nord12) 60%, var(--nord1));
+  --cds-orange-650: color-mix(in srgb, color-mix(in srgb, var(--nord12) 60%, var(--nord1)) 50%, color-mix(in srgb, var(--nord12) 40%, var(--nord1)));
+  --cds-orange-700: color-mix(in srgb, var(--nord12) 40%, var(--nord1));
+  --cds-orange-750: color-mix(in srgb, color-mix(in srgb, var(--nord12) 40%, var(--nord1)) 50%, color-mix(in srgb, var(--nord12) 22%, var(--nord0)));
+  --cds-orange-800: color-mix(in srgb, var(--nord12) 22%, var(--nord0));
+  --cds-orange-810: color-mix(in srgb, color-mix(in srgb, var(--nord12) 22%, var(--nord0)) 90%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-orange-820: color-mix(in srgb, color-mix(in srgb, var(--nord12) 22%, var(--nord0)) 80%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-orange-830: color-mix(in srgb, color-mix(in srgb, var(--nord12) 22%, var(--nord0)) 70%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-orange-840: color-mix(in srgb, color-mix(in srgb, var(--nord12) 22%, var(--nord0)) 60%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-orange-850: color-mix(in srgb, color-mix(in srgb, var(--nord12) 22%, var(--nord0)) 50%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-orange-860: color-mix(in srgb, color-mix(in srgb, var(--nord12) 22%, var(--nord0)) 40%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-orange-870: color-mix(in srgb, color-mix(in srgb, var(--nord12) 22%, var(--nord0)) 30%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-orange-880: color-mix(in srgb, color-mix(in srgb, var(--nord12) 22%, var(--nord0)) 20%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-orange-890: color-mix(in srgb, color-mix(in srgb, var(--nord12) 22%, var(--nord0)) 10%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-orange-900: color-mix(in srgb, var(--nord0) 70%, var(--nord-deep));
+  --cds-yellow-0: var(--nord6);
+  --cds-yellow-10: color-mix(in srgb, var(--nord6) 90%, color-mix(in srgb, var(--nord13) 30%, var(--nord6)));
+  --cds-yellow-20: color-mix(in srgb, var(--nord6) 80%, color-mix(in srgb, var(--nord13) 30%, var(--nord6)));
+  --cds-yellow-30: color-mix(in srgb, var(--nord6) 70%, color-mix(in srgb, var(--nord13) 30%, var(--nord6)));
+  --cds-yellow-40: color-mix(in srgb, var(--nord6) 60%, color-mix(in srgb, var(--nord13) 30%, var(--nord6)));
+  --cds-yellow-50: color-mix(in srgb, var(--nord6) 50%, color-mix(in srgb, var(--nord13) 30%, var(--nord6)));
+  --cds-yellow-60: color-mix(in srgb, var(--nord6) 40%, color-mix(in srgb, var(--nord13) 30%, var(--nord6)));
+  --cds-yellow-70: color-mix(in srgb, var(--nord6) 30%, color-mix(in srgb, var(--nord13) 30%, var(--nord6)));
+  --cds-yellow-80: color-mix(in srgb, var(--nord6) 20%, color-mix(in srgb, var(--nord13) 30%, var(--nord6)));
+  --cds-yellow-90: color-mix(in srgb, var(--nord6) 10%, color-mix(in srgb, var(--nord13) 30%, var(--nord6)));
+  --cds-yellow-100: color-mix(in srgb, var(--nord13) 30%, var(--nord6));
+  --cds-yellow-150: color-mix(in srgb, color-mix(in srgb, var(--nord13) 30%, var(--nord6)) 75%, var(--nord13));
+  --cds-yellow-200: color-mix(in srgb, color-mix(in srgb, var(--nord13) 30%, var(--nord6)) 50%, var(--nord13));
+  --cds-yellow-250: color-mix(in srgb, color-mix(in srgb, var(--nord13) 30%, var(--nord6)) 25%, var(--nord13));
+  --cds-yellow-300: var(--nord13);
+  --cds-yellow-350: color-mix(in srgb, var(--nord13) 67%, var(--nord13));
+  --cds-yellow-400: color-mix(in srgb, var(--nord13) 33%, var(--nord13));
+  --cds-yellow-450: var(--nord13);
+  --cds-yellow-500: color-mix(in srgb, var(--nord13) 67%, color-mix(in srgb, var(--nord13) 60%, var(--nord1)));
+  --cds-yellow-550: color-mix(in srgb, var(--nord13) 33%, color-mix(in srgb, var(--nord13) 60%, var(--nord1)));
+  --cds-yellow-600: color-mix(in srgb, var(--nord13) 60%, var(--nord1));
+  --cds-yellow-650: color-mix(in srgb, color-mix(in srgb, var(--nord13) 60%, var(--nord1)) 50%, color-mix(in srgb, var(--nord13) 40%, var(--nord1)));
+  --cds-yellow-700: color-mix(in srgb, var(--nord13) 40%, var(--nord1));
+  --cds-yellow-750: color-mix(in srgb, color-mix(in srgb, var(--nord13) 40%, var(--nord1)) 50%, color-mix(in srgb, var(--nord13) 22%, var(--nord0)));
+  --cds-yellow-800: color-mix(in srgb, var(--nord13) 22%, var(--nord0));
+  --cds-yellow-810: color-mix(in srgb, color-mix(in srgb, var(--nord13) 22%, var(--nord0)) 90%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-yellow-820: color-mix(in srgb, color-mix(in srgb, var(--nord13) 22%, var(--nord0)) 80%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-yellow-830: color-mix(in srgb, color-mix(in srgb, var(--nord13) 22%, var(--nord0)) 70%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-yellow-840: color-mix(in srgb, color-mix(in srgb, var(--nord13) 22%, var(--nord0)) 60%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-yellow-850: color-mix(in srgb, color-mix(in srgb, var(--nord13) 22%, var(--nord0)) 50%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-yellow-860: color-mix(in srgb, color-mix(in srgb, var(--nord13) 22%, var(--nord0)) 40%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-yellow-870: color-mix(in srgb, color-mix(in srgb, var(--nord13) 22%, var(--nord0)) 30%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-yellow-880: color-mix(in srgb, color-mix(in srgb, var(--nord13) 22%, var(--nord0)) 20%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-yellow-890: color-mix(in srgb, color-mix(in srgb, var(--nord13) 22%, var(--nord0)) 10%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-yellow-900: color-mix(in srgb, var(--nord0) 70%, var(--nord-deep));
+  --cds-green-0: var(--nord6);
+  --cds-green-10: color-mix(in srgb, var(--nord6) 90%, color-mix(in srgb, var(--nord14) 30%, var(--nord6)));
+  --cds-green-20: color-mix(in srgb, var(--nord6) 80%, color-mix(in srgb, var(--nord14) 30%, var(--nord6)));
+  --cds-green-30: color-mix(in srgb, var(--nord6) 70%, color-mix(in srgb, var(--nord14) 30%, var(--nord6)));
+  --cds-green-40: color-mix(in srgb, var(--nord6) 60%, color-mix(in srgb, var(--nord14) 30%, var(--nord6)));
+  --cds-green-50: color-mix(in srgb, var(--nord6) 50%, color-mix(in srgb, var(--nord14) 30%, var(--nord6)));
+  --cds-green-60: color-mix(in srgb, var(--nord6) 40%, color-mix(in srgb, var(--nord14) 30%, var(--nord6)));
+  --cds-green-70: color-mix(in srgb, var(--nord6) 30%, color-mix(in srgb, var(--nord14) 30%, var(--nord6)));
+  --cds-green-80: color-mix(in srgb, var(--nord6) 20%, color-mix(in srgb, var(--nord14) 30%, var(--nord6)));
+  --cds-green-90: color-mix(in srgb, var(--nord6) 10%, color-mix(in srgb, var(--nord14) 30%, var(--nord6)));
+  --cds-green-100: color-mix(in srgb, var(--nord14) 30%, var(--nord6));
+  --cds-green-150: color-mix(in srgb, color-mix(in srgb, var(--nord14) 30%, var(--nord6)) 75%, var(--nord14));
+  --cds-green-200: color-mix(in srgb, color-mix(in srgb, var(--nord14) 30%, var(--nord6)) 50%, var(--nord14));
+  --cds-green-250: color-mix(in srgb, color-mix(in srgb, var(--nord14) 30%, var(--nord6)) 25%, var(--nord14));
+  --cds-green-300: var(--nord14);
+  --cds-green-350: color-mix(in srgb, var(--nord14) 67%, var(--nord14));
+  --cds-green-400: color-mix(in srgb, var(--nord14) 33%, var(--nord14));
+  --cds-green-450: var(--nord14);
+  --cds-green-500: color-mix(in srgb, var(--nord14) 67%, color-mix(in srgb, var(--nord14) 60%, var(--nord1)));
+  --cds-green-550: color-mix(in srgb, var(--nord14) 33%, color-mix(in srgb, var(--nord14) 60%, var(--nord1)));
+  --cds-green-600: color-mix(in srgb, var(--nord14) 60%, var(--nord1));
+  --cds-green-650: color-mix(in srgb, color-mix(in srgb, var(--nord14) 60%, var(--nord1)) 50%, color-mix(in srgb, var(--nord14) 40%, var(--nord1)));
+  --cds-green-700: color-mix(in srgb, var(--nord14) 40%, var(--nord1));
+  --cds-green-750: color-mix(in srgb, color-mix(in srgb, var(--nord14) 40%, var(--nord1)) 50%, color-mix(in srgb, var(--nord14) 22%, var(--nord0)));
+  --cds-green-800: color-mix(in srgb, var(--nord14) 22%, var(--nord0));
+  --cds-green-810: color-mix(in srgb, color-mix(in srgb, var(--nord14) 22%, var(--nord0)) 90%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-green-820: color-mix(in srgb, color-mix(in srgb, var(--nord14) 22%, var(--nord0)) 80%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-green-830: color-mix(in srgb, color-mix(in srgb, var(--nord14) 22%, var(--nord0)) 70%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-green-840: color-mix(in srgb, color-mix(in srgb, var(--nord14) 22%, var(--nord0)) 60%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-green-850: color-mix(in srgb, color-mix(in srgb, var(--nord14) 22%, var(--nord0)) 50%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-green-860: color-mix(in srgb, color-mix(in srgb, var(--nord14) 22%, var(--nord0)) 40%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-green-870: color-mix(in srgb, color-mix(in srgb, var(--nord14) 22%, var(--nord0)) 30%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-green-880: color-mix(in srgb, color-mix(in srgb, var(--nord14) 22%, var(--nord0)) 20%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-green-890: color-mix(in srgb, color-mix(in srgb, var(--nord14) 22%, var(--nord0)) 10%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-green-900: color-mix(in srgb, var(--nord0) 70%, var(--nord-deep));
+  --cds-aqua-0: var(--nord6);
+  --cds-aqua-10: color-mix(in srgb, var(--nord6) 90%, color-mix(in srgb, var(--nord7) 30%, var(--nord6)));
+  --cds-aqua-20: color-mix(in srgb, var(--nord6) 80%, color-mix(in srgb, var(--nord7) 30%, var(--nord6)));
+  --cds-aqua-30: color-mix(in srgb, var(--nord6) 70%, color-mix(in srgb, var(--nord7) 30%, var(--nord6)));
+  --cds-aqua-40: color-mix(in srgb, var(--nord6) 60%, color-mix(in srgb, var(--nord7) 30%, var(--nord6)));
+  --cds-aqua-50: color-mix(in srgb, var(--nord6) 50%, color-mix(in srgb, var(--nord7) 30%, var(--nord6)));
+  --cds-aqua-60: color-mix(in srgb, var(--nord6) 40%, color-mix(in srgb, var(--nord7) 30%, var(--nord6)));
+  --cds-aqua-70: color-mix(in srgb, var(--nord6) 30%, color-mix(in srgb, var(--nord7) 30%, var(--nord6)));
+  --cds-aqua-80: color-mix(in srgb, var(--nord6) 20%, color-mix(in srgb, var(--nord7) 30%, var(--nord6)));
+  --cds-aqua-90: color-mix(in srgb, var(--nord6) 10%, color-mix(in srgb, var(--nord7) 30%, var(--nord6)));
+  --cds-aqua-100: color-mix(in srgb, var(--nord7) 30%, var(--nord6));
+  --cds-aqua-150: color-mix(in srgb, color-mix(in srgb, var(--nord7) 30%, var(--nord6)) 75%, var(--nord7));
+  --cds-aqua-200: color-mix(in srgb, color-mix(in srgb, var(--nord7) 30%, var(--nord6)) 50%, var(--nord7));
+  --cds-aqua-250: color-mix(in srgb, color-mix(in srgb, var(--nord7) 30%, var(--nord6)) 25%, var(--nord7));
+  --cds-aqua-300: var(--nord7);
+  --cds-aqua-350: color-mix(in srgb, var(--nord7) 67%, var(--nord7));
+  --cds-aqua-400: color-mix(in srgb, var(--nord7) 33%, var(--nord7));
+  --cds-aqua-450: var(--nord7);
+  --cds-aqua-500: color-mix(in srgb, var(--nord7) 67%, color-mix(in srgb, var(--nord7) 60%, var(--nord1)));
+  --cds-aqua-550: color-mix(in srgb, var(--nord7) 33%, color-mix(in srgb, var(--nord7) 60%, var(--nord1)));
+  --cds-aqua-600: color-mix(in srgb, var(--nord7) 60%, var(--nord1));
+  --cds-aqua-650: color-mix(in srgb, color-mix(in srgb, var(--nord7) 60%, var(--nord1)) 50%, color-mix(in srgb, var(--nord7) 40%, var(--nord1)));
+  --cds-aqua-700: color-mix(in srgb, var(--nord7) 40%, var(--nord1));
+  --cds-aqua-750: color-mix(in srgb, color-mix(in srgb, var(--nord7) 40%, var(--nord1)) 50%, color-mix(in srgb, var(--nord7) 22%, var(--nord0)));
+  --cds-aqua-800: color-mix(in srgb, var(--nord7) 22%, var(--nord0));
+  --cds-aqua-810: color-mix(in srgb, color-mix(in srgb, var(--nord7) 22%, var(--nord0)) 90%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-aqua-820: color-mix(in srgb, color-mix(in srgb, var(--nord7) 22%, var(--nord0)) 80%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-aqua-830: color-mix(in srgb, color-mix(in srgb, var(--nord7) 22%, var(--nord0)) 70%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-aqua-840: color-mix(in srgb, color-mix(in srgb, var(--nord7) 22%, var(--nord0)) 60%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-aqua-850: color-mix(in srgb, color-mix(in srgb, var(--nord7) 22%, var(--nord0)) 50%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-aqua-860: color-mix(in srgb, color-mix(in srgb, var(--nord7) 22%, var(--nord0)) 40%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-aqua-870: color-mix(in srgb, color-mix(in srgb, var(--nord7) 22%, var(--nord0)) 30%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-aqua-880: color-mix(in srgb, color-mix(in srgb, var(--nord7) 22%, var(--nord0)) 20%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-aqua-890: color-mix(in srgb, color-mix(in srgb, var(--nord7) 22%, var(--nord0)) 10%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-aqua-900: color-mix(in srgb, var(--nord0) 70%, var(--nord-deep));
+  --cds-blue-0: var(--nord6);
+  --cds-blue-10: color-mix(in srgb, var(--nord6) 90%, color-mix(in srgb, var(--nord8) 30%, var(--nord6)));
+  --cds-blue-20: color-mix(in srgb, var(--nord6) 80%, color-mix(in srgb, var(--nord8) 30%, var(--nord6)));
+  --cds-blue-30: color-mix(in srgb, var(--nord6) 70%, color-mix(in srgb, var(--nord8) 30%, var(--nord6)));
+  --cds-blue-40: color-mix(in srgb, var(--nord6) 60%, color-mix(in srgb, var(--nord8) 30%, var(--nord6)));
+  --cds-blue-50: color-mix(in srgb, var(--nord6) 50%, color-mix(in srgb, var(--nord8) 30%, var(--nord6)));
+  --cds-blue-60: color-mix(in srgb, var(--nord6) 40%, color-mix(in srgb, var(--nord8) 30%, var(--nord6)));
+  --cds-blue-70: color-mix(in srgb, var(--nord6) 30%, color-mix(in srgb, var(--nord8) 30%, var(--nord6)));
+  --cds-blue-80: color-mix(in srgb, var(--nord6) 20%, color-mix(in srgb, var(--nord8) 30%, var(--nord6)));
+  --cds-blue-90: color-mix(in srgb, var(--nord6) 10%, color-mix(in srgb, var(--nord8) 30%, var(--nord6)));
+  --cds-blue-100: color-mix(in srgb, var(--nord8) 30%, var(--nord6));
+  --cds-blue-150: color-mix(in srgb, color-mix(in srgb, var(--nord8) 30%, var(--nord6)) 75%, var(--nord8));
+  --cds-blue-200: color-mix(in srgb, color-mix(in srgb, var(--nord8) 30%, var(--nord6)) 50%, var(--nord8));
+  --cds-blue-250: color-mix(in srgb, color-mix(in srgb, var(--nord8) 30%, var(--nord6)) 25%, var(--nord8));
+  --cds-blue-300: var(--nord8);
+  --cds-blue-350: color-mix(in srgb, var(--nord8) 67%, var(--nord10));
+  --cds-blue-400: color-mix(in srgb, var(--nord8) 33%, var(--nord10));
+  --cds-blue-450: var(--nord10);
+  --cds-blue-500: color-mix(in srgb, var(--nord10) 67%, color-mix(in srgb, var(--nord10) 60%, var(--nord1)));
+  --cds-blue-550: color-mix(in srgb, var(--nord10) 33%, color-mix(in srgb, var(--nord10) 60%, var(--nord1)));
+  --cds-blue-600: color-mix(in srgb, var(--nord10) 60%, var(--nord1));
+  --cds-blue-650: color-mix(in srgb, color-mix(in srgb, var(--nord10) 60%, var(--nord1)) 50%, color-mix(in srgb, var(--nord10) 40%, var(--nord1)));
+  --cds-blue-700: color-mix(in srgb, var(--nord10) 40%, var(--nord1));
+  --cds-blue-750: color-mix(in srgb, color-mix(in srgb, var(--nord10) 40%, var(--nord1)) 50%, color-mix(in srgb, var(--nord10) 22%, var(--nord0)));
+  --cds-blue-800: color-mix(in srgb, var(--nord10) 22%, var(--nord0));
+  --cds-blue-810: color-mix(in srgb, color-mix(in srgb, var(--nord10) 22%, var(--nord0)) 90%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-blue-820: color-mix(in srgb, color-mix(in srgb, var(--nord10) 22%, var(--nord0)) 80%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-blue-830: color-mix(in srgb, color-mix(in srgb, var(--nord10) 22%, var(--nord0)) 70%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-blue-840: color-mix(in srgb, color-mix(in srgb, var(--nord10) 22%, var(--nord0)) 60%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-blue-850: color-mix(in srgb, color-mix(in srgb, var(--nord10) 22%, var(--nord0)) 50%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-blue-860: color-mix(in srgb, color-mix(in srgb, var(--nord10) 22%, var(--nord0)) 40%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-blue-870: color-mix(in srgb, color-mix(in srgb, var(--nord10) 22%, var(--nord0)) 30%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-blue-880: color-mix(in srgb, color-mix(in srgb, var(--nord10) 22%, var(--nord0)) 20%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-blue-890: color-mix(in srgb, color-mix(in srgb, var(--nord10) 22%, var(--nord0)) 10%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-blue-900: color-mix(in srgb, var(--nord0) 70%, var(--nord-deep));
+  --cds-violet-0: var(--nord6);
+  --cds-violet-10: color-mix(in srgb, var(--nord6) 90%, color-mix(in srgb, var(--nord15) 30%, var(--nord6)));
+  --cds-violet-20: color-mix(in srgb, var(--nord6) 80%, color-mix(in srgb, var(--nord15) 30%, var(--nord6)));
+  --cds-violet-30: color-mix(in srgb, var(--nord6) 70%, color-mix(in srgb, var(--nord15) 30%, var(--nord6)));
+  --cds-violet-40: color-mix(in srgb, var(--nord6) 60%, color-mix(in srgb, var(--nord15) 30%, var(--nord6)));
+  --cds-violet-50: color-mix(in srgb, var(--nord6) 50%, color-mix(in srgb, var(--nord15) 30%, var(--nord6)));
+  --cds-violet-60: color-mix(in srgb, var(--nord6) 40%, color-mix(in srgb, var(--nord15) 30%, var(--nord6)));
+  --cds-violet-70: color-mix(in srgb, var(--nord6) 30%, color-mix(in srgb, var(--nord15) 30%, var(--nord6)));
+  --cds-violet-80: color-mix(in srgb, var(--nord6) 20%, color-mix(in srgb, var(--nord15) 30%, var(--nord6)));
+  --cds-violet-90: color-mix(in srgb, var(--nord6) 10%, color-mix(in srgb, var(--nord15) 30%, var(--nord6)));
+  --cds-violet-100: color-mix(in srgb, var(--nord15) 30%, var(--nord6));
+  --cds-violet-150: color-mix(in srgb, color-mix(in srgb, var(--nord15) 30%, var(--nord6)) 75%, var(--nord15));
+  --cds-violet-200: color-mix(in srgb, color-mix(in srgb, var(--nord15) 30%, var(--nord6)) 50%, var(--nord15));
+  --cds-violet-250: color-mix(in srgb, color-mix(in srgb, var(--nord15) 30%, var(--nord6)) 25%, var(--nord15));
+  --cds-violet-300: var(--nord15);
+  --cds-violet-350: color-mix(in srgb, var(--nord15) 67%, var(--nord15));
+  --cds-violet-400: color-mix(in srgb, var(--nord15) 33%, var(--nord15));
+  --cds-violet-450: var(--nord15);
+  --cds-violet-500: color-mix(in srgb, var(--nord15) 67%, color-mix(in srgb, var(--nord15) 60%, var(--nord1)));
+  --cds-violet-550: color-mix(in srgb, var(--nord15) 33%, color-mix(in srgb, var(--nord15) 60%, var(--nord1)));
+  --cds-violet-600: color-mix(in srgb, var(--nord15) 60%, var(--nord1));
+  --cds-violet-650: color-mix(in srgb, color-mix(in srgb, var(--nord15) 60%, var(--nord1)) 50%, color-mix(in srgb, var(--nord15) 40%, var(--nord1)));
+  --cds-violet-700: color-mix(in srgb, var(--nord15) 40%, var(--nord1));
+  --cds-violet-750: color-mix(in srgb, color-mix(in srgb, var(--nord15) 40%, var(--nord1)) 50%, color-mix(in srgb, var(--nord15) 22%, var(--nord0)));
+  --cds-violet-800: color-mix(in srgb, var(--nord15) 22%, var(--nord0));
+  --cds-violet-810: color-mix(in srgb, color-mix(in srgb, var(--nord15) 22%, var(--nord0)) 90%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-violet-820: color-mix(in srgb, color-mix(in srgb, var(--nord15) 22%, var(--nord0)) 80%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-violet-830: color-mix(in srgb, color-mix(in srgb, var(--nord15) 22%, var(--nord0)) 70%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-violet-840: color-mix(in srgb, color-mix(in srgb, var(--nord15) 22%, var(--nord0)) 60%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-violet-850: color-mix(in srgb, color-mix(in srgb, var(--nord15) 22%, var(--nord0)) 50%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-violet-860: color-mix(in srgb, color-mix(in srgb, var(--nord15) 22%, var(--nord0)) 40%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-violet-870: color-mix(in srgb, color-mix(in srgb, var(--nord15) 22%, var(--nord0)) 30%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-violet-880: color-mix(in srgb, color-mix(in srgb, var(--nord15) 22%, var(--nord0)) 20%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-violet-890: color-mix(in srgb, color-mix(in srgb, var(--nord15) 22%, var(--nord0)) 10%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-violet-900: color-mix(in srgb, var(--nord0) 70%, var(--nord-deep));
+  --cds-magenta-0: var(--nord6);
+  --cds-magenta-10: color-mix(in srgb, var(--nord6) 90%, color-mix(in srgb, var(--nord15) 30%, var(--nord6)));
+  --cds-magenta-20: color-mix(in srgb, var(--nord6) 80%, color-mix(in srgb, var(--nord15) 30%, var(--nord6)));
+  --cds-magenta-30: color-mix(in srgb, var(--nord6) 70%, color-mix(in srgb, var(--nord15) 30%, var(--nord6)));
+  --cds-magenta-40: color-mix(in srgb, var(--nord6) 60%, color-mix(in srgb, var(--nord15) 30%, var(--nord6)));
+  --cds-magenta-50: color-mix(in srgb, var(--nord6) 50%, color-mix(in srgb, var(--nord15) 30%, var(--nord6)));
+  --cds-magenta-60: color-mix(in srgb, var(--nord6) 40%, color-mix(in srgb, var(--nord15) 30%, var(--nord6)));
+  --cds-magenta-70: color-mix(in srgb, var(--nord6) 30%, color-mix(in srgb, var(--nord15) 30%, var(--nord6)));
+  --cds-magenta-80: color-mix(in srgb, var(--nord6) 20%, color-mix(in srgb, var(--nord15) 30%, var(--nord6)));
+  --cds-magenta-90: color-mix(in srgb, var(--nord6) 10%, color-mix(in srgb, var(--nord15) 30%, var(--nord6)));
+  --cds-magenta-100: color-mix(in srgb, var(--nord15) 30%, var(--nord6));
+  --cds-magenta-150: color-mix(in srgb, color-mix(in srgb, var(--nord15) 30%, var(--nord6)) 75%, var(--nord15));
+  --cds-magenta-200: color-mix(in srgb, color-mix(in srgb, var(--nord15) 30%, var(--nord6)) 50%, var(--nord15));
+  --cds-magenta-250: color-mix(in srgb, color-mix(in srgb, var(--nord15) 30%, var(--nord6)) 25%, var(--nord15));
+  --cds-magenta-300: var(--nord15);
+  --cds-magenta-350: color-mix(in srgb, var(--nord15) 67%, var(--nord15));
+  --cds-magenta-400: color-mix(in srgb, var(--nord15) 33%, var(--nord15));
+  --cds-magenta-450: var(--nord15);
+  --cds-magenta-500: color-mix(in srgb, var(--nord15) 67%, color-mix(in srgb, var(--nord15) 60%, var(--nord1)));
+  --cds-magenta-550: color-mix(in srgb, var(--nord15) 33%, color-mix(in srgb, var(--nord15) 60%, var(--nord1)));
+  --cds-magenta-600: color-mix(in srgb, var(--nord15) 60%, var(--nord1));
+  --cds-magenta-650: color-mix(in srgb, color-mix(in srgb, var(--nord15) 60%, var(--nord1)) 50%, color-mix(in srgb, var(--nord15) 40%, var(--nord1)));
+  --cds-magenta-700: color-mix(in srgb, var(--nord15) 40%, var(--nord1));
+  --cds-magenta-750: color-mix(in srgb, color-mix(in srgb, var(--nord15) 40%, var(--nord1)) 50%, color-mix(in srgb, var(--nord15) 22%, var(--nord0)));
+  --cds-magenta-800: color-mix(in srgb, var(--nord15) 22%, var(--nord0));
+  --cds-magenta-810: color-mix(in srgb, color-mix(in srgb, var(--nord15) 22%, var(--nord0)) 90%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-magenta-820: color-mix(in srgb, color-mix(in srgb, var(--nord15) 22%, var(--nord0)) 80%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-magenta-830: color-mix(in srgb, color-mix(in srgb, var(--nord15) 22%, var(--nord0)) 70%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-magenta-840: color-mix(in srgb, color-mix(in srgb, var(--nord15) 22%, var(--nord0)) 60%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-magenta-850: color-mix(in srgb, color-mix(in srgb, var(--nord15) 22%, var(--nord0)) 50%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-magenta-860: color-mix(in srgb, color-mix(in srgb, var(--nord15) 22%, var(--nord0)) 40%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-magenta-870: color-mix(in srgb, color-mix(in srgb, var(--nord15) 22%, var(--nord0)) 30%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-magenta-880: color-mix(in srgb, color-mix(in srgb, var(--nord15) 22%, var(--nord0)) 20%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-magenta-890: color-mix(in srgb, color-mix(in srgb, var(--nord15) 22%, var(--nord0)) 10%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)));
+  --cds-magenta-900: color-mix(in srgb, var(--nord0) 70%, var(--nord-deep));
+  --cds-hsl-blue-100: from color-mix(in srgb, var(--nord8) 30%, var(--nord6)) h s l;
+  --cds-hsl-blue-200: from color-mix(in srgb, color-mix(in srgb, var(--nord8) 30%, var(--nord6)) 50%, var(--nord8)) h s l;
+  --cds-hsl-blue-350: from color-mix(in srgb, var(--nord8) 67%, var(--nord10)) h s l;
+  --cds-hsl-blue-500: from color-mix(in srgb, var(--nord10) 67%, color-mix(in srgb, var(--nord10) 60%, var(--nord1))) h s l;
+  --cds-hsl-blue-600: from color-mix(in srgb, var(--nord10) 60%, var(--nord1)) h s l;
+  --cds-hsl-blue-750: from color-mix(in srgb, color-mix(in srgb, var(--nord10) 40%, var(--nord1)) 50%, color-mix(in srgb, var(--nord10) 22%, var(--nord0))) h s l;
+  --cds-hsl-clay: from var(--nord12) h s l;
+  --cds-hsl-clay-emphasized: from color-mix(in srgb, var(--nord12) 85%, var(--nord0)) h s l;
+  --cds-hsl-gray-0: from var(--nord6) h s l;
+  --cds-hsl-gray-10: from color-mix(in srgb, var(--nord6) 80%, var(--nord5)) h s l;
+  --cds-hsl-gray-100: from color-mix(in srgb, var(--nord5) 50%, var(--nord4)) h s l;
+  --cds-hsl-gray-150: from var(--nord4) h s l;
+  --cds-hsl-gray-20: from color-mix(in srgb, var(--nord6) 60%, var(--nord5)) h s l;
+  --cds-hsl-gray-200: from var(--nord4) h s l;
+  --cds-hsl-gray-30: from color-mix(in srgb, var(--nord6) 40%, var(--nord5)) h s l;
+  --cds-hsl-gray-300: from color-mix(in srgb, var(--nord4) 75%, var(--nord3)) h s l;
+  --cds-hsl-gray-350: from color-mix(in srgb, color-mix(in srgb, var(--nord4) 75%, var(--nord3)) 50%, color-mix(in srgb, var(--nord4) 50%, var(--nord3))) h s l;
+  --cds-hsl-gray-40: from color-mix(in srgb, var(--nord6) 20%, var(--nord5)) h s l;
+  --cds-hsl-gray-450: from color-mix(in srgb, color-mix(in srgb, var(--nord4) 50%, var(--nord3)) 75%, var(--nord3)) h s l;
+  --cds-hsl-gray-50: from var(--nord5) h s l;
+  --cds-hsl-gray-500: from color-mix(in srgb, color-mix(in srgb, var(--nord4) 50%, var(--nord3)) 50%, var(--nord3)) h s l;
+  --cds-hsl-gray-60: from color-mix(in srgb, var(--nord5) 90%, var(--nord4)) h s l;
+  --cds-hsl-gray-600: from var(--nord3) h s l;
+  --cds-hsl-gray-650: from var(--nord3) h s l;
+  --cds-hsl-gray-700: from color-mix(in srgb, var(--nord3) 50%, var(--nord2)) h s l;
+  --cds-hsl-gray-750: from var(--nord2) h s l;
+  --cds-hsl-gray-80: from color-mix(in srgb, var(--nord5) 70%, var(--nord4)) h s l;
+  --cds-hsl-gray-800: from var(--nord1) h s l;
+  --cds-hsl-gray-810: from color-mix(in srgb, var(--nord1) 80%, var(--nord0)) h s l;
+  --cds-hsl-gray-830: from color-mix(in srgb, var(--nord1) 40%, var(--nord0)) h s l;
+  --cds-hsl-gray-840: from color-mix(in srgb, var(--nord1) 20%, var(--nord0)) h s l;
+  --cds-hsl-gray-850: from var(--nord0) h s l;
+  --cds-hsl-gray-860: from color-mix(in srgb, var(--nord0) 80%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep))) h s l;
+  --cds-hsl-gray-870: from color-mix(in srgb, var(--nord0) 60%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep))) h s l;
+  --cds-hsl-gray-890: from color-mix(in srgb, var(--nord0) 20%, color-mix(in srgb, var(--nord0) 70%, var(--nord-deep))) h s l;
+  --cds-hsl-gray-90: from color-mix(in srgb, var(--nord5) 60%, var(--nord4)) h s l;
+  --cds-hsl-gray-900: from color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)) h s l;
+  --cds-hsl-green-100: from color-mix(in srgb, var(--nord14) 30%, var(--nord6)) h s l;
+  --cds-hsl-green-200: from color-mix(in srgb, color-mix(in srgb, var(--nord14) 30%, var(--nord6)) 50%, var(--nord14)) h s l;
+  --cds-hsl-green-400: from color-mix(in srgb, var(--nord14) 33%, var(--nord14)) h s l;
+  --cds-hsl-green-450: from var(--nord14) h s l;
+  --cds-hsl-green-600: from color-mix(in srgb, var(--nord14) 60%, var(--nord1)) h s l;
+  --cds-hsl-green-750: from color-mix(in srgb, color-mix(in srgb, var(--nord14) 40%, var(--nord1)) 50%, color-mix(in srgb, var(--nord14) 22%, var(--nord0))) h s l;
+  --cds-hsl-red-100: from color-mix(in srgb, var(--nord11) 30%, var(--nord6)) h s l;
+  --cds-hsl-red-200: from color-mix(in srgb, color-mix(in srgb, var(--nord11) 30%, var(--nord6)) 50%, var(--nord11)) h s l;
+  --cds-hsl-red-350: from color-mix(in srgb, var(--nord11) 67%, var(--nord11)) h s l;
+  --cds-hsl-red-400: from color-mix(in srgb, var(--nord11) 33%, var(--nord11)) h s l;
+  --cds-hsl-red-450: from var(--nord11) h s l;
+  --cds-hsl-red-600: from color-mix(in srgb, var(--nord11) 60%, var(--nord1)) h s l;
+  --cds-hsl-red-750: from color-mix(in srgb, color-mix(in srgb, var(--nord11) 40%, var(--nord1)) 50%, color-mix(in srgb, var(--nord11) 22%, var(--nord0))) h s l;
+  --cds-hsl-violet-100: from color-mix(in srgb, var(--nord15) 30%, var(--nord6)) h s l;
+  --cds-hsl-violet-200: from color-mix(in srgb, color-mix(in srgb, var(--nord15) 30%, var(--nord6)) 50%, var(--nord15)) h s l;
+  --cds-hsl-violet-350: from color-mix(in srgb, var(--nord15) 67%, var(--nord15)) h s l;
+  --cds-hsl-violet-400: from color-mix(in srgb, var(--nord15) 33%, var(--nord15)) h s l;
+  --cds-hsl-violet-450: from var(--nord15) h s l;
+  --cds-hsl-violet-600: from color-mix(in srgb, var(--nord15) 60%, var(--nord1)) h s l;
+  --cds-hsl-violet-750: from color-mix(in srgb, color-mix(in srgb, var(--nord15) 40%, var(--nord1)) 50%, color-mix(in srgb, var(--nord15) 22%, var(--nord0))) h s l;
+  --cds-hsl-yellow-100: from color-mix(in srgb, var(--nord13) 30%, var(--nord6)) h s l;
+  --cds-hsl-yellow-200: from color-mix(in srgb, color-mix(in srgb, var(--nord13) 30%, var(--nord6)) 50%, var(--nord13)) h s l;
+  --cds-hsl-yellow-350: from color-mix(in srgb, var(--nord13) 67%, var(--nord13)) h s l;
+  --cds-hsl-yellow-400: from color-mix(in srgb, var(--nord13) 33%, var(--nord13)) h s l;
+  --cds-hsl-yellow-450: from var(--nord13) h s l;
+  --cds-hsl-yellow-600: from color-mix(in srgb, var(--nord13) 60%, var(--nord1)) h s l;
+  --cds-hsl-yellow-750: from color-mix(in srgb, color-mix(in srgb, var(--nord13) 40%, var(--nord1)) 50%, color-mix(in srgb, var(--nord13) 22%, var(--nord0))) h s l;
+}
+
+/* 2. The dark semantic tokens, in every mode */
+:is(#nt-specificity, :root, .cds-root, .cds-dark-scope) {
+  --lightningcss-light: ;
+  --lightningcss-dark: initial;
+  --cds-border: var(--cds-alpha-2);
+  --cds-border-editor-comment: var(--cds-yellow-300);
+  --cds-border-editor-comment-open: var(--cds-yellow-200);
+  --cds-border-editor-comment-target: var(--cds-yellow-450);
+  --cds-border-git-added: color-mix(in srgb, var(--cds-text-git-added) 40%, transparent);
+  --cds-border-git-removed: color-mix(in srgb, var(--cds-text-git-removed) 40%, transparent);
+  --cds-border-git-modified: color-mix(in srgb, var(--cds-text-git-modified) 40%, transparent);
+  --cds-border-git-merged: color-mix(in srgb, var(--cds-text-git-merged) 40%, transparent);
+  --cds-border-git-closed: color-mix(in srgb, var(--cds-text-git-closed) 40%, transparent);
+  --cds-border-git-conflicting: color-mix(in srgb, var(--cds-text-git-conflicting) 40%, transparent);
+  --cds-border-git-draft: color-mix(in srgb, var(--cds-text-git-draft) 40%, transparent);
+  --cds-border-git-opened: var(--cds-border-git-added);
+  --cds-border-git-queued: var(--cds-border-git-modified);
+  --cds-border-strong: var(--cds-alpha-3);
+  --cds-border-stronger: hsl(from var(--cds-neutral-900) h s l / 40%);
+  --cds-shadow-sm: 0 1px 2px 0 hsl(from var(--cds-gray-900) h s l / 6%), 0 2px 8px 0 var(--cds-shadow-color);
+  --cds-shadow-md: 0 2px 4px 0 hsl(from var(--cds-gray-900) h s l / 7%), 0 6px 16px 0 var(--cds-shadow-color);
+  --cds-shadow-lg: 0 4px 8px 0 hsl(from var(--cds-gray-900) h s l / 8%), 0 12px 28px -2px var(--cds-shadow-color);
+  --cds-shadow-color: color-mix(in srgb, var(--nord-deep) 24%, transparent);
+  --cds-shadow-popover: 0 8px 24px color-mix(in srgb, var(--nord-deep) 32%, transparent), 0 2px 6px color-mix(in srgb, var(--nord-deep) 20%, transparent);
+  --cds-shadow-drop-glow: inset 0 0 24px -2px hsl(from var(--cds-fill-accent) h s l / 20%);
+  --cds-shadow-drop-glow-danger: inset 0 0 24px -2px hsl(from var(--cds-fill-danger) h s l / 20%);
+  --cds-ring-color: var(--cds-alpha-2);
+  --cds-focus-shadow: inset 0 0 0 1px var(--cds-page-bg), 0 0 0 1px var(--cds-fill-accent), 0 0 6px 1px hsl(from var(--cds-role-accent-600) h s l / 60%);
+  --cds-focus-shadow-danger: inset 0 0 0 1px var(--cds-page-bg), 0 0 0 1px var(--cds-fill-danger), 0 0 6px 1px hsl(from var(--cds-role-danger-600) h s l / 60%);
+  --cds-pictogram-highlight-default: var(--cds-gray-650);
+  --cds-pictogram-highlight-heather: var(--cds-plum);
+  --cds-pictogram-highlight-cactus: var(--cds-mineral);
+  --cds-neutral-0: var(--cds-gray-900);
+  --cds-neutral-10: var(--cds-gray-890);
+  --cds-neutral-20: var(--cds-gray-880);
+  --cds-neutral-30: var(--cds-gray-870);
+  --cds-neutral-40: var(--cds-gray-860);
+  --cds-neutral-50: var(--cds-gray-850);
+  --cds-neutral-60: var(--cds-gray-840);
+  --cds-neutral-70: var(--cds-gray-830);
+  --cds-neutral-80: var(--cds-gray-820);
+  --cds-neutral-90: var(--cds-gray-810);
+  --cds-neutral-100: var(--cds-gray-800);
+  --cds-neutral-150: var(--cds-gray-750);
+  --cds-neutral-200: var(--cds-gray-700);
+  --cds-neutral-250: var(--cds-gray-650);
+  --cds-neutral-300: var(--cds-gray-600);
+  --cds-neutral-350: var(--cds-gray-550);
+  --cds-neutral-400: var(--cds-gray-500);
+  --cds-neutral-450: var(--cds-gray-450);
+  --cds-neutral-500: var(--cds-gray-400);
+  --cds-neutral-550: var(--cds-gray-350);
+  --cds-neutral-600: var(--cds-gray-300);
+  --cds-neutral-650: var(--cds-gray-250);
+  --cds-neutral-700: var(--cds-gray-200);
+  --cds-neutral-750: var(--cds-gray-150);
+  --cds-neutral-800: var(--cds-gray-100);
+  --cds-neutral-810: var(--cds-gray-90);
+  --cds-neutral-820: var(--cds-gray-80);
+  --cds-neutral-830: var(--cds-gray-70);
+  --cds-neutral-840: var(--cds-gray-60);
+  --cds-neutral-850: var(--cds-gray-50);
+  --cds-neutral-860: var(--cds-gray-40);
+  --cds-neutral-870: var(--cds-gray-30);
+  --cds-neutral-880: var(--cds-gray-20);
+  --cds-neutral-890: var(--cds-gray-10);
+  --cds-neutral-900: var(--cds-gray-0);
+  --cds-alpha-0: hsl(from var(--cds-neutral-900) h s l / 0%);
+  --cds-alpha-1: hsl(from var(--cds-neutral-900) h s l / 5%);
+  --cds-alpha-2: hsl(from var(--cds-neutral-900) h s l / 10%);
+  --cds-alpha-3: hsl(from var(--cds-neutral-900) h s l / 20%);
+  --cds-alpha-4: hsl(from var(--cds-neutral-900) h s l / 35%);
+  --cds-alpha-5: hsl(from var(--cds-neutral-900) h s l / 50%);
+  --cds-alpha-6: hsl(from var(--cds-neutral-900) h s l / 60%);
+  --cds-alpha-7: hsl(from var(--cds-neutral-900) h s l / 70%);
+  --cds-alpha-8: hsl(from var(--cds-neutral-900) h s l / 85%);
+  --cds-alpha-9: hsl(from var(--cds-neutral-900) h s l / 95%);
+  --cds-surface-0: var(--cds-gray-900);
+  --cds-surface-1: var(--cds-gray-850);
+  --cds-surface-2: var(--cds-gray-830);
+  --cds-surface-3: var(--cds-gray-800);
+  --cds-surface-popover: var(--cds-surface-3);
+  --cds-surface-panel: var(--cds-surface-2);
+  --cds-page-bg: var(--cds-surface-0);
+  --cds-fill-git-removed: var(--cds-text-git-removed);
+  --cds-fill-git-draft: var(--cds-text-git-draft);
+  --cds-fill-git-opened: var(--cds-fill-git-added);
+  --cds-fill-git-opened-hover: var(--cds-fill-git-added-hover);
+  --cds-fill-git-queued: var(--cds-fill-git-modified);
+  --cds-fill-git-queued-hover: var(--cds-fill-git-modified-hover);
+  --cds-fill-brand: var(--cds-clay-emphasized);
+  --cds-fill-brand-hover: var(--cds-clay);
+  --cds-fill-primary: var(--cds-neutral-900);
+  --cds-fill-primary-hover: var(--cds-gray-100);
+  --cds-fill-secondary: var(--cds-alpha-2);
+  --cds-fill-secondary-hover: hsl(from var(--cds-neutral-900) h s l / 14%);
+  --cds-fill-secondary-ring: transparent;
+  --cds-fill-secondary-pressed-ring: var(--cds-border);
+  --cds-fill-field: var(--cds-alpha-1);
+  --cds-fill-field-ring: var(--cds-border);
+  --cds-fill-ghost-hover: hsl(from var(--cds-neutral-900) h s l / 7.5%);
+  --cds-fill-ghost-selected: hsl(from var(--cds-neutral-900) h s l / 15%);
+  --cds-fill-disabled: var(--cds-alpha-1);
+  --cds-fill-control: var(--cds-alpha-2);
+  --cds-fill-control-hover: var(--cds-alpha-3);
+  --cds-bg-accent-muted: color-mix(in srgb, var(--cds-fill-accent) 10%, transparent);
+  --cds-bg-tint-red: rgb(from var(--cds-red-800) calc((r - 5.25) / .75) calc((g - 5.25) / .75) calc((b - 5.25) / .75) / 75%);
+  --cds-bg-tint-red-opaque: var(--cds-red-800);
+  --cds-bg-tint-orange: rgb(from var(--cds-orange-800) calc((r - 5.25) / .75) calc((g - 5.25) / .75) calc((b - 5.25) / .75) / 75%);
+  --cds-bg-tint-orange-opaque: var(--cds-orange-800);
+  --cds-bg-tint-yellow: rgb(from var(--cds-yellow-800) calc((r - 5.25) / .75) calc((g - 5.25) / .75) calc((b - 5.25) / .75) / 75%);
+  --cds-bg-tint-yellow-opaque: var(--cds-yellow-800);
+  --cds-bg-tint-green: rgb(from var(--cds-green-800) calc((r - 5.25) / .75) calc((g - 5.25) / .75) calc((b - 5.25) / .75) / 75%);
+  --cds-bg-tint-green-opaque: var(--cds-green-800);
+  --cds-bg-tint-aqua: rgb(from var(--cds-aqua-800) calc((r - 5.25) / .75) calc((g - 5.25) / .75) calc((b - 5.25) / .75) / 75%);
+  --cds-bg-tint-aqua-opaque: var(--cds-aqua-800);
+  --cds-bg-tint-blue: rgb(from var(--cds-blue-800) calc((r - 5.25) / .75) calc((g - 5.25) / .75) calc((b - 5.25) / .75) / 75%);
+  --cds-bg-tint-blue-opaque: var(--cds-blue-800);
+  --cds-bg-tint-violet: rgb(from var(--cds-violet-800) calc((r - 5.25) / .75) calc((g - 5.25) / .75) calc((b - 5.25) / .75) / 75%);
+  --cds-bg-tint-violet-opaque: var(--cds-violet-800);
+  --cds-bg-tint-magenta: rgb(from var(--cds-magenta-800) calc((r - 5.25) / .75) calc((g - 5.25) / .75) calc((b - 5.25) / .75) / 75%);
+  --cds-bg-tint-magenta-opaque: var(--cds-magenta-800);
+  --cds-bg-git-added: color-mix(in srgb, var(--cds-text-git-added) 20%, transparent);
+  --cds-bg-git-removed: color-mix(in srgb, var(--cds-text-git-removed) 20%, transparent);
+  --cds-bg-git-modified: color-mix(in srgb, var(--cds-text-git-modified) 20%, transparent);
+  --cds-bg-git-merged: color-mix(in srgb, var(--cds-text-git-merged) 20%, transparent);
+  --cds-bg-git-closed: color-mix(in srgb, var(--cds-text-git-closed) 20%, transparent);
+  --cds-bg-git-conflicting: color-mix(in srgb, var(--cds-text-git-conflicting) 20%, transparent);
+  --cds-bg-git-draft: color-mix(in srgb, var(--cds-text-git-draft) 20%, transparent);
+  --cds-bg-git-opened: var(--cds-bg-git-added);
+  --cds-bg-git-queued: var(--cds-bg-git-modified);
+  --cds-bg-highlight: color-mix(in srgb, var(--cds-fill-warning) 33%, transparent);
+  --cds-bg-editor-canvas: var(--cds-neutral-60);
+  --cds-bg-editor-claude-pending: color-mix(in srgb, var(--cds-clay) 22%, transparent);
+  --cds-bg-editor-highlight-yellow: var(--cds-bg-highlight);
+  --cds-bg-editor-highlight-green: color-mix(in srgb, var(--cds-green-300) 33%, transparent);
+  --cds-bg-editor-highlight-blue: color-mix(in srgb, var(--cds-blue-300) 33%, transparent);
+  --cds-bg-editor-highlight-magenta: color-mix(in srgb, var(--cds-magenta-300) 33%, transparent);
+  --cds-bg-editor-highlight-violet: color-mix(in srgb, var(--cds-violet-300) 33%, transparent);
+  --cds-bg-editor-highlight-gray: color-mix(in srgb, var(--cds-gray-300) 33%, transparent);
+  --cds-bg-editor-collaborator-1: color-mix(in srgb, var(--cds-editor-collaborator-1) 22%, transparent);
+  --cds-bg-editor-collaborator-2: color-mix(in srgb, var(--cds-editor-collaborator-2) 22%, transparent);
+  --cds-bg-editor-collaborator-3: color-mix(in srgb, var(--cds-editor-collaborator-3) 22%, transparent);
+  --cds-bg-editor-collaborator-4: color-mix(in srgb, var(--cds-editor-collaborator-4) 22%, transparent);
+  --cds-bg-editor-collaborator-5: color-mix(in srgb, var(--cds-editor-collaborator-5) 22%, transparent);
+  --cds-bg-editor-collaborator-6: color-mix(in srgb, var(--cds-editor-collaborator-6) 22%, transparent);
+  --cds-bg-editor-comment: color-mix(in srgb, var(--cds-fill-warning) 20%, transparent);
+  --cds-bg-editor-comment-active: color-mix(in srgb, var(--cds-fill-warning) 45%, transparent);
+  --cds-bg-neutral: var(--cds-alpha-1);
+  --cds-bg-neutral-hover: var(--cds-alpha-2);
+  --cds-bg-neutral-chip: var(--cds-bg-neutral);
+  --cds-bg-neutral-chip-hover: var(--cds-bg-neutral-hover);
+  --cds-bg-user-message: var(--cds-bg-neutral);
+  --cds-bg-user-message-personal: var(--cds-bg-tint-blue);
+  --cds-backdrop: color-mix(in srgb, var(--nord-deep) 50%, transparent);
+  --cds-text-tint-red: var(--cds-red-300);
+  --cds-text-tint-orange: var(--cds-orange-300);
+  --cds-text-tint-yellow: var(--cds-yellow-300);
+  --cds-text-tint-green: var(--cds-green-300);
+  --cds-text-tint-aqua: var(--cds-aqua-300);
+  --cds-text-tint-blue: var(--cds-blue-300);
+  --cds-text-tint-violet: var(--cds-violet-300);
+  --cds-text-tint-magenta: var(--cds-magenta-300);
+  --cds-text-user-message-personal: var(--cds-text-tint-blue);
+  --cds-text-git-opened: var(--cds-text-git-added);
+  --cds-text-git-queued: var(--cds-text-git-modified);
+  --cds-text-primary: var(--cds-gray-50);
+  --cds-text-secondary: var(--cds-gray-200);
+  --cds-text-muted: var(--cds-gray-400);
+  --cds-text-disabled: var(--cds-alpha-4);
+  --cds-on-primary: var(--cds-neutral-0);
+  --cds-on-git-added: var(--cds-gray-900);
+  --cds-on-git-removed: var(--cds-gray-900);
+  --cds-on-git-modified: var(--cds-gray-900);
+  --cds-on-git-merged: var(--cds-gray-900);
+  --cds-on-git-closed: var(--cds-gray-900);
+  --cds-on-git-conflicting: var(--cds-gray-900);
+  --cds-on-git-draft: var(--cds-gray-900);
+  --cds-on-git-opened: var(--cds-on-git-added);
+  --cds-on-git-queued: var(--cds-on-git-modified);
+  --cds-on-brand: var(--nord6);
+  --cds-chart-categorical-1: var(--cds-blue-400);
+  --cds-chart-categorical-2: var(--cds-orange-400);
+  --cds-chart-categorical-3: var(--cds-aqua-400);
+  --cds-chart-categorical-4: var(--cds-yellow-350);
+  --cds-chart-categorical-5: var(--cds-magenta-400);
+  --cds-chart-categorical-6: var(--cds-green-500);
+  --cds-chart-categorical-7: var(--cds-violet-350);
+  --cds-chart-categorical-8: var(--cds-red-350);
+  --cds-chart-sequential-1: var(--cds-blue-700);
+  --cds-chart-sequential-2: var(--cds-blue-600);
+  --cds-chart-sequential-3: var(--cds-blue-500);
+  --cds-chart-sequential-4: var(--cds-blue-400);
+  --cds-chart-sequential-5: var(--cds-blue-300);
+  --cds-chart-sequential-6: var(--cds-blue-200);
+  --cds-chart-sequential-7: var(--cds-blue-100);
+  --cds-chart-diverging-1: var(--cds-blue-300);
+  --cds-chart-diverging-2: var(--cds-blue-450);
+  --cds-chart-diverging-3: var(--cds-blue-600);
+  --cds-chart-diverging-4: var(--cds-gray-700);
+  --cds-chart-diverging-5: var(--cds-red-600);
+  --cds-chart-diverging-6: var(--cds-red-450);
+  --cds-chart-diverging-7: var(--cds-red-300);
+  --cds-chart-status-good: var(--cds-green-400);
+  --cds-chart-status-warning: var(--cds-yellow-200);
+  --cds-chart-status-serious: var(--cds-orange-300);
+  --cds-chart-status-critical: var(--cds-red-450);
+  --cds-chart-muted: var(--cds-gray-550);
+  --cds-chart-reference: var(--cds-gray-350);
+  --cds-chart-reference-tint: hsl(from var(--cds-gray-350) h s l / 15%);
+  --cds-chart-grid: var(--cds-alpha-2);
+  --cds-chart-axis: var(--cds-gray-700);
+  --cds-chart-baseline: var(--cds-gray-700);
+  --cds-editor-collaborator-1: var(--cds-violet-450);
+  --cds-editor-collaborator-2: var(--cds-magenta-450);
+  --cds-editor-collaborator-3: var(--cds-aqua-500);
+  --cds-editor-collaborator-4: var(--cds-green-500);
+  --cds-editor-collaborator-5: var(--cds-yellow-500);
+  --cds-editor-collaborator-6: var(--cds-gray-500);
+  --cds-button-on-content: color-mix(in srgb, var(--nord-deep) 55%, transparent);
+  --cds-button-on-content-hover: color-mix(in srgb, var(--nord-deep) 65%, transparent);
+  --cds-button-on-content-ring: transparent;
+  --cds-panel-shadow: 0 0 0 1px var(--cds-border), var(--cds-shadow-sm);
+  --cds-segmented-control-thumb: var(--cds-alpha-2);
+  --cds-segmented-control-track: var(--cds-alpha-1);
+  --cds-shortcut-cap-ink: var(--cds-gray-300);
+  --cds-shortcut-cap-fill: transparent;
+  --cds-shortcut-cap-line: color-mix(in srgb, currentColor 22%, transparent);
+  --cds-skeleton-base: hsl(from var(--cds-neutral-900) h s l / 7.5%);
+  --cds-skeleton-sheen: hsl(from var(--cds-neutral-900) h s l / 7.5%);
+  --cds-slider-track: var(--cds-alpha-2);
+  --cds-slider-fill: var(--cds-alpha-4);
+  --cds-slider-handle: var(--cds-gray-0);
+  --cds-slider-handle-shadow-outer: hsl(from var(--cds-gray-0) h s l / 0%);
+  --cds-slider-handle-shadow-depth: hsl(from var(--cds-gray-900) h s l / 24%);
+  --cds-slider-stop-dot: hsl(from var(--cds-gray-0) h s l / 25%);
+  --cds-switch-knob: var(--cds-gray-0);
+  --cds-switch-track: var(--cds-alpha-2);
+  --cds-switch-track-hover: var(--cds-alpha-3);
+  --cds-tooltip-bg: var(--cds-surface-3);
+  --cds-tooltip-fg: var(--cds-text-primary);
+  --cds-fill-git-added: var(--cds-text-git-added);
+  --cds-fill-git-added-hover: var(--nord14);
+  --cds-fill-git-removed-hover: var(--nord11);
+  --cds-fill-git-modified: var(--cds-text-git-modified);
+  --cds-fill-git-modified-hover: var(--nord13);
+  --cds-fill-git-merged: var(--cds-text-git-merged);
+  --cds-fill-git-merged-hover: var(--nord15);
+  --cds-fill-git-closed: var(--cds-text-git-closed);
+  --cds-fill-git-closed-hover: var(--nord11);
+  --cds-fill-git-conflicting: var(--cds-text-git-conflicting);
+  --cds-fill-git-conflicting-hover: var(--nord12);
+  --cds-fill-git-draft-hover: color-mix(in srgb, var(--nord4) 55%, var(--nord3));
+  --cds-text-git-added: var(--nord14);
+  --cds-text-git-removed: var(--nord11);
+  --cds-text-git-modified: var(--nord13);
+  --cds-text-git-merged: var(--nord15);
+  --cds-text-git-closed: var(--nord11);
+  --cds-text-git-conflicting: var(--nord12);
+  --cds-text-git-draft: var(--nord4);
+}
+
+/* 3. The older HSL tokens (hsl(var(--bg-100)) classes), dark in every mode */
+:is(#nt-specificity, [data-theme=claude]) {
+  --accent-brand: var(--_brand-clay);
+  --accent-000: var(--_blue-200);
+  --accent-100: var(--_blue-350);
+  --accent-200: var(--_blue-350);
+  --accent-900: var(--_blue-750);
+  --accent-pro-000: var(--_violet-200);
+  --accent-pro-100: var(--_violet-350);
+  --accent-pro-200: var(--_violet-400);
+  --accent-pro-900: var(--_violet-750);
+  --bg-000: var(--_gray-800);
+  --bg-100: var(--_gray-850);
+  --bg-200: var(--_gray-870);
+  --bg-300: var(--_gray-890);
+  --bg-400: var(--_gray-900);
+  --bg-500: var(--_gray-900);
+  --brand-000: var(--_brand-clay-emphasized);
+  --brand-100: var(--_brand-clay);
+  --brand-200: var(--_brand-clay);
+  --border-100: var(--_gray-100);
+  --border-200: var(--_gray-100);
+  --border-300: var(--_gray-100);
+  --border-400: var(--_gray-100);
+  --danger-000: var(--_red-200);
+  --danger-100: var(--_red-350);
+  --danger-200: var(--_red-400);
+  --danger-900: var(--_red-750);
+  --pictogram-100: var(--_gray-650);
+  --pictogram-200: var(--_gray-700);
+  --pictogram-300: var(--_gray-750);
+  --pictogram-400: var(--_gray-800);
+  --success-000: var(--_green-200);
+  --success-100: var(--_green-400);
+  --success-200: var(--_green-400);
+  --success-900: var(--_green-750);
+  --text-000: var(--_gray-20);
+  --text-100: var(--_gray-20);
+  --text-200: var(--_gray-200);
+  --text-300: var(--_gray-200);
+  --text-400: var(--_gray-350);
+  --text-500: var(--_gray-350);
+  --warning-000: var(--_yellow-200);
+  --warning-100: var(--_yellow-350);
+  --warning-200: var(--_yellow-400);
+  --warning-900: var(--_yellow-750);
+}
+
+/* 4. The app frame: sidebar and cards */
+:is(#nt-specificity, .dframe-root) {
+  --df-z0: from color-mix(in srgb, var(--nord0) 70%, var(--nord-deep)) h s l;
+  --df-z1: from var(--nord0) h s l;
+  --df-z2: from var(--nord1) h s l;
+  --df-z3: from var(--nord2) h s l;
+  --df-z4: from color-mix(in srgb, var(--nord3) 50%, var(--nord2)) h s l;
+  --df-z5: from var(--nord3) h s l;
+  --df-z6: from color-mix(in srgb, var(--nord4) 50%, var(--nord3)) h s l;
+  --df-surface-primary: var(--df-z1);
+  --df-sidebar-bg: color-mix(in srgb, hsl(var(--df-bg-page-hsl)) 80%, var(--nord0));
+  --df-shadow-card: inset 0 0 0 1px color-mix(in srgb, var(--nord6) 6%, transparent), 0 0 0 0 transparent, 0 4px 24px color-mix(in oklab, var(--cds-gray-900) 8%, transparent);
+  --df-shadow-float: 0 0 0 .5px color-mix(in srgb, var(--nord6) 6%, transparent), 0 2px 8px color-mix(in srgb, var(--nord-deep) 30%, transparent), 0 12px 32px color-mix(in srgb, var(--nord-deep) 25%, transparent);
+  --df-shadow-pop: 0 0 0 .5px color-mix(in srgb, var(--nord6) 8%, transparent), 0 4px 12px color-mix(in srgb, var(--nord-deep) 40%, transparent), 0 16px 40px color-mix(in srgb, var(--nord-deep) 50%, transparent);
+  --df-hover: var(--cds-alpha-1);
+  --df-bg-page-hsl: var(--_gray-850);
+}
+:is(#nt-specificity, .dframe-root) :is(.dframe-sidebar, .dframe-card) {
+  --df-sidebar-bg: hsl(var(--df-z2));
+  --df-surface-primary: var(--df-z2);
+  --df-shadow-card: inset 0 0 0 0 transparent, 0 0 0 1px var(--cds-alpha-2), 0 4px 24px color-mix(in oklab, var(--cds-gray-900) 6%, transparent);
+}
+
+
+/* ---------- By hand ---------- */
+
+/* Text on filled colours: the site uses its white and near-black ramp ends, which swap
+   places in the light palettes. --nord-on-accent always contrasts with the accents. */
+:is(#nt-specificity, :root, .cds-root, .cds-dark-scope) {
+  --cds-on-accent: var(--nord-on-accent);
+  --cds-on-danger: var(--nord-on-accent);
+  --cds-on-pro: var(--nord-on-accent);
+  --cds-role-accent-on: var(--nord-on-accent);
+  --cds-role-danger-on: var(--nord-on-accent);
+  --cds-role-pro-on: var(--nord-on-accent);
+  --cds-on-brand: var(--nord0);
+  --cds-role-tooltip-bg: var(--nord1);
+  --cds-role-tooltip-fg: var(--nord6);
+  --color-white: var(--nord-peak);
+  --always-black: from var(--nord-deep) h s l;
+  --always-white: from var(--nord-peak) h s l;
+  --oncolor-100: from var(--nord0) h s l;
+  --oncolor-200: from color-mix(in srgb, var(--nord0) 75%, transparent) h s l;
+  --oncolor-300: from color-mix(in srgb, var(--nord0) 50%, transparent) h s l;
+  /* git status colours are literal in both modes */
+  --cds-text-git-added: var(--nord14);
+  --cds-text-git-opened: var(--nord14);
+  --cds-text-git-removed: var(--nord11);
+  --cds-text-git-closed: var(--nord11);
+  --cds-text-git-modified: var(--nord13);
+  --cds-text-git-queued: var(--nord13);
+  --cds-text-git-merged: var(--nord15);
+  --cds-text-git-conflicting: var(--nord12);
+  --cds-text-git-draft: var(--nord4);
+  --cds-fill-git-added: var(--nord14);
+  --cds-fill-git-opened: var(--nord14);
+  --cds-fill-git-removed: var(--nord11);
+  --cds-fill-git-closed: var(--nord11);
+  --cds-fill-git-modified: var(--nord13);
+  --cds-fill-git-queued: var(--nord13);
+  --cds-fill-git-merged: var(--nord15);
+  --cds-fill-git-conflicting: var(--nord12);
+  --cds-fill-git-draft: var(--nord3);
+}
+
+::selection { background-color: color-mix(in srgb, var(--nord9) 40%, transparent); }
+
+/* Code: the highlighter writes each token's colour inline (style="color: ..."), named by
+   class (token-keyword, token-string ...). Nord's own syntax colours. */
+code [class*="token-"] { color: var(--nord4) !important; }
+code :is(.token-comment, .token-prolog, .token-doctype, .token-cdata) { color: color-mix(in srgb, var(--nord3) 55%, var(--nord4)) !important; }
+code :is(.token-keyword, .token-operator, .token-boolean, .token-tag, .token-selector, .token-atrule, .token-important) { color: var(--nord9) !important; }
+code :is(.token-string, .token-char, .token-inserted, .token-attr-value, .token-template-string) { color: var(--nord14) !important; }
+code :is(.token-number, .token-constant, .token-symbol) { color: var(--nord15) !important; }
+code :is(.token-function, .token-property, .token-builtin, .token-url) { color: var(--nord8) !important; }
+code :is(.token-class-name, .token-attr-name, .token-namespace) { color: var(--nord7) !important; }
+code :is(.token-regex, .token-entity) { color: var(--nord13) !important; }
+code :is(.token-deleted) { color: var(--nord11) !important; }
+code :is(.token-punctuation, .token-variable, .token-parameter) { color: var(--nord6) !important; }
+code [style*="color"]:not([class*="token-"]) { color: var(--nord4) !important; }
+}
+}

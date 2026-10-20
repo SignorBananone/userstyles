@@ -71,6 +71,15 @@ A Nord theme for [ChatGPT](https://chatgpt.com/). ChatGPT's light and dark theme
 
 ChatGPT derives its colours from a few palettes of CSS variables (`--gray-*`, `--blue-*`, `--red-*`, ...). The style redefines those palettes rather than individual elements, so it survives most redesigns. The Nord values were generated from the site's own: greys mapped onto Polar Night and Snow Storm by lightness, colours onto the Frost or Aurora colour of the same hue.
 
+## Claude Nord
+
+A Nord theme for [Claude](https://claude.ai/): chats, sidebar, projects, the artifacts and file panel, settings and code blocks. Claude's light and dark themes both get the selected palette.
+
+- File: [`claude-nord.user.css`](claude-nord.user.css)
+- Install: [userstyles.world/style/30964](https://userstyles.world/style/30964) or open the [raw file](https://raw.githubusercontent.com/SignorBananone/userstyles/main/claude-nord.user.css) with Stylus installed.
+
+claude.ai builds its colours from ramps of CSS variables (`--cds-gray-0` to `--cds-gray-900`, one ramp per hue). The style maps each ramp step onto the palette by its position on the ramp and applies the site's dark-mode wiring in every mode. Artifacts run in a separate frame from another domain, so their content keeps its own colours.
+
 ## Substack Nord
 
 A Nord theme for [Substack](https://substack.com/): the home feed, chat, profiles and every publication on a `*.substack.com` address. Publications on their own domain are not covered.
