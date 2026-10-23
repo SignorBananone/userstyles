@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name         Claude Nord
-@version      20261021.01.00
+@version      20261024.01.00
 @namespace    https://github.com/SignorBananone/userstyles
 @description  Nord theme for claude.ai (chats, sidebar, projects, artifacts panel, settings), dark also when the site is in its light theme, with a configurable palette
 @homepageURL  https://github.com/SignorBananone/userstyles
@@ -707,6 +707,11 @@
   --lightningcss-light: ;
   --lightningcss-dark: initial;
   --cds-border: var(--cds-alpha-2);
+  --cds-border-accent: var(--cds-role-accent-700);
+  --cds-border-danger: var(--cds-role-danger-700);
+  --cds-border-success: var(--cds-role-success-700);
+  --cds-border-warning: var(--cds-role-warning-700);
+  --cds-border-pro: var(--cds-role-pro-700);
   --cds-border-editor-comment: var(--cds-yellow-300);
   --cds-border-editor-comment-open: var(--cds-yellow-200);
   --cds-border-editor-comment-target: var(--cds-yellow-450);
@@ -726,6 +731,8 @@
   --cds-shadow-lg: 0 4px 8px 0 hsl(from var(--cds-gray-900) h s l / 8%), 0 12px 28px -2px var(--cds-shadow-color);
   --cds-shadow-color: color-mix(in srgb, var(--nord-deep) 24%, transparent);
   --cds-shadow-popover: 0 8px 24px color-mix(in srgb, var(--nord-deep) 32%, transparent), 0 2px 6px color-mix(in srgb, var(--nord-deep) 20%, transparent);
+  --cds-shadow-drop-ring: inset 0 0 0 2px var(--cds-fill-accent);
+  --cds-shadow-drop-ring-danger: inset 0 0 0 2px var(--cds-fill-danger);
   --cds-shadow-drop-glow: inset 0 0 24px -2px hsl(from var(--cds-fill-accent) h s l / 20%);
   --cds-shadow-drop-glow-danger: inset 0 0 24px -2px hsl(from var(--cds-fill-danger) h s l / 20%);
   --cds-ring-color: var(--cds-alpha-2);
@@ -783,9 +790,19 @@
   --cds-surface-1: var(--cds-gray-850);
   --cds-surface-2: var(--cds-gray-830);
   --cds-surface-3: var(--cds-gray-800);
-  --cds-surface-popover: var(--cds-surface-3);
+  --cds-surface-popover: var(--cds-gray-800);
   --cds-surface-panel: var(--cds-surface-2);
   --cds-page-bg: var(--cds-surface-0);
+  --cds-fill-accent: var(--cds-role-accent-fill);
+  --cds-fill-accent-hover: var(--cds-role-accent-fill-hover);
+  --cds-fill-danger: var(--cds-role-danger-fill);
+  --cds-fill-danger-hover: var(--cds-role-danger-fill-hover);
+  --cds-fill-success: var(--cds-role-success-fill);
+  --cds-fill-success-hover: var(--cds-role-success-fill-hover);
+  --cds-fill-warning: var(--cds-role-warning-fill);
+  --cds-fill-warning-hover: var(--cds-role-warning-fill-hover);
+  --cds-fill-pro: var(--cds-role-pro-fill);
+  --cds-fill-pro-hover: var(--cds-role-pro-fill-hover);
   --cds-fill-git-removed: var(--cds-text-git-removed);
   --cds-fill-git-draft: var(--cds-text-git-draft);
   --cds-fill-git-opened: var(--cds-fill-git-added);
@@ -807,7 +824,17 @@
   --cds-fill-disabled: var(--cds-alpha-1);
   --cds-fill-control: var(--cds-alpha-2);
   --cds-fill-control-hover: var(--cds-alpha-3);
+  --cds-bg-accent: var(--cds-role-accent-800);
+  --cds-bg-accent-chip: var(--cds-bg-accent);
   --cds-bg-accent-muted: color-mix(in srgb, var(--cds-fill-accent) 10%, transparent);
+  --cds-bg-danger: var(--cds-role-danger-800);
+  --cds-bg-danger-chip: var(--cds-bg-danger);
+  --cds-bg-success: var(--cds-role-success-800);
+  --cds-bg-success-chip: var(--cds-bg-success);
+  --cds-bg-warning: var(--cds-role-warning-800);
+  --cds-bg-warning-chip: var(--cds-bg-warning);
+  --cds-bg-pro: var(--cds-role-pro-800);
+  --cds-bg-pro-chip: var(--cds-bg-pro);
   --cds-bg-tint-red: rgb(from var(--cds-red-800) calc((r - 5.25) / .75) calc((g - 5.25) / .75) calc((b - 5.25) / .75) / 75%);
   --cds-bg-tint-red-opaque: var(--cds-red-800);
   --cds-bg-tint-orange: rgb(from var(--cds-orange-800) calc((r - 5.25) / .75) calc((g - 5.25) / .75) calc((b - 5.25) / .75) / 75%);
@@ -857,6 +884,11 @@
   --cds-bg-user-message: var(--cds-bg-neutral);
   --cds-bg-user-message-personal: var(--cds-bg-tint-blue);
   --cds-backdrop: color-mix(in srgb, var(--nord-deep) 50%, transparent);
+  --cds-text-accent: var(--cds-role-accent-300);
+  --cds-text-danger: var(--cds-role-danger-300);
+  --cds-text-success: var(--cds-role-success-400);
+  --cds-text-warning: var(--cds-role-warning-300);
+  --cds-text-pro: var(--cds-role-pro-300);
   --cds-text-tint-red: var(--cds-red-300);
   --cds-text-tint-orange: var(--cds-orange-300);
   --cds-text-tint-yellow: var(--cds-yellow-300);
@@ -925,6 +957,7 @@
   --cds-button-on-content-hover: color-mix(in srgb, var(--nord-deep) 65%, transparent);
   --cds-button-on-content-ring: transparent;
   --cds-panel-shadow: 0 0 0 1px var(--cds-border), var(--cds-shadow-sm);
+  --cds-radio-group-card-selected: var(--cds-role-accent-850);
   --cds-segmented-control-thumb: var(--cds-alpha-2);
   --cds-segmented-control-track: var(--cds-alpha-1);
   --cds-shortcut-cap-ink: var(--cds-gray-300);
@@ -962,6 +995,75 @@
   --cds-text-git-closed: var(--nord11);
   --cds-text-git-conflicting: var(--nord12);
   --cds-text-git-draft: var(--nord4);
+  --cds-role-accent-50: var(--cds-blue-50);
+  --cds-role-accent-100: var(--cds-blue-100);
+  --cds-role-accent-250: var(--cds-blue-250);
+  --cds-role-accent-300: var(--cds-blue-300);
+  --cds-role-accent-400: var(--cds-blue-400);
+  --cds-role-accent-450: var(--cds-blue-450);
+  --cds-role-accent-600: var(--cds-blue-600);
+  --cds-role-accent-700: var(--cds-blue-700);
+  --cds-role-accent-800: var(--cds-blue-800);
+  --cds-role-accent-850: var(--cds-blue-850);
+  --cds-role-accent-fill: var(--cds-role-accent-450);
+  --cds-role-accent-fill-hover: var(--cds-role-accent-400);
+  --cds-role-danger-100: var(--cds-red-100);
+  --cds-role-danger-250: var(--cds-red-250);
+  --cds-role-danger-300: var(--cds-red-300);
+  --cds-role-danger-400: var(--cds-red-400);
+  --cds-role-danger-450: var(--cds-red-450);
+  --cds-role-danger-600: var(--cds-red-600);
+  --cds-role-danger-700: var(--cds-red-700);
+  --cds-role-danger-800: var(--cds-red-800);
+  --cds-role-danger-fill: var(--cds-role-danger-450);
+  --cds-role-danger-fill-hover: var(--cds-role-danger-400);
+  --cds-role-success-100: var(--cds-green-100);
+  --cds-role-success-250: var(--cds-green-250);
+  --cds-role-success-400: var(--cds-green-400);
+  --cds-role-success-450: var(--cds-green-450);
+  --cds-role-success-600: var(--cds-green-600);
+  --cds-role-success-700: var(--cds-green-700);
+  --cds-role-success-800: var(--cds-green-800);
+  --cds-role-success-fill: var(--cds-role-success-450);
+  --cds-role-success-fill-hover: var(--cds-role-success-400);
+  --cds-role-warning-200: var(--cds-yellow-200);
+  --cds-role-warning-250: var(--cds-yellow-250);
+  --cds-role-warning-300: var(--cds-yellow-300);
+  --cds-role-warning-600: var(--cds-yellow-600);
+  --cds-role-warning-700: var(--cds-yellow-700);
+  --cds-role-warning-800: var(--cds-yellow-800);
+  --cds-role-warning-fill: var(--cds-role-warning-200);
+  --cds-role-warning-fill-hover: var(--cds-role-warning-250);
+  --cds-role-pro-100: var(--cds-violet-100);
+  --cds-role-pro-250: var(--cds-violet-250);
+  --cds-role-pro-300: var(--cds-violet-300);
+  --cds-role-pro-400: var(--cds-violet-400);
+  --cds-role-pro-450: var(--cds-violet-450);
+  --cds-role-pro-600: var(--cds-violet-600);
+  --cds-role-pro-700: var(--cds-violet-700);
+  --cds-role-pro-800: var(--cds-violet-800);
+  --cds-role-pro-fill: var(--cds-role-pro-450);
+  --cds-role-pro-fill-hover: var(--cds-role-pro-400);
+  --cds-fizzy-lake-color-sidebar: var(--nord0);
+  --cds-fizzy-lake-color-seam: color-mix(in srgb, var(--nord6) 10%, transparent);
+  --cds-fizzy-lake-color-composer-ring: color-mix(in srgb, var(--nord6) 8%, transparent);
+  --cds-fizzy-lake-color-banner-line: color-mix(in srgb, var(--nord6) 20%, transparent);
+  --cds-fizzy-lake-color-message-line: color-mix(in srgb, var(--nord6) 10%, transparent);
+  --cds-fizzy-lake-color-selected-hover: color-mix(in srgb, var(--nord6) 22%, transparent);
+  --cds-fizzy-lake-color-tertiary: color-mix(in srgb, var(--nord6) 40%, transparent);
+  --cds-fizzy-lake-color-icon-only-disabled: color-mix(in srgb, var(--nord6) 40%, transparent);
+  --cds-fizzy-lake-color-secondary: color-mix(in srgb, var(--nord6) 57%, transparent);
+  --cds-fizzy-lake-color-solid-primary: var(--cds-gray-50);
+  --cds-fizzy-lake-color-solid-secondary: var(--cds-gray-200);
+  --cds-fizzy-lake-color-solid-muted: var(--cds-gray-400);
+  --cds-fizzy-lake-color-placeholder: var(--cds-gray-400);
+  --cds-fizzy-lake-color-card-hover: var(--nord0);
+  --cds-fizzy-lake-color-card-link: color-mix(in srgb, var(--nord6) 3%, transparent);
+  --cds-fizzy-lake-color-card-link-hover: color-mix(in srgb, var(--nord6) 5%, transparent);
+  --cds-fizzy-lake-color-card-link-pressed: color-mix(in srgb, var(--nord6) 7%, transparent);
+  --cds-fizzy-lake-color-control-ink: var(--cds-text-primary);
+  --cds-fizzy-lake-color-plain-secondary: color-mix(in srgb, var(--nord6) 57%, transparent);
+  --cds-fizzy-lake-color-plain-muted: color-mix(in srgb, var(--nord6) 57%, transparent);
 }
 
 /* 3. The older HSL tokens (hsl(var(--bg-100)) classes), dark in every mode */
