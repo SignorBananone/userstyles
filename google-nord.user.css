@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name         Google Nord
-@version      20261001.05.00
+@version      20261028.01.00
 @namespace    https://github.com/SignorBananone/userstyles
 @description  Nord theme for Google services (Search, Account, Gmail, Drive, Docs, Calendar, Keep, Gemini, NotebookLM, Maps, Scholar, YouTube), one switchable module per service
 @homepageURL  https://github.com/SignorBananone/userstyles
@@ -2017,8 +2017,8 @@ html { color-scheme: var(--nord-scheme); }
 }
 html, body { background-color: var(--nord0) !important; color: var(--nord6); }
 html { color-scheme: var(--nord-scheme); }
-/* Older icons are dark sprites; the Material ones are masks painted with currentColor */
-.docs-homescreen-img, .docs-icon-img:not(.docs-material .docs-icon-img) { filter: var(--nord-icon-filter); }
+/* Toolbar and menu icons are dark sprites drawn as ::before content, also in the Material editor */
+.docs-homescreen-img, .docs-icon-img { filter: var(--nord-icon-filter); }
 }
 }
 }
