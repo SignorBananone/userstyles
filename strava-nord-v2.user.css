@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Strava Nord V2
 @namespace      Strava Nord V2 by SignorBananone (fork of Strava Darkest Fusion by ATX)
-@version        2026.10.19.1
+@version        2026.11.02.1
 @description    Nord theme for Strava. Rewritten to rely on tags, ARIA roles, data-testid and stable class prefixes instead of hashed class names, so it survives Strava's CSS deploys.
 @homepageURL    https://github.com/SignorBananone/userstyles
 @license        MIT
@@ -331,7 +331,9 @@
   @layer nord {
 
     /* ---------- Font option ---------- */
-    body { font-family: @old_font_type !important; }
+    /* No rule for the Strava default: revert-layer with !important now falls back to
+       Times, and the comment box overlay then stops lining up with its textarea. */
+    body when not (@old_font_type = revert-layer) { font-family: @old_font_type !important; }
 
     /* ---------- Palette ---------- */
     :root {
@@ -575,7 +577,10 @@
     button[aria-label]:not([class*="primary" i]):not(:has(> :is(span, div):not(:empty))):has(> svg:only-child),
     .btn-link,
     .btn-unstyled,
-    .btn-icon-only {
+    .btn-icon-only,
+    [class*="Button_text"],
+    [class*="Button_link"],
+    [class*="StarToggle--star"] {
       background-color: transparent !important;
     }
 
@@ -621,6 +626,8 @@
     }
     svg [fill="#242428"],
     svg [fill="#21211f" i],
+    svg [fill="#43423f" i],
+    svg [fill="#64635e" i],
     svg [fill="#000"],
     svg [fill="#000000"],
     svg [fill="black"],
@@ -633,6 +640,11 @@
     svg [stroke="#000"],
     svg [stroke="black"] {
       stroke: currentColor !important;
+    }
+    /* These take their dark fill from Strava's stylesheet, not from an attribute */
+    [role="tab"] svg,
+    [class*="Button_icon"] svg {
+      fill: currentColor !important;
     }
     .app-icon,
     [class*="icon-dark"] {
@@ -656,6 +668,15 @@
     [data-testid="see_all_comments_btn"] {
       color: var(--nt-link) !important;
       background-color: transparent !important;
+    }
+    [data-testid="comment-reaction-btn"] {
+      background-color: transparent !important;
+      border-color: transparent !important;
+    }
+    /* "Start and end hidden" pill over the light map image */
+    [class*="PhotosAndMapImage_activityMapTag"] {
+      background-color: var(--nt-surface-2) !important;
+      color: var(--nt-text) !important;
     }
 
     /* Group activities: the timeline linking the athletes is a ::before with a
@@ -714,6 +735,12 @@
     #global-header .nav-link:hover {
       color: var(--nt-text-strong) !important;
     }
+    #global-header a[class*="Button_primary"]:is(:link, :visited) {
+      color: var(--nord0) !important;
+    }
+    #global-header [class*="styles_createButton"] svg {
+      fill: var(--nord12) !important;
+    }
     #global-header :is(a, button):not(.btn):not([class*="primary" i]),
     #global-header .accessible-nav-arrow,
     #global-header .user-menu > a,
@@ -755,6 +782,10 @@
     .ui-autocomplete .ui-menu-item:hover {
       background-color: var(--nord3) !important;
       border-color: transparent !important;
+    }
+    /* @mention suggestions: the focused row gets its light background as an inline style */
+    [class*="MentionsInput_suggestionList"] > li[style*="background"] {
+      background-color: var(--nord3) !important;
     }
     /* Place suggestions under the location fields (Maps, route builder, hidden addresses).
        The component is a floating portal, so the blanket transparent rule leaves it see-through;
