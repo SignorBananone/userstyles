@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name         Amazon Nord
-@version      20261120.01.00
+@version      20261120.02.00
 @namespace    https://github.com/SignorBananone/userstyles
 @description  Nord theme for Amazon stores (amazon.it, .com, .de, .fr, .es, .co.uk and the others): search, product pages, cart, account and orders
 @homepageURL  https://github.com/SignorBananone/userstyles
@@ -1048,6 +1048,10 @@ html [id$="dealsXbadge-label"], html [id$="dealsXbadge-label"] *, html label[id^
 [id^="vse-placeholder"], [class*="_skeCard_"], [class*="_skeVideoCard_"], [class*="_skeletal"] { background-color: var(--nord1) !important; }
 
 /* Seller badges and highlighted products added by the "Seller Badge" user script */
+/* The script puts its seller line under each card of Amazon's "dcl" carousels; the carousel then sizes
+   the cards to the taller wrapper, which grows again: an endless loop. Overlaid on the card, the line adds no height. */
+.dcl-product-wrapper { position: relative !important; }
+.dcl-product-wrapper > .seller-info-ct { position: absolute !important; top: 6px; left: 6px; right: 6px; margin: 0 !important; z-index: 2; }
 .seller-info { background-color: var(--nord1) !important; border-color: var(--nord3) !important; }
 a.seller-link:hover .seller-info { background-color: var(--nord2) !important; box-shadow: none !important; }
 .seller-text { color: var(--nord4) !important; }
@@ -1066,5 +1070,12 @@ a.seller-link:hover .seller-info { background-color: var(--nord2) !important; bo
 html .product--highlight :is(.a-color-base, .a-price, .a-price *, .a-column, .a-size-small, .a-text-bold) { color: var(--nord6) !important; }
 html .product--highlight a { color: var(--nord8) !important; }
 .sb-options { background-color: var(--nord1) !important; color: var(--nord4) !important; }
+
+/* Cashback balance card and sponsored brand carousels of the landing pages */
+[class*="_pya-currency-balance-banner-card_style_cbbBalance"] { color: var(--nord6) !important; }
+[class*="_pya-currency-balance-banner-card_style_cbbPending"], [class*="_pya-rewards-pop-up-experience-card_style_prefixText"] {
+  color: color-mix(in srgb, var(--nord4) 75%, var(--nord3)) !important;
+}
+.sl-sobe-card-desktop, .sl-sobe-carousel { background-color: var(--nord1) !important; }
 }
 }
